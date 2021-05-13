@@ -1,0 +1,6 @@
+framework module Pods_PIG {
+  umbrella header "Pods-PIG-umbrella.h"
+
+  export *
+  module * { export * }
+}

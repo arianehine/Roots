@@ -81,7 +81,7 @@ struct ContentView: View {
 //                        .padding()
 //                })
                     TabView(selection: $selection){
-                        Text("First View")
+                        Text("Stats here")
                             .font(.title)
                             .tabItem {
                                 VStack {
@@ -90,7 +90,7 @@ struct ContentView: View {
                                 }
                         }
                         .tag(0)
-                        Text("Second View")
+                        Text("Profile here")
                             .font(.title)
                             .tabItem {
                                 VStack {
@@ -100,13 +100,22 @@ struct ContentView: View {
                         }
                         .tag(1)
                     }
-                }
+                }.navigationTitle("Hello")
+                .navigationBarItems(trailing:
                 
-            
+                                        Button(action: {
+                                            viewModel.signOut()
+                                        }, label: {
+                                            Text("Sign Out")
+                                        }))
+              
+                
                 //replace with app logic
             }else{
                 SignInView()
+                    .navigationBarHidden(true)
             }
+
         }.onAppear{
     
             viewModel.signedIn = viewModel.isSignedIn
