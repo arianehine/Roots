@@ -9,12 +9,21 @@
 //
 
 import SwiftUI
+import Firebase
 import FirebaseAuth
+import FirebaseFirestore
+import Combine
+
 
 class AppViewModel: ObservableObject{
-//    a change 
     
     let auth = Auth.auth();
+    
+    func addUserInfo(fName: String, lName: String, email: String){
+        let db = Firestore.firestore();
+        db.collection("Users").document().setData(["firstName": fName, "lastName":lName, "email": email])
+    
+    }
     
     func signIn(email: String, password: String){
         auth.signIn(withEmail: email, password: password) { [weak self] result, error in
@@ -182,6 +191,8 @@ struct ContentView: View {
     struct SignUpView: View {
         @State var email = ""
         @State var password = ""
+        @State var firstName = ""
+        @State var lastName = ""
         @EnvironmentObject var viewModel: AppViewModel
         
         var body: some View {
@@ -193,13 +204,21 @@ struct ContentView: View {
                     .frame(width: 150, height: 150, alignment: .center)
                 
                 VStack{
+                    TextField("First Name", text: $firstName)
+                        .disableAutocorrection(true)
+                        .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                        .padding()
+                        .background(Color(.secondarySystemBackground))
+                    TextField("Last Name", text: $lastName)
+                        .disableAutocorrection(true)
+                        .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                        .padding()
+                        .background(Color(.secondarySystemBackground))
                     TextField("Email Address", text: $email)
                         .disableAutocorrection(true)
                         .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                         .padding()
                         .background(Color(.secondarySystemBackground))
-                    
-                    
                     SecureField("Password", text: $password)
                         .disableAutocorrection(true)
                         .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
@@ -208,10 +227,18 @@ struct ContentView: View {
                     
                     Button(action:{
                         
+                        viewModel.addUserInfo(fName: self.firstName, lName: self.lastName, email: self.email)
+                        guard !email.isEmpty, !password.isEmpty else{
+                            return}
+                                
                         viewModel.signUp(email: email, password: password)
                         guard !email.isEmpty, !password.isEmpty else{
                             return
+                        
                         }
+                        
+                        
+                       
                     }, label: {
                         Text("Create Account")
                             .foregroundColor(Color.white)
@@ -235,4 +262,6 @@ struct ContentView: View {
             ContentView()
         }
     }
+    
+  
 }
