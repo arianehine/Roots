@@ -41,14 +41,25 @@ class AppViewModel: ObservableObject{
         
     }
     
-    func signUp(email: String, password: String){
+    func signUp(email: String, password: String, firstName: String, lastName:String){
         auth.createUser(withEmail: email, password: password) { [weak self] (result, error) in
+            
             guard result != nil, error == nil else{
                 return
+               
             }
             
             //success
             //becuase it's a pushlished var we need to update on main thread
+            let db = Firestore.firestore()
+
+                           let uid = result!.user.uid
+
+
+                           //creates profile doc under uid with all the info
+            db.collection("Users").document(result!.user.uid)
+                .setData([ "firstName":firstName, "lastName":lastName, "uid":uid, "email":email]);
+            
             DispatchQueue.main.async {
                 self?.signedIn = true
             }
@@ -110,7 +121,7 @@ struct ContentView: View {
                         }
                         .tag(1)
                     }
-                }.navigationTitle("Hello")
+                }.navigationTitle("Welcome back")
                 .navigationBarItems(trailing:
                 
                                         Button(action: {
@@ -227,11 +238,11 @@ struct ContentView: View {
                     
                     Button(action:{
                         
-                        viewModel.addUserInfo(fName: self.firstName, lName: self.lastName, email: self.email)
-                        guard !email.isEmpty, !password.isEmpty else{
-                            return}
-                                
-                        viewModel.signUp(email: email, password: password)
+//                        viewModel.addUserInfo(fName: self.firstName, lName: self.lastName, email: self.email)
+//                        guard !email.isEmpty, !password.isEmpty else{
+//                            return}
+//
+                        viewModel.signUp(email: email, password: password, firstName: firstName, lastName: lastName)
                         guard !email.isEmpty, !password.isEmpty else{
                             return
                         
