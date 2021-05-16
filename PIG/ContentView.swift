@@ -37,6 +37,7 @@ class AppViewModel: ObservableObject{
                 self?.signedIn = true
             }
            
+           
         }
         
     }
@@ -83,12 +84,15 @@ class AppViewModel: ObservableObject{
 }
 
 struct ContentView: View {
+    let auth = Auth.auth();
     @EnvironmentObject var viewModel: AppViewModel
     @State var selection = ""
+    @State var name = ""
     
     var body: some View {
         NavigationView{
             if viewModel.signedIn{
+
                 VStack{
 //                Text("You are signed in")
 //                    .padding()
@@ -121,7 +125,9 @@ struct ContentView: View {
                         }
                         .tag(1)
                     }
-                }.navigationTitle("Welcome back")
+                    
+//                    getName()
+                }.navigationTitle("Welcome back " +  name)
                 .navigationBarItems(trailing:
                 
                                         Button(action: {
@@ -129,6 +135,9 @@ struct ContentView: View {
                                         }, label: {
                                             Text("Sign Out")
                                         }))
+                .onAppear(){
+                    getName()
+                }
               
                 
                 //replace with app logic
@@ -142,6 +151,35 @@ struct ContentView: View {
             viewModel.signedIn = viewModel.isSignedIn
         }
     }
+    
+    func getName(){
+        let auth = Auth.auth();
+        let db = Firestore.firestore();
+        
+        
+        let uid = auth.currentUser!.uid
+            let docRef = db.collection("Users").document(uid)
+
+            docRef.getDocument { (document, error) in
+                if let document = document, document.exists {
+                    let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                    print("Document data: \(dataDescription)")
+                    name = document.data()?["firstName"] as! String
+                    
+                    print(name)
+                } else {
+                    print("Document does not exist")
+                }
+                name = document?.data()?["firstName"] as! String
+                
+              
+            }
+       
+    
+        
+      
+        }
+    
     
     
     struct SignInView: View {
@@ -172,6 +210,7 @@ struct ContentView: View {
                         .background(Color(.secondarySystemBackground))
                     
                     Button(action:{
+                    
                         
                         viewModel.signIn(email: email, password: password)
                         guard !email.isEmpty, !password.isEmpty else{
@@ -241,6 +280,7 @@ struct ContentView: View {
 //                        viewModel.addUserInfo(fName: self.firstName, lName: self.lastName, email: self.email)
 //                        guard !email.isEmpty, !password.isEmpty else{
 //                            return}
+                    
 //
                         viewModel.signUp(email: email, password: password, firstName: firstName, lastName: lastName)
                         guard !email.isEmpty, !password.isEmpty else{
