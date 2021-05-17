@@ -168,6 +168,7 @@ struct ContentView: View {
         }.onAppear{
     
             viewModel.signedIn = viewModel.isSignedIn;
+            viewModel.alert=false
         }
         
     }
@@ -264,6 +265,9 @@ struct ContentView: View {
                 Spacer()
             }
             .navigationTitle("Sign In")
+            .onAppear(){
+                viewModel.alert=false
+            }
         }
         
     }
@@ -284,12 +288,8 @@ struct ContentView: View {
                     
                     ErrorView(alert: $viewModel.alert, error: $viewModel.error)
               
-                    
-                }else{
-                  //no errors
-                    
                 }
-                
+            
                 Image("logo-1")
                     .resizable()
                     .scaledToFit()
@@ -347,6 +347,9 @@ struct ContentView: View {
                 Spacer()
             }
             .navigationTitle("Create Account")
+            .onAppear(){
+                viewModel.alert=false
+            }
         }
         
     }
