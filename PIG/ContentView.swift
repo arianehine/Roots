@@ -19,6 +19,7 @@ class AppViewModel: ObservableObject{
     
     let auth = Auth.auth();
     
+    
     func addUserInfo(fName: String, lName: String, email: String){
         let db = Firestore.firestore();
         db.collection("Users").document().setData(["firstName": fName, "lastName":lName, "email": email])
@@ -28,6 +29,9 @@ class AppViewModel: ObservableObject{
     func signIn(email: String, password: String){
         auth.signIn(withEmail: email, password: password) { [weak self] result, error in
             guard result != nil, error == nil else{
+                self?.error = error!.localizedDescription
+                print(error!.localizedDescription)
+                self?.alert.toggle()
                 return
             }
             
@@ -42,10 +46,17 @@ class AppViewModel: ObservableObject{
         
     }
     
+    func displayError(error: Error?){
+        print(error?.localizedDescription)
+        
+    }
+    
     func signUp(email: String, password: String, firstName: String, lastName:String){
         auth.createUser(withEmail: email, password: password) { [weak self] (result, error) in
             
             guard result != nil, error == nil else{
+                self?.error = error!.localizedDescription
+                self?.alert.toggle()
                 return
                
             }
@@ -74,11 +85,14 @@ class AppViewModel: ObservableObject{
     }
     //Whenever a published var chages we can update view automatically in real time, because it's a binding
     @Published var signedIn = false
+    @Published var alert = false;
+    @Published var error = ""
     
     var isSignedIn: Bool{
         return auth.currentUser != nil
         
     }
+    
     
     
 }
@@ -88,9 +102,14 @@ struct ContentView: View {
     @EnvironmentObject var viewModel: AppViewModel
     @State var selection = ""
     @State var name = ""
+ 
+    
     
     var body: some View {
         NavigationView{
+
+
+            
             if viewModel.signedIn{
 
                 VStack{
@@ -139,17 +158,18 @@ struct ContentView: View {
                     getName()
                 }
               
-                
                 //replace with app logic
             }else{
+                
                 SignInView()
                     .navigationBarHidden(true)
             }
 
         }.onAppear{
     
-            viewModel.signedIn = viewModel.isSignedIn
+            viewModel.signedIn = viewModel.isSignedIn;
         }
+        
     }
     
     func getName(){
@@ -165,8 +185,8 @@ struct ContentView: View {
                     let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
                     print("Document data: \(dataDescription)")
                     name = document.data()?["firstName"] as! String
-                    
                     print(name)
+                    return
                 } else {
                     print("Document does not exist")
                 }
@@ -186,10 +206,20 @@ struct ContentView: View {
         @State var email = ""
         @State var password = ""
         @EnvironmentObject var viewModel: AppViewModel
-        
+       
         var body: some View {
-            
+          
             VStack{
+                if viewModel.alert{
+                 
+                    
+                    ErrorView(alert: $viewModel.alert, error: $viewModel.error)
+              
+                    
+                }else{
+                  //no errors
+                    
+                }
                 Image("logo")
                     .resizable()
                     .scaledToFit()
@@ -248,6 +278,18 @@ struct ContentView: View {
         var body: some View {
             
             VStack{
+                
+                if viewModel.alert{
+                 
+                    
+                    ErrorView(alert: $viewModel.alert, error: $viewModel.error)
+              
+                    
+                }else{
+                  //no errors
+                    
+                }
+                
                 Image("logo-1")
                     .resizable()
                     .scaledToFit()
@@ -314,5 +356,22 @@ struct ContentView: View {
         }
     }
     
-  
+    struct ErrorView : View {
+        
+        @State var color = Color.black.opacity(0.7)
+        @Binding var alert : Bool
+        @Binding var error : String
+        
+        var body: some View{
+            
+                
+                VStack{
+                    
+                    HStack{
+                        Text(self.error).foregroundColor(Color.red)
+                    }
+                }
+            }
+    }
+
 }
