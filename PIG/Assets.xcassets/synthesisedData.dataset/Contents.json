@@ -1,0 +1,12 @@
+{
+  "data" : [
+    {
+      "filename" : "synthesisedData.csv",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
