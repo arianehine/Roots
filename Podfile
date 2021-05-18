@@ -8,6 +8,7 @@ target 'PIG' do
  pod 'Firebase/Auth'
  pod 'Firebase/Firestore'
  pod 'Firebase/Storage'
+ pod 'Charts'
   # Pods for PIG
 
   target 'PIGTests' do

@@ -10,6 +10,8 @@
 		308922A4FFEF6299B3ED5A93 /* Pods_PIG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 205BECC162BF2FB927503DD4 /* Pods_PIG.framework */; };
 		5EED243144AB8073C70D7107 /* Pods_PIG_PIGUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B1BAE547DEB2D242C0A2D0 /* Pods_PIG_PIGUITests.framework */; };
 		7B6F0BA7477731AFE0F860F3 /* Pods_PIGTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B324E50B01264D784926A481 /* Pods_PIGTests.framework */; };
+		D601C13626541C1B0050BE7D /* BarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = D601C13526541C1B0050BE7D /* BarChart.swift */; };
+		D601C13E26541F8B0050BE7D /* BarGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D601C13D26541F8B0050BE7D /* BarGraphView.swift */; };
 		D64DB1C72652BE5E00D6FA4D /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64DB1C62652BE5E00D6FA4D /* StatsView.swift */; };
 		D64DB1E42652C1B700D6FA4D /* synthesisedData.csv in Resources */ = {isa = PBXBuildFile; fileRef = D64DB1E32652C1B700D6FA4D /* synthesisedData.csv */; };
 		D6DC2C7B264D2E9D008C6A72 /* PIGApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DC2C7A264D2E9D008C6A72 /* PIGApp.swift */; };
@@ -46,6 +48,8 @@
 		7B3730D54ADE21567BD078D3 /* Pods-PIGTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PIGTests.release.xcconfig"; path = "Target Support Files/Pods-PIGTests/Pods-PIGTests.release.xcconfig"; sourceTree = "<group>"; };
 		B324E50B01264D784926A481 /* Pods_PIGTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PIGTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7A55EBA30E46F4A687EA1F2 /* Pods-PIG.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PIG.release.xcconfig"; path = "Target Support Files/Pods-PIG/Pods-PIG.release.xcconfig"; sourceTree = "<group>"; };
+		D601C13526541C1B0050BE7D /* BarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChart.swift; sourceTree = "<group>"; };
+		D601C13D26541F8B0050BE7D /* BarGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarGraphView.swift; sourceTree = "<group>"; };
 		D64DB1C62652BE5E00D6FA4D /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		D64DB1E32652C1B700D6FA4D /* synthesisedData.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = synthesisedData.csv; path = ../../Imperial/DISS/synthesisedData.csv; sourceTree = "<group>"; };
 		D6DC2C77264D2E9D008C6A72 /* PIG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PIG.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -145,10 +149,12 @@
 				D6DC2C7A264D2E9D008C6A72 /* PIGApp.swift */,
 				D6DC2C7C264D2E9D008C6A72 /* ContentView.swift */,
 				D64DB1C62652BE5E00D6FA4D /* StatsView.swift */,
+				D601C13526541C1B0050BE7D /* BarChart.swift */,
 				D6DC2CC2264D34A6008C6A72 /* GoogleService-Info.plist */,
 				D6DC2C7E264D2EA3008C6A72 /* Assets.xcassets */,
 				D6DC2C83264D2EA3008C6A72 /* Info.plist */,
 				D6DC2C80264D2EA3008C6A72 /* Preview Content */,
+				D601C13D26541F8B0050BE7D /* BarGraphView.swift */,
 			);
 			path = PIG;
 			sourceTree = "<group>";
@@ -418,6 +424,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D601C13626541C1B0050BE7D /* BarChart.swift in Sources */,
+				D601C13E26541F8B0050BE7D /* BarGraphView.swift in Sources */,
 				D6DC2C7D264D2E9D008C6A72 /* ContentView.swift in Sources */,
 				D6DC2C7B264D2E9D008C6A72 /* PIGApp.swift in Sources */,
 				D64DB1C72652BE5E00D6FA4D /* StatsView.swift in Sources */,

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Charts
 
 struct StatsView: View {
     let ID: String
@@ -15,30 +16,51 @@ struct StatsView: View {
    @State var color = 0;
    @State var averageInKg: Double = 0;
     var body: some View {
-            Text("Hello, user \(ID), your average carbon usage is \(average) which is \(ltOrGt)the UK average")
-                .onAppear { self.convertCSVIntoArray()
-                    print(people.count)
-                    let user = findUserData()
-                    if user.ID=="0"{
-                        print("no user exists")
-                    }
-                      else{
-                    print(user)
-                        let averageDoubleInKg = user.average/1000;
-                        averageInKg = averageDoubleInKg;
-                        average = String(averageDoubleInKg);
-                        if(averageDoubleInKg>2.2){ltOrGt = "greater than " }else{
-                            ltOrGt = "less than "
-                        }
-                    
-                        }
-                }.foregroundColor(averageInKg > 2.2 ? .red : averageInKg < 2.2 ? .green : .gray)
+//        Text("Hello, user \(ID)");
         
-            
+        BarGraphView(reports: Report.all());
+     
+        
+//            Text("Hello, user \(ID), your average carbon usage is \(average) which is \(ltOrGt)the UK average")
+//                .onAppear { self.convertCSVIntoArray()
+//                    print(people.count)
+//                    let user = findUserData()
+//                    if user.count == 0{
+//                        print("no user exists")
+//                    }
+//                      else{
+//
+//                        let averageDoubleInKg = user[0].average/1000;
+//                        averageInKg = averageDoubleInKg;
+//                        average = String(averageDoubleInKg);
+//                        if(averageDoubleInKg>2.2){ltOrGt = "greater than " }else{
+//                            ltOrGt = "less than "
+//                        }
+//
+//                        }
+//                }.foregroundColor(averageInKg > 2.2 ? .red : averageInKg < 2.2 ? .green : .gray)
+//
+//
+//        }
+    }
+
+
+    func createChart(){
+        
+        //create bar chart
+        
+        var entries = [BarChartDataEntry]()
+        for x in 0..<10{
+            entries.append(BarChartDataEntry(x: Double(x), y: Double.random(in: 0...30)))
         }
+        let barChart = BarChartView();
+        //configure axes
+        //configure legend
+        //supply data to chart
+        let set = BarChartDataSet(entries: entries, label: "cost")
+        let data = BarChartData()
     
-
-
+    }
 
 //ID, average, transport, household, clothing, health, food
 struct UserData {
@@ -52,13 +74,15 @@ struct UserData {
     var food: Double
 }
 
-func findUserData() -> UserData{
-    
-    if let i = people.firstIndex(where: { $0.ID == ID}) {
-        return people[i]
-    }else{
-        return UserData(ID: "0", date: "", average: 0, transport: 0,household: 0,clothing: 0,health: 0,food: 0)
+    func findUserData() -> [UserData]{
+        var user = [UserData]();
+        let matches = people.filter { $0.ID == ID }
+       
+        for item in matches{
+            user.append(item)
     }
+        print(user.count)
+        return user;
 
   
 }
