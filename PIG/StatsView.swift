@@ -54,7 +54,7 @@ struct StatsView: View {
     func convertToReports(users: [UserData]) -> [Report]{
         var reports = [Report]()
         for x in users{
-            reports.append(Report(year:  String(x.date.split(separator: "-")[0]), average: x.average))
+            reports.append(Report(year:  String(x.date.split(separator: "-")[0] + x.date.split(separator: "-")[1]), average: x.average))
         }
         return reports;
         

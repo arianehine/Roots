@@ -44,7 +44,7 @@ struct BarView: View {
             
             Text(String(format: "$%.2f",report.average))
             Rectangle()
-                .fill(report.average > 5000 ? Color.green : Color.red)
+                .fill(report.average < 2200 ? Color.green : Color.red)
                 .frame(width: 100, height: CGFloat(yValue))
             
             Text(report.year)

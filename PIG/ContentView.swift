@@ -125,7 +125,7 @@ struct ContentView: View {
 //                        .padding()
 //                })
                     TabView(selection: $selection){
-                        StatsView(ID: "1")
+                        StatsView(ID: "8")
                             .tabItem {
                                 VStack {
                                     Image(systemName: "globe")
@@ -135,7 +135,7 @@ struct ContentView: View {
                         .tag(0)
                         
                        
-                        Text("Profile here")
+                        ToggleView()
                             .font(.title)
                             .tabItem {
                                 VStack {
