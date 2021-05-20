@@ -39,15 +39,19 @@ func updateReports(value: String, reports: [Report]) -> [Report]{
     switch value {
     case "Day":
         reportsToReturn = getToday(reports: reports)
+        print("Reports returned: ", reportsToReturn)
         break;
     case "Week":
         reportsToReturn = getThisWeek(reports: reports)
+        print("Reports returned: ", reportsToReturn)
         break;
     case "Month":
         reportsToReturn = getThisMonth(reports: reports)
+        print("Reports returned: ", reportsToReturn)
         break;
     case "Year":
         reportsToReturn = getThisYear(reports: reports)
+        print("Reports returned: ", reportsToReturn)
         break;
     default: break
     //yeek
@@ -58,28 +62,88 @@ func updateReports(value: String, reports: [Report]) -> [Report]{
     
 }
 
+
+
 func getToday(reports: [Report]) -> [Report]{
-    let now = Date();
     
-    print(now)
+    var returnReports = [Report]();
+    var now = Date();
+    let tz = TimeZone.current
+    if tz.isDaylightSavingTime(for: now) {
+        now = now.addingTimeInterval(+3600)
+        }
+    
+
+    
+    for report in reports{
+        if report.date<now.endOfDay && report.date>now.startOfDay{
+            returnReports.append(report)
+        }
+    }
    
-    return [Report]();
+    return returnReports;
     
 }
-func getThisWeek(reports: [Report]) -> [Report]{
-    let now = Date()
-    let monday = Date.today().previous(.monday)
-    let range = monday...now
+func getThisMonth(reports: [Report]) -> [Report]{
+    var returnReports = [Report]();
+    var now = Date();
+    let startOfMonth = now.startOfMonth
+    let tz = TimeZone.current
+    if tz.isDaylightSavingTime(for: now) {
+        now = now.addingTimeInterval(+3600)
+        }
+    
+  
+    
+    for report in reports{
+        if report.date<now.endOfDay && report.date>startOfMonth.startOfDay{
+            returnReports.append(report)
+        }
+    }
+   
+    return returnReports;
  
-    return [Report]();
 }
 
-func getThisMonth(reports: [Report]) -> [Report]{
-    return [Report]();
+func getThisWeek(reports: [Report]) -> [Report]{
+   
+    let monday = Date.today().previous(.monday)
+    var returnReports = [Report]();
+    var now = Date();
+    let tz = TimeZone.current
+    if tz.isDaylightSavingTime(for: now) {
+        now = now.addingTimeInterval(+3600)
+        }
+    
+  
+    
+    for report in reports{
+        if report.date<now.endOfDay && report.date>monday.startOfDay{
+            returnReports.append(report)
+        }
+    }
+   
+    return returnReports;
     
 }
 func getThisYear(reports: [Report]) -> [Report]{
-    return [Report]();
+    var returnReports = [Report]();
+    var now = Date();
+    let startOfYear = now.startOfYear
+    let tz = TimeZone.current
+    if tz.isDaylightSavingTime(for: now) {
+        now = now.addingTimeInterval(+3600)
+        }
+    
+  
+    
+    for report in reports{
+        if report.date<now.endOfDay && report.date>startOfYear.startOfDay{
+            returnReports.append(report)
+        }
+    }
+   
+    return returnReports;
     
 }
 struct BarView: View {
@@ -137,6 +201,35 @@ extension Date {
       return Date()
   }
 
+    static func yesterday() -> Date {
+        return Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+    }
+    var startOfDay: Date {
+         return Calendar.current.startOfDay(for: self)
+     }
+
+     var endOfDay: Date {
+         var components = DateComponents()
+         components.day = 1
+         components.second = -1
+         return Calendar.current.date(byAdding: components, to: startOfDay)!
+     }
+
+     var startOfMonth: Date {
+         let components = Calendar.current.dateComponents([.year, .month], from: startOfDay)
+         return Calendar.current.date(from: components)!
+     }
+
+    var startOfYear: Date {
+        let components = Calendar.current.dateComponents([.year], from: startOfDay)
+        return Calendar.current.date(from: components)!
+    }
+     var endOfMonth: Date {
+         var components = DateComponents()
+         components.month = 1
+         components.second = -1
+         return Calendar.current.date(byAdding: components, to: startOfMonth)!
+     }
   func next(_ weekday: Weekday, considerToday: Bool = false) -> Date {
     return get(.next,
                weekday,
@@ -149,6 +242,9 @@ extension Date {
                considerToday: considerToday)
   }
 
+
+    
+    
   func get(_ direction: SearchDirection,
            _ weekDay: Weekday,
            considerToday consider: Bool = false) -> Date {
