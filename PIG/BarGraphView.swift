@@ -11,7 +11,8 @@ import SwiftUI
 
 struct BarGraphView: View {
     @State var selection = "";
-    var reports: [Report]
+    @Binding var reports: [Report]
+    @Binding var originalReports: [Report]
     var body: some View {
         
         VStack {
@@ -19,12 +20,12 @@ struct BarGraphView: View {
             HStack(alignment: .lastTextBaseline) {
                 
                 ForEach(self.reports, id: \.year) { report in
-                    BarView(report: report)
+                    BarView(report: report) //need to keep a dynamic list of bars/reports
                 }
                 
             }
             ToggleView(selected: $selection).onChange(of: selection, perform: { value in
-                updateReports(value: value, reports: reports)
+                reports = updateReports(value: value, reports: originalReports)
             });
             
             
@@ -35,23 +36,29 @@ struct BarGraphView: View {
 
 func updateReports(value: String, reports: [Report]) -> [Report]{
     
-    var reportsToReturn: [Report];
+    let copyOfReports = reports;
+    print("Reports going in", copyOfReports)
+
     switch value {
     case "Day":
-        reportsToReturn = getToday(reports: reports)
+        let reportsToReturn = getToday(reports: copyOfReports)
         print("Reports returned: ", reportsToReturn)
+        return reportsToReturn;
         break;
     case "Week":
-        reportsToReturn = getThisWeek(reports: reports)
+        let reportsToReturn = getThisWeek(reports: copyOfReports)
         print("Reports returned: ", reportsToReturn)
+        return reportsToReturn;
         break;
     case "Month":
-        reportsToReturn = getThisMonth(reports: reports)
+        let reportsToReturn = getThisMonth(reports: copyOfReports)
         print("Reports returned: ", reportsToReturn)
+        return reportsToReturn;
         break;
     case "Year":
-        reportsToReturn = getThisYear(reports: reports)
+        let reportsToReturn = getThisYear(reports: copyOfReports)
         print("Reports returned: ", reportsToReturn)
+        return reportsToReturn;
         break;
     default: break
     //yeek
@@ -172,11 +179,11 @@ struct BarView: View {
 }
 
 
-struct BarGraphView_Previews: PreviewProvider {
-    static var previews: some View {
-        BarGraphView(reports: Report.all())
-    }
-}
+//struct BarGraphView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        BarGraphView(reports: Report.all())
+//    }
+//}
 
 struct Report{
     let year: String;

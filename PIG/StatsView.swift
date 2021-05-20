@@ -16,13 +16,15 @@ struct StatsView: View {
    @State var color = 0;
    @State var averageInKg: Double = 0;
    @State var reports: [Report] = [Report]();
+   @State var originalReports: [Report] = [Report]();
     
     var body: some View {
  
        
-        BarGraphView(reports: reports).onAppear{ self.convertCSVIntoArray();
+        BarGraphView(reports: $reports, originalReports: $originalReports).onAppear{ self.convertCSVIntoArray();
         let user = self.findUserData();
             self.reports = self.convertToReports(users: user);
+            self.originalReports = self.convertToReports(users: user);
             print(reports);};
         
         
