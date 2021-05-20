@@ -50,11 +50,23 @@ struct StatsView: View {
 //
 //        }
     }
+    
+    func dateToString(date: Date) -> String{
+        // Create Date Formatter
+        let dateFormatter = DateFormatter()
+
+        // Set Date Format
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+        // Convert Date to String
+        return dateFormatter.string(from: date)
+    }
 
     func convertToReports(users: [UserData]) -> [Report]{
         var reports = [Report]()
         for x in users{
-            reports.append(Report(year:  String(x.date.split(separator: "-")[0] + x.date.split(separator: "-")[1]), average: x.average))
+            let stringDate = String(dateToString(date: x.date))
+            reports.append(Report(year:  String(stringDate.split(separator: "-")[0] + stringDate.split(separator: "-")[1]), average: x.average, date: x.date))
         }
         return reports;
         
@@ -80,7 +92,7 @@ struct StatsView: View {
 //ID, average, transport, household, clothing, health, food
 struct UserData {
     var ID: String
-    var date:String
+    var date: Date
     var average: Double
     var transport: Double
     var household: Double
@@ -150,7 +162,7 @@ func convertCSVIntoArray() {
            //check that we have enough columns
            if columns.count == 8 {
             let ID = String(columns[0])
-            let date = String(columns[1])
+            let date = stringToDate(string: columns[1])
             let average = Double(columns[2]) ?? 0
             let transport = Double(columns[3]) ?? 0
             let household = Double(columns[4]) ?? 0
@@ -164,6 +176,15 @@ func convertCSVIntoArray() {
        }
 }
 
+}
+func stringToDate(string: String) -> Date{
+    let dateFormatter = DateFormatter()
+
+    // Set Date Format
+    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+    // Convert String to Date
+    return dateFormatter.date(from: string) ?? Date()
 }
 
 

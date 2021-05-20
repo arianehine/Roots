@@ -97,6 +97,7 @@ class AppViewModel: ObservableObject{
     
 }
 
+
 struct ContentView: View {
     let auth = Auth.auth();
     @EnvironmentObject var viewModel: AppViewModel
