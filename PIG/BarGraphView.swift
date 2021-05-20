@@ -10,9 +10,8 @@ import SwiftUI
 import SwiftUI
 
 struct BarGraphView: View {
-    
+    @State var selection = "";
     let reports: [Report]
-    
     var body: some View {
        
         VStack {
@@ -24,6 +23,10 @@ struct BarGraphView: View {
                 }
                 
             }
+            ToggleView(selected: $selection).onChange(of: selection, perform: { value in
+                print(value)
+            });
+           
             
         }
         
@@ -50,6 +53,7 @@ struct BarView: View {
             Text(report.year)
             
         }
+    
         
     }
     

@@ -135,7 +135,7 @@ struct ContentView: View {
                         .tag(0)
                         
                        
-                        ToggleView()
+                        ToggleView(selected: $selection)
                             .font(.title)
                             .tabItem {
                                 VStack {

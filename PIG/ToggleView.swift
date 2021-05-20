@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ToggleView: View {
     
-    @State var selected = ""
+    @Binding public var selected: String
     @State var show = false
     
     var body: some View {
@@ -29,7 +29,7 @@ struct ToggleView: View {
                 .background(LinearGradient(gradient: .init(colors: [Color("Color"),Color("Color1")]), startPoint: .leading, endPoint: .trailing))
                 .clipShape(Capsule())
                 
-                Text(self.selected).padding(.top)
+                Text(verbatim: self.selected).padding(.top)
             }
             
             VStack{
@@ -99,7 +99,8 @@ struct RadioButtons : View {
                 
                  Button(action: {
                      
-                    self.show.toggle()
+                    self.show.toggle();
+                    
                     
                  }) {
                      
@@ -129,11 +130,11 @@ struct RadioButtons : View {
     }
 }
 
-var data = ["Revelance","Newest","Price(low to high)","Price(high to low)","Sort by Specs","Sort By Storage"]
+var data = ["Day","Week","Month","Year"]
 
-
-struct ToggleView_Previews: PreviewProvider {
-    static var previews: some View {
-        ToggleView()
-    }
-}
+//
+//struct ToggleView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ToggleView(selected: Binding<String>)
+//    }
+//}
