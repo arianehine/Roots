@@ -18,9 +18,13 @@ struct BarGraphView: View {
         VStack {
             
             HStack(alignment: .lastTextBaseline) {
-                
+                if !(reports.count == 0) {
                 ForEach(self.reports, id: \.year) { report in
                     BarView(report: report) //need to keep a dynamic list of bars/reports
+                }
+                    
+                }else{
+                    Text("No data for this time period").font(.title)
                 }
                 
             }
