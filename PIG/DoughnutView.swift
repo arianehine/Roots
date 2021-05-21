@@ -54,6 +54,7 @@ struct DonutChart: View {
     
     let dataModel: ChartDataModel
     let onTap: (ChartCellModel?) -> ()
+   
     var body: some View {
             ZStack {
                 PieChart(dataModel: dataModel, onTap: onTap)
@@ -64,6 +65,7 @@ struct DonutChart: View {
 
 struct PieChart: View {
     @State private var selectedCell: UUID = UUID()
+    
     
     let dataModel: ChartDataModel
     let onTap: (ChartCellModel?) -> ()
@@ -91,6 +93,9 @@ struct PieChart: View {
 
 struct DoughnutView: View {
     let ID: String
+//    @Binding var reports: [Report]
+//    @Binding var originalReports: [Report]
+    
     @State var selection = "";
     @State var selectedPie: String = ""
     @State var selectedDonut: String = ""
@@ -184,14 +189,16 @@ final class ChartDataModel: ObservableObject {
     }
 }
 
+
 let sample = [ ChartCellModel(color: Color.red, value: 123, name: "Transport"),
                ChartCellModel(color: Color.yellow, value: 233, name: "Household"),
                ChartCellModel(color: Color.pink, value: 73, name: "Fashion"),
                ChartCellModel(color: Color.blue, value: 731, name: "Health"),
                ChartCellModel(color: Color.green, value: 51, name: "Food")]
 
-struct DoughnutView_Previews: PreviewProvider {
-    static var previews: some View {
-        DoughnutView(ID: "8")
-    }
-}
+
+//struct DoughnutView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DoughnutView(ID: "8")
+//    }
+//}

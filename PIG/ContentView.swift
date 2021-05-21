@@ -101,6 +101,7 @@ class AppViewModel: ObservableObject{
 struct ContentView: View {
     let auth = Auth.auth();
     @EnvironmentObject var viewModel: AppViewModel
+    @StateObject var statsController = StatsDataController();
     @State var selection = ""
     @State var name = ""
  
@@ -126,13 +127,13 @@ struct ContentView: View {
 //                        .padding()
 //                })
                     TabView(selection: $selection){
-                        StatsView(ID: "8")
+                        StatsView(ID: "8").environmentObject(statsController)
                             .tabItem {
                                 VStack {
                                     Image(systemName: "globe")
                                     Text("Categories") // Update tab title
                                 }
-                        }
+                            }
                         .tag(0)
                         
                        

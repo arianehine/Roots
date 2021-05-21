@@ -8,8 +8,10 @@
 import SwiftUI
 import Charts
 
+
 struct StatsView: View {
-    let ID: String
+    let ID: String;
+    @EnvironmentObject var statsController: StatsDataController
    @State var average: String = "not defined"
    @State var ltOrGt: String = "not defined"
    @State var people = [UserData]()
@@ -17,11 +19,12 @@ struct StatsView: View {
    @State var averageInKg: Double = 0;
    @State var reports: [Report] = [Report]();
    @State var originalReports: [Report] = [Report]();
+   
     
     var body: some View {
  
        
-        BarGraphView(reports: $reports, originalReports: $originalReports).onAppear{ self.convertCSVIntoArray();
+        BarGraphView(reports: $reports, originalReports: $originalReports).onAppear{ people = statsController.convertCSVIntoArray();
         let user = self.findUserData();
             self.reports = self.convertToReports(users: user);
             self.originalReports = self.convertToReports(users: user);
@@ -92,16 +95,16 @@ struct StatsView: View {
 //    }
 
 //ID, average, transport, household, clothing, health, food
-struct UserData {
-    var ID: String
-    var date: Date
-    var average: Double
-    var transport: Double
-    var household: Double
-    var clothing: Double
-    var health: Double
-    var food: Double
-}
+//struct UserData {
+//    var ID: String
+//    var date: Date
+//    var average: Double
+//    var transport: Double
+//    var household: Double
+//    var clothing: Double
+//    var health: Double
+//    var food: Double
+//}
 
     func findUserData() -> [UserData]{
         var user = [UserData]();
@@ -132,53 +135,6 @@ func textColour(gtOrLt: String) -> Color
     }
 }
 
-
-func convertCSVIntoArray() {
-    people = [UserData]()
-    
-
-       //locate the file you want to use
-       guard let filepath = Bundle.main.path(forResource: "synthesisedData", ofType: "csv") else {
-           print("not found")
-           return
-       }
-
-       //convert that file into one long string
-       var data = ""
-       do {
-           data = try String(contentsOfFile: filepath)
-       } catch {
-           print(error)
-           print("no")
-           return
-       }
-
-       //now split that string into an array of "rows" of data.  Each row is a string.
-       var rows = data.components(separatedBy: "\n")
-
-       //if you have a header row, remove it here
-       rows.removeFirst()
-
-       //now loop around each row, and split it into each of its columns
-       for row in rows {
-           let columns = row.components(separatedBy: ",")
-
-           //check that we have enough columns
-           if columns.count == 8 {
-            let ID = String(columns[0])
-            let date = stringToDate(string: columns[1])
-            let average = Double(columns[2]) ?? 0
-            let transport = Double(columns[3]) ?? 0
-            let household = Double(columns[4]) ?? 0
-            let clothing = Double(columns[5]) ?? 0
-            let health = Double(columns[6]) ?? 0
-            let food = Double(columns[7]) ?? 0
-            
-            let person = UserData(ID: ID, date: date, average: average, transport: transport, household: household, clothing: clothing, health: health, food: food)
-               people.append(person)
-           }
-       }
-}
 
 }
 func stringToDate(string: String) -> Date{
