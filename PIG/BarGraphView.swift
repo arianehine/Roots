@@ -24,9 +24,9 @@ struct BarGraphView: View {
                 }
                 
             }
-            ToggleView(selected: $selection).onChange(of: selection, perform: { value in
-                reports = updateReports(value: value, reports: originalReports)
-            });
+//            ToggleView(selected: $selection).onChange(of: selection, perform: { value in
+//                reports = updateReports(value: value, reports: originalReports)
+//            });
             
             
         }
@@ -159,8 +159,8 @@ struct BarView: View {
     
     var body: some View {
         
-        let value = report.average / 500
-        let yValue = Swift.min(value * 20, 500)
+        let value = report.average / 300
+        let yValue = Swift.min(value * 20, 300)
         
         return VStack {
             

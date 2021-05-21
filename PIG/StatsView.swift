@@ -65,31 +65,31 @@ struct StatsView: View {
     }
 
     func convertToReports(users: [UserData]) -> [Report]{
-        var reports = [Report]()
+        var reportsToReturn = [Report]()
         for x in users{
             let stringDate = String(dateToString(date: x.date))
-            reports.append(Report(year:  String(stringDate.split(separator: "-")[0] + stringDate.split(separator: "-")[1]), average: x.average, date: x.date))
+            reportsToReturn.append(Report(year:  String(stringDate.split(separator: "-")[0] + stringDate.split(separator: "-")[1]), average: x.average, date: x.date))
         }
-        return reports;
+        return reportsToReturn;
         
     }
 
-    func createChart(){
-        
-        //create bar chart
-        
-        var entries = [BarChartDataEntry]()
-        for x in 0..<10{
-            entries.append(BarChartDataEntry(x: Double(x), y: Double.random(in: 0...30)))
-        }
-        let barChart = BarChartView();
-        //configure axes
-        //configure legend
-        //supply data to chart
-        let set = BarChartDataSet(entries: entries, label: "cost")
-        let data = BarChartData()
-    
-    }
+//    func createChart(){
+//
+//        //create bar chart
+//
+//        var entries = [BarChartDataEntry]()
+//        for x in 0..<10{
+//            entries.append(BarChartDataEntry(x: Double(x), y: Double.random(in: 0...30)))
+//        }
+//        let barChart = BarChartView();
+//        //configure axes
+//        //configure legend
+//        //supply data to chart
+//        let set = BarChartDataSet(entries: entries, label: "cost")
+//        let data = BarChartData()
+//
+//    }
 
 //ID, average, transport, household, clothing, health, food
 struct UserData {
@@ -134,6 +134,8 @@ func textColour(gtOrLt: String) -> Color
 
 
 func convertCSVIntoArray() {
+    people = [UserData]()
+    
 
        //locate the file you want to use
        guard let filepath = Bundle.main.path(forResource: "synthesisedData", ofType: "csv") else {
