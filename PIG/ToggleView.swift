@@ -17,6 +17,9 @@ struct ToggleView: View {
         ZStack{
             
             VStack{
+                if(self.selected != ""){
+                Text("Currently showing \(self.selected) view" ).padding(.top)
+                }
                 
                 Button(action: {
                     
@@ -29,18 +32,19 @@ struct ToggleView: View {
                 .background(LinearGradient(gradient: .init(colors: [Color("Color"),Color("Color1")]), startPoint: .leading, endPoint: .trailing))
                 .clipShape(Capsule())
                 
-                Text(verbatim: self.selected).padding(.top)
+                
             }
             
             VStack{
                 
-                Spacer()
+//                Spacer()
                 
                 RadioButtons(selected: self.$selected,show: self.$show).offset(y: self.show ? (UIApplication.shared.windows.last?.safeAreaInsets.bottom)! + 15 : UIScreen.main.bounds.height)
                 
             }.background(Color(UIColor.label.withAlphaComponent(self.show ? 0.2 : 0)).edgesIgnoringSafeArea(.all))
             
-        }.background(Color("Color2").edgesIgnoringSafeArea(.all))
+        }.frame(maxHeight: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+        .background(Color.white.edgesIgnoringSafeArea(.all))
         .animation(.default)
     }
 }
@@ -132,9 +136,9 @@ struct RadioButtons : View {
 
 var data = ["Day","Week","Month","Year"]
 
-//
-//struct ToggleView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ToggleView(selected: Binding<String>)
-//    }
-//}
+
+struct ToggleView_Previews: PreviewProvider {
+    static var previews: some View {
+        ToggleView(selected: .constant(""))
+    }
+}

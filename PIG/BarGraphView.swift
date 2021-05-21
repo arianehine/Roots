@@ -24,9 +24,9 @@ struct BarGraphView: View {
                 }
                 
             }
-//            ToggleView(selected: $selection).onChange(of: selection, perform: { value in
-//                reports = updateReports(value: value, reports: originalReports)
-//            });
+            ToggleView(selected: $selection).onChange(of: selection, perform: { value in
+                reports = updateReports(value: value, reports: originalReports)
+            });
             
             
         }
