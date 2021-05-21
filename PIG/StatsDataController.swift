@@ -56,6 +56,151 @@ func convertCSVIntoArray() -> [UserData]{
        }
     return people;
 }
+    func dateToString(date: Date) -> String{
+        // Create Date Formatter
+        let dateFormatter = DateFormatter()
+
+        // Set Date Format
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+        // Convert Date to String
+        return dateFormatter.string(from: date)
+    }
+
+    func convertToReports(users: [UserData]) -> [Report]{
+        var reportsToReturn = [Report]()
+        for x in users{
+            let stringDate = String(dateToString(date: x.date))
+            reportsToReturn.append(Report(year:  String(stringDate.split(separator: "-")[0] + stringDate.split(separator: "-")[1]), average: x.average, date: x.date))
+        }
+        return reportsToReturn;
+        
+    }
+    
+    func getToday(reports: [Report]) -> [Report]{
+        
+        var returnReports = [Report]();
+        var now = Date();
+        let tz = TimeZone.current
+        if tz.isDaylightSavingTime(for: now) {
+            now = now.addingTimeInterval(+3600)
+            }
+        
+
+        
+        for report in reports{
+            if report.date<now.endOfDay && report.date>now.startOfDay{
+                returnReports.append(report)
+            }
+        }
+       
+        return returnReports;
+        
+    }
+    func getThisMonth(reports: [Report]) -> [Report]{
+        var returnReports = [Report]();
+        var now = Date();
+        let startOfMonth = now.startOfMonth
+        let tz = TimeZone.current
+        if tz.isDaylightSavingTime(for: now) {
+            now = now.addingTimeInterval(+3600)
+            }
+        
+      
+        
+        for report in reports{
+            if report.date<now.endOfDay && report.date>startOfMonth.startOfDay{
+                returnReports.append(report)
+            }
+        }
+       
+        return returnReports;
+     
+    }
+
+    func getThisWeek(reports: [Report]) -> [Report]{
+       
+        let monday = Date.today().previous(.monday)
+        var returnReports = [Report]();
+        var now = Date();
+        let tz = TimeZone.current
+        if tz.isDaylightSavingTime(for: now) {
+            now = now.addingTimeInterval(+3600)
+            }
+        
+      
+        
+        for report in reports{
+            if report.date<now.endOfDay && report.date>monday.startOfDay{
+                returnReports.append(report)
+            }
+        }
+       
+        return returnReports;
+        
+    }
+    func getThisYear(reports: [Report]) -> [Report]{
+        var returnReports = [Report]();
+        var now = Date();
+        let startOfYear = now.startOfYear
+        let tz = TimeZone.current
+        if tz.isDaylightSavingTime(for: now) {
+            now = now.addingTimeInterval(+3600)
+            }
+        
+      
+        
+        for report in reports{
+            if report.date<now.endOfDay && report.date>startOfYear.startOfDay{
+                returnReports.append(report)
+            }
+        }
+       
+        return returnReports;
+        
+    }
+
+//    func createChart(){
+//
+//        //create bar chart
+//
+//        var entries = [BarChartDataEntry]()
+//        for x in 0..<10{
+//            entries.append(BarChartDataEntry(x: Double(x), y: Double.random(in: 0...30)))
+//        }
+//        let barChart = BarChartView();
+//        //configure axes
+//        //configure legend
+//        //supply data to chart
+//        let set = BarChartDataSet(entries: entries, label: "cost")
+//        let data = BarChartData()
+//
+//    }
+
+//ID, average, transport, household, clothing, health, food
+//struct UserData {
+//    var ID: String
+//    var date: Date
+//    var average: Double
+//    var transport: Double
+//    var household: Double
+//    var clothing: Double
+//    var health: Double
+//    var food: Double
+//}
+
+    func findUserData(people: [UserData], ID: String) -> [UserData]{
+        var user = [UserData]();
+        let matches = people.filter { $0.ID == ID }
+       
+        for item in matches{
+            user.append(item)
+    }
+        print(user.count)
+        return user;
+
+  
+}
 }
 struct UserData {
     var ID: String

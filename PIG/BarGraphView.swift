@@ -13,6 +13,7 @@ struct BarGraphView: View {
     @State var selection = "";
     @Binding var reports: [Report]
     @Binding var originalReports: [Report]
+    @EnvironmentObject var statsController: StatsDataController
     var body: some View {
         
         VStack {
@@ -29,7 +30,7 @@ struct BarGraphView: View {
                 
             }
             ToggleView(selected: $selection).onChange(of: selection, perform: { value in
-                reports = updateReports(value: value, reports: originalReports)
+                reports = updateReports(value: value, reports: originalReports, statsController: statsController)
             });
             
             
@@ -38,29 +39,29 @@ struct BarGraphView: View {
     }
 }
 
-func updateReports(value: String, reports: [Report]) -> [Report]{
+func updateReports(value: String, reports: [Report], statsController: StatsDataController) -> [Report]{
     
     let copyOfReports = reports;
     print("Reports going in", copyOfReports)
 
     switch value {
     case "Day":
-        let reportsToReturn = getToday(reports: copyOfReports)
+        let reportsToReturn = statsController.getToday(reports: copyOfReports)
         print("Reports returned: ", reportsToReturn)
         return reportsToReturn;
         break;
     case "Week":
-        let reportsToReturn = getThisWeek(reports: copyOfReports)
+        let reportsToReturn = statsController.getThisWeek(reports: copyOfReports)
         print("Reports returned: ", reportsToReturn)
         return reportsToReturn;
         break;
     case "Month":
-        let reportsToReturn = getThisMonth(reports: copyOfReports)
+        let reportsToReturn = statsController.getThisMonth(reports: copyOfReports)
         print("Reports returned: ", reportsToReturn)
         return reportsToReturn;
         break;
     case "Year":
-        let reportsToReturn = getThisYear(reports: copyOfReports)
+        let reportsToReturn = statsController.getThisYear(reports: copyOfReports)
         print("Reports returned: ", reportsToReturn)
         return reportsToReturn;
         break;
@@ -75,88 +76,6 @@ func updateReports(value: String, reports: [Report]) -> [Report]{
 
 
 
-func getToday(reports: [Report]) -> [Report]{
-    
-    var returnReports = [Report]();
-    var now = Date();
-    let tz = TimeZone.current
-    if tz.isDaylightSavingTime(for: now) {
-        now = now.addingTimeInterval(+3600)
-        }
-    
-
-    
-    for report in reports{
-        if report.date<now.endOfDay && report.date>now.startOfDay{
-            returnReports.append(report)
-        }
-    }
-   
-    return returnReports;
-    
-}
-func getThisMonth(reports: [Report]) -> [Report]{
-    var returnReports = [Report]();
-    var now = Date();
-    let startOfMonth = now.startOfMonth
-    let tz = TimeZone.current
-    if tz.isDaylightSavingTime(for: now) {
-        now = now.addingTimeInterval(+3600)
-        }
-    
-  
-    
-    for report in reports{
-        if report.date<now.endOfDay && report.date>startOfMonth.startOfDay{
-            returnReports.append(report)
-        }
-    }
-   
-    return returnReports;
- 
-}
-
-func getThisWeek(reports: [Report]) -> [Report]{
-   
-    let monday = Date.today().previous(.monday)
-    var returnReports = [Report]();
-    var now = Date();
-    let tz = TimeZone.current
-    if tz.isDaylightSavingTime(for: now) {
-        now = now.addingTimeInterval(+3600)
-        }
-    
-  
-    
-    for report in reports{
-        if report.date<now.endOfDay && report.date>monday.startOfDay{
-            returnReports.append(report)
-        }
-    }
-   
-    return returnReports;
-    
-}
-func getThisYear(reports: [Report]) -> [Report]{
-    var returnReports = [Report]();
-    var now = Date();
-    let startOfYear = now.startOfYear
-    let tz = TimeZone.current
-    if tz.isDaylightSavingTime(for: now) {
-        now = now.addingTimeInterval(+3600)
-        }
-    
-  
-    
-    for report in reports{
-        if report.date<now.endOfDay && report.date>startOfYear.startOfDay{
-            returnReports.append(report)
-        }
-    }
-   
-    return returnReports;
-    
-}
 struct BarView: View {
     
     let report: Report

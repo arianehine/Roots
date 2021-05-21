@@ -24,10 +24,10 @@ struct StatsView: View {
     var body: some View {
  
        
-        BarGraphView(reports: $reports, originalReports: $originalReports).onAppear{ people = statsController.convertCSVIntoArray();
-        let user = self.findUserData();
-            self.reports = self.convertToReports(users: user);
-            self.originalReports = self.convertToReports(users: user);
+        BarGraphView(reports: $reports, originalReports: $originalReports).environmentObject(statsController).onAppear{ people = statsController.convertCSVIntoArray();
+        let user = statsController.findUserData(people: people, ID: ID);
+            self.reports = statsController.convertToReports(users: user);
+            self.originalReports = statsController.convertToReports(users: user);
             print(reports);};
         
         
@@ -56,68 +56,7 @@ struct StatsView: View {
 //        }
     }
     
-    func dateToString(date: Date) -> String{
-        // Create Date Formatter
-        let dateFormatter = DateFormatter()
-
-        // Set Date Format
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-
-        // Convert Date to String
-        return dateFormatter.string(from: date)
-    }
-
-    func convertToReports(users: [UserData]) -> [Report]{
-        var reportsToReturn = [Report]()
-        for x in users{
-            let stringDate = String(dateToString(date: x.date))
-            reportsToReturn.append(Report(year:  String(stringDate.split(separator: "-")[0] + stringDate.split(separator: "-")[1]), average: x.average, date: x.date))
-        }
-        return reportsToReturn;
-        
-    }
-
-//    func createChart(){
-//
-//        //create bar chart
-//
-//        var entries = [BarChartDataEntry]()
-//        for x in 0..<10{
-//            entries.append(BarChartDataEntry(x: Double(x), y: Double.random(in: 0...30)))
-//        }
-//        let barChart = BarChartView();
-//        //configure axes
-//        //configure legend
-//        //supply data to chart
-//        let set = BarChartDataSet(entries: entries, label: "cost")
-//        let data = BarChartData()
-//
-//    }
-
-//ID, average, transport, household, clothing, health, food
-//struct UserData {
-//    var ID: String
-//    var date: Date
-//    var average: Double
-//    var transport: Double
-//    var household: Double
-//    var clothing: Double
-//    var health: Double
-//    var food: Double
-//}
-
-    func findUserData() -> [UserData]{
-        var user = [UserData]();
-        let matches = people.filter { $0.ID == ID }
-       
-        for item in matches{
-            user.append(item)
-    }
-        print(user.count)
-        return user;
-
-  
-}
+   
 
 func textColour(gtOrLt: String) -> Color
 {
