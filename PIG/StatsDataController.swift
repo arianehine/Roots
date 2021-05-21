@@ -201,6 +201,16 @@ func convertCSVIntoArray() -> [UserData]{
 
   
 }
+    func stringToDate(string: String) -> Date{
+        let dateFormatter = DateFormatter()
+
+        // Set Date Format
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+        // Convert String to Date
+        return dateFormatter.date(from: string) ?? Date()
+    }
+
 }
 struct UserData {
     var ID: String

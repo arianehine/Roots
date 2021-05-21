@@ -137,7 +137,7 @@ struct ContentView: View {
                         .tag(0)
                         
                        
-                        DoughnutView(ID: "8")
+                        DoughnutView(ID: "8").environmentObject(statsController)
                             .font(.title)
                             .tabItem {
                                 VStack {
