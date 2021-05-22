@@ -57,8 +57,10 @@ struct DonutChart: View {
     
     var body: some View {
         ZStack {
+            if !(dataModel.chartCellModel.count==0) {
             PieChart(dataModel: dataModel, onTap: onTap)
             InnerCircle(ratio: 1/3).foregroundColor(.white)
+            }
         }
     }
 }
@@ -209,7 +211,7 @@ func convertRecordsToSamples(records: [Report]) -> [ChartCellModel]{
     var returnSamples = [ChartCellModel]()
     returnSamples.append(ChartCellModel(color: Color.red, value: transportTotal, name: "Transport"))
     returnSamples.append(ChartCellModel(color: Color.yellow, value: householdTotal, name: "Household"))
-    returnSamples.append(ChartCellModel(color: Color.pink, value: clothingTotal, name: "Fashion"))
+    returnSamples.append(ChartCellModel(color: Color.purple, value: clothingTotal, name: "Fashion"))
     returnSamples.append(ChartCellModel(color: Color.blue, value: healtTotalh, name: "Health"))
     returnSamples.append(ChartCellModel(color: Color.green, value: foodTotal, name: "Food"))
     
