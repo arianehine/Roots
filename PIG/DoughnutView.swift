@@ -17,9 +17,9 @@ import SwiftUI
 struct PieChartCell: Shape {
     let startAngle: Angle
     let endAngle: Angle
-   func path(in rect: CGRect) -> Path {
+    func path(in rect: CGRect) -> Path {
         let center = CGPoint.init(x: (rect.origin.x + rect.width)/2, y: (rect.origin.y + rect.height)/2)
-    let radii = min(center.x, center.y)
+        let radii = min(center.x, center.y)
         let path = Path { p in
             p.addArc(center: center,
                      radius: radii,
@@ -29,23 +29,23 @@ struct PieChartCell: Shape {
             p.addLine(to: center)
         }
         return path
-   }
+    }
 }
 
 struct InnerCircle: Shape {
     let ratio: CGFloat
     func path(in rect: CGRect) -> Path {
-         let center = CGPoint.init(x: (rect.origin.x + rect.width)/2, y: (rect.origin.y + rect.height)/2)
+        let center = CGPoint.init(x: (rect.origin.x + rect.width)/2, y: (rect.origin.y + rect.height)/2)
         let radii = min(center.x, center.y) * ratio
-         let path = Path { p in
-             p.addArc(center: center,
-                      radius: radii,
-                      startAngle: Angle(degrees: 0),
-                      endAngle: Angle(degrees: 360),
-                      clockwise: true)
-             p.addLine(to: center)
-         }
-         return path
+        let path = Path { p in
+            p.addArc(center: center,
+                     radius: radii,
+                     startAngle: Angle(degrees: 0),
+                     endAngle: Angle(degrees: 360),
+                     clockwise: true)
+            p.addLine(to: center)
+        }
+        return path
     }
 }
 
@@ -54,12 +54,12 @@ struct DonutChart: View {
     
     let dataModel: ChartDataModel
     let onTap: (ChartCellModel?) -> ()
-   
+    
     var body: some View {
-            ZStack {
-                PieChart(dataModel: dataModel, onTap: onTap)
-                InnerCircle(ratio: 1/3).foregroundColor(.white)
-            }
+        ZStack {
+            PieChart(dataModel: dataModel, onTap: onTap)
+            InnerCircle(ratio: 1/3).foregroundColor(.white)
+        }
     }
 }
 
@@ -70,32 +70,38 @@ struct PieChart: View {
     let dataModel: ChartDataModel
     let onTap: (ChartCellModel?) -> ()
     var body: some View {
-            ZStack {
+        ZStack {
+            if !(dataModel.chartCellModel.count==0) {
                 ForEach(dataModel.chartCellModel) { dataSet in
                     PieChartCell(startAngle: self.dataModel.angle(for: dataSet.value), endAngle: self.dataModel.startingAngle)
                         .foregroundColor(dataSet.color)
-                       .onTapGesture {
-                         withAnimation {
-                            if self.selectedCell == dataSet.id {
-                                self.onTap(nil)
-                                self.selectedCell = UUID()
-                            } else {
-                                self.selectedCell = dataSet.id
-                                self.onTap(dataSet)
+                        .onTapGesture {
+                            withAnimation {
+                                if self.selectedCell == dataSet.id {
+                                    self.onTap(nil)
+                                    self.selectedCell = UUID()
+                                } else {
+                                    self.selectedCell = dataSet.id
+                                    self.onTap(dataSet)
+                                }
                             }
-                        }
-                         
-                    }.scaleEffect((self.selectedCell == dataSet.id) ? 1.05 : 1.0)
+                            
+                        }.scaleEffect((self.selectedCell == dataSet.id) ? 1.05 : 1.0)
                 }
-            }
+            }else{
+                Text("No data for this time period").font(.title)
+                }
+        }
+        
     }
+    
 }
 
 
 struct DoughnutView: View {
     let ID: String
-//    @Binding var reports: [Report]
-//    @Binding var originalReports: [Report]
+    //    @Binding var reports: [Report]
+    //    @Binding var originalReports: [Report]
     @EnvironmentObject var statsController: StatsDataController
     @State var selection = "";
     @State var selectedPie: String = ""
@@ -105,62 +111,69 @@ struct DoughnutView: View {
     @Binding var reports: [Report]
     @Binding var originalReports: [Report]
     var body: some View {
-            ScrollView {
-                VStack {
-                    HStack(spacing: 20) {
-                        PieChart(dataModel: ChartDataModel.init(dataModel: sample), onTap: {
-                            dataModel in
-                            if let dataModel = dataModel {
-                                self.selectedPie = "Topic: \(dataModel.name)\nkg Co2: \(dataModel.value)"
-                            } else {
-                                self.selectedPie = ""
-                            }
-                        })
-                            .frame(width: 150, height: 150, alignment: .center)
-                            .padding()
-                        Text(selectedPie)
+        ScrollView {
+            VStack {
+                if !(reports.count == 0){
+//                HStack(spacing: 20) {
+//                    PieChart(dataModel: ChartDataModel.init(dataModel: sample), onTap: {
+//                        dataModel in
+//                        if let dataModel = dataModel {
+//                            self.selectedPie = "Topic: \(dataModel.name)\nkg Co2: \(dataModel.value)"
+//                        } else {
+//                            self.selectedPie = ""
+//                        }
+//                    })
+//                    .frame(width: 150, height: 150, alignment: .center)
+//                    .padding()
+//                    Text(selectedPie)
+//                        .font(.footnote)
+//                        .multilineTextAlignment(.leading)
+//                    Spacer()
+//
+//                }
+                
+                HStack() {
+                        Spacer()
+                    DonutChart(dataModel: ChartDataModel.init(dataModel: sample), onTap: {
+                        dataModel in
+                        if let dataModel = dataModel {
+                            self.selectedDonut = "Topic: \(dataModel.name)\n kg Co2: \(dataModel.value)"
+                        } else {
+                            self.selectedDonut = ""
+                        }
+                    })
+                    .frame(width: 300, height: 300, alignment: .center)
+                    .padding()
+                    Text(selectedDonut)
                         .font(.footnote)
                         .multilineTextAlignment(.leading)
-                        Spacer()
-                        
-                    }
-                    HStack(spacing: 20) {
-                        DonutChart(dataModel: ChartDataModel.init(dataModel: sample), onTap: {
-                            dataModel in
-                            if let dataModel = dataModel {
-                                self.selectedDonut = "Subject: \(dataModel.name)\nPointes: \(dataModel.value)"
-                            } else {
-                                self.selectedDonut = ""
-                            }
-                        })
-                        .frame(width: 150, height: 150, alignment: .center)
-                        .padding()
-                        Text(selectedDonut)
-                            .font(.footnote)
-                            .multilineTextAlignment(.leading)
-                        Spacer()
-                    }
                     Spacer()
-                    HStack {
-                        ForEach(sample) { dataSet in
-                            VStack {
-                                Circle().foregroundColor(dataSet.color)
-                                Text(dataSet.name).font(.footnote)
-                            }
+                    }.frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                   
+                Spacer()
+                HStack {
+                    ForEach(sample) { dataSet in
+                        VStack {
+                            Circle().foregroundColor(dataSet.color)
+                            Text(dataSet.name).font(.footnote)
                         }
                     }
-                }.onAppear{ people = statsController.convertCSVIntoArray();
-                    let user = statsController.findUserData(people: people, ID: ID);
-                        self.reports = statsController.convertToReports(users: user);
-                        self.originalReports = statsController.convertToReports(users: user);
-                        print(reports);};
-                
-                ToggleView(selected: $selection).onChange(of: selection, perform: { value in
-                    reports = statsController.updateReports(value: value, reports: originalReports, statsController: statsController);
-                    sample = convertRecordsToSamples(records: reports)
-                });
-            }
-       
+                }
+                } else {
+                                Text("No data found for this time period")
+                            }
+            }.onAppear{ people = statsController.convertCSVIntoArray();
+                let user = statsController.findUserData(people: people, ID: ID);
+                self.reports = statsController.convertToReports(users: user);
+                self.originalReports = statsController.convertToReports(users: user);
+                print(reports);};
+            
+            ToggleView(selected: $selection).onChange(of: selection, perform: { value in
+                reports = statsController.updateReports(value: value, reports: originalReports, statsController: statsController);
+                sample = convertRecordsToSamples(records: reports)
+            });
+        }
+
     }
 }
 
@@ -191,7 +204,7 @@ func convertRecordsToSamples(records: [Report]) -> [ChartCellModel]{
         healtTotalh += CGFloat(record.health)
         foodTotal += CGFloat(record.food)
     }
-     
+    
     
     var returnSamples = [ChartCellModel]()
     returnSamples.append(ChartCellModel(color: Color.red, value: transportTotal, name: "Transport"))
@@ -200,7 +213,7 @@ func convertRecordsToSamples(records: [Report]) -> [ChartCellModel]{
     returnSamples.append(ChartCellModel(color: Color.blue, value: healtTotalh, name: "Health"))
     returnSamples.append(ChartCellModel(color: Color.green, value: foodTotal, name: "Food"))
     
-        return returnSamples;
+    return returnSamples;
 }
 
 final class ChartDataModel: ObservableObject {
@@ -208,7 +221,7 @@ final class ChartDataModel: ObservableObject {
     var startingAngle = Angle(degrees: 0)
     private var lastBarEndAngle = Angle(degrees: 0)
     
-        
+    
     init(dataModel: [ChartCellModel]) {
         chartCellModel = dataModel
     }
