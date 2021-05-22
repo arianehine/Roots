@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,6 +12,7 @@
 		AC14CD1862633DB634B968EF /* Pods_PIG_PIGUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79BC8C2E0B430CCD9589A378 /* Pods_PIG_PIGUITests.framework */; };
 		D601C13626541C1B0050BE7D /* BarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = D601C13526541C1B0050BE7D /* BarChart.swift */; };
 		D601C13E26541F8B0050BE7D /* BarGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D601C13D26541F8B0050BE7D /* BarGraphView.swift */; };
+		D612F6292659478700914C0E /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = D612F6282659478700914C0E /* WrappingHStack */; };
 		D64DB1C72652BE5E00D6FA4D /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64DB1C62652BE5E00D6FA4D /* StatsView.swift */; };
 		D64DB1E42652C1B700D6FA4D /* synthesisedData.csv in Resources */ = {isa = PBXBuildFile; fileRef = D64DB1E32652C1B700D6FA4D /* synthesisedData.csv */; };
 		D68366DD2655557000648C1B /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68366DC2655557000648C1B /* ToggleView.swift */; };
@@ -82,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D612F6292659478700914C0E /* WrappingHStack in Frameworks */,
 				8EE5D3504501A6FBBE9BE524 /* Pods_PIG.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -215,6 +217,9 @@
 			dependencies = (
 			);
 			name = PIG;
+			packageProductDependencies = (
+				D612F6282659478700914C0E /* WrappingHStack */,
+			);
 			productName = PIG;
 			productReference = D6DC2C77264D2E9D008C6A72 /* PIG.app */;
 			productType = "com.apple.product-type.application";
@@ -289,6 +294,9 @@
 				Base,
 			);
 			mainGroup = D6DC2C6E264D2E9C008C6A72;
+			packageReferences = (
+				D612F6272659478700914C0E /* XCRemoteSwiftPackageReference "WrappingHStack" */,
+			);
 			productRefGroup = D6DC2C78264D2E9D008C6A72 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -764,6 +772,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D612F6272659478700914C0E /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dkk/WrappingHStack";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D612F6282659478700914C0E /* WrappingHStack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D612F6272659478700914C0E /* XCRemoteSwiftPackageReference "WrappingHStack" */;
+			productName = WrappingHStack;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D6DC2C6F264D2E9D008C6A72 /* Project object */;
 }
