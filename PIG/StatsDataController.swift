@@ -71,7 +71,7 @@ func convertCSVIntoArray() -> [UserData]{
         var reportsToReturn = [Report]()
         for x in users{
             let stringDate = String(dateToString(date: x.date))
-            reportsToReturn.append(Report(year:  String(stringDate.split(separator: "-")[0] + stringDate.split(separator: "-")[1]), average: x.average, date: x.date))
+            reportsToReturn.append(Report(year:  String(stringDate.split(separator: "-")[0] + stringDate.split(separator: "-")[1]), average: x.average, date: x.date, transport: x.transport, household: x.household, clothing: x.clothing, health: x.health, food: x.health))
         }
         return reportsToReturn;
         

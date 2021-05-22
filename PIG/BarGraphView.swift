@@ -76,18 +76,23 @@ struct Report{
     let year: String;
     let average: Double;
     let date: Date;
+    let transport: Double
+    let household: Double
+    let clothing: Double
+    let health: Double
+    let food: Double
 }
 
-extension Report {
-    static func all() -> [Report]{
-        return [
-            
-            Report(year: "2001", average: 900.0, date: Date()),
-            Report(year: "2003", average: 500.0, date: Date()),
-            Report(year: "2005", average: 1000.0, date: Date()),
-        ]
-    }
-}
+//extension Report {
+//    static func all() -> [Report]{
+//        return [
+//
+//            Report(year: "2001", average: 900.0, date: Date()),
+//            Report(year: "2003", average: 500.0, date: Date()),
+//            Report(year: "2005", average: 1000.0, date: Date()),
+//        ]
+//    }
+//}
 //from https://stackoverflow.com/questions/33397101/how-to-get-mondays-date-of-the-current-week-in-swift
 extension Date {
 

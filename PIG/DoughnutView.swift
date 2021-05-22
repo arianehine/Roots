@@ -101,6 +101,7 @@ struct DoughnutView: View {
     @State var selectedPie: String = ""
     @State var selectedDonut: String = ""
     @State var people = [UserData]()
+    @State var sample = [ChartCellModel]()
     @Binding var reports: [Report]
     @Binding var originalReports: [Report]
     var body: some View {
@@ -155,7 +156,8 @@ struct DoughnutView: View {
                         print(reports);};
                 
                 ToggleView(selected: $selection).onChange(of: selection, perform: { value in
-                    reports = statsController.updateReports(value: value, reports: originalReports, statsController: statsController)
+                    reports = statsController.updateReports(value: value, reports: originalReports, statsController: statsController);
+                    sample = convertRecordsToSamples(records: reports)
                 });
             }
        
@@ -173,6 +175,32 @@ struct ChartCellModel: Identifiable {
     let color: Color
     let value: CGFloat
     let name: String
+}
+
+func convertRecordsToSamples(records: [Report]) -> [ChartCellModel]{
+    var transportTotal: CGFloat = 0.0
+    var householdTotal: CGFloat = 0.0
+    var clothingTotal: CGFloat = 0.0
+    var healtTotalh: CGFloat = 0.0
+    var foodTotal: CGFloat = 0.0
+    
+    for record in records{
+        transportTotal += CGFloat(record.transport)
+        householdTotal += CGFloat(record.household)
+        clothingTotal += CGFloat(record.clothing)
+        healtTotalh += CGFloat(record.health)
+        foodTotal += CGFloat(record.food)
+    }
+     
+    
+    var returnSamples = [ChartCellModel]()
+    returnSamples.append(ChartCellModel(color: Color.red, value: transportTotal, name: "Transport"))
+    returnSamples.append(ChartCellModel(color: Color.yellow, value: householdTotal, name: "Household"))
+    returnSamples.append(ChartCellModel(color: Color.pink, value: clothingTotal, name: "Fashion"))
+    returnSamples.append(ChartCellModel(color: Color.blue, value: healtTotalh, name: "Health"))
+    returnSamples.append(ChartCellModel(color: Color.green, value: foodTotal, name: "Food"))
+    
+        return returnSamples;
 }
 
 final class ChartDataModel: ObservableObject {
@@ -202,11 +230,11 @@ final class ChartDataModel: ObservableObject {
 }
 
 
-let sample = [ ChartCellModel(color: Color.red, value: 123, name: "Transport"),
-               ChartCellModel(color: Color.yellow, value: 233, name: "Household"),
-               ChartCellModel(color: Color.pink, value: 73, name: "Fashion"),
-               ChartCellModel(color: Color.blue, value: 731, name: "Health"),
-               ChartCellModel(color: Color.green, value: 51, name: "Food")]
+//let sample = [ ChartCellModel(color: Color.red, value: 123, name: "Transport"),
+//               ChartCellModel(color: Color.yellow, value: 233, name: "Household"),
+//               ChartCellModel(color: Color.pink, value: 73, name: "Fashion"),
+//               ChartCellModel(color: Color.blue, value: 731, name: "Health"),
+//               ChartCellModel(color: Color.green, value: 51, name: "Food")]
 
 
 //struct DoughnutView_Previews: PreviewProvider {
