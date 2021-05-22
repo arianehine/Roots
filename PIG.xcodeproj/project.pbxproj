@@ -17,6 +17,7 @@
 		D68366DD2655557000648C1B /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68366DC2655557000648C1B /* ToggleView.swift */; };
 		D69C7AA4265801E500D209DB /* DoughnutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69C7AA3265801E500D209DB /* DoughnutView.swift */; };
 		D69C7AA92658099B00D209DB /* StatsDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69C7AA82658099B00D209DB /* StatsDataController.swift */; };
+		D69C7AAE26592F3E00D209DB /* NumberEarthsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69C7AAD26592F3E00D209DB /* NumberEarthsView.swift */; };
 		D6DC2C7B264D2E9D008C6A72 /* PIGApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DC2C7A264D2E9D008C6A72 /* PIGApp.swift */; };
 		D6DC2C7D264D2E9D008C6A72 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DC2C7C264D2E9D008C6A72 /* ContentView.swift */; };
 		D6DC2C7F264D2EA3008C6A72 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6DC2C7E264D2EA3008C6A72 /* Assets.xcassets */; };
@@ -57,6 +58,7 @@
 		D68366DC2655557000648C1B /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
 		D69C7AA3265801E500D209DB /* DoughnutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoughnutView.swift; sourceTree = "<group>"; };
 		D69C7AA82658099B00D209DB /* StatsDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsDataController.swift; sourceTree = "<group>"; };
+		D69C7AAD26592F3E00D209DB /* NumberEarthsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberEarthsView.swift; sourceTree = "<group>"; };
 		D6DC2C77264D2E9D008C6A72 /* PIG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PIG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6DC2C7A264D2E9D008C6A72 /* PIGApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIGApp.swift; sourceTree = "<group>"; };
 		D6DC2C7C264D2E9D008C6A72 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 		D6DC2C6E264D2E9C008C6A72 = {
 			isa = PBXGroup;
 			children = (
+				D69C7AAD26592F3E00D209DB /* NumberEarthsView.swift */,
 				D6DC2C79264D2E9D008C6A72 /* PIG */,
 				D6DC2C8B264D2EA3008C6A72 /* PIGTests */,
 				D6DC2C96264D2EA3008C6A72 /* PIGUITests */,
@@ -433,6 +436,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D69C7AAE26592F3E00D209DB /* NumberEarthsView.swift in Sources */,
 				D601C13626541C1B0050BE7D /* BarChart.swift in Sources */,
 				D69C7AA92658099B00D209DB /* StatsDataController.swift in Sources */,
 				D601C13E26541F8B0050BE7D /* BarGraphView.swift in Sources */,

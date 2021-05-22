@@ -132,8 +132,8 @@ struct ContentView: View {
                         StatsView(ID: "8").environmentObject(statsController)
                             .tabItem {
                                 VStack {
-                                    Image(systemName: "globe")
-                                    Text("Categories") // Update tab title
+                                    Image(systemName: "chart.bar")
+                                    Text("Stats") // Update tab title
                                 }
                             }
                         .tag(0)
@@ -143,11 +143,20 @@ struct ContentView: View {
                             .font(.title)
                             .tabItem {
                                 VStack {
-                                    Image(systemName: "person")
-                                    Text("Profile") // Update tab title
+                                    Image(systemName: "chart.pie")
+                                    Text("Detailed Stats") // Update tab title
                                 }
                         }
                         .tag(1)
+                        
+                        NumberEarthsView(ID: "8").environmentObject(statsController)
+                            .tabItem {
+                                VStack {
+                                    Image(systemName: "person")
+                                    Text("Info") // Update tab title
+                                }
+                            }
+                        .tag(2)
                     }
                     
 //                    getName()
@@ -255,7 +264,7 @@ struct ContentView: View {
                     }, label: {
                         Text("Sign In")
                             .foregroundColor(Color.white)
-                            .frame(width: 200, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                            .frame(width: 200, height: 50, alignment: .center)
                             .cornerRadius(20)
                             .background(Color.blue)
                         
