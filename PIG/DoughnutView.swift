@@ -84,6 +84,7 @@ struct PieChart: View {
                                 self.onTap(dataSet)
                             }
                         }
+                         
                     }.scaleEffect((self.selectedCell == dataSet.id) ? 1.05 : 1.0)
                 }
             }
@@ -99,7 +100,9 @@ struct DoughnutView: View {
     @State var selection = "";
     @State var selectedPie: String = ""
     @State var selectedDonut: String = ""
-    
+    @State var people = [UserData]()
+    @Binding var reports: [Report]
+    @Binding var originalReports: [Report]
     var body: some View {
             ScrollView {
                 VStack {
@@ -145,8 +148,17 @@ struct DoughnutView: View {
                             }
                         }
                     }
-                }
+                }.onAppear{ people = statsController.convertCSVIntoArray();
+                    let user = statsController.findUserData(people: people, ID: ID);
+                        self.reports = statsController.convertToReports(users: user);
+                        self.originalReports = statsController.convertToReports(users: user);
+                        print(reports);};
+                
+                ToggleView(selected: $selection).onChange(of: selection, perform: { value in
+                    reports = statsController.updateReports(value: value, reports: originalReports, statsController: statsController)
+                });
             }
+       
     }
 }
 

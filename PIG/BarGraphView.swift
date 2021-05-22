@@ -30,7 +30,7 @@ struct BarGraphView: View {
                 
             }
             ToggleView(selected: $selection).onChange(of: selection, perform: { value in
-                reports = updateReports(value: value, reports: originalReports, statsController: statsController)
+                reports = statsController.updateReports(value: value, reports: originalReports, statsController: statsController)
             });
             
             
@@ -38,42 +38,6 @@ struct BarGraphView: View {
         
     }
 }
-
-func updateReports(value: String, reports: [Report], statsController: StatsDataController) -> [Report]{
-    
-    let copyOfReports = reports;
-    print("Reports going in", copyOfReports)
-
-    switch value {
-    case "Day":
-        let reportsToReturn = statsController.getToday(reports: copyOfReports)
-        print("Reports returned: ", reportsToReturn)
-        return reportsToReturn;
-        break;
-    case "Week":
-        let reportsToReturn = statsController.getThisWeek(reports: copyOfReports)
-        print("Reports returned: ", reportsToReturn)
-        return reportsToReturn;
-        break;
-    case "Month":
-        let reportsToReturn = statsController.getThisMonth(reports: copyOfReports)
-        print("Reports returned: ", reportsToReturn)
-        return reportsToReturn;
-        break;
-    case "Year":
-        let reportsToReturn = statsController.getThisYear(reports: copyOfReports)
-        print("Reports returned: ", reportsToReturn)
-        return reportsToReturn;
-        break;
-    default: break
-    //yeek
-    }
-    
-    return [Report]()
-    
-    
-}
-
 
 
 struct BarView: View {

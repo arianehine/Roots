@@ -104,6 +104,8 @@ struct ContentView: View {
     @StateObject var statsController = StatsDataController();
     @State var selection = ""
     @State var name = ""
+    @State var originalReports: [Report] = [Report]();
+    @State var reports: [Report] = [Report]();
  
     
     
@@ -137,7 +139,7 @@ struct ContentView: View {
                         .tag(0)
                         
                        
-                        DoughnutView(ID: "8").environmentObject(statsController)
+                        DoughnutView(ID: "8", reports: $reports, originalReports: $originalReports).environmentObject(statsController)
                             .font(.title)
                             .tabItem {
                                 VStack {
