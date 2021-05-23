@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct ImproveView: View {
+    @Binding var worstArea: String
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("\(worstArea) is your worst area")
     }
 }
 
-struct ImproveView_Previews: PreviewProvider {
-    static var previews: some View {
-        ImproveView()
-    }
-}
+//struct ImproveView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ImproveView(worstArea: "Preview")
+//    }
+//}
