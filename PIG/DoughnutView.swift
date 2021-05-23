@@ -114,7 +114,7 @@ struct DoughnutView: View {
     @Binding var reports: [Report]
     @Binding var originalReports: [Report]
     var body: some View {
-       
+        NavigationView{
         ScrollView {
         
             VStack(alignment: .center) {
@@ -177,9 +177,15 @@ struct DoughnutView: View {
                 print(reports);};
             Spacer()
             if !(reports.count==0){
-          Text("Your worst area is \(worstArea)")
+
+                NavigationLink(destination: ImproveView()) {
+                                    Text("Your worst area is \(worstArea)")
+                                }.buttonStyle(PlainButtonStyle())
+                
+
             }
             Spacer()
+         
             ToggleView(selected: $selection).onChange(of: selection, perform: { value in
                 reports = statsController.updateReports(value: value, reports: originalReports, statsController: statsController);
                 sample = convertRecordsToSamples(records: reports);
@@ -188,8 +194,9 @@ struct DoughnutView: View {
            
             
             
-        }.frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-
+        }.frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).navigationBarHidden(true)
+        }
+        
     }
 }
 
