@@ -39,7 +39,8 @@ struct ToggleView: View {
                 
 //                Spacer()
                 
-                RadioButtons(selected: self.$selected,show: self.$show).offset(y: self.show ? (UIApplication.shared.windows.last?.safeAreaInsets.bottom)! + 15 : UIScreen.main.bounds.height)
+                RadioButtons(selected: self.$selected,show: self.$show)
+                    .offset(y: self.show ? (UIApplication.shared.windows.last?.safeAreaInsets.bottom)! + 0 : UIScreen.main.bounds.height)
                 
             }.background(Color(UIColor.label.withAlphaComponent(self.show ? 0.2 : 0)).edgesIgnoringSafeArea(.all))
             

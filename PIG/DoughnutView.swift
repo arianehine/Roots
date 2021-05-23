@@ -108,13 +108,16 @@ struct DoughnutView: View {
     @State var selection = "";
     @State var selectedPie: String = ""
     @State var selectedDonut: String = ""
+    @State var worstArea: String = ""
     @State var people = [UserData]()
     @State var sample = [ChartCellModel]()
     @Binding var reports: [Report]
     @Binding var originalReports: [Report]
     var body: some View {
+       
         ScrollView {
-            VStack {
+        
+            VStack(alignment: .center) {
                 if !(reports.count == 0){
 //                HStack(spacing: 20) {
 //                    PieChart(dataModel: ChartDataModel.init(dataModel: sample), onTap: {
@@ -134,7 +137,7 @@ struct DoughnutView: View {
 //
 //                }
                 
-                HStack() {
+                HStack {
                         Spacer()
                     DonutChart(dataModel: ChartDataModel.init(dataModel: sample), onTap: {
                         dataModel in
@@ -160,25 +163,50 @@ struct DoughnutView: View {
                             Text(dataSet.name).font(.footnote)
                         }
                     }
-                }
+                }.frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                 
                 } else {
                                 Text("No data found for this time period")
                             }
-            }.onAppear{ people = statsController.convertCSVIntoArray();
+            
+            }.frame(minHeight: 350, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+            .onAppear{ people = statsController.convertCSVIntoArray();
                 let user = statsController.findUserData(people: people, ID: ID);
-                self.reports = statsController.convertToReports(users: user);
+//                self.reports = statsController.convertToReports(users: user);
                 self.originalReports = statsController.convertToReports(users: user);
                 print(reports);};
-            
+            Spacer()
+            if !(reports.count==0){
+          Text("Your worst area is \(worstArea)")
+            }
+            Spacer()
             ToggleView(selected: $selection).onChange(of: selection, perform: { value in
                 reports = statsController.updateReports(value: value, reports: originalReports, statsController: statsController);
-                sample = convertRecordsToSamples(records: reports)
+                sample = convertRecordsToSamples(records: reports);
+                worstArea = updateWorstArea(samples: sample);
             });
-        }
+           
+            
+            
+        }.frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
 
     }
 }
 
+func updateWorstArea(samples: [ChartCellModel]) -> String{
+    
+    var worst = ""
+    var max: CGFloat = 0;
+    for sample in samples{
+        if sample.value > max{
+            max = sample.value
+            worst = sample.name
+        }
+        
+    }
+    return worst;
+    
+}
 struct PieChart_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()

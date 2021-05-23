@@ -23,6 +23,7 @@ struct NumberEarthsView: View {
                     .frame(width: 100, height: 89, alignment: .center)
             }
             
+            
         }
        
     }
