@@ -160,7 +160,7 @@ struct ContentView: View {
                     }
                     
 //                    getName()
-                }.navigationTitle("Welcome back " +  name)
+                }.navigationBarTitle("Welcome back " +  name)
                 .navigationBarItems(trailing:
                 
                                         Button(action: {

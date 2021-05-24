@@ -12,9 +12,65 @@ struct ImproveView: View {
     @Binding var worstArea: String
     @Binding var reports: [Report]
     @Binding var sample: [ChartCellModel]
-    @Binding var timePeriod: String 
+    @Binding var timePeriod: String
+    @State var worstTravel: String = "Driving"
+    @State var walkedAmount: String = "x"
+    @State var drivenAmount: String = "x"
+    @State var trainAmount: String = "x"
+    @State var busAmount: String = "x"
+    @State var taxiAmount: String = "x"
+    @State var planeAmount: String = "x"
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
-        Text("\(worstArea) is your worst area").frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).navigationBarHidden(true)
+        VStack{
+            Text("\(worstArea) is your worst area").foregroundColor(setTextColor() as! Color).shadow(color: .black, radius: 1)
+            Text("Your travel statistics:")
+            Text("In the last \(timePeriod) you have:").font(.callout).padding(.bottom, 25.0).frame(alignment: .center)
+            Group{
+            HStack{
+                Image(systemName: "figure.walk")
+                Text("Walked \(walkedAmount) km").padding(.bottom) // Update tab title
+            }
+            HStack{
+                Image(systemName: "car.fill")
+                Text("Driven \(drivenAmount) km").padding(.bottom) // Update tab title
+            }
+            HStack{
+                Image(systemName: "tram.fill")
+                Text("Travelled \(trainAmount) km by train").padding(.bottom) // Update tab title
+            }
+            HStack{
+                Image(systemName: "bus.fill")
+                Text("Travelled \(busAmount) km by bus").padding(.bottom) // Update tab title
+            }
+            HStack{
+                Image(systemName: "figure.wave")
+                Text("Travelled \(taxiAmount) km by taxi").padding(.bottom) // Update tab title
+            }
+            HStack{
+                Image(systemName: "airplane")
+                Text("Flown \(planeAmount) km").padding(.bottom) // Update tab title
+            }
+//            Spacer()
+            }.navigationBarTitleDisplayMode(.inline)
+            
+            Text("Your worst area is \(worstTravel)");
+            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                Text("How to improve?").background(setTextColor()).foregroundColor(.white).cornerRadius(10)
+            })
+        }
+        
+        
+        
+    }
+    
+    func setTextColor() -> Color{
+        for sam in sample{
+            if(sam.name == worstArea){
+                return sam.color;
+            }
+        }
+        return Color.black;
     }
 }
 

@@ -179,7 +179,7 @@ struct DoughnutView: View {
             if !(reports.count==0){
 
                 NavigationLink(destination: ImproveView(worstArea: $worstArea, reports: $reports, sample: $sample, timePeriod: $selection)) {
-                                    Text("Your worst area is \(worstArea)")
+                    Text("Your worst area is \(worstArea)").foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/).underline()
                 }.environmentObject(statsController).buttonStyle(PlainButtonStyle())
                 
 
