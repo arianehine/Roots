@@ -178,9 +178,9 @@ struct DoughnutView: View {
             Spacer()
             if !(reports.count==0){
 
-                NavigationLink(destination: ImproveView()) {
+                NavigationLink(destination: ImproveView(worstArea: $worstArea, reports: $reports, sample: $sample, timePeriod: $selection)) {
                                     Text("Your worst area is \(worstArea)")
-                                }.buttonStyle(PlainButtonStyle())
+                }.environmentObject(statsController).buttonStyle(PlainButtonStyle())
                 
 
             }
