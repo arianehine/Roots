@@ -20,7 +20,6 @@ struct ImproveView: View {
     @State var busAmount: String = "x"
     @State var taxiAmount: String = "x"
     @State var planeAmount: String = "x"
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         VStack{
             Text("\(worstArea) is your worst area").foregroundColor(setTextColor() as! Color).shadow(color: .black, radius: 1)
@@ -51,13 +50,14 @@ struct ImproveView: View {
                 Image(systemName: "airplane")
                 Text("Flown \(planeAmount) km").padding(.bottom) // Update tab title
             }
-//            Spacer()
-            }.navigationBarTitleDisplayMode(.inline)
+            Spacer()
+            }
             
+            Spacer()
             Text("Your worst area is \(worstTravel)");
             Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
                 Text("How to improve?").background(setTextColor()).foregroundColor(.white).cornerRadius(10)
-            })
+            }).padding(.bottom)
         }
         
         
