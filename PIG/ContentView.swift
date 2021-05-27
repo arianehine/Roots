@@ -304,7 +304,7 @@ struct ContentView: View {
               
                 }
             
-                Image("logo-1")
+                Image("logo")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 150, height: 150, alignment: .center)

@@ -54,8 +54,27 @@ func convertCSVIntoArray() -> [UserData]{
                people.append(person)
            }
        }
-    return people;
+    
+    return orderByDate(array: people);
 }
+    
+    func orderByDate(array: [UserData]) -> [UserData]{
+      
+        var dateFormatter = DateFormatter()
+        var convertedArray = [UserData]()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+        for data in array {
+            let date = dateFormatter.date(from: dateToString(date: data.date))
+            if let date = date {
+                convertedArray.append(data)
+            }
+        }
+
+        let ready = convertedArray.sorted(by: { $0.date.compare($1.date) == .orderedAscending })
+
+        return ready;
+    }
     func dateToString(date: Date) -> String{
         // Create Date Formatter
         let dateFormatter = DateFormatter()
@@ -71,7 +90,7 @@ func convertCSVIntoArray() -> [UserData]{
         var reportsToReturn = [Report]()
         for x in users{
             let stringDate = String(dateToString(date: x.date))
-            reportsToReturn.append(Report(year:  String(stringDate.split(separator: "-")[0] + stringDate.split(separator: "-")[1]), average: x.average, date: x.date, transport: x.transport, household: x.household, clothing: x.clothing, health: x.health, food: x.health))
+            reportsToReturn.append(Report(year:  String(stringDate.split(separator: "-")[0] + "-" + stringDate.split(separator: "-")[1]), average: x.average, date: x.date, transport: x.transport, household: x.household, clothing: x.clothing, health: x.health, food: x.health))
         }
         return reportsToReturn;
         
