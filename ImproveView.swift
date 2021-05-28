@@ -55,10 +55,19 @@ struct ImproveView: View {
             
             Spacer()
             Text("Your worst area is \(worstTravel)");
-            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                Text("How to improve?").background(setTextColor()).foregroundColor(.white).cornerRadius(10)
-            }).padding(.bottom)
+            
+            
+            
+
         }
+        NavigationLink(destination: TipsView(worstArea: $worstArea)) {
+            Text("How to improve \(worstArea)?").background(setTextColor()).foregroundColor(.white).cornerRadius(10).padding(.bottom)
+        }.environmentObject(statsController).buttonStyle(PlainButtonStyle())
+        
+//            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+//                Text("How to improve?").background(setTextColor()).foregroundColor(.white).cornerRadius(10)
+//            }).padding(.bottom)
+//        }
         
         
         
