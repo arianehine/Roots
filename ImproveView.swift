@@ -154,7 +154,28 @@ struct ImproveView: View {
         Text("Food")
     }
     else if(worstArea == "Health") {
-        Text("Health")
+        var specifics = calculateHealth(reports: reports)
+        var worstHealth = getWorstHealthArea(sample: specifics);
+        let medsAmount = specifics[0]
+        let scansAmount = specifics[1]
+        
+        
+    Text("\(worstArea) is your worst area").foregroundColor(setTextColor(sample: sample, worstArea: worstArea) as! Color).shadow(color: .black, radius: 1)
+        Text("Your \(worstArea) statistics:")
+        Text("In the last \(timePeriod) you have:").font(.callout).padding(.bottom, 25.0).frame(alignment: .center)
+        Group{
+            HStack{
+                Image(systemName: "pills.fill")
+                Text("Medicines: \(medsAmount, specifier: "%.2f") km").padding(.bottom) // Update tab title
+            }
+            HStack{
+                Image(systemName: "waveform.path.ecg.rectangle")
+                Text("Scans: \(scansAmount, specifier: "%.2f") km").padding(.bottom) // Update tab title
+            }
+        
+            Spacer()
+            Text("Your worst \(worstArea) area is \(worstHealth)").font(.subheadline);
+        }
     }
 }
 
