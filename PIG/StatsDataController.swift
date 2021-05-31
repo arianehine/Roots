@@ -40,7 +40,7 @@ func convertCSVIntoArray() -> [UserData]{
            let columns = row.components(separatedBy: ",")
 
            //check that we have enough columns
-           if columns.count == 8 {
+           if columns.count == 25 {
             let ID = String(columns[0])
             let date = stringToDate(string: columns[1])
             let average = Double(columns[2]) ?? 0
@@ -49,11 +49,31 @@ func convertCSVIntoArray() -> [UserData]{
             let clothing = Double(columns[5]) ?? 0
             let health = Double(columns[6]) ?? 0
             let food = Double(columns[7]) ?? 0
+            let transport_walking = Double(columns[8]) ?? 0
+            let transport_car = Double(columns[9]) ?? 0
+            let transport_train = Double(columns[10]) ?? 0
+            let transport_bus = Double(columns[11]) ?? 0
+            let transport_plane = Double(columns[12]) ?? 0
+            let household_heating = Double(columns[13]) ?? 0
+            let household_electricity = Double(columns[14]) ?? 0
+            let household_furnishings = Double(columns[15]) ?? 0
+            let household_lighting = Double(columns[16]) ?? 0
+            let clothing_fastfashion = Double(columns[17]) ?? 0
+            let clothing_sustainable = Double(columns[18]) ?? 0
+            let health_meds = Double(columns[19]) ?? 0
+            let health_scans = Double(columns[20]) ?? 0
+            let food_meat = Double(columns[21]) ?? 0
+            let food_fish = Double(columns[22]) ?? 0
+            let food_dairy = Double(columns[23]) ?? 0
+            let food_oils = Double(columns[24]) ?? 0
             
-            let person = UserData(ID: ID, date: date, average: average, transport: transport, household: household, clothing: clothing, health: health, food: food)
+            let person = UserData(ID: ID, date: date, average: average, transport: transport, household: household, clothing: clothing, health: health, food: food, transport_walking: transport_walking, transport_car: transport_car, transport_train: transport_train, transport_bus: transport_bus, transport_plane: transport_plane, household_heating: household_heating, household_electricity: household_electricity, household_furnishings: household_furnishings, household_lighting: household_lighting, clothing_fastfashion: clothing_fastfashion, clothing_sustainable: clothing_sustainable, health_meds: health_meds, health_scans: health_scans, food_meat: food_meat, food_fish: food_fish, food_dairy: food_dairy, food_oils: food_oils)
                people.append(person)
            }
+    else {
+        print("wrong num columns at ID \(columns[0])")
        }
+    }
     
     return orderByDate(array: people);
 }
@@ -89,9 +109,11 @@ func convertCSVIntoArray() -> [UserData]{
     func convertToReports(users: [UserData]) -> [Report]{
         var reportsToReturn = [Report]()
         for x in users{
+            print("converting")
             let stringDate = String(dateToString(date: x.date))
-            reportsToReturn.append(Report(year:  String(stringDate.split(separator: "-")[0] + "-" + stringDate.split(separator: "-")[1]), average: x.average, date: x.date, transport: x.transport, household: x.household, clothing: x.clothing, health: x.health, food: x.health))
+            reportsToReturn.append(Report(year:  String(stringDate.split(separator: "-")[0] + "-" + stringDate.split(separator: "-")[1]), average: x.average, date: x.date, transport: x.transport, household: x.household, clothing: x.clothing, health: x.health, food: x.health, transport_walking: x.transport_walking, transport_car: x.transport_car, transport_train: x.transport_train, transport_bus: x.transport_bus, transport_plane: x.transport_plane, household_heating: x.household_heating, household_electricity: x.household_electricity, household_furnishings: x.household_furnishings, household_lighting: x.household_lighting, clothing_fastfashion: x.clothing_fastfashion, clothing_sustainable: x.clothing_sustainable, health_meds: x.health_meds, health_scans: x.health_scans, food_meat: x.food_meat, food_fish: x.food_fish, food_dairy: x.food_dairy, food_oils: x.food_oils))
         }
+        print("NUMBER OF REPORTS:", reportsToReturn.count)
         return reportsToReturn;
         
     }
@@ -277,5 +299,22 @@ struct UserData {
     var clothing: Double
     var health: Double
     var food: Double
+    let transport_walking: Double;
+    let transport_car: Double;
+    let transport_train: Double;
+    let transport_bus: Double;
+    let transport_plane: Double;
+    let household_heating: Double;
+    let household_electricity: Double;
+    let household_furnishings: Double;
+    let household_lighting: Double;
+    let clothing_fastfashion: Double;
+    let clothing_sustainable: Double;
+    let health_meds: Double;
+    let health_scans: Double;
+    let food_meat: Double;
+    let food_fish: Double;
+    let food_dairy: Double;
+    let food_oils: Double;
 }
 
