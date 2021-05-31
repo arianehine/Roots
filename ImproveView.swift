@@ -13,7 +13,7 @@ struct ImproveView: View {
     @Binding var reports: [Report]
     @Binding var sample: [ChartCellModel]
     @Binding var timePeriod: String
-    @State var worstTravel: String = "Driving" //calculate this
+    @State var worstTravel: String = "" //calculate this
     @State var walkedAmount: Double = 0.0
     @State var drivenAmount: Double = 0.0
     @State var trainAmount: Double = 0.0
@@ -23,13 +23,9 @@ struct ImproveView: View {
     var body: some View {
         VStack{
             
-            getSpecifics(worstArea: worstArea, reports: reports, timePeriod: timePeriod, sample: sample);
-            
-            
-            Spacer()
-            Text("Your worst area is \(worstTravel)");
-            
-            
+            getSpecifics(worstArea: worstArea, reports: reports, timePeriod: timePeriod, sample: sample, worstTravel: worstTravel);
+        
+        
             
             
         }
@@ -48,10 +44,11 @@ struct ImproveView: View {
     
 
 }
-@ViewBuilder func getSpecifics(worstArea: String, reports: [Report], timePeriod: String, sample: [ChartCellModel]) -> some View{
+@ViewBuilder func getSpecifics(worstArea: String, reports: [Report], timePeriod: String, sample: [ChartCellModel], worstTravel:String) -> some View{
     if (worstArea == "Transport") {
     
             var specifics = calculateTransport(reports: reports)
+            var worstTravel = getWorstTravelArea(sample: specifics);
             let walkedAmount = specifics[0]
             let drivenAmount = specifics[1]
             let trainAmount = specifics[2]
@@ -89,9 +86,19 @@ struct ImproveView: View {
                     Text("Flown \(planeAmount, specifier: "%.2f") km").padding(.bottom) // Update tab title
                 }
                 Spacer()
+                Text("Your worst \(worstArea) area is \(worstTravel)").font(.subheadline);
             }
-    }else{
-        Text("other")
+    }else if(worstArea == "Household") {
+        Text("Household")
+    }
+    else if(worstArea == "Clothing") {
+        Text("Clothing")
+    }
+    else if(worstArea == "Food") {
+        Text("Food")
+    }
+    else if(worstArea == "Health") {
+        Text("Health")
     }
 }
 
@@ -120,6 +127,34 @@ func setTextColor(sample: [ChartCellModel], worstArea: String) -> Color{
         }
     }
     return Color.black;
+}
+
+func getWorstTravelArea(sample: [Double]) -> String{
+    var max = 0.0
+    var counter = 0
+    var index = 0
+    for sam in sample{
+        if(sam > max){
+            max = sam;
+            index = counter;
+        }
+        counter += 1;
+    }
+    
+    if(index == 0){
+        return "Walking"
+    }else if(index == 1){
+        return "Driving"
+    }else if(index == 2){
+        return "Train"
+    }else if(index == 3){
+        return "Bus"
+    }else if(index == 1){
+        return "Taxi"
+    }else if(index == 1){
+        return "Plane"
+    }
+    return "undefined"
 }
 //struct ImproveView_Previews: PreviewProvider {
 //    static var previews: some View {
