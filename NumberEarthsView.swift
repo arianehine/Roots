@@ -62,6 +62,6 @@ struct NumberEarthsView: View {
 
 struct NumberEarthsView_Previews: PreviewProvider {
     static var previews: some View {
-        NumberEarthsView(ID: "8")
+        NumberEarthsView(ID: "5")
     }
 }
