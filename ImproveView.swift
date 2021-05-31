@@ -89,9 +89,31 @@ struct ImproveView: View {
                 Text("Your worst \(worstArea) area is \(worstTravel)").font(.subheadline);
             }
     }else if(worstArea == "Clothing") {
-        Text("Clothing")
-    }
-    else if(worstArea == "Household") {
+        
+        var specifics = calculateClothing(reports: reports)
+        var worstClothing = getWorstClothingArea(sample: specifics);
+        let ffAmount = specifics[0]
+        let susAmount = specifics[1]
+        
+        
+    Text("\(worstArea) is your worst area").foregroundColor(setTextColor(sample: sample, worstArea: worstArea) as! Color).shadow(color: .black, radius: 1)
+        Text("Your \(worstArea) statistics:")
+        Text("In the last \(timePeriod) you have:").font(.callout).padding(.bottom, 25.0).frame(alignment: .center)
+        Group{
+            HStack{
+                Image(systemName: "hourglass")
+                Text("Fast fashion: \(ffAmount, specifier: "%.2f") km").padding(.bottom) // Update tab title
+            }
+            HStack{
+                Image(systemName: "arrow.3.trianglepath")
+                Text("Sustainable fashion: \(susAmount, specifier: "%.2f") km").padding(.bottom) // Update tab title
+            }
+        
+            Spacer()
+            Text("Your worst \(worstArea) area is \(worstClothing)").font(.subheadline);
+        }
+    
+    }else if(worstArea == "Household") {
        
         
                 var specifics = calculateHouseHold(reports: reports)
