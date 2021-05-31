@@ -151,7 +151,41 @@ struct ImproveView: View {
         
 
     }else if(worstArea == "Food") {
-        Text("Food")
+       
+        
+        var specifics = calculateFood(reports: reports)
+        var worstFood = getWorstFoodArea(sample: specifics);
+        let meatAmount = specifics[0]
+        let fishAmount = specifics[1]
+        let dairyAmount = specifics[2]
+        let oilsAmount = specifics[3]
+        
+        
+    Text("\(worstArea) is your worst area").foregroundColor(setTextColor(sample: sample, worstArea: worstArea) as! Color).shadow(color: .black, radius: 1)
+        Text("Your \(worstArea) statistics:")
+        Text("In the last \(timePeriod) you have:").font(.callout).padding(.bottom, 25.0).frame(alignment: .center)
+        Group{
+            HStack{
+                Image(systemName: "m.circle.fill")
+                Text("Meat: \(meatAmount, specifier: "%.2f") km").padding(.bottom) // Update tab title
+            }
+            HStack{
+                Image(systemName: "f.circle.fill")
+                Text("Fish: \(fishAmount, specifier: "%.2f") km").padding(.bottom) // Update tab title
+            }
+            HStack{
+                Image(systemName: "d.circle.fill")
+                Text("Dairy: \(dairyAmount, specifier: "%.2f") km").padding(.bottom) // Update tab title
+            }
+            HStack{
+                Image(systemName: "o.circle.fill")
+                Text("Oils: \(oilsAmount, specifier: "%.2f") km").padding(.bottom) // Update tab title
+            }
+            Spacer()
+            Text("Your worst \(worstArea) area is \(worstFood)").font(.subheadline);
+        }
+        
+        
     }
     else if(worstArea == "Health") {
         var specifics = calculateHealth(reports: reports)
