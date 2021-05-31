@@ -120,6 +120,65 @@ func calculateTransport(reports: [Report]) -> [Double]{
     return [localWalkedAmount, localDrivenAmount, localTrainAmount, localBusAmount, localTaxiAmount, localPlaneAmount]
     
 }
+
+
+func calculateFood(reports: [Report]) -> [Double]{
+    var localMeat = 0.0
+    var localFish = 0.0
+    var localDairy = 0.0
+    var localOils = 0.0
+    for report in reports{
+        localMeat = localMeat + Double(report.food_meat)
+        localFish = localFish + Double(report.food_fish)
+        localDairy = localDairy + Double(report.food_dairy)
+        localOils = localOils +  Double(report.food_oils)
+    }
+    
+    return [localMeat, localFish, localDairy, localOils]
+    
+}
+
+func calculateHouseHold(reports: [Report]) -> [Double]{
+    var localHeating = 0.0
+    var localElectric = 0.0
+    var localFurnishings = 0.0
+    var localLighting = 0.0
+    for report in reports{
+        localHeating = localHeating + Double(report.household_heating)
+        localElectric = localElectric + Double(report.household_electricity)
+        localFurnishings = localFurnishings + Double(report.household_furnishings)
+        localLighting = localLighting +  Double(report.household_lighting)
+    }
+    
+    return [localHeating, localElectric, localFurnishings, localLighting]
+    
+}
+
+func calculateClothing(reports: [Report]) -> [Double]{
+    var localFF = 0.0
+    var localSustainable = 0.0
+    for report in reports{
+        localFF = localFF + Double(report.clothing_fastfashion)
+        localSustainable = localSustainable + Double(report.clothing_sustainable)
+    }
+    
+    return [localFF, localSustainable]
+    
+}
+
+
+func calculateHealth(reports: [Report]) -> [Double]{
+    var localMeds = 0.0
+    var localScans = 0.0
+    for report in reports{
+        localMeds = localMeds + Double(report.health_meds)
+        localScans = localScans + Double(report.health_scans)
+    }
+    
+    return [localMeds, localScans]
+    
+}
+
 func setTextColor(sample: [ChartCellModel], worstArea: String) -> Color{
     for sam in sample{
         if(sam.name == worstArea){
@@ -149,10 +208,98 @@ func getWorstTravelArea(sample: [Double]) -> String{
         return "Train"
     }else if(index == 3){
         return "Bus"
-    }else if(index == 1){
+    }else if(index == 4){
         return "Taxi"
-    }else if(index == 1){
+    }else if(index == 5){
         return "Plane"
+    }
+    return "undefined"
+}
+
+func getWorstHouseHoldArea(sample: [Double]) -> String{
+    var max = 0.0
+    var counter = 0
+    var index = 0
+    for sam in sample{
+        if(sam > max){
+            max = sam;
+            index = counter;
+        }
+        counter += 1;
+    }
+    
+    if(index == 0){
+        return "Heating"
+    }else if(index == 1){
+        return "Electric"
+    }else if(index == 2){
+        return "Furnishings"
+    }else if(index == 3){
+        return "Lighting"
+    }
+    return "undefined"
+}
+
+func getWorstFoodArea(sample: [Double]) -> String{
+    var max = 0.0
+    var counter = 0
+    var index = 0
+    for sam in sample{
+        if(sam > max){
+            max = sam;
+            index = counter;
+        }
+        counter += 1;
+    }
+    
+    if(index == 0){
+        return "Meat"
+    }else if(index == 1){
+        return "Fish"
+    }else if(index == 2){
+        return "Dairy"
+    }else if(index == 3){
+        return "Oils"
+    }
+    return "undefined"
+}
+
+func getWorstClothingArea(sample: [Double]) -> String{
+    var max = 0.0
+    var counter = 0
+    var index = 0
+    for sam in sample{
+        if(sam > max){
+            max = sam;
+            index = counter;
+        }
+        counter += 1;
+    }
+    
+    if(index == 0){
+        return "Fast Fashion"
+    }else if(index == 1){
+        return "Sustainable Fashion"
+    }
+    return "undefined"
+}
+
+func getWorstHealthArea(sample: [Double]) -> String{
+    var max = 0.0
+    var counter = 0
+    var index = 0
+    for sam in sample{
+        if(sam > max){
+            max = sam;
+            index = counter;
+        }
+        counter += 1;
+    }
+    
+    if(index == 0){
+        return "Medicines"
+    }else if(index == 1){
+        return "Scans"
     }
     return "undefined"
 }
