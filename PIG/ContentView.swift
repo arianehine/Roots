@@ -129,7 +129,7 @@ struct ContentView: View {
 //                        .padding()
 //                })
                     TabView(selection: $selection){
-                        StatsView(ID: "5").environmentObject(statsController)
+                        StatsView(ID: "6").environmentObject(statsController)
                             .tabItem {
                                 VStack {
                                     Image(systemName: "chart.bar")
@@ -139,7 +139,7 @@ struct ContentView: View {
                         .tag(0)
                         
                        
-                        DoughnutView(ID: "5", reports: $reports, originalReports: $originalReports).environmentObject(statsController)
+                        DoughnutView(ID: "6", reports: $reports, originalReports: $originalReports).environmentObject(statsController)
                             .font(.title)
                             .tabItem {
                                 VStack {
@@ -149,7 +149,7 @@ struct ContentView: View {
                         }
                         .tag(1)
                         
-                        NumberEarthsView(ID: "5").environmentObject(statsController)
+                        NumberEarthsView(ID: "6").environmentObject(statsController)
                             .tabItem {
                                 VStack {
                                     Image(systemName: "person")

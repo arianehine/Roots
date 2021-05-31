@@ -58,7 +58,7 @@ struct ImproveView: View {
             
             
         Text("\(worstArea) is your worst area").foregroundColor(setTextColor(sample: sample, worstArea: worstArea) as! Color).shadow(color: .black, radius: 1)
-            Text("Your travel statistics:")
+            Text("Your \(worstArea) statistics:")
             Text("In the last \(timePeriod) you have:").font(.callout).padding(.bottom, 25.0).frame(alignment: .center)
             Group{
                 HStack{
@@ -88,13 +88,47 @@ struct ImproveView: View {
                 Spacer()
                 Text("Your worst \(worstArea) area is \(worstTravel)").font(.subheadline);
             }
-    }else if(worstArea == "Household") {
-        Text("Household")
-    }
-    else if(worstArea == "Clothing") {
+    }else if(worstArea == "Clothing") {
         Text("Clothing")
     }
-    else if(worstArea == "Food") {
+    else if(worstArea == "Household") {
+       
+        
+                var specifics = calculateHouseHold(reports: reports)
+                var worstHouseHold = getWorstHouseHoldArea(sample: specifics);
+                let heatingAmount = specifics[0]
+                let electricAmount = specifics[1]
+                let furnishingsAmount = specifics[2]
+                let lightingAmount = specifics[3]
+                
+                
+            Text("\(worstArea) is your worst area").foregroundColor(setTextColor(sample: sample, worstArea: worstArea) as! Color).shadow(color: .black, radius: 1)
+                Text("Your \(worstArea) statistics:")
+                Text("In the last \(timePeriod) you have:").font(.callout).padding(.bottom, 25.0).frame(alignment: .center)
+                Group{
+                    HStack{
+                        Image(systemName: "flame.fill")
+                        Text("Heating \(heatingAmount, specifier: "%.2f")").padding(.bottom) // Update tab title
+                    }
+                    HStack{
+                        Image(systemName: "bolt.fill")
+                        Text("Electric \(electricAmount, specifier: "%.2f")").padding(.bottom) // Update tab title
+                    }
+                    HStack{
+                        Image(systemName: "house.fill")
+                        Text("Furnishing \(furnishingsAmount, specifier: "%.2f")").padding(.bottom) // Update tab title
+                    }
+                    HStack{
+                        Image(systemName: "lightbulb.fill")
+                        Text("Lighting \(lightingAmount, specifier: "%.2f")").padding(.bottom) // Update tab title
+                    }
+                   
+                    Spacer()
+                    Text("Your worst \(worstArea) area is \(worstHouseHold)").font(.subheadline);
+                }
+        
+
+    }else if(worstArea == "Food") {
         Text("Food")
     }
     else if(worstArea == "Health") {
