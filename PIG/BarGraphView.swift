@@ -17,28 +17,27 @@ struct BarGraphView: View {
     var body: some View {
         
         VStack {
-            
-            HStack(alignment: .lastTextBaseline) {
-                if !(reports.count == 0) {
-                    ForEach(reports, id: \.year) { report in
-                        BarView(report: report) //need to keep a dynamic list of bars/reports
-                    }
                     
-                }else{
-                    Text("No data for this time period").font(.title)
+                    HStack(alignment: .lastTextBaseline) {
+                        if !(reports.count == 0) {
+                        ForEach(self.reports, id: \.year) { report in
+                            BarView(report: report) //need to keep a dynamic list of bars/reports
+                        }
+                            
+                        }else{
+                            Text("No data for this time period").font(.title)
+                        }
+                        
+                    }
+                    ToggleView(selected: $selection).onChange(of: selection, perform: { value in
+                        reports = statsController.updateReports(value: value, reports: originalReports, statsController: statsController)
+                    });
+                    
+                    
                 }
                 
-            })
-            ToggleView(selected: $selection).onChange(of: selection, perform: { value in
-                reports = statsController.updateReports(value: value, reports: originalReports, statsController: statsController)
-            });
-            
-            
+            }
         }
-        
-    }
-}
-
 
 struct BarView: View {
     
@@ -72,7 +71,7 @@ struct BarView: View {
 //    }
 //}
 
-struct Report{
+struct Report: Hashable{
     let year: String;
     let average: Double;
     let date: Date;

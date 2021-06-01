@@ -236,22 +236,26 @@ func convertCSVIntoArray() -> [UserData]{
 
         switch value {
         case "Day":
-            let reportsToReturn = statsController.getToday(reports: copyOfReports)
+            var reportsToReturn = statsController.getToday(reports: copyOfReports)
+            reportsToReturn = checkIfMerge(reports: reportsToReturn)
             print("Reports returned: ", reportsToReturn)
             return reportsToReturn;
             break;
         case "Week":
-            let reportsToReturn = statsController.getThisWeek(reports: copyOfReports)
+            var reportsToReturn = statsController.getThisWeek(reports: copyOfReports)
+            reportsToReturn = checkIfMerge(reports: reportsToReturn)
             print("Reports returned: ", reportsToReturn)
             return reportsToReturn;
             break;
         case "Month":
-            let reportsToReturn = statsController.getThisMonth(reports: copyOfReports)
+            var reportsToReturn = statsController.getThisMonth(reports: copyOfReports)
+            reportsToReturn = checkIfMerge(reports: reportsToReturn)
             print("Reports returned: ", reportsToReturn)
             return reportsToReturn;
             break;
         case "Year":
-            let reportsToReturn = statsController.getThisYear(reports: copyOfReports)
+            var reportsToReturn = statsController.getThisYear(reports: copyOfReports)
+            reportsToReturn = checkIfMerge(reports: reportsToReturn)
             print("Reports returned: ", reportsToReturn)
             return reportsToReturn;
             break;
@@ -292,10 +296,10 @@ func convertCSVIntoArray() -> [UserData]{
 }
 
 func checkIfMerge(reports: [Report]) -> [Report]{
-    
-    let mergedReports = [Report]()
+    var reportsEdit = reports;
+    var mergedReports = [Report]()
     for report in reports{
-        let matches = reports.filter { $0.date == report.date }
+        let matches = reports.filter { $0.year == report.year }
         if(matches.count>1){
         
             var year = ""
@@ -353,14 +357,38 @@ func checkIfMerge(reports: [Report]) -> [Report]{
                 food_dairy = food_dairy + item.food_dairy
                 food_oils = food_oils + item.food_oils
                 
+                //remove it because it's counting it twice
+                
             }
+            mergedReports.append(Report(year: year, average: average, date: date, transport: transport, household: household, clothing: clothing, health: health, food: food, transport_walking: transport_walking, transport_car: transport_car, transport_train: transport_train, transport_bus: transport_bus,transport_plane: transport_plane,household_heating: household_heating, household_electricity: household_electricity,household_furnishings: household_furnishings,household_lighting: household_lighting,clothing_fastfashion: clothing_fastfashion, clothing_sustainable: clothing_sustainable,health_meds: health_meds, health_scans: health_scans, food_meat: food_meat, food_fish: food_fish, food_dairy: food_dairy, food_oils: food_oils))
             
         }
+        
+        mergedReports = mergedReports.uniqued();
+    
     }
     
     return mergedReports;
 }
 
+extension Sequence where Element: Hashable {
+    func uniqued() -> [Element] {
+        var set = Set<Element>()
+        return filter { set.insert($0).inserted }
+    }
+}
+
+
+func removeArrayFromArray(allReports:[Report], reportsToRemove:[Report]) -> [Report]{
+    
+    var reportsEdit = allReports;
+    for item in reportsToRemove {
+        if let ix = reportsEdit.index(of: item) {
+            reportsEdit.remove(at: ix)
+        }
+    }
+    return reportsEdit
+}
 struct UserData {
     var ID: String
     var date: Date
