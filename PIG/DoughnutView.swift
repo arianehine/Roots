@@ -142,7 +142,7 @@ struct DoughnutView: View {
                     DonutChart(dataModel: ChartDataModel.init(dataModel: sample), onTap: {
                         dataModel in
                         if let dataModel = dataModel {
-                            self.selectedDonut = "Topic: \(dataModel.name)\n kg Co2: \(dataModel.value)"
+                            self.selectedDonut = "Topic: \(dataModel.name)\n kg Co2: " +  String(format: "%.2f", dataModel.value)
                         } else {
                             self.selectedDonut = ""
                         }
