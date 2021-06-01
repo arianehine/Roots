@@ -20,15 +20,15 @@ struct BarGraphView: View {
             
             HStack(alignment: .lastTextBaseline) {
                 if !(reports.count == 0) {
-                ForEach(self.reports, id: \.year) { report in
-                    BarView(report: report) //need to keep a dynamic list of bars/reports
-                }
+                    ForEach(reports, id: \.year) { report in
+                        BarView(report: report) //need to keep a dynamic list of bars/reports
+                    }
                     
                 }else{
                     Text("No data for this time period").font(.title)
                 }
                 
-            }
+            })
             ToggleView(selected: $selection).onChange(of: selection, perform: { value in
                 reports = statsController.updateReports(value: value, reports: originalReports, statsController: statsController)
             });
@@ -112,110 +112,110 @@ struct Report{
 //}
 //from https://stackoverflow.com/questions/33397101/how-to-get-mondays-date-of-the-current-week-in-swift
 extension Date {
-
-  static func today() -> Date {
-      return Date()
-  }
-
+    
+    static func today() -> Date {
+        return Date()
+    }
+    
     static func yesterday() -> Date {
         return Calendar.current.date(byAdding: .day, value: -1, to: Date())!
     }
     var startOfDay: Date {
-         return Calendar.current.startOfDay(for: self)
-     }
-
-     var endOfDay: Date {
-         var components = DateComponents()
-         components.day = 1
-         components.second = -1
-         return Calendar.current.date(byAdding: components, to: startOfDay)!
-     }
-
-     var startOfMonth: Date {
-         let components = Calendar.current.dateComponents([.year, .month], from: startOfDay)
-         return Calendar.current.date(from: components)!
-     }
-
+        return Calendar.current.startOfDay(for: self)
+    }
+    
+    var endOfDay: Date {
+        var components = DateComponents()
+        components.day = 1
+        components.second = -1
+        return Calendar.current.date(byAdding: components, to: startOfDay)!
+    }
+    
+    var startOfMonth: Date {
+        let components = Calendar.current.dateComponents([.year, .month], from: startOfDay)
+        return Calendar.current.date(from: components)!
+    }
+    
     var startOfYear: Date {
         let components = Calendar.current.dateComponents([.year], from: startOfDay)
         return Calendar.current.date(from: components)!
     }
-     var endOfMonth: Date {
-         var components = DateComponents()
-         components.month = 1
-         components.second = -1
-         return Calendar.current.date(byAdding: components, to: startOfMonth)!
-     }
-  func next(_ weekday: Weekday, considerToday: Bool = false) -> Date {
-    return get(.next,
-               weekday,
-               considerToday: considerToday)
-  }
-
-  func previous(_ weekday: Weekday, considerToday: Bool = false) -> Date {
-    return get(.previous,
-               weekday,
-               considerToday: considerToday)
-  }
-
-
-    
-    
-  func get(_ direction: SearchDirection,
-           _ weekDay: Weekday,
-           considerToday consider: Bool = false) -> Date {
-
-    let dayName = weekDay.rawValue
-
-    let weekdaysName = getWeekDaysInEnglish().map { $0.lowercased() }
-
-    assert(weekdaysName.contains(dayName), "weekday symbol should be in form \(weekdaysName)")
-
-    let searchWeekdayIndex = weekdaysName.firstIndex(of: dayName)! + 1
-
-    let calendar = Calendar(identifier: .gregorian)
-
-    if consider && calendar.component(.weekday, from: self) == searchWeekdayIndex {
-      return self
+    var endOfMonth: Date {
+        var components = DateComponents()
+        components.month = 1
+        components.second = -1
+        return Calendar.current.date(byAdding: components, to: startOfMonth)!
     }
-
-    var nextDateComponent = calendar.dateComponents([.hour, .minute, .second], from: self)
-    nextDateComponent.weekday = searchWeekdayIndex
-
-    let date = calendar.nextDate(after: self,
-                                 matching: nextDateComponent,
-                                 matchingPolicy: .nextTime,
-                                 direction: direction.calendarSearchDirection)
-
-    return date!
-  }
-
+    func next(_ weekday: Weekday, considerToday: Bool = false) -> Date {
+        return get(.next,
+                   weekday,
+                   considerToday: considerToday)
+    }
+    
+    func previous(_ weekday: Weekday, considerToday: Bool = false) -> Date {
+        return get(.previous,
+                   weekday,
+                   considerToday: considerToday)
+    }
+    
+    
+    
+    
+    func get(_ direction: SearchDirection,
+             _ weekDay: Weekday,
+             considerToday consider: Bool = false) -> Date {
+        
+        let dayName = weekDay.rawValue
+        
+        let weekdaysName = getWeekDaysInEnglish().map { $0.lowercased() }
+        
+        assert(weekdaysName.contains(dayName), "weekday symbol should be in form \(weekdaysName)")
+        
+        let searchWeekdayIndex = weekdaysName.firstIndex(of: dayName)! + 1
+        
+        let calendar = Calendar(identifier: .gregorian)
+        
+        if consider && calendar.component(.weekday, from: self) == searchWeekdayIndex {
+            return self
+        }
+        
+        var nextDateComponent = calendar.dateComponents([.hour, .minute, .second], from: self)
+        nextDateComponent.weekday = searchWeekdayIndex
+        
+        let date = calendar.nextDate(after: self,
+                                     matching: nextDateComponent,
+                                     matchingPolicy: .nextTime,
+                                     direction: direction.calendarSearchDirection)
+        
+        return date!
+    }
+    
 }
 
 // MARK: Helper methods
 extension Date {
-  func getWeekDaysInEnglish() -> [String] {
-    var calendar = Calendar(identifier: .gregorian)
-    calendar.locale = Locale(identifier: "en_US_POSIX")
-    return calendar.weekdaySymbols
-  }
-
-  enum Weekday: String {
-    case monday, tuesday, wednesday, thursday, friday, saturday, sunday
-  }
-
-  enum SearchDirection {
-    case next
-    case previous
-
-    var calendarSearchDirection: Calendar.SearchDirection {
-      switch self {
-      case .next:
-        return .forward
-      case .previous:
-        return .backward
-      }
+    func getWeekDaysInEnglish() -> [String] {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.locale = Locale(identifier: "en_US_POSIX")
+        return calendar.weekdaySymbols
     }
-  }
+    
+    enum Weekday: String {
+        case monday, tuesday, wednesday, thursday, friday, saturday, sunday
+    }
+    
+    enum SearchDirection {
+        case next
+        case previous
+        
+        var calendarSearchDirection: Calendar.SearchDirection {
+            switch self {
+            case .next:
+                return .forward
+            case .previous:
+                return .backward
+            }
+        }
+    }
 }
 

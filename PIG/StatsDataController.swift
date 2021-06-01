@@ -290,6 +290,77 @@ func convertCSVIntoArray() -> [UserData]{
     }
 
 }
+
+func checkIfMerge(reports: [Report]) -> [Report]{
+    
+    let mergedReports = [Report]()
+    for report in reports{
+        let matches = reports.filter { $0.date == report.date }
+        if(matches.count>1){
+        
+            var year = ""
+            var average = 0.0
+            var date = Date()
+            var transport = 0.0
+            var household = 0.0
+            var clothing = 0.0
+            var health = 0.0
+            var food = 0.0
+            var transport_walking = 0.0
+            var transport_car = 0.0
+            var transport_train = 0.0
+            var transport_bus = 0.0
+            var transport_plane = 0.0
+            var household_heating = 0.0
+            var household_electricity = 0.0
+            var household_furnishings = 0.0
+            var household_lighting = 0.0
+            var clothing_fastfashion = 0.0
+            var clothing_sustainable = 0.0
+            var health_meds = 0.0
+            var health_scans = 0.0
+            var food_meat = 0.0
+            var food_fish = 0.0
+            var food_dairy = 0.0
+            var food_oils = 0.0
+
+            
+            for (index,item) in matches.enumerated(){
+                
+                year = item.year
+                average = average + item.average
+                date = item.date
+                transport = transport + item.transport
+                household = household + item.household
+                clothing = clothing + item.clothing
+                health = health + item.health
+                food = food + item.food
+                transport_walking = transport_walking + item.transport_walking
+                transport_car = transport_car + item.transport_car
+                transport_train = transport_train + item.transport_train
+                transport_bus = transport_bus + item.transport_bus
+                transport_plane = transport_plane + item.transport_plane
+                household_heating = household_heating + item.household_heating
+                household_electricity = household_electricity + item.household_electricity
+                household_furnishings = household_furnishings + item.household_furnishings
+                household_lighting = household_lighting + item.household_lighting
+                clothing_fastfashion = clothing_fastfashion + item.clothing_fastfashion
+                clothing_sustainable = clothing_sustainable + item.clothing_sustainable
+                health_meds = health_meds + item.health_meds
+                health_scans = health_scans + item.health_scans
+                food_meat = food_meat + item.food_meat
+                food_fish = food_fish + item.food_fish
+                food_dairy = food_dairy + item.food_dairy
+                food_oils = food_oils + item.food_oils
+                
+            }
+            
+        }
+    }
+    
+    return mergedReports;
+}
+
 struct UserData {
     var ID: String
     var date: Date

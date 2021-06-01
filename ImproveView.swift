@@ -13,7 +13,7 @@ struct ImproveView: View {
     @Binding var reports: [Report]
     @Binding var sample: [ChartCellModel]
     @Binding var timePeriod: String
-    @State var worstTravel: String = "" //calculate this
+    @State var worstTravel: String = ""
     @State var walkedAmount: Double = 0.0
     @State var drivenAmount: Double = 0.0
     @State var trainAmount: Double = 0.0
@@ -24,8 +24,7 @@ struct ImproveView: View {
         VStack{
             
             getSpecifics(worstArea: worstArea, reports: reports, timePeriod: timePeriod, sample: sample, worstTravel: worstTravel);
-        
-        
+
             
             
         }
