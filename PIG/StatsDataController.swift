@@ -9,9 +9,18 @@ import SwiftUI
 
 class StatsDataController: ObservableObject {
     @State var originalPeople =  [UserData]();
+    @State var stateUser = [UserData]();
+    
+//    init() {
+//
+//        self.originalPeople = convertCSVIntoArray()
+//        self.stateUser = findUserData(people: originalPeople, ID: "6")
+//        }
   
 func convertCSVIntoArray() -> [UserData]{
+
     if(originalPeople.count == 0){
+        print("converting CSV into array")
     var people = [UserData]()
     
 
@@ -87,6 +96,7 @@ func convertCSVIntoArray() -> [UserData]{
 }
     
     func orderByDate(array: [UserData]) -> [UserData]{
+        print("ordering")
       
         var dateFormatter = DateFormatter()
         var convertedArray = [UserData]()
@@ -105,7 +115,7 @@ func convertCSVIntoArray() -> [UserData]{
     }
     
     func orderReportsByDate(array: [Report]) -> [Report]{
-      
+        print("ordering")
         var dateFormatter = DateFormatter()
         var convertedArray = [Report]()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -313,13 +323,17 @@ func convertCSVIntoArray() -> [UserData]{
 
 
     func findUserData(people: [UserData], ID: String) -> [UserData]{
+        print("findng user")
         var user = [UserData]();
+        if(stateUser.count == 0 ){
         let matches = people.filter { $0.ID == ID }
        
         for item in matches{
             user.append(item)
     }
         print(user.count)
+        }else {
+            user = stateUser;}
         return user;
 
   

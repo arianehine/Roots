@@ -12,11 +12,16 @@ import Firebase
 struct PIGApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @State var statsController = StatsDataController();
+    @State var originalPeople =  [UserData]();
+
     var body: some Scene {
         WindowGroup {
             let viewModel = AppViewModel();
-            ContentView()
+            let originalPeople = statsController.convertCSVIntoArray()
+            ContentView(originalPeople: originalPeople)
                 .environmentObject(viewModel)
+                .environmentObject(statsController)
         }
     }
 }

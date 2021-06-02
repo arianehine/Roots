@@ -113,6 +113,7 @@ struct DoughnutView: View {
     @State var sample = [ChartCellModel]()
     @Binding var reports: [Report]
     @Binding var originalReports: [Report]
+    @State var originalPeople : [UserData]
     var body: some View {
         NavigationView{
         ScrollView {
@@ -170,7 +171,22 @@ struct DoughnutView: View {
                             }
             
             }.frame(minHeight: 350, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            .onAppear{ people = statsController.convertCSVIntoArray();
+            .onAppear{
+                
+                print(statsController.originalPeople.count)
+                
+                if(statsController.originalPeople.count != 0){
+                    print("it was not 0")
+                    people = statsController.originalPeople
+                   
+                }
+                   
+                  else{
+                    print("it was 0")
+                    people = originalPeople
+                   }
+        
+                print("yo")
                 let user = statsController.findUserData(people: people, ID: ID);
 //                self.reports = statsController.convertToReports(users: user);
                 self.originalReports = statsController.convertToReports(users: user);
@@ -178,7 +194,7 @@ struct DoughnutView: View {
             Spacer()
             if !(reports.count==0){
 
-                NavigationLink(destination: ImproveView(worstArea: $worstArea, reports: $reports, sample: $sample, timePeriod: $selection)) {
+                NavigationLink(destination: ImproveView(statsController: statsController, worstArea: $worstArea, reports: $reports, sample: $sample, timePeriod: $selection)) {
                     Text("Your worst area is \(worstArea)").foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/).underline()
                 }.environmentObject(statsController).buttonStyle(PlainButtonStyle())
                 
@@ -214,11 +230,12 @@ func updateWorstArea(samples: [ChartCellModel]) -> String{
     return worst;
     
 }
-struct PieChart_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+//struct PieChart_Previews: PreviewProvider {
+//    var statsController: StatsDataController
+//    static var previews: some View {
+//        ContentView(statsController: statsController)
+//    }
+//}
 
 struct ChartCellModel: Identifiable {
     let id = UUID()

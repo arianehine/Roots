@@ -19,12 +19,18 @@ struct StatsView: View {
    @State var averageInKg: Double = 0;
    @State var reports: [Report] = [Report]();
    @State var originalReports: [Report] = [Report]();
-   
+@State var originalPeople : [UserData]
     
     var body: some View {
  
        
-        BarGraphView(reports: $reports, originalReports: $originalReports).environmentObject(statsController).onAppear{ people = statsController.convertCSVIntoArray();
+        BarGraphView(reports: $reports, originalReports: $originalReports).environmentObject(statsController).onAppear{
+            
+            if (statsController.originalPeople.count == 0) {
+                people = originalPeople;
+            } else{
+            people = originalPeople;
+            }
         let user = statsController.findUserData(people: people, ID: ID);
             self.reports = statsController.convertToReports(users: user);
             self.originalReports = statsController.convertToReports(users: user);
@@ -78,9 +84,9 @@ func textColour(gtOrLt: String) -> Color
 }
 
 
-struct StatsView_Previews: PreviewProvider {
-    static var previews: some View {
-        StatsView(ID: "1")
-    }
-}
+//struct StatsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        StatsView(ID: "1")
+//    }
+//}
 

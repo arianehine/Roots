@@ -101,12 +101,12 @@ class AppViewModel: ObservableObject{
 struct ContentView: View {
     let auth = Auth.auth();
     @EnvironmentObject var viewModel: AppViewModel
-    @StateObject var statsController = StatsDataController();
+    @EnvironmentObject var statsController: StatsDataController
     @State var selection = ""
     @State var name = ""
     @State var originalReports: [Report] = [Report]();
     @State var reports: [Report] = [Report]();
- 
+    @State var originalPeople =  [UserData]();
     
     
     var body: some View {
@@ -115,8 +115,10 @@ struct ContentView: View {
 
             
             if viewModel.signedIn{
+               
 
                 VStack{
+    
 //                Text("You are signed in")
 //                    .padding()
 //                Button(action: {
@@ -129,7 +131,7 @@ struct ContentView: View {
 //                        .padding()
 //                })
                     TabView(selection: $selection){
-                        StatsView(ID: "6").environmentObject(statsController)
+                        StatsView(ID: "6", originalPeople: originalPeople).environmentObject(statsController)
                             .tabItem {
                                 VStack {
                                     Image(systemName: "chart.bar")
@@ -139,7 +141,7 @@ struct ContentView: View {
                         .tag(0)
                         
                        
-                        DoughnutView(ID: "6", reports: $reports, originalReports: $originalReports).environmentObject(statsController)
+                        DoughnutView(ID: "6", reports: $reports, originalReports: $originalReports, originalPeople: originalPeople).environmentObject(statsController)
                             .font(.title)
                             .tabItem {
                                 VStack {
@@ -310,6 +312,7 @@ struct ContentView: View {
                     .frame(width: 150, height: 150, alignment: .center)
                 
                 VStack{
+                 
                     TextField("First Name", text: $firstName)
                         .disableAutocorrection(true)
                         .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
@@ -367,12 +370,12 @@ struct ContentView: View {
         }
         
     }
-    struct ContentView_Previews: PreviewProvider {
-        static var previews: some View {
-            ContentView()
-        }
-    }
-    
+//    struct ContentView_Previews: PreviewProvider {
+//        static var previews: some View {
+//            ContentView(statsController: statsController)
+//        }
+//    }
+//
     struct ErrorView : View {
         
         @State var color = Color.black.opacity(0.7)

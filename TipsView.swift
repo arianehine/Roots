@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TipsView: View {
-    @StateObject var statsController = StatsDataController();
+    @State var statsController: StatsDataController
     @Binding var worstArea: String
     var body: some View {
         Text("Tips to improve \(worstArea) :) ");

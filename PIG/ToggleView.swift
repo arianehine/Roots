@@ -50,11 +50,12 @@ struct ToggleView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    var statsController: StatsDataController
+//    static var previews: some View {
+//        ContentView(statsController: statsController)
+//    }
+//}
 
 struct RadioButtons : View {
     

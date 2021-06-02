@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ImproveView: View {
-    @StateObject var statsController = StatsDataController();
+    @StateObject var statsController: StatsDataController
     @Binding var worstArea: String
     @Binding var reports: [Report]
     @Binding var sample: [ChartCellModel]
@@ -28,7 +28,7 @@ struct ImproveView: View {
             
             
         }
-        NavigationLink(destination: TipsView(worstArea: $worstArea)) {
+        NavigationLink(destination: TipsView(statsController: statsController, worstArea: $worstArea)) {
             Text("How to improve \(worstArea)?").background(setTextColor(sample: sample, worstArea: worstArea)).foregroundColor(.white).cornerRadius(10).padding(.bottom)
         }.environmentObject(statsController).buttonStyle(PlainButtonStyle())
         

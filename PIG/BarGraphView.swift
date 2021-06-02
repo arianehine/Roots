@@ -21,7 +21,7 @@ struct BarGraphView: View {
         VStack {
                     
                     HStack(alignment: .lastTextBaseline) {
-                        if !(reports.count == 0) {
+                        if !(reports.count == 0 || selection == "") {
                         let maxValue =  reports.map { $0.average }.max()
                             let divisor = (maxValue ?? 500) / 5.0
                             let barWidth = 300 / reports.count
