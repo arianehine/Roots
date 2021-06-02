@@ -178,7 +178,9 @@ func convertCSVIntoArray() -> [UserData]{
         
         for report in reports{
             if report.date<now.endOfDay && report.date>startOfMonth.startOfDay{
-                returnReports.append(report)
+                let weekOfMonth = Date.getWeekOfMonth(date: report.date);
+                let reportNew = Report(year: weekOfMonth, average: report.average, date: report.date, transport: report.transport, household: report.household, clothing: report.clothing, health: report.health, food: report.food, transport_walking: report.transport_walking, transport_car: report.transport_car, transport_train: report.transport_train, transport_bus: report.transport_bus, transport_plane: report.transport_plane, household_heating: report.household_heating,household_electricity: report.household_electricity, household_furnishings: report.household_furnishings, household_lighting: report.household_lighting, clothing_fastfashion: report.clothing_fastfashion, clothing_sustainable: report.clothing_sustainable, health_meds: report.health_meds, health_scans: report.health_scans, food_meat: report.food_meat, food_fish: report.food_fish, food_dairy: report.food_dairy, food_oils: report.food_oils)
+                returnReports.append(reportNew)
             }
         }
        

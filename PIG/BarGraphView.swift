@@ -129,6 +129,11 @@ extension Date {
         return customDateFormatter.monthSymbols[Calendar.current.component(.month, from: date ) - 1]
     }
     
+    static func getWeekOfMonth(date: Date) -> String{
+        let numberOfWeeks = Calendar.current.component(.weekOfMonth, from: date)
+        return String("Week " + String(numberOfWeeks))
+    }
+    
     static func today() -> Date {
         return Date()
     }
