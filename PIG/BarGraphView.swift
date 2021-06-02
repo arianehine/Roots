@@ -54,7 +54,7 @@ struct BarView: View {
         
         return VStack {
             
-            Text(String(format: "$%.2f",report.average))
+            Text(String(format: "%.2f kg Co2",report.average)).font(/*@START_MENU_TOKEN@*/.caption/*@END_MENU_TOKEN@*/)
             Rectangle()
                 .fill(report.average < 2200 ? Color.green : Color.red)
                 .frame(width: 50, height: CGFloat(yValue))
@@ -120,6 +120,12 @@ extension Date {
         let customDateFormatter = DateFormatter();
         return customDateFormatter.weekdaySymbols[Calendar.current.component(.weekday, from: date ) - 1]
     }
+    
+    static func getMonth(date: Date) -> String {
+        let customDateFormatter = DateFormatter();
+        return customDateFormatter.monthSymbols[Calendar.current.component(.month, from: date ) - 1]
+    }
+    
     static func today() -> Date {
         return Date()
     }
