@@ -11,6 +11,7 @@ import SwiftUI
 
 struct BarGraphView: View {
     @State var selection = "";
+    @State var divisor = 0;
     @Binding var reports: [Report]
     @Binding var originalReports: [Report]
     @EnvironmentObject var statsController: StatsDataController
@@ -20,8 +21,10 @@ struct BarGraphView: View {
                     
                     HStack(alignment: .lastTextBaseline) {
                         if !(reports.count == 0) {
+                        let maxValue =  reports.map { $0.average }.max()
+                            let divisor = (maxValue ?? 500) / 5.0
                         ForEach(self.reports, id: \.year) { report in
-                            BarView(report: report) //need to keep a dynamic list of bars/reports
+                            BarView(report: report, divisor: divisor) //need to keep a dynamic list of bars/reports
                         }
                             
                         }else{
@@ -42,11 +45,12 @@ struct BarGraphView: View {
 struct BarView: View {
     
     let report: Report
+    let divisor: Double
     
     var body: some View {
         
-        let value = report.average / 500
-        let yValue = Swift.min(value * 20, 500)
+        let value = report.average / divisor
+        let yValue = Swift.min(value * 20, divisor)
         
         return VStack {
             
