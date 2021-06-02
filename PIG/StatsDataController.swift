@@ -8,8 +8,10 @@
 import SwiftUI
 
 class StatsDataController: ObservableObject {
+    @State var originalPeople =  [UserData]();
   
 func convertCSVIntoArray() -> [UserData]{
+    if(originalPeople.count == 0){
     var people = [UserData]()
     
 
@@ -75,7 +77,13 @@ func convertCSVIntoArray() -> [UserData]{
        }
     }
     
-    return orderByDate(array: people);
+    
+    originalPeople = orderByDate(array: people);
+        return people;
+    }else {
+        print("original people has", originalPeople.count)
+        return originalPeople;
+    }
 }
     
     func orderByDate(array: [UserData]) -> [UserData]{
@@ -365,6 +373,32 @@ func checkIfMerge(reports: [Report]) -> [Report]{
                 //remove it because it's counting it twice
                 
             }
+            
+            //average it out
+//            average = average / Double(matches.count)
+//            transport = transport / Double(matches.count)
+//            household = household / Double(matches.count)
+//            clothing = clothing / Double(matches.count)
+//            health = health / Double(matches.count)
+//            food = food / Double(matches.count)
+//            transport_walking = transport_walking / Double(matches.count)
+//            transport_car = transport_car / Double(matches.count)
+//            transport_train = transport_train / Double(matches.count)
+//            transport_bus = transport_bus / Double(matches.count)
+//            transport_plane = transport_plane / Double(matches.count)
+//            household_heating = household_heating / Double(matches.count)
+//            household_electricity = household_electricity / Double(matches.count)
+//            household_furnishings = household_furnishings / Double(matches.count)
+//            household_lighting = household_lighting / Double(matches.count)
+//            clothing_fastfashion = clothing_fastfashion  / Double(matches.count)
+//            clothing_sustainable = clothing_sustainable / Double(matches.count)
+//            health_meds = health_meds / Double(matches.count)
+//            health_scans = health_scans  / Double(matches.count)
+//            food_meat = food_meat  / Double(matches.count)
+//            food_fish = food_fish / Double(matches.count)
+//            food_dairy = food_dairy / Double(matches.count)
+//            food_oils = food_oils / Double(matches.count)
+            
             mergedReports.append(Report(year: year, average: average, date: date, transport: transport, household: household, clothing: clothing, health: health, food: food, transport_walking: transport_walking, transport_car: transport_car, transport_train: transport_train, transport_bus: transport_bus,transport_plane: transport_plane,household_heating: household_heating, household_electricity: household_electricity,household_furnishings: household_furnishings,household_lighting: household_lighting,clothing_fastfashion: clothing_fastfashion, clothing_sustainable: clothing_sustainable,health_meds: health_meds, health_scans: health_scans, food_meat: food_meat, food_fish: food_fish, food_dairy: food_dairy, food_oils: food_oils))
             
         }
