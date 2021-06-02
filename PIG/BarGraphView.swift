@@ -12,6 +12,7 @@ import SwiftUI
 struct BarGraphView: View {
     @State var selection = "";
     @State var divisor = 0;
+    @State var barWidth = 0;
     @Binding var reports: [Report]
     @Binding var originalReports: [Report]
     @EnvironmentObject var statsController: StatsDataController
@@ -23,8 +24,9 @@ struct BarGraphView: View {
                         if !(reports.count == 0) {
                         let maxValue =  reports.map { $0.average }.max()
                             let divisor = (maxValue ?? 500) / 5.0
+                            let barWidth = 300 / reports.count
                         ForEach(self.reports, id: \.year) { report in
-                            BarView(report: report, divisor: divisor) //need to keep a dynamic list of bars/reports
+                            BarView(report: report, divisor: divisor, barWidth: CGFloat(barWidth)) //need to keep a dynamic list of bars/reports
                         }
                             
                         }else{
@@ -46,6 +48,7 @@ struct BarView: View {
     
     let report: Report
     let divisor: Double
+    let barWidth: CGFloat
     
     var body: some View {
         
@@ -57,7 +60,7 @@ struct BarView: View {
             Text(String(format: "%.2f kg Co2",report.average)).font(/*@START_MENU_TOKEN@*/.caption/*@END_MENU_TOKEN@*/)
             Rectangle()
                 .fill(report.average < 2200 ? Color.green : Color.red)
-                .frame(width: 50, height: CGFloat(yValue))
+                .frame(width: barWidth, height: CGFloat(yValue))
             
             Text(report.year)
             
