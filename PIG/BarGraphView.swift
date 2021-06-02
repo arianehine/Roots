@@ -45,15 +45,15 @@ struct BarView: View {
     
     var body: some View {
         
-        let value = report.average / 300
-        let yValue = Swift.min(value * 20, 300)
+        let value = report.average / 500
+        let yValue = Swift.min(value * 20, 500)
         
         return VStack {
             
             Text(String(format: "$%.2f",report.average))
             Rectangle()
                 .fill(report.average < 2200 ? Color.green : Color.red)
-                .frame(width: 100, height: CGFloat(yValue))
+                .frame(width: 50, height: CGFloat(yValue))
             
             Text(report.year)
             
@@ -112,6 +112,10 @@ struct Report: Hashable{
 //from https://stackoverflow.com/questions/33397101/how-to-get-mondays-date-of-the-current-week-in-swift
 extension Date {
     
+    static func getWeekday(date: Date) -> String {
+        let customDateFormatter = DateFormatter();
+        return customDateFormatter.weekdaySymbols[Calendar.current.component(.weekday, from: date ) - 1]
+    }
     static func today() -> Date {
         return Date()
     }
@@ -188,6 +192,16 @@ extension Date {
         
         return date!
     }
+   
+    func getDayNameBy(stringDate: String) -> String
+        {
+        let df  = DateFormatter()
+            df.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let date = df.date(from: stringDate)!
+            df.dateFormat = "EEEE"
+        return df.string(from: date);
+        }
+    
     
 }
 

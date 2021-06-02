@@ -162,6 +162,7 @@ func convertCSVIntoArray() -> [UserData]{
     func getThisWeek(reports: [Report]) -> [Report]{
        
         let monday = Date.today().previous(.monday)
+        let customDateFormatter = DateFormatter()
         var returnReports = [Report]();
         var now = Date();
         let tz = TimeZone.current
@@ -173,6 +174,8 @@ func convertCSVIntoArray() -> [UserData]{
         
         for report in reports{
             if report.date<now.endOfDay && report.date>monday.startOfDay{
+                let stringWeekday = Date.getWeekday(date: report.date)
+                print(stringWeekday);
                 returnReports.append(report)
             }
         }
@@ -180,6 +183,7 @@ func convertCSVIntoArray() -> [UserData]{
         return returnReports;
         
     }
+   
     func getThisYear(reports: [Report]) -> [Report]{
         var returnReports = [Report]();
         var now = Date();
