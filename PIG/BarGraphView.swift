@@ -72,9 +72,9 @@ struct BarView: View {
 //}
 
 struct Report: Hashable{
-    let year: String;
+    var year: String;
     let average: Double;
-    let date: Date;
+    var date: Date;
     let transport: Double
     let household: Double
     let clothing: Double
