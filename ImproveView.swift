@@ -298,6 +298,23 @@ func setTextColor(sample: [ChartCellModel], worstArea: String) -> Color{
     return Color.black;
 }
 
+public func setTextColor(worstArea: String) -> Color{
+        if(worstArea == "Transport"){
+            return Color.red;
+        } else if(worstArea == "Household"){
+            return Color.yellow;
+    }else if(worstArea == "Health"){
+        return Color.blue;
+}else if(worstArea == "Fashion"){
+    return Color.purple;
+}
+else if(worstArea == "Food"){
+    return Color.green;
+}
+    return Color.black;
+}
+
+
 func getWorstTravelArea(sample: [Double]) -> String{
     var max = 0.0
     var counter = 0

@@ -19,6 +19,7 @@
 		D68366DD2655557000648C1B /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68366DC2655557000648C1B /* ToggleView.swift */; };
 		D68DCAD8266AA64600AA9116 /* PledgesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68DCAD7266AA64600AA9116 /* PledgesView.swift */; };
 		D68DCADD266AA65800AA9116 /* TrophiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68DCADC266AA65800AA9116 /* TrophiesView.swift */; };
+		D68DCAF2266AAFC500AA9116 /* synthesisedData.csv in Resources */ = {isa = PBXBuildFile; fileRef = D68DCAF1266AAFC500AA9116 /* synthesisedData.csv */; };
 		D69C7AA4265801E500D209DB /* DoughnutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69C7AA3265801E500D209DB /* DoughnutView.swift */; };
 		D69C7AA92658099B00D209DB /* StatsDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69C7AA82658099B00D209DB /* StatsDataController.swift */; };
 		D69C7AAE26592F3E00D209DB /* NumberEarthsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69C7AAD26592F3E00D209DB /* NumberEarthsView.swift */; };
@@ -67,6 +68,7 @@
 		D68366DC2655557000648C1B /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
 		D68DCAD7266AA64600AA9116 /* PledgesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PledgesView.swift; sourceTree = "<group>"; };
 		D68DCADC266AA65800AA9116 /* TrophiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophiesView.swift; sourceTree = "<group>"; };
+		D68DCAF1266AAFC500AA9116 /* synthesisedData.csv */ = {isa = PBXFileReference; lastKnownFileType = text; name = synthesisedData.csv; path = ../../Imperial/DISS/synthesisedData.csv; sourceTree = "<group>"; };
 		D69C7AA3265801E500D209DB /* DoughnutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoughnutView.swift; sourceTree = "<group>"; };
 		D69C7AA82658099B00D209DB /* StatsDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsDataController.swift; sourceTree = "<group>"; };
 		D69C7AAD26592F3E00D209DB /* NumberEarthsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberEarthsView.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 		D6DC2C79264D2E9D008C6A72 /* PIG */ = {
 			isa = PBXGroup;
 			children = (
+				D68DCAF1266AAFC500AA9116 /* synthesisedData.csv */,
 				D64DB1E32652C1B700D6FA4D /* synthesisedData.csv */,
 				D6DC2C7A264D2E9D008C6A72 /* PIGApp.swift */,
 				D6DC2C7C264D2E9D008C6A72 /* ContentView.swift */,
@@ -326,6 +329,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6DC2C82264D2EA3008C6A72 /* Preview Assets.xcassets in Resources */,
+				D68DCAF2266AAFC500AA9116 /* synthesisedData.csv in Resources */,
 				D6DC2C7F264D2EA3008C6A72 /* Assets.xcassets in Resources */,
 				D64DB1E42652C1B700D6FA4D /* synthesisedData.csv in Resources */,
 				D6DC2CC3264D34A6008C6A72 /* GoogleService-Info.plist in Resources */,

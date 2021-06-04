@@ -12,9 +12,10 @@ struct TipsView: View {
     @Binding var worstArea: String
     var body: some View {
         Text("Tips to improve \(worstArea) :) ");
+        Spacer()
         whatToImprove(worstArea: worstArea)
 
-        NavigationLink(destination: PledgesView()) {
+        NavigationLink(destination: PledgesView(worstArea: worstArea)) {
             ButtonView(worstArea: worstArea)
                   }
         
@@ -29,8 +30,8 @@ struct ButtonView: View {
     var body: some View {
         
        
-    Text("Ready to improve \(worstArea)?").padding(.vertical).padding(.horizontal,25).foregroundColor(.white)
-    .background(LinearGradient(gradient: .init(colors: [Color("Color"),Color("Color1")]), startPoint: .leading, endPoint: .trailing))
+        Text("Ready to improve \(worstArea)?").padding(.vertical).padding(.horizontal,25).foregroundColor(.white).font(.body)
+        .background(LinearGradient(gradient: .init(colors: [Color("Color"),Color("Color1")]), startPoint: .leading, endPoint: .trailing).frame(width: 300, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/))
     .clipShape(Capsule())
 }
 }
@@ -40,18 +41,47 @@ struct ButtonView: View {
     switch worstArea {
     case "Transport":
         VStack{
-        Text("Transport")
+            Text("Swap the car for a bike ride every Monday!")
+            Spacer()
+            Text("If the journey will take less than 20 minutes to walk it, walk it")
+        
+            Spacer()
+            Text("Carpool with friends")
         }
     case "Food":
-        Text("Food")
-    case "Home":
-        Text("Home")
+        VStack{
+            Text("Try eating veggie for a week!")
+            Spacer()
+            Text("Try swapping dairy for dairys alternative")
+            Spacer()
+            Text("Ear organic")
+        }
+
+    case "Household":
+        VStack{
+            Text("Turn off lights when you leave the room!")
+            Spacer()
+            Text("Swapping energy providers may help, explore your options")
+            Spacer()
+            Text("Only wash clothes with a full machine!")
+        }
     case "Fashion":
-        Text("Fashion")
+        VStack{
+            Text("Get rid of 'premier delivery', it is too temping")
+            Spacer()
+            Text("Shop your wardrobe instead of buying new things")
+            Spacer()
+            Text("Choose charity shops over the high street")
+        }
     case "Health":
-        Text("Health")
+        VStack{
+            Text("Use the medicines you have at home before buying more!")
+            Spacer()
+        }
     default:
+        VStack{
         Text("Else")
+        }
     }
 }
 }
