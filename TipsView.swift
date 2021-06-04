@@ -13,15 +13,35 @@ struct TipsView: View {
     var body: some View {
         Text("Tips to improve \(worstArea) :) ");
         whatToImprove(worstArea: worstArea)
+
+        NavigationLink(destination: PledgesView()) {
+            ButtonView(worstArea: worstArea)
+                  }
+        
+    
+        
         
         
     }
+
+struct ButtonView: View {
+    let worstArea: String
+    var body: some View {
+        
+       
+    Text("Ready to improve \(worstArea)?").padding(.vertical).padding(.horizontal,25).foregroundColor(.white)
+    .background(LinearGradient(gradient: .init(colors: [Color("Color"),Color("Color1")]), startPoint: .leading, endPoint: .trailing))
+    .clipShape(Capsule())
 }
+}
+
 
 @ViewBuilder func whatToImprove(worstArea: String)-> some View{
     switch worstArea {
     case "Transport":
+        VStack{
         Text("Transport")
+        }
     case "Food":
         Text("Food")
     case "Home":
@@ -33,6 +53,7 @@ struct TipsView: View {
     default:
         Text("Else")
     }
+}
 }
 
 //struct TipsView_Previews: PreviewProvider {
