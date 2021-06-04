@@ -14,76 +14,139 @@ struct TipsView: View {
         Text("Tips to improve \(worstArea) :) ");
         Spacer()
         whatToImprove(worstArea: worstArea)
-
+        Spacer()
         NavigationLink(destination: PledgesView(worstArea: worstArea)) {
             ButtonView(worstArea: worstArea)
-                  }
+        }
         
+        
+        
+        
+        
+    }
     
-        
-        
-        
-    }
-
-struct ButtonView: View {
-    let worstArea: String
-    var body: some View {
-        
-       
-        Text("Ready to improve \(worstArea)?").padding(.vertical).padding(.horizontal,25).foregroundColor(.white).font(.body)
-        .background(LinearGradient(gradient: .init(colors: [Color("Color"),Color("Color1")]), startPoint: .leading, endPoint: .trailing).frame(width: 300, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/))
-    .clipShape(Capsule())
-}
-}
-
-
-@ViewBuilder func whatToImprove(worstArea: String)-> some View{
-    switch worstArea {
-    case "Transport":
-        VStack{
-            Text("Swap the car for a bike ride every Monday!")
-            Spacer()
-            Text("If the journey will take less than 20 minutes to walk it, walk it")
-        
-            Spacer()
-            Text("Carpool with friends")
-        }
-    case "Food":
-        VStack{
-            Text("Try eating veggie for a week!")
-            Spacer()
-            Text("Try swapping dairy for dairys alternative")
-            Spacer()
-            Text("Ear organic")
-        }
-
-    case "Household":
-        VStack{
-            Text("Turn off lights when you leave the room!")
-            Spacer()
-            Text("Swapping energy providers may help, explore your options")
-            Spacer()
-            Text("Only wash clothes with a full machine!")
-        }
-    case "Fashion":
-        VStack{
-            Text("Get rid of 'premier delivery', it is too temping")
-            Spacer()
-            Text("Shop your wardrobe instead of buying new things")
-            Spacer()
-            Text("Choose charity shops over the high street")
-        }
-    case "Health":
-        VStack{
-            Text("Use the medicines you have at home before buying more!")
-            Spacer()
-        }
-    default:
-        VStack{
-        Text("Else")
+    struct ButtonView: View {
+        let worstArea: String
+        var body: some View {
+            
+            
+            Text("Ready to improve \(worstArea)?").padding(.vertical).padding(.horizontal,25).foregroundColor(.white).font(.body)
+                .background(LinearGradient(gradient: .init(colors: [Color("Color"),Color("Color1")]), startPoint: .leading, endPoint: .trailing).frame(width: 300, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/))
+                .clipShape(Capsule())
         }
     }
-}
+    
+    
+    @ViewBuilder func whatToImprove(worstArea: String)-> some View{
+        switch worstArea {
+        case "Transport":
+            VStack{
+                HStack{
+                    Spacer()
+                    Text("Swap the car for a bike ride every Monday!")
+                    Spacer()
+                }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+            
+                HStack{
+                    HStack{
+                        Spacer()
+                        Text("Swap the car for a bike ride every Monday!")
+                        Spacer()
+                    }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+                }
+                
+                HStack{
+                    HStack{
+                        Spacer()
+                        Text("Swap the car for a bike ride every Monday!")
+                        Spacer()
+                    }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+                
+                }
+            }
+        case "Food":
+            VStack{
+                HStack{
+                Text("Try eating veggie for a week!")
+                }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+            
+                HStack{
+                Text("Try swapping dairy for dairys alternative")
+                }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+                HStack{
+                Text("Eat organic")
+                }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+            
+            }
+            
+        case "Household":
+            VStack{
+                HStack{
+                    Text("Turn off lights when you leave the room!")
+                }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+                
+                HStack{
+                    Text("Swapping energy providers may help, explore your options")
+                }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+                
+                HStack{
+                    Text("Only wash clothes with a full machine!")
+                }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+            }
+        case "Fashion":
+            VStack{
+                HStack{
+                    Text("Get rid of 'premier delivery', it is too temping")
+                }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+                
+                HStack{
+                    Text("Shop your wardrobe instead of buying new things")
+                }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+                
+                HStack{
+                    Text("Choose charity shops over the high street")
+                }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+                
+            }
+        case "Health":
+            VStack{
+                HStack{
+                Text("Use the medicines you have at home before buying more!")
+                }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+            
+            }
+        default:
+            VStack{
+                Text("Else")
+            }
+        }
+    }
 }
 
 //struct TipsView_Previews: PreviewProvider {
