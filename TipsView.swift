@@ -47,26 +47,26 @@ struct TipsView: View {
                     Spacer()
                 }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                     RoundedRectangle(cornerRadius: 16)
-                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4)).padding(.bottom)
             
                 HStack{
                     HStack{
                         Spacer()
-                        Text("Swap the car for a bike ride every Monday!")
+                        Text("Take no taxis this week")
                         Spacer()
                     }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                         RoundedRectangle(cornerRadius: 16)
-                            .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+                            .stroke(setTextColor(worstArea: worstArea), lineWidth: 4)).padding(.bottom)
                 }
                 
                 HStack{
                     HStack{
                         Spacer()
-                        Text("Swap the car for a bike ride every Monday!")
+                        Text("Carpool with friends once this week")
                         Spacer()
                     }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                         RoundedRectangle(cornerRadius: 16)
-                            .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+                            .stroke(setTextColor(worstArea: worstArea), lineWidth: 4)).padding(.bottom)
                 
                 }
             }
@@ -76,18 +76,18 @@ struct TipsView: View {
                 Text("Try eating veggie for a week!")
                 }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                     RoundedRectangle(cornerRadius: 16)
-                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4)).padding(.bottom)
             
                 HStack{
                 Text("Try swapping dairy for dairys alternative")
                 }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                     RoundedRectangle(cornerRadius: 16)
-                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4)).padding(.bottom)
                 HStack{
                 Text("Eat organic")
                 }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                     RoundedRectangle(cornerRadius: 16)
-                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4)).padding(.bottom)
             
             }
             
@@ -97,19 +97,19 @@ struct TipsView: View {
                     Text("Turn off lights when you leave the room!")
                 }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                     RoundedRectangle(cornerRadius: 16)
-                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4)).padding(.bottom)
                 
                 HStack{
                     Text("Swapping energy providers may help, explore your options")
                 }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                     RoundedRectangle(cornerRadius: 16)
-                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4)).padding(.bottom)
                 
                 HStack{
                     Text("Only wash clothes with a full machine!")
                 }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                     RoundedRectangle(cornerRadius: 16)
-                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4)).padding(.bottom)
             }
         case "Fashion":
             VStack{
@@ -117,19 +117,19 @@ struct TipsView: View {
                     Text("Get rid of 'premier delivery', it is too temping")
                 }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                     RoundedRectangle(cornerRadius: 16)
-                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4)).padding(.bottom)
                 
                 HStack{
                     Text("Shop your wardrobe instead of buying new things")
                 }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                     RoundedRectangle(cornerRadius: 16)
-                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4)).padding(.bottom)
                 
                 HStack{
                     Text("Choose charity shops over the high street")
                 }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                     RoundedRectangle(cornerRadius: 16)
-                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4)).padding(.bottom)
                 
             }
         case "Health":
@@ -138,7 +138,7 @@ struct TipsView: View {
                 Text("Use the medicines you have at home before buying more!")
                 }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                     RoundedRectangle(cornerRadius: 16)
-                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4))
+                        .stroke(setTextColor(worstArea: worstArea), lineWidth: 4)).padding(.bottom)
             
             }
         default:
