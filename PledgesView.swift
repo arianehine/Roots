@@ -12,20 +12,16 @@ struct PledgesView: View {
     let worstArea: String
     @State var selection: String? = nil
     var body: some View {
-//
-//                       Text("Select a pledge!")
-//                           .padding().zIndex(1.0)
+
+                       Text("Select a pledge!")
+                           .padding()
         let pledgeList = getListOfPledges(worstArea: worstArea)
                     List(pledgeList) {
                         pledge in
                         Spacer()
-                        NavigationLink(destination: PleadeConfirmation(pledgePicked: $selection)) {
-                            pledgeRow(pledge: pledge, worstArea: worstArea).onTapGesture {
-                                selection = pledge.description
-                            }
-//                            }.onAppear {
-//                                self.selection = nil
-//                            }
+                        NavigationLink(destination: PleadeConfirmation(pledgePicked: pledge.description)){
+                            pledgeRow(pledge: pledge, worstArea: worstArea)
+
                     }
                     }
     

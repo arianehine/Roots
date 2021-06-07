@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PleadeConfirmation: View {
-    @Binding var pledgePicked:String?
+    var pledgePicked:String?
     var body: some View {
         Text("Commit to pledge: \(pledgePicked ?? "none selected")").multilineTextAlignment(.center)
         Spacer()
