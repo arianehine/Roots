@@ -10,19 +10,26 @@ import SwiftUI
 struct PledgesView: View {
     
     let worstArea: String
-    @State var selection = ""
+    @State var selection: String? = nil
     var body: some View {
-        Text("So you want to improve \(worstArea)? \n Choose a pledge!").multilineTextAlignment(.center)
-        Spacer()
+
+                       Text("Select a pledge!")
+                           .padding().zIndex(1.0)
         let pledgeList = getListOfPledges(worstArea: worstArea)
-        
-                    List(pledgeList) { pledge in
-                        NavigationLink(destination: PleadeConfirmation(pledgePicked: "picked")) {
-                        pledgeRow(pledge: pledge, worstArea: worstArea)
+                    List(pledgeList) {
+                        pledge in
+                        Spacer()
+                        NavigationLink(destination: PleadeConfirmation(pledgePicked: $selection)) {
+                            pledgeRow(pledge: pledge, worstArea: worstArea).onTapGesture {
+                                selection = pledge.description
+                            }
+//                            }.onAppear {
+//                                self.selection = nil
+//                            }
                     }
-                }
+                    }
+    
         
-        Spacer()
     }
     
     func getListOfPledges(worstArea: String) -> [Pledge]{

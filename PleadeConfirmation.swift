@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct PleadeConfirmation: View {
-    let pledgePicked: String
+    @Binding var pledgePicked:String?
     var body: some View {
-        Text("Commit to pledge: \(pledgePicked)").multilineTextAlignment(.center)
+        Text("Commit to pledge: \(pledgePicked ?? "none selected")").multilineTextAlignment(.center)
         Spacer()
         HStack{
             HStack{
@@ -27,8 +27,8 @@ struct PleadeConfirmation: View {
     }
 }
 
-struct PleadeConfirmation_Previews: PreviewProvider {
-    static var previews: some View {
-        PleadeConfirmation(pledgePicked: "Pledge")
-    }
-}
+//struct PleadeConfirmation_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PleadeConfirmation(pledgePicked: "Pledge")
+//    }
+//}
