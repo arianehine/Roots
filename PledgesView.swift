@@ -12,9 +12,9 @@ struct PledgesView: View {
     let worstArea: String
     @State var selection: String? = nil
     var body: some View {
-
-                       Text("Select a pledge!")
-                           .padding().zIndex(1.0)
+//
+//                       Text("Select a pledge!")
+//                           .padding().zIndex(1.0)
         let pledgeList = getListOfPledges(worstArea: worstArea)
                     List(pledgeList) {
                         pledge in

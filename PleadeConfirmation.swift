@@ -14,13 +14,17 @@ struct PleadeConfirmation: View {
         Spacer()
         HStack{
             HStack{
+                NavigationLink(destination: NumberEarthsView(ID: "8")) {
                 Text("Yes")
-            Image(systemName: "person.fill.checkmark")
+            Image(systemName: "person.fill.checkmark").foregroundColor(Color(.green))
+                }
             }
             Spacer()
             HStack{
+             
                 Text("No")
-            Image(systemName: "person.fill.xmark")
+                Image(systemName: "person.fill.xmark").foregroundColor(Color(.red))
+          
             }
         }
         
