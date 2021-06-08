@@ -64,7 +64,7 @@ let pledges = [
     Pledge(description: "leaf.fill", category: "Food", imageName: "d.circle.fill",durationInDays: 7),
     Pledge(description: "Eat vegan for a week", category: "Food", imageName: "leaf.fill",durationInDays: 7),
     Pledge(description: "Put your heating on a set timer!", category: "Household", imageName: "flame.fill",durationInDays: 7),
-    Pledge( description: "Turn lights off when you leave the room", category: "Household", imageName: "bolt.fill",durationInDays: 7),
+    Pledge( description: "Only fill the kettle for 1 cup when you boil it", category: "Household", imageName: "bolt.fill",durationInDays: 7),
     Pledge(description: "Don't buy any furniature for 4 month", category: "Household", imageName: "house.fill",durationInDays: 7),
     Pledge(description: "Turn lights off when you leave the room!", category: "Household", imageName: "lightbulb.fill",durationInDays: 7),
     Pledge(description: "Don't buy any fast fashion for 2 weeks", category: "Fashion", imageName: "hourglass",durationInDays: 7),

@@ -9,7 +9,8 @@ target 'PIG' do
  pod 'Firebase/Firestore'
  pod 'Firebase/Storage'
  pod 'Charts'
-  # Pods for PIG
+ pod 'ExytePopupView'
+ # Pods for PIG
 
   target 'PIGTests' do
     inherit! :search_paths
