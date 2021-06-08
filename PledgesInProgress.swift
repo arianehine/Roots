@@ -6,11 +6,13 @@
 //
 import WrappingHStack
 import SwiftUI
+import ToastSwiftUI
 
 struct PledgesInProgress: View {
     @State var pledgesCompleted = [Pledge]()
     @State var showFurtherInfo :Bool = false
     @State var pledgesInProgress = [Pledge]()
+    @State var selectedForFurtherInfo: Pledge = getPledgesCompleted()[1]
     var pledgePicked: Pledge
     var body: some View {
         VStack{
@@ -26,6 +28,7 @@ struct PledgesInProgress: View {
                         Button(action: {
                             
                             showFurtherInfo = true
+                            selectedForFurtherInfo = pledgesInProgress[index]
 
                               }) {
                             Image(systemName: pledgesInProgress[index].imageName).renderingMode(.original)
@@ -58,6 +61,7 @@ struct PledgesInProgress: View {
                     Button(action: {
                         
                         showFurtherInfo = true
+                        selectedForFurtherInfo = pledgesCompleted[index]
 
                           }) {
                         Image(systemName: pledgesCompleted[index].imageName).renderingMode(.original)
@@ -73,12 +77,13 @@ struct PledgesInProgress: View {
                                 
       
                  
-        }
+
         
             Spacer()
-        }
+        }.toast(isPresenting: $showFurtherInfo, message: selectedForFurtherInfo.description)
  
     }
+}
 
 
 func print(date1: Date, date2: Date, days: Int) ->String{
