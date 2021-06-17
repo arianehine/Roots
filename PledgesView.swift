@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct PledgesView: View {
     
@@ -16,6 +17,7 @@ struct PledgesView: View {
                        Text("Select a pledge!")
                            .padding()
         let pledgeList = getListOfPledges(worstArea: worstArea)
+
                     List(pledgeList) {
                         pledge in
                         Spacer()
@@ -24,11 +26,13 @@ struct PledgesView: View {
 
                     }
                     }
+        
     
         
     }
     
     func getListOfPledges(worstArea: String) -> [Pledge]{
+        setPledgesInFirestore(pledges: pledges)
         var returnPledges = [Pledge]()
         
         for pledge in pledges{
@@ -52,6 +56,17 @@ struct PledgesView_Previews: PreviewProvider {
 }
 
 }
+
+func setPledgesInFirestore(pledges: [Pledge]){
+    let db = Firestore.firestore();
+    
+    var counter = 0;
+    for pledge in pledges {
+        counter += 1
+        db.collection("Pledges").document(String(counter)).setData(["ID": counter, "description": pledge.description, "category":pledge.category, "imageName": pledge.imageName, "durationInDays": pledge.durationInDays, "started": false, "startDate": pledge.startDate, "endDate": ""])
+    }
+    }
+    
  
 let pledges = [
     Pledge(description: "Walk to work 2 days a week", category: "Transport", imageName: "figure.walk", durationInDays: 7),
@@ -100,5 +115,8 @@ var category: String
 var imageName: String
 var durationInDays: Int
 var startDate = Date()
+var started: Bool = false;
+var endDate: String = ""
+
 
 }
