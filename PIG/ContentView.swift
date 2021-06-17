@@ -159,8 +159,20 @@ struct ContentView: View {
                                 }
                             }
                         .tag(2)
-                    }
                     
+                    
+                    
+                        PledgesInProgress(pledgePicked: nil)
+                        .tabItem {
+                            VStack {
+                                Image(systemName: "hands.sparkles.fill")
+                                Text("Pledges") // Update tab title
+                            }
+                        }
+                    .tag(3)
+                
+                    }
+                
 //                    getName()
                 }.navigationBarTitle("Welcome back " +  name)
                 .navigationBarItems(trailing:

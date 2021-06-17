@@ -13,11 +13,11 @@ struct PledgesInProgress: View {
     @State var showFurtherInfo :Bool = false
     @State var pledgesInProgress = [Pledge]()
     @State var selectedForFurtherInfo: Pledge = getPledgesCompleted()[1]
-    var pledgePicked: Pledge
+    var pledgePicked: Pledge?
     var body: some View {
         VStack{
             let pledgesCompleted = getPledgesCompleted()
-            let pledgesInProgress = getPledgesInProgress()
+            let pledgesInProgress = getPledgesInProgress(pledgePicked: pledgePicked ?? emptyPledge)
             
         Text("Pledges in progress...")
             WrappingHStack(0..<pledgesInProgress.count, id:\.self, alignment: .center) { index in
@@ -93,14 +93,20 @@ func print(date1: Date, date2: Date, days: Int) ->String{
     return "hi"
 }
 
-func getPledgesInProgress()-> [Pledge]{
-    return [
+func getPledgesInProgress(pledgePicked: Pledge)-> [Pledge]{
+    
+    var pledgesToReturn = [
         Pledge(description: "Put your heating on a set timer!", category: "Household", imageName: "flame.fill",durationInDays: 7),
         Pledge( description: "Turn lights off when you leave the room", category: "Household", imageName: "bolt.fill",durationInDays: 7),
         Pledge(description: "Don't buy any furniature for 4 month", category: "Household", imageName: "house.fill",durationInDays: 7),
         Pledge(description: "Turn lights off when you leave the room!", category: "Household", imageName: "lightbulb.fill",durationInDays: 7)]
+    if(pledgePicked.description != "nil"){
+    pledgesToReturn.append(pledgePicked);
+    }
+    return pledgesToReturn;
     
 }
+
 
 func getPledgesCompleted() -> [Pledge]{
     return [
@@ -117,3 +123,5 @@ func getPledgesCompleted() -> [Pledge]{
 public func daysBetween(start: Date, end: Date) -> Int {
    Calendar.current.dateComponents([.day], from: start, to: end).day!
 }
+
+let emptyPledge = Pledge(description: "nil", category: "nil", imageName: "nil", durationInDays: 0)
