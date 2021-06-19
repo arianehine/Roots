@@ -13,6 +13,7 @@ struct PledgesView: View {
     let worstArea: String
     @State var selection: String? = nil
     @State var pledgesInProgress = [Pledge]()
+    @State var fbLogic = FirebaseLogic();
     var body: some View {
 
                        Text("Select a pledge!")
@@ -23,7 +24,7 @@ struct PledgesView: View {
                         pledge in
                         Spacer()
                         NavigationLink(destination: PledgesInProgress(
-                                        pledgePicked: pledge)){
+                                        pledgePicked: pledge).environmentObject(fbLogic)){
                             pledgeRow(pledge: pledge, worstArea: worstArea)
 
                     }
