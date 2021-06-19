@@ -102,12 +102,13 @@ struct ContentView: View {
     let auth = Auth.auth();
     @EnvironmentObject var viewModel: AppViewModel
     @EnvironmentObject var statsController: StatsDataController
+    @State var firebaseLogic = FirebaseLogic();
     @State var selection = ""
     @State var name = ""
     @State var originalReports: [Report] = [Report]();
     @State var reports: [Report] = [Report]();
     @State var originalPeople =  [UserData]();
-    
+    @State var pledgesInProgress = [Pledge]()
     
     var body: some View {
         NavigationView{
@@ -162,7 +163,8 @@ struct ContentView: View {
                     
                     
                     
-                        PledgesInProgress(pledgePicked: nil)
+                        PledgesInProgress(
+                        ).environmentObject(firebaseLogic)
                         .tabItem {
                             VStack {
                                 Image(systemName: "hands.sparkles.fill")
