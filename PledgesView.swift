@@ -13,13 +13,12 @@ struct PledgesView: View {
     let worstArea: String
     @State var selection: String? = nil
     @State var pledgesInProgress = [Pledge]()
-    @State var fbLogic = FirebaseLogic();
+    @EnvironmentObject var fbLogic: FirebaseLogic
     var body: some View {
 
                        Text("Select a pledge!")
                            .padding()
-        let pledgeList = getListOfPledges(worstArea: worstArea)
-
+        let pledgeList = fbLogic.pledgesForArea
                     List(pledgeList) {
                         pledge in
                         Spacer()
@@ -28,30 +27,25 @@ struct PledgesView: View {
                             pledgeRow(pledge: pledge, worstArea: worstArea)
 
                     }
-                    }
+                    }.onAppear(perform: initVars)
                     
         
-    
-        
+       
     }
-    
-    func getListOfPledges(worstArea: String) -> [Pledge]{
-       // setPledgesInFirestore(pledges: pledges)
-        var returnPledges = [Pledge]()
-        
-        for pledge in pledges{
-            if (pledge.category == worstArea){
-                returnPledges.append(pledge)
-        }
-           
-            
+    func initVars(){
+        fbLogic.pledgesForArea = fbLogic.getPledgesToChooseFromArea(chosenArea: worstArea)
     }
-        return returnPledges
-    }
-        
-
-    
-    
+//    func getListOfPledges(worstArea: String) -> [Pledge]{
+//       // setPledgesInFirestore(pledges: pledges)
+//        var returnPledges = [Pledge]()
+//
+//        returnPledges = fbLogic.getPledgesToChooseFromArea(chosenArea: worstArea);
+//        return returnPledges;
+//    }
+//
+//
+//
+//
 
 struct PledgesView_Previews: PreviewProvider {
     static var previews: some View {

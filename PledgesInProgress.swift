@@ -99,6 +99,7 @@ func print(date1: Date, date2: Date, days: Int) ->String{
 class FirebaseLogic: ObservableObject {
 @Published var pledgesInProgress = [Pledge]()
 @Published var pledgesCompleted = [Pledge]()
+@Published var pledgesForArea = [Pledge]()
 func getPledgesInProgress(pledgePicked: Pledge)-> [Pledge]{
     let db = Firestore.firestore()
     pledgesInProgress = [Pledge]()
@@ -170,6 +171,35 @@ func findPledgeWithThisID(ID: Int) -> Pledge{
             })
           }
          return pledgesToReturn;
+    
+
+    }
+    
+    public func getPledgesToChooseFromArea(chosenArea: String) -> [Pledge]{
+        
+        let db = Firestore.firestore()
+        pledgesCompleted = [Pledge]()
+        var pledgesForArea = [Pledge]()
+    
+       db
+          .collection("Pledges")
+          .getDocuments { (snapshot, error) in
+             guard let snapshot = snapshot, error == nil else {
+              //handle error
+              return
+            }
+            print("Number of documents: \(snapshot.documents.count ?? -1)")
+            snapshot.documents.forEach({ (documentSnapshot) in
+              let documentData = documentSnapshot.data()
+                let category = documentData["category"] as? String
+                let started = documentData["started"] as? Bool
+                if (!started! && category == chosenArea){
+                    self.pledgesForArea.append(self.findPledgeWithThisID(ID: documentData["ID"] as! Int))
+                    print("appending pledge for area")
+                }
+            })
+          }
+         return pledgesForArea;
     
 
     }

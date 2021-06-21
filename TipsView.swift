@@ -10,12 +10,13 @@ import SwiftUI
 struct TipsView: View {
     @State var statsController: StatsDataController
     @Binding var worstArea: String
+    @State var fbLogic = FirebaseLogic()
     var body: some View {
         Text("Tips to improve \(worstArea) :) ");
         Spacer()
         whatToImprove(worstArea: worstArea)
         Spacer()
-        NavigationLink(destination: PledgesView(worstArea: worstArea)) {
+        NavigationLink(destination: PledgesView(worstArea: worstArea).environmentObject(fbLogic)) {
             ButtonView(worstArea: worstArea)
         }
         
