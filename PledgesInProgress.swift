@@ -21,11 +21,11 @@ struct PledgesInProgress: View {
             WrappingHStack(0..<fbLogic.pledgesInProgress.count, id:\.self, alignment: .center) { index in
                 
                 VStack{
-               
+                  
 
 
                         Button(action: {
-                            
+                            print(fbLogic.pledgesInProgress[index].startDate);
                             showFurtherInfo = true
                             selectedForFurtherInfo = fbLogic.pledgesInProgress[index]
 
@@ -36,19 +36,22 @@ struct PledgesInProgress: View {
                                
                               }
                        
+                    
 
                     let calendar = Calendar.current
                     let endDate = Calendar.current.date(byAdding: .day, value:  fbLogic.pledgesInProgress[index].durationInDays, to: fbLogic.pledgesInProgress[index].startDate)!
+                  
     
-                    let date1 = calendar.date(bySettingHour: 12, minute: 00, second: 00, of: calendar.startOfDay(for:  fbLogic.pledgesInProgress[index].startDate))
+                    let date1 = calendar.date(bySettingHour: 12, minute: 00, second: 00, of: calendar.startOfDay(for:  Date()))
                     let date2 = calendar.date(bySettingHour: 12, minute: 00, second: 00, of: calendar.startOfDay(for: endDate))
 
                     let components = calendar.dateComponents([.day], from: date1!, to: date2!)
                     var numDays : Int = components.day!
                     Text("Days remaining: \(numDays)").font(.caption)
+
                 }.frame(width: 150, height: 100, alignment: .center);
                        
-             
+        
                       
             }
                
@@ -84,8 +87,10 @@ struct PledgesInProgress: View {
     }
     
     func initVars(){
+        fbLogic.allPledges = fbLogic.getAllPledges();
         fbLogic.pledgesCompleted = fbLogic.getPledgesCompleted()
         fbLogic.pledgesInProgress = fbLogic.getPledgesInProgress(pledgePicked: pledgePicked ?? emptyPledge)
+  
     }
 }
 
@@ -100,6 +105,7 @@ class FirebaseLogic: ObservableObject {
 @Published var pledgesInProgress = [Pledge]()
 @Published var pledgesCompleted = [Pledge]()
 @Published var pledgesForArea = [Pledge]()
+@Published var allPledges = [Pledge]()
 func getPledgesInProgress(pledgePicked: Pledge)-> [Pledge]{
     let db = Firestore.firestore()
     pledgesInProgress = [Pledge]()
@@ -137,12 +143,53 @@ func getPledgesInProgress(pledgePicked: Pledge)-> [Pledge]{
     return pledgesInProgress;
 
 }
+    
 
+        
+
+    func getAllPledges() -> [Pledge]{
+        
+        let db = Firestore.firestore()
+        self.allPledges = [Pledge]()
+        var pledgesToReturn = [Pledge]()
+    
+       db
+          .collection("Pledges")
+          .getDocuments { (snapshot, error) in
+             guard let snapshot = snapshot, error == nil else {
+              //handle error
+              return
+            }
+            print("Number of documents: \(snapshot.documents.count ?? -1)")
+            snapshot.documents.forEach({ (documentSnapshot) in
+                let documentData = documentSnapshot.data()
+                let ID = documentData["ID"]! as? Int
+                let description = documentData["description"] as? String
+                let category = documentData["category"] as? String
+                let imageName = documentData["imageName"] as? String
+                let durationInDays = documentData["durationInDays"] as? Int
+                let started = documentData["started"] as? Bool
+                let startDateInterval = documentData["startDate"] as? Timestamp
+                let endDate = documentData["endDate"] as? String
+                let startDate = Date(timeIntervalSince1970: TimeInterval(startDateInterval!.seconds))
+
+                let object = Pledge(id: ID!, description: description!, category: category!, imageName: imageName!, durationInDays: durationInDays!, startDate: startDate, started: started!, endDate: endDate ?? "")
+            
+                    self.allPledges.append(object)
+                
+            })
+          }
+         return pledgesToReturn;
+    
+
+    }
+    
 
 
 func findPledgeWithThisID(ID: Int) -> Pledge{
-    for pledge in pledges{
+    for pledge in allPledges{
         if pledge.id == ID{
+            print("ID WITH PLEDGE: ", pledge)
             return pledge;
         }
     }
@@ -216,4 +263,4 @@ func findPledgeWithThisID(ID: Int) -> Pledge{
     
 }
 
-let emptyPledge = Pledge(id: 1, description: "nil", category: "nil", imageName: "nil", durationInDays: 0)
+let emptyPledge = Pledge(id: 1, description: "nil", category: "nil", imageName: "nil", durationInDays: 0, startDate: Date(), started: false, endDate: "")
