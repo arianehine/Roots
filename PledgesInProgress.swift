@@ -13,14 +13,11 @@ struct PledgesInProgress: View {
     @State var pledgesCompleted = [Pledge]()
     @State var showFurtherInfo :Bool = false
     @EnvironmentObject var fbLogic: FirebaseLogic
-    @State var selectedForFurtherInfo: Pledge = getPledgesCompleted()[1]
+    @State var selectedForFurtherInfo: Pledge = emptyPledge;
     var pledgePicked: Pledge?
     var body: some View {
         VStack{
        
-            if(fbLogic.pledgesInProgress.count>0){
-            Text("\(fbLogic.pledgesInProgress.count)")
-            }
         Text("Pledges in progress...")
             WrappingHStack(0..<fbLogic.pledgesInProgress.count, id:\.self, alignment: .center) { index in
                 
@@ -87,7 +84,7 @@ struct PledgesInProgress: View {
  
     }
     
-    func initVars(){      
+    func initVars(){
         pledgesCompleted = getPledgesCompleted()
         fbLogic.pledgesInProgress = fbLogic.getPledgesInProgress(pledgePicked: pledgePicked ?? emptyPledge)
     }
