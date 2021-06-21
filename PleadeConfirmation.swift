@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct PleadeConfirmation: View {
-    var pledgePicked:String?
+    var pledgePicked: Pledge
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var fbLogic: FirebaseLogic
     var body: some View {
-        Text("Commit to pledge: \(pledgePicked ?? "none selected")").multilineTextAlignment(.center)
+        Text("Commit to pledge: \(pledgePicked.description )").multilineTextAlignment(.center)
         Spacer()
         HStack{
             HStack{
-                NavigationLink(destination: NumberEarthsView(ID: "8")) {
+                NavigationLink(destination: PledgesInProgress(
+                                pledgePicked: pledgePicked).environmentObject(fbLogic)){
                 Text("Yes")
             Image(systemName: "person.fill.checkmark").foregroundColor(Color(.green))
                 }

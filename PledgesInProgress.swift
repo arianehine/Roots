@@ -48,6 +48,7 @@ struct PledgesInProgress: View {
                     Text("Days remaining: \(numDays)").font(.caption)
                 }.frame(width: 150, height: 100, alignment: .center);
                        
+             
                       
             }
                
@@ -71,8 +72,7 @@ struct PledgesInProgress: View {
                    
                 }
                                     }
-                                
-                                
+                            
                                 
       
                  

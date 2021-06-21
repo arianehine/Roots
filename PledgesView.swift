@@ -22,7 +22,7 @@ struct PledgesView: View {
                     List(pledgeList) {
                         pledge in
                         Spacer()
-                        NavigationLink(destination: PledgesInProgress(
+                        NavigationLink(destination: PleadeConfirmation(
                                         pledgePicked: pledge).environmentObject(fbLogic)){
                             pledgeRow(pledge: pledge, worstArea: worstArea)
 
