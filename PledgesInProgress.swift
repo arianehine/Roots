@@ -10,7 +10,6 @@ import ToastSwiftUI
 import FirebaseFirestore
 
 struct PledgesInProgress: View {
-    @State var pledgesCompleted = [Pledge]()
     @State var showFurtherInfo :Bool = false
     @EnvironmentObject var fbLogic: FirebaseLogic
     @State var selectedForFurtherInfo: Pledge = emptyPledge;
@@ -54,17 +53,17 @@ struct PledgesInProgress: View {
                
             Divider()
             Text("Pledges complete")
-            WrappingHStack(0..<pledgesCompleted.count, id:\.self, alignment: .center) { index in
+            WrappingHStack(0..<fbLogic.pledgesCompleted.count, id:\.self, alignment: .center) { index in
 
                 ZStack{
 
                     Button(action: {
                         
                         showFurtherInfo = true
-                        selectedForFurtherInfo = pledgesCompleted[index]
+                        selectedForFurtherInfo = fbLogic.pledgesCompleted[index]
 
                           }) {
-                        Image(systemName: pledgesCompleted[index].imageName).renderingMode(.original)
+                        Image(systemName: fbLogic.pledgesCompleted[index].imageName).renderingMode(.original)
                             .resizable()
                             .frame(width: 50, height: 50, alignment: .center)
                            
@@ -85,7 +84,7 @@ struct PledgesInProgress: View {
     }
     
     func initVars(){
-        pledgesCompleted = getPledgesCompleted()
+        fbLogic.pledgesCompleted = fbLogic.getPledgesCompleted()
         fbLogic.pledgesInProgress = fbLogic.getPledgesInProgress(pledgePicked: pledgePicked ?? emptyPledge)
     }
 }
@@ -99,6 +98,7 @@ func print(date1: Date, date2: Date, days: Int) ->String{
 }
 class FirebaseLogic: ObservableObject {
 @Published var pledgesInProgress = [Pledge]()
+@Published var pledgesCompleted = [Pledge]()
 func getPledgesInProgress(pledgePicked: Pledge)-> [Pledge]{
     let db = Firestore.firestore()
     pledgesInProgress = [Pledge]()
@@ -124,8 +124,9 @@ func getPledgesInProgress(pledgePicked: Pledge)-> [Pledge]{
             
           let documentData = documentSnapshot.data()
             let started = documentData["started"] as? Bool
+            let endDate = documentData["endDate"] as? String
             print(started)
-            if (started == true){
+            if (started == true && endDate==""){
                 print("append", self.findPledgeWithThisID(ID: documentData["ID"] as! Int))
                 pledgesInProgress.append(self.findPledgeWithThisID(ID: documentData["ID"] as! Int))
             }
@@ -146,45 +147,43 @@ func findPledgeWithThisID(ID: Int) -> Pledge{
     }
     return emptyPledge;
 }
-}
-func getPledgesCompleted() -> [Pledge]{
-    return [
-        Pledge(id: 1, description: "Walk to work 2 days a week", category: "Transport", imageName: "figure.walk", durationInDays: 7),
-        Pledge(id: 2, description: "Drive only 3 days this week", category: "Transport", imageName: "car.fill", durationInDays: 7),
-        Pledge(id: 3, description: "Swap the car for the train", category: "Transport", imageName: "tram.fill",durationInDays: 7),
-        Pledge(id: 4, description: "Take 0 taxis this week", category: "Transport", imageName: "figure.wave",durationInDays: 7)]
+    func getPledgesCompleted() -> [Pledge]{
+        
+        let db = Firestore.firestore()
+        pledgesCompleted = [Pledge]()
+        var pledgesToReturn = [Pledge]()
     
-//    let db = Firestore.firestore()
-//    var pledgesToReturn = [Pledge]()
-//
-//   db
-//      .collection("Pledges")
-//      .getDocuments { (snapshot, error) in
-//         guard let snapshot = snapshot, error == nil else {
-//          //handle error
-//          return
-//        }
-//        print("Number of documents: \(snapshot.documents.count ?? -1)")
-//        snapshot.documents.forEach({ (documentSnapshot) in
-//          let documentData = documentSnapshot.data()
-//            let endDate = documentData["endDate"] as? String
-//            if (endDate != ""){
-//                pledgesToReturn.append(findPledgeWithThisID(ID: documentData["ID"] as! Int))
-//            }
-//        })
-//      }
-//     return pledgesToReturn;
-//
+       db
+          .collection("Pledges")
+          .getDocuments { (snapshot, error) in
+             guard let snapshot = snapshot, error == nil else {
+              //handle error
+              return
+            }
+            print("Number of documents: \(snapshot.documents.count ?? -1)")
+            snapshot.documents.forEach({ (documentSnapshot) in
+              let documentData = documentSnapshot.data()
+                let endDate = documentData["endDate"] as? String
+                if (endDate != ""){
+                    self.pledgesCompleted.append(self.findPledgeWithThisID(ID: documentData["ID"] as! Int))
+                }
+            })
+          }
+         return pledgesToReturn;
+    
 
-}
+    }
 
-//struct PledgesInProgress_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PledgesInProgress()
-//    }
-//}
-public func daysBetween(start: Date, end: Date) -> Int {
-   Calendar.current.dateComponents([.day], from: start, to: end).day!
+    //struct PledgesInProgress_Previews: PreviewProvider {
+    //    static var previews: some View {
+    //        PledgesInProgress()
+    //    }
+    //}
+    public func daysBetween(start: Date, end: Date) -> Int {
+       Calendar.current.dateComponents([.day], from: start, to: end).day!
+    }
+
+    
 }
 
 let emptyPledge = Pledge(id: 1, description: "nil", category: "nil", imageName: "nil", durationInDays: 0)
