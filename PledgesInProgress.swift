@@ -101,6 +101,7 @@ class FirebaseLogic: ObservableObject {
 @Published var pledgesInProgress = [Pledge]()
 func getPledgesInProgress(pledgePicked: Pledge)-> [Pledge]{
     let db = Firestore.firestore()
+    pledgesInProgress = [Pledge]()
 
      if(pledgePicked.description != "nil"){
         let id = pledgePicked.id
