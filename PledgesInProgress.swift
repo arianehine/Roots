@@ -8,6 +8,7 @@ import WrappingHStack
 import SwiftUI
 import ToastSwiftUI
 import FirebaseFirestore
+import FirebaseAuth
 
 struct PledgesInProgress: View {
     @State var showFurtherInfo :Bool = false
@@ -106,20 +107,22 @@ class FirebaseLogic: ObservableObject {
 @Published var pledgesCompleted = [Pledge]()
 @Published var pledgesForArea = [Pledge]()
 @Published var allPledges = [Pledge]()
+let auth = Auth.auth();
+
 func getPledgesInProgress(pledgePicked: Pledge)-> [Pledge]{
     let db = Firestore.firestore()
     pledgesInProgress = [Pledge]()
 
+    let currentUser = (auth.currentUser?.uid)!
      if(pledgePicked.description != "nil"){
         let id = pledgePicked.id
-        db.collection("Pledges").document(String(id)).updateData(["started":true])
+        let userPledges = db.collection("UserPledges").document(currentUser).collection("Pledges").document(String(id)).updateData(["started":true])
         
         
 //     pledgesToReturn.append(pledgePicked)
      }
     
-   db
-      .collection("Pledges")
+    db.collection("UserPledges").document(currentUser).collection("Pledges")
     .getDocuments { [self] (snapshot, error) in
          guard let snapshot = snapshot, error == nil else {
           //handle error
@@ -150,11 +153,11 @@ func getPledgesInProgress(pledgePicked: Pledge)-> [Pledge]{
     func getAllPledges() -> [Pledge]{
         
         let db = Firestore.firestore()
+        let currentUser = (auth.currentUser?.uid)!
         self.allPledges = [Pledge]()
         var pledgesToReturn = [Pledge]()
     
-       db
-          .collection("Pledges")
+        db.collection("UserPledges").document(currentUser).collection("Pledges")
           .getDocuments { (snapshot, error) in
              guard let snapshot = snapshot, error == nil else {
               //handle error
@@ -200,9 +203,8 @@ func findPledgeWithThisID(ID: Int) -> Pledge{
         let db = Firestore.firestore()
         pledgesCompleted = [Pledge]()
         var pledgesToReturn = [Pledge]()
-    
-       db
-          .collection("Pledges")
+        let currentUser = (auth.currentUser?.uid)!
+        db.collection("UserPledges").document(currentUser).collection("Pledges")
           .getDocuments { (snapshot, error) in
              guard let snapshot = snapshot, error == nil else {
               //handle error
@@ -227,9 +229,8 @@ func findPledgeWithThisID(ID: Int) -> Pledge{
         let db = Firestore.firestore()
         pledgesCompleted = [Pledge]()
         var pledgesForArea = [Pledge]()
-    
-       db
-          .collection("Pledges")
+        let currentUser = (auth.currentUser?.uid)!
+        db.collection("UserPledges").document(currentUser).collection("Pledges")
           .getDocuments { (snapshot, error) in
              guard let snapshot = snapshot, error == nil else {
               //handle error
