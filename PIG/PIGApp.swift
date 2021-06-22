@@ -17,11 +17,13 @@ struct PIGApp: App {
 
     var body: some Scene {
         WindowGroup {
-            let viewModel = AppViewModel();
+            var firebaseLogic = FirebaseLogic();
+            let viewModel = AppViewModel()
             let originalPeople = statsController.convertCSVIntoArray()
             ContentView(originalPeople: originalPeople)
                 .environmentObject(viewModel)
                 .environmentObject(statsController)
+                .environmentObject(firebaseLogic)
         }
     }
 }

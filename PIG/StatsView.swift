@@ -20,6 +20,7 @@ struct StatsView: View {
    @State var reports: [Report] = [Report]();
    @State var originalReports: [Report] = [Report]();
 @State var originalPeople : [UserData]
+    @State var fbLogic: FirebaseLogic
     
     var body: some View {
  

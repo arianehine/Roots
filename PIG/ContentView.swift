@@ -16,9 +16,9 @@ import Combine
 
 
 class AppViewModel: ObservableObject{
-    
     let auth = Auth.auth();
-    
+    let fbLogic = FirebaseLogic();
+
     
     func addUserInfo(fName: String, lName: String, email: String){
         let db = Firestore.firestore();
@@ -49,6 +49,7 @@ class AppViewModel: ObservableObject{
     func displayError(error: Error?){
         print(error?.localizedDescription)
         
+
     }
     
     func signUp(email: String, password: String, firstName: String, lastName:String){
@@ -73,6 +74,7 @@ class AppViewModel: ObservableObject{
                 .setData([ "firstName":firstName, "lastName":lastName, "uid":uid, "email":email]);
             
             self!.setPledgesForUser(userId: result!.user.uid, db: db);
+            self!.setDataForUser(userId: result!.user.uid, db: db, statsController: StatsDataController());
           
             
             DispatchQueue.main.async {
@@ -95,6 +97,34 @@ class AppViewModel: ObservableObject{
         }
         
     }
+ 
+    func setDataForUser(userId: String, db: Firestore, statsController: StatsDataController){
+        
+        let userData = statsController.convertCSVIntoArray()
+        for user in userData{
+            if(user.ID == "8"){
+            var stringDate = dateToString(date: user.date)
+            db.collection("UserData").document(userId).collection("Data").document(stringDate)
+                .setData([ "ID": userId, "date": user.date, "average": user.average, "transport": user.transport, "household": user.household, "clothing": user.clothing, "health": user.health, "food": user.food, "transport_walking": user.transport_walking, "transport_car": user.transport_car, "transport_train": user.transport_train,"transport_plane": user.transport_plane,"household_heating": user.household_heating,"household_electricity": user.household_electricity,"household_furnishings": user.household_furnishings,"household_lighting": user.household_lighting,"clothing_fastfashion": user.clothing_fastfashion,"clothing_sustainable": user.clothing_sustainable,"health_meds": user.health_meds,"health_scans": user.health_scans, "food_meat": user.food_meat,"food_fish": user.food_fish,"food_dairy": user.food_dairy,"food_oils": user.food_oils]);
+        }
+        }
+
+
+    }
+        
+   
+    func dateToString(date: Date) -> String{
+        // Create Date Formatter
+        let dateFormatter = DateFormatter()
+
+        // Set Date Format
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+        // Convert Date to String
+        return dateFormatter.string(from: date)
+    }
+
+
     
     let pledges = [
         Pledge(id: 1, description: "Walk to work 2 days a week", category: "Transport", imageName: "figure.walk", durationInDays: 7, startDate: Date(), started: false, endDate: ""),
@@ -138,7 +168,7 @@ struct ContentView: View {
     let auth = Auth.auth();
     @EnvironmentObject var viewModel: AppViewModel
     @EnvironmentObject var statsController: StatsDataController
-    @State var firebaseLogic = FirebaseLogic();
+    @EnvironmentObject var fbLogic: FirebaseLogic
     @State var selection = ""
     @State var name = ""
     @State var originalReports: [Report] = [Report]();
@@ -168,7 +198,7 @@ struct ContentView: View {
 //                        .padding()
 //                })
                     TabView(selection: $selection){
-                        StatsView(ID: "6", originalPeople: originalPeople).environmentObject(statsController)
+                        StatsView(ID: "6", originalPeople: originalPeople, fbLogic: fbLogic).environmentObject(statsController)
                             .tabItem {
                                 VStack {
                                     Image(systemName: "chart.bar")
@@ -200,7 +230,7 @@ struct ContentView: View {
                     
                     
                         PledgesInProgress(
-                        ).environmentObject(firebaseLogic)
+                        ).environmentObject(fbLogic)
                         .tabItem {
                             VStack {
                                 Image(systemName: "hands.sparkles.fill")

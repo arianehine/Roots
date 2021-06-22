@@ -17,6 +17,9 @@ class StatsDataController: ObservableObject {
 //        self.stateUser = findUserData(people: originalPeople, ID: "6")
 //        }
   
+    public init() {
+    }
+    
 func convertCSVIntoArray() -> [UserData]{
 
     if(originalPeople.count == 0){
