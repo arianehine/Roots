@@ -12,18 +12,18 @@ import Firebase
 struct PIGApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @State var statsController = StatsDataController();
+    @State var fbLogic = FirebaseLogic()
     @State var originalPeople =  [UserData]();
 
     var body: some Scene {
         WindowGroup {
-            var firebaseLogic = FirebaseLogic();
-            let viewModel = AppViewModel()
+            var statsController = StatsDataController(fbLogic: fbLogic)
+            let viewModel = AppViewModel(statsController: statsController)
             let originalPeople = statsController.convertCSVIntoArray()
             ContentView(originalPeople: originalPeople)
                 .environmentObject(viewModel)
                 .environmentObject(statsController)
-                .environmentObject(firebaseLogic)
+                .environmentObject(fbLogic)
         }
     }
 }

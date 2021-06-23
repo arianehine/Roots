@@ -107,10 +107,12 @@ class FirebaseLogic: ObservableObject {
 @Published var pledgesCompleted = [Pledge]()
 @Published var pledgesForArea = [Pledge]()
 @Published var allPledges = [Pledge]()
-let auth = Auth.auth();
+@Published var userData = [UserData]()
+
 
 func getPledgesInProgress(pledgePicked: Pledge)-> [Pledge]{
     let db = Firestore.firestore()
+    let auth = Auth.auth();
     pledgesInProgress = [Pledge]()
 
     let currentUser = (auth.currentUser?.uid)!
@@ -149,10 +151,75 @@ func getPledgesInProgress(pledgePicked: Pledge)-> [Pledge]{
     
 
         
+    func getUserData(uid: String) -> [UserData]{
+            let db = Firestore.firestore()
+            userData = [UserData]()
+            let auth = Auth.auth();
+            let currentUser = (auth.currentUser?.uid)!
+            print("fb logic current user, ", currentUser)
+            
+                let data = db.collection("UserData").document(currentUser).collection("Data")    .getDocuments { [self] (snapshot, error) in
+                    guard let snapshot = snapshot, error == nil else {
+                     //handle error
+                     return
+                   }
+                   print("Number of documents fb logic get user data: \(snapshot.documents.count ?? -1)")
+                   snapshot.documents.forEach({ (documentSnapshot) in
+                       
+                       
+                    let documentData = documentSnapshot.data()
+                    let ID = documentData["ID"] as? String
+                    let date = documentData["date"] as? Timestamp
+                    let average = documentData["average"] as? Double
+                    let transport = documentData["transport"] as? Double
+                    let household = documentData["household"] as? Double
+                    let clothing = documentData["clothing"] as? Double
+                    let health = documentData["health"] as? Double
+                    let food = documentData["food"] as? Double
+                    let transport_walking = documentData["transport_walking"] as? Double
+                    let transport_car = documentData["transport_car"] as? Double
+                    let transport_train = documentData["transport_train"] as? Double
+                    let transport_bus = documentData["transport_bus"] as? Double
+                    let transport_plane = documentData["transport_plane"] as? Double
+                    let household_heating = documentData["household_heating"] as? Double
+                    let household_electricity = documentData["household_electricity"] as? Double
+                    let household_furnishings = documentData["household_furnishings"] as? Double
+                    let household_lighting = documentData["household_lighting"] as? Double
+                    let clothing_fastfashion = documentData["clothing_fastfashion"] as? Double
+                    let clothing_sustainable = documentData["clothing_sustainable"] as? Double
+                    let health_meds = documentData["health_meds"] as? Double
+                    let health_scans = documentData["health_scans"] as? Double
+                    let food_meat = documentData["food_meat"] as? Double
+                    let food_fish = documentData["food_fish"] as? Double
+                    let food_dairy = documentData["food_dairy"] as? Double
+                    let food_oils = documentData["food_oils"] as? Double
+                    let dateConverted = Date(timeIntervalSince1970: TimeInterval(date!.seconds))
+                    
+                   
+                    userData.append(UserData(ID: ID!, date: dateConverted, average: average!, transport: transport!, household: household!, clothing: clothing!, health: health!, food: food!, transport_walking: transport_walking!, transport_car: transport_car!, transport_train: transport_train!, transport_bus: transport_bus!, transport_plane: transport_plane!, household_heating: household_heating!, household_electricity: household_electricity!, household_furnishings: household_furnishings!, household_lighting: household_lighting!, clothing_fastfashion: clothing_fastfashion!, clothing_sustainable: clothing_sustainable!, health_meds: health_meds!, health_scans: health_scans!, food_meat: food_meat!, food_fish: food_fish!, food_dairy: food_dairy!, food_oils: food_oils!))
+                    
+    //                   print(started)
+    //                   if (started == true && endDate==""){
+    //                       print("append", self.findPledgeWithThisID(ID: documentData["ID"] as! Int))
+    //                       pledgesInProgress.append(self.findPledgeWithThisID(ID: documentData["ID"] as! Int))
+    //                   }
 
+                   })
+                    print("size at closure", userData.count)
+                 }
+                
+                
+        //     pledgesToReturn.append(pledgePicked)
+           
+            
+            return userData
+            
+        }
+    
     func getAllPledges() -> [Pledge]{
         
         let db = Firestore.firestore()
+        let auth = Auth.auth();
         let currentUser = (auth.currentUser?.uid)!
         self.allPledges = [Pledge]()
         var pledgesToReturn = [Pledge]()
@@ -201,6 +268,7 @@ func findPledgeWithThisID(ID: Int) -> Pledge{
     func getPledgesCompleted() -> [Pledge]{
         
         let db = Firestore.firestore()
+        let auth = Auth.auth();
         pledgesCompleted = [Pledge]()
         var pledgesToReturn = [Pledge]()
         let currentUser = (auth.currentUser?.uid)!
@@ -227,6 +295,7 @@ func findPledgeWithThisID(ID: Int) -> Pledge{
     public func getPledgesToChooseFromArea(chosenArea: String) -> [Pledge]{
         
         let db = Firestore.firestore()
+        let auth = Auth.auth();
         pledgesCompleted = [Pledge]()
         var pledgesForArea = [Pledge]()
         let currentUser = (auth.currentUser?.uid)!

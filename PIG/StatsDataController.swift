@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 class StatsDataController: ObservableObject {
     @State var originalPeople =  [UserData]();
     @State var stateUser = [UserData]();
+    @State var fbLogic: FirebaseLogic
     
 //    init() {
 //
@@ -17,7 +19,28 @@ class StatsDataController: ObservableObject {
 //        self.stateUser = findUserData(people: originalPeople, ID: "6")
 //        }
   
-    public init() {
+    public init(fbLogic: FirebaseLogic) {
+        self.fbLogic = fbLogic
+    }
+    
+    func retrieveUserData() -> [UserData]{
+        print("convert csv call")
+        let auth = Auth.auth();
+        var toReturn = [UserData]()
+        if(auth.currentUser != nil){
+        print(auth.currentUser?.uid, " current user")
+
+            fbLogic.userData = fbLogic.getUserData(uid: auth.currentUser!.uid)
+            toReturn = fbLogic.userData
+            
+          
+
+        }
+        return toReturn;
+        
+        
+
+
     }
     
 func convertCSVIntoArray() -> [UserData]{

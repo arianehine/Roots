@@ -16,6 +16,7 @@ import Combine
 
 
 class AppViewModel: ObservableObject{
+    @State var statsController: StatsDataController
     let auth = Auth.auth();
     let fbLogic = FirebaseLogic();
 
@@ -46,6 +47,10 @@ class AppViewModel: ObservableObject{
         
     }
     
+    public init(statsController: StatsDataController){
+        self.statsController = statsController
+    }
+    
     func displayError(error: Error?){
         print(error?.localizedDescription)
         
@@ -74,7 +79,7 @@ class AppViewModel: ObservableObject{
                 .setData([ "firstName":firstName, "lastName":lastName, "uid":uid, "email":email]);
             
             self!.setPledgesForUser(userId: result!.user.uid, db: db);
-            self!.setDataForUser(userId: result!.user.uid, db: db, statsController: StatsDataController());
+            self!.setDataForUser(userId: result!.user.uid, db: db, statsController: self!.statsController);
           
             
             DispatchQueue.main.async {
