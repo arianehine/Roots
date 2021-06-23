@@ -18,7 +18,7 @@ import Combine
 class AppViewModel: ObservableObject{
     @State var statsController: StatsDataController
     let auth = Auth.auth();
-    let fbLogic = FirebaseLogic();
+    @State var fbLogic: FirebaseLogic
 
     
     func addUserInfo(fName: String, lName: String, email: String){
@@ -47,8 +47,9 @@ class AppViewModel: ObservableObject{
         
     }
     
-    public init(statsController: StatsDataController){
+    public init(statsController: StatsDataController, fbLogic: FirebaseLogic){
         self.statsController = statsController
+        self.fbLogic = fbLogic
     }
     
     func displayError(error: Error?){
@@ -174,7 +175,7 @@ struct ContentView: View {
     let auth = Auth.auth();
     @EnvironmentObject var viewModel: AppViewModel
     @EnvironmentObject var statsController: StatsDataController
-    @EnvironmentObject var fbLogic: FirebaseLogic
+    @State var fbLogic: FirebaseLogic
     @State var selection = ""
     @State var name = ""
     @State var originalReports: [Report] = [Report]();

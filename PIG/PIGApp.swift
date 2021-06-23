@@ -18,9 +18,9 @@ struct PIGApp: App {
     var body: some Scene {
         WindowGroup {
             var statsController = StatsDataController(fbLogic: fbLogic)
-            let viewModel = AppViewModel(statsController: statsController)
+            let viewModel = AppViewModel(statsController: statsController, fbLogic: fbLogic)
             let originalPeople = statsController.convertCSVIntoArray()
-            ContentView(originalPeople: originalPeople)
+            ContentView(fbLogic: fbLogic, originalPeople: originalPeople)
                 .environmentObject(viewModel)
                 .environmentObject(statsController)
                 .environmentObject(fbLogic)
