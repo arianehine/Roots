@@ -215,7 +215,7 @@ struct ContentView: View {
                         .tag(0)
                         
                        
-                        DoughnutView(ID: "6", reports: $reports, originalReports: $originalReports, originalPeople: originalPeople).environmentObject(statsController)
+                        DoughnutView(ID: "6", selection: selection, reports: $reports, originalReports: $originalReports, originalPeople: originalPeople).environmentObject(statsController)
                             .font(.title)
                             .tabItem {
                                 VStack {

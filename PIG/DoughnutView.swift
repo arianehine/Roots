@@ -105,7 +105,7 @@ struct DoughnutView: View {
     //    @Binding var reports: [Report]
     //    @Binding var originalReports: [Report]
     @EnvironmentObject var statsController: StatsDataController
-    @State var selection = "";
+    @State var selection: String
     @State var selectedPie: String = ""
     @State var selectedDonut: String = ""
     @State var worstArea: String = ""
