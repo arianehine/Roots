@@ -10,7 +10,7 @@ import SwiftUI
 import SwiftUI
 
 struct BarGraphView: View {
-    @State var selection = "";
+    @Binding var selection: String
     @State var divisor = 0;
     @State var barWidth = 0;
     @Binding var reports: [Report]
@@ -39,10 +39,19 @@ struct BarGraphView: View {
                     });
                     
                     
-                }
+        }.onAppear(perform: initFunc
+    
+          
                 
-            }
+    )
         }
+func initFunc(){
+    if (selection != "") {
+        print("filter for ", selection)
+    reports = statsController.updateReports(value: selection, reports: originalReports, statsController: statsController)
+    }
+            }
+}
 
 struct BarView: View {
     

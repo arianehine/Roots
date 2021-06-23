@@ -19,13 +19,14 @@ struct StatsView: View {
    @State var averageInKg: Double = 0;
    @State var reports: [Report] = [Report]();
    @State var originalReports: [Report] = [Report]();
-@State var originalPeople : [UserData]
-    @State var fbLogic: FirebaseLogic
+   @State var originalPeople : [UserData]
+    @Binding var fbLogic: FirebaseLogic
+    @State var selection: String
     
     var body: some View {
  
        
-        BarGraphView(reports: $reports, originalReports: $originalReports).environmentObject(statsController).onAppear{
+        BarGraphView(selection: $selection, reports: $reports, originalReports: $originalReports).environmentObject(statsController).onAppear{
             
             if (statsController.originalPeople.count == 0) {
                 people = originalPeople;
@@ -33,7 +34,8 @@ struct StatsView: View {
             people = originalPeople;
             }
         let user = statsController.findUserData(people: people, ID: ID);
-            self.reports = statsController.convertToReports(users: user);
+            
+           // self.reports = statsController.convertToReports(users: user);
             self.originalReports = statsController.convertToReports(users: user);
             print(reports);};
         

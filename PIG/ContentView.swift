@@ -182,7 +182,7 @@ struct ContentView: View {
     @State var reports: [Report] = [Report]();
     @State var originalPeople =  [UserData]();
     @State var pledgesInProgress = [Pledge]()
-    
+
     var body: some View {
         NavigationView{
 
@@ -205,7 +205,7 @@ struct ContentView: View {
 //                        .padding()
 //                })
                     TabView(selection: $selection){
-                        StatsView(ID: "6", originalPeople: originalPeople, fbLogic: fbLogic).environmentObject(statsController)
+                        StatsView(ID: "6", originalPeople: originalPeople, fbLogic: $fbLogic, selection: selection).environmentObject(statsController)
                             .tabItem {
                                 VStack {
                                     Image(systemName: "chart.bar")
