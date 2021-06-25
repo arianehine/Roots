@@ -23,7 +23,7 @@ class AppViewModel: ObservableObject{
     
     func addUserInfo(fName: String, lName: String, email: String){
         let db = Firestore.firestore();
-        db.collection("Users").document().setData(["firstName": fName, "lastName":lName, "email": email])
+        db.collection("Users").document().setData(["firstName": fName, "lastName":lName, "email": email, "XP": 0])
     
     }
     
@@ -141,7 +141,7 @@ class AppViewModel: ObservableObject{
         Pledge(id: 5, description: "Eat meat only once a week", category: "Food", imageName: "m.circle.fill",durationInDays: 7, startDate: Date(), started: false, endDate: ""),
         Pledge(id: 6, description: "Cut fish out of your diet for 2 weeks", category: "Food", imageName: "f.circle.fill",durationInDays: 7, startDate: Date(), started: false, endDate: ""),
         Pledge(id: 7, description: "Swap cow's milk for a non-dairy alternative for a week", category: "Food", imageName: "d.circle.fill",durationInDays: 7, startDate: Date(), started: false, endDate: ""),
-        Pledge(id: 8, description: "leaf.fill", category: "Food", imageName: "d.circle.fill",durationInDays: 7, startDate: Date(), started: false, endDate: ""),
+        Pledge(id: 8, description: "Eat vegetarian for a week ", category: "Food", imageName: "d.circle.fill",durationInDays: 7, startDate: Date(), started: false, endDate: ""),
         Pledge(id: 9,description: "Eat vegan for a week", category: "Food", imageName: "leaf.fill",durationInDays: 7, startDate: Date(), started: false, endDate: ""),
         Pledge(id: 10,description: "Put your heating on a set timer!", category: "Household", imageName: "flame.fill",durationInDays: 7, startDate: Date(), started: false, endDate: ""),
         Pledge(id: 11, description: "Only fill the kettle for 1 cup when you boil it", category: "Household", imageName: "bolt.fill",durationInDays: 7, startDate: Date(), started: false, endDate: ""),
@@ -182,6 +182,8 @@ struct ContentView: View {
     @State var reports: [Report] = [Report]();
     @State var originalPeople =  [UserData]();
     @State var pledgesInProgress = [Pledge]()
+    @State var XP = 0;
+    @State var level = 1;
 
     var body: some View {
         NavigationView{
@@ -251,15 +253,17 @@ struct ContentView: View {
                 
 //                    getName()
                 }.navigationBarTitle("Welcome back " +  name)
-                .navigationBarItems(trailing:
-                
-                                        Button(action: {
+                .navigationBarItems(leading:
+                                        Text("XP: \(XP) Level: \(level)"),
+                                    trailing: Button(action: {
                                             viewModel.signOut()
                                         }, label: {
                                             Text("Sign Out")
                                         }))
                 .onAppear(){
                     getName()
+                    getXP(uid: auth.currentUser!.uid)
+                    level = getLevel(XP: XP)
                 }
               
                 //replace with app logic
@@ -275,6 +279,31 @@ struct ContentView: View {
             viewModel.alert=false
         }
         
+    }
+    
+    func getXP(uid: String){
+        let auth = Auth.auth();
+        let db = Firestore.firestore();
+        let docRef = db.collection("Users").document(uid)
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                XP = document.data()?["XP"] as? Int ?? 0
+                print(XP)
+                return
+            } else {
+                print("Document does not exist")
+            }
+          
+            
+          
+        }
+      
+        
+    }
+    
+    func getLevel(XP: Int) -> Int{
+        return Int((floor(Double(XP) / 100) + 1));
     }
     
     func getName(){
