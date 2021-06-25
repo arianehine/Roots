@@ -182,6 +182,9 @@ class FirebaseLogic: ObservableObject {
 }
     
 
+    func incrementPledgeCompletedDays(pledge: Pledge){
+        print("todo")
+    }
         
     func getUserData(uid: String) -> [UserData]{
             let db = Firestore.firestore()
