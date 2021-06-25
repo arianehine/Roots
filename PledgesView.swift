@@ -96,6 +96,8 @@ var imageName: String
 var durationInDays: Int
 var startDate: Date
 var started: Bool
+var completed: Bool
+var daysCompleted: Int
 var endDate: String
 
 

@@ -20,6 +20,8 @@
 		D659E7FC266D674F0038A086 /* PleadeConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D659E7FB266D674F0038A086 /* PleadeConfirmation.swift */; };
 		D659E819266E91100038A086 /* PledgesInProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = D659E818266E910F0038A086 /* PledgesInProgress.swift */; };
 		D65C360826861CC0003A504F /* AdditionalPledgesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65C360726861CC0003A504F /* AdditionalPledgesView.swift */; };
+		D65C360D26866F10003A504F /* TrackPledges.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65C360C26866F10003A504F /* TrackPledges.swift */; };
+		D65C3612268677EB003A504F /* PledgeUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65C3611268677EB003A504F /* PledgeUpdate.swift */; };
 		D68366DD2655557000648C1B /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68366DC2655557000648C1B /* ToggleView.swift */; };
 		D68DCAD8266AA64600AA9116 /* PledgesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68DCAD7266AA64600AA9116 /* PledgesView.swift */; };
 		D68DCADD266AA65800AA9116 /* TrophiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68DCADC266AA65800AA9116 /* TrophiesView.swift */; };
@@ -73,6 +75,8 @@
 		D659E7FB266D674F0038A086 /* PleadeConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PleadeConfirmation.swift; sourceTree = "<group>"; };
 		D659E818266E910F0038A086 /* PledgesInProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PledgesInProgress.swift; sourceTree = "<group>"; };
 		D65C360726861CC0003A504F /* AdditionalPledgesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalPledgesView.swift; sourceTree = "<group>"; };
+		D65C360C26866F10003A504F /* TrackPledges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPledges.swift; sourceTree = "<group>"; };
+		D65C3611268677EB003A504F /* PledgeUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PledgeUpdate.swift; sourceTree = "<group>"; };
 		D68366DC2655557000648C1B /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
 		D68DCAD7266AA64600AA9116 /* PledgesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PledgesView.swift; sourceTree = "<group>"; };
 		D68DCADC266AA65800AA9116 /* TrophiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophiesView.swift; sourceTree = "<group>"; };
@@ -151,6 +155,8 @@
 		D6DC2C6E264D2E9C008C6A72 = {
 			isa = PBXGroup;
 			children = (
+				D65C3611268677EB003A504F /* PledgeUpdate.swift */,
+				D65C360C26866F10003A504F /* TrackPledges.swift */,
 				D65C360726861CC0003A504F /* AdditionalPledgesView.swift */,
 				D6440A62265AA9BD0023F889 /* ImproveView.swift */,
 				D6523D8626614DF1005A83D6 /* TipsView.swift */,
@@ -480,6 +486,7 @@
 				D6DC2C7D264D2E9D008C6A72 /* ContentView.swift in Sources */,
 				D659E7FC266D674F0038A086 /* PleadeConfirmation.swift in Sources */,
 				D6523D8726614DF1005A83D6 /* TipsView.swift in Sources */,
+				D65C360D26866F10003A504F /* TrackPledges.swift in Sources */,
 				D6440A63265AA9BD0023F889 /* ImproveView.swift in Sources */,
 				D68DCAD8266AA64600AA9116 /* PledgesView.swift in Sources */,
 				D68DCADD266AA65800AA9116 /* TrophiesView.swift in Sources */,
@@ -487,6 +494,7 @@
 				D659E819266E91100038A086 /* PledgesInProgress.swift in Sources */,
 				D68366DD2655557000648C1B /* ToggleView.swift in Sources */,
 				D69C7AA4265801E500D209DB /* DoughnutView.swift in Sources */,
+				D65C3612268677EB003A504F /* PledgeUpdate.swift in Sources */,
 				D65C360826861CC0003A504F /* AdditionalPledgesView.swift in Sources */,
 				D64DB1C72652BE5E00D6FA4D /* StatsView.swift in Sources */,
 			);

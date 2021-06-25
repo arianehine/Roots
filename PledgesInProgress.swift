@@ -17,7 +17,9 @@ struct PledgesInProgress: View {
     @State var durationSelected: Int?
     var pledgePicked: Pledge?
     @State var morePledges = false
+
     var body: some View {
+        
         VStack{
 
         Text("Pledges in progress...")
@@ -95,14 +97,25 @@ struct PledgesInProgress: View {
             .clipShape(Capsule())
             
             Spacer()
+            
+           
 
         }.toast(isPresenting: $showFurtherInfo, message: selectedForFurtherInfo.description).onAppear(perform: initVars)
         .background(
+            VStack{
             NavigationLink(destination: AdditionalPledgesView(ID: "6", fbLogic: fbLogic), isActive: $morePledges) {
                             
                         }
+            .hidden();
+                
+                NavigationLink(destination: TrackPledges(selectedForFurtherInfo: selectedForFurtherInfo), isActive: $showFurtherInfo) {
+                            
+                        }
                         .hidden()
+            }
                     )
+            
+                    
  
     }
     
@@ -258,11 +271,13 @@ class FirebaseLogic: ObservableObject {
                 let imageName = documentData["imageName"] as? String
                 let durationInDays = documentData["durationInDays"] as? Int
                 let started = documentData["started"] as? Bool
+                let completed = documentData["completed"] as? Bool
+                let daysCompleted = documentData["daysCompleted"] as? Int
                 let startDateInterval = documentData["startDate"] as? Timestamp
                 let endDate = documentData["endDate"] as? String
                 let startDate = Date(timeIntervalSince1970: TimeInterval(startDateInterval!.seconds))
 
-                let object = Pledge(id: ID!, description: description!, category: category!, imageName: imageName!, durationInDays: durationInDays!, startDate: startDate, started: started!, endDate: endDate ?? "")
+                let object = Pledge(id: ID!, description: description!, category: category!, imageName: imageName!, durationInDays: durationInDays!, startDate: startDate, started: started!, completed: completed!, daysCompleted: daysCompleted!, endDate: endDate ?? "")
             
                     self.allPledges.append(object)
                 
@@ -352,4 +367,4 @@ func findPledgeWithThisID(ID: Int) -> Pledge{
     
 }
 
-let emptyPledge = Pledge(id: 1, description: "nil", category: "nil", imageName: "nil", durationInDays: 0, startDate: Date(), started: false, endDate: "")
+let emptyPledge = Pledge(id: 1, description: "nil", category: "nil", imageName: "nil", durationInDays: 0, startDate: Date(), started: false, completed: false, daysCompleted: 0, endDate: "")
