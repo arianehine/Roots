@@ -15,9 +15,10 @@ struct PledgesInProgress: View {
     @EnvironmentObject var fbLogic: FirebaseLogic
     @State var selectedForFurtherInfo: Pledge = emptyPledge;
     var pledgePicked: Pledge?
+    @State var morePledges = false
     var body: some View {
         VStack{
-       
+
         Text("Pledges in progress...")
             WrappingHStack(0..<fbLogic.pledgesInProgress.count, id:\.self, alignment: .center) { index in
                 
@@ -81,9 +82,26 @@ struct PledgesInProgress: View {
       
                  
 
-        
+            Button(action: {
+                
+                self.morePledges = true
+                
+            }) {
+                
+            Text("Take more pledges?").padding(.vertical).padding(.horizontal,25).foregroundColor(.white)
+            }
+            .background(LinearGradient(gradient: .init(colors: [Color("Color"),Color("Color1")]), startPoint: .leading, endPoint: .trailing))
+            .clipShape(Capsule())
+            
             Spacer()
+
         }.toast(isPresenting: $showFurtherInfo, message: selectedForFurtherInfo.description).onAppear(perform: initVars)
+        .background(
+            NavigationLink(destination: AdditionalPledgesView(ID: "6", fbLogic: fbLogic), isActive: $morePledges) {
+                            
+                        }
+                        .hidden()
+                    )
  
     }
     
