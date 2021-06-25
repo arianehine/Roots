@@ -14,6 +14,7 @@ struct PledgesInProgress: View {
     @State var showFurtherInfo :Bool = false
     @EnvironmentObject var fbLogic: FirebaseLogic
     @State var selectedForFurtherInfo: Pledge = emptyPledge;
+    @State var durationSelected: Int?
     var pledgePicked: Pledge?
     @State var morePledges = false
     var body: some View {
@@ -108,7 +109,7 @@ struct PledgesInProgress: View {
     func initVars(){
         fbLogic.allPledges = fbLogic.getAllPledges();
         fbLogic.pledgesCompleted = fbLogic.getPledgesCompleted()
-        fbLogic.pledgesInProgress = fbLogic.getPledgesInProgress(pledgePicked: pledgePicked ?? emptyPledge)
+        fbLogic.pledgesInProgress = fbLogic.getPledgesInProgress(pledgePicked: pledgePicked ?? emptyPledge, durationSelected: durationSelected ?? 7)
   
     }
 }
@@ -128,7 +129,7 @@ class FirebaseLogic: ObservableObject {
 @Published var userData = [UserData]()
 
 
-func getPledgesInProgress(pledgePicked: Pledge)-> [Pledge]{
+    func getPledgesInProgress(pledgePicked: Pledge, durationSelected: Int)-> [Pledge]{
     let db = Firestore.firestore()
     let auth = Auth.auth();
     pledgesInProgress = [Pledge]()
@@ -136,7 +137,7 @@ func getPledgesInProgress(pledgePicked: Pledge)-> [Pledge]{
     let currentUser = (auth.currentUser?.uid)!
      if(pledgePicked.description != "nil"){
         let id = pledgePicked.id
-        let userPledges = db.collection("UserPledges").document(currentUser).collection("Pledges").document(String(id)).updateData(["started":true])
+        let userPledges = db.collection("UserPledges").document(currentUser).collection("Pledges").document(String(id)).updateData(["started":true, "durationInDays": durationSelected])
         
         
 //     pledgesToReturn.append(pledgePicked)

@@ -9,15 +9,25 @@ import SwiftUI
 
 struct PleadeConfirmation: View {
     var pledgePicked: Pledge
+    @State private var durationSelected = 1
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var fbLogic: FirebaseLogic
     var body: some View {
+        VStack{
         Text("Commit to pledge: \(pledgePicked.description )").multilineTextAlignment(.center)
+            Spacer()
+            Text("Duration (minimum 3 days)")
+            Picker("", selection: $durationSelected) {
+                ForEach(3...14, id: \.self) {
+                    Text("\($0)")
+                }
+        }
+        }
         Spacer()
         HStack{
             HStack{
                 NavigationLink(destination: PledgesInProgress(
-                                pledgePicked: pledgePicked).environmentObject(fbLogic)){
+                                durationSelected: durationSelected, pledgePicked: pledgePicked).environmentObject(fbLogic)){
                 Text("Yes")
             Image(systemName: "person.fill.checkmark").foregroundColor(Color(.green))
                 }
