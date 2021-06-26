@@ -191,6 +191,7 @@ struct ContentView: View {
 
             
             if viewModel.signedIn{
+                
                
 
                 VStack{
@@ -254,7 +255,7 @@ struct ContentView: View {
 //                    getName()
                 }.navigationBarTitle("Welcome back " +  name)
                 .navigationBarItems(leading:
-                                        Text("XP: \(XP) Level: \(level)"),
+                                        Text("XP: \(XP) Level: \(getLevel(XP: XP))"),
                                     trailing: Button(action: {
                                             viewModel.signOut()
                                         }, label: {
@@ -303,7 +304,8 @@ struct ContentView: View {
     }
     
     func getLevel(XP: Int) -> Int{
-        return Int((floor(Double(XP) / 100) + 1));
+
+        return Int(XP / 100)+1;
     }
     
     func getName(){

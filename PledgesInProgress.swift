@@ -188,7 +188,7 @@ class FirebaseLogic: ObservableObject {
     
     func incrementUserXP(pledge: Pledge, uid: String){
         let db = Firestore.firestore()
-        db.collection("Users").document(uid).updateData(["XP": pledge.XP])
+        db.collection("Users").document(uid).updateData(["XP": FieldValue.increment(Int64(pledge.XP))])
         
     }
     
