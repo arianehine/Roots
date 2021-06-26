@@ -12,6 +12,7 @@ import FirebaseAuth
 
 struct PledgesInProgress: View {
     @State var showFurtherInfo :Bool = false
+    @State var showFurtherInfoProgress:Bool = false
     @EnvironmentObject var fbLogic: FirebaseLogic
     @State var selectedForFurtherInfo: Pledge = emptyPledge;
     @State var durationSelected: Int?
@@ -32,6 +33,7 @@ struct PledgesInProgress: View {
                         Button(action: {
                             print(fbLogic.pledgesInProgress[index].startDate);
                             showFurtherInfo = true
+                            showFurtherInfoProgress = true
                             selectedForFurtherInfo = fbLogic.pledgesInProgress[index]
 
                               }) {
@@ -67,7 +69,7 @@ struct PledgesInProgress: View {
                 ZStack{
 
                     Button(action: {
-                        
+              
                         showFurtherInfo = true
                         selectedForFurtherInfo = fbLogic.pledgesCompleted[index]
 
@@ -108,7 +110,7 @@ struct PledgesInProgress: View {
                         }
             .hidden();
                 
-                NavigationLink(destination: TrackPledges(selectedForFurtherInfo: selectedForFurtherInfo), isActive: $showFurtherInfo) {
+                NavigationLink(destination: TrackPledges(selectedForFurtherInfo: selectedForFurtherInfo), isActive: $showFurtherInfoProgress) {
                             
                         }
                         .hidden()
@@ -120,10 +122,12 @@ struct PledgesInProgress: View {
     }
     
     func initVars(){
+ 
         fbLogic.allPledges = fbLogic.getAllPledges();
         fbLogic.pledgesCompleted = fbLogic.getPledgesCompleted()
         fbLogic.pledgesInProgress = fbLogic.getPledgesInProgress(pledgePicked: pledgePicked ?? emptyPledge, durationSelected: durationSelected ?? 7)
   
+        print("size of pledges in progress: ", fbLogic.pledgesInProgress)
     }
 }
 
@@ -150,7 +154,7 @@ class FirebaseLogic: ObservableObject {
     let currentUser = (auth.currentUser?.uid)!
      if(pledgePicked.description != "nil"){
         let id = pledgePicked.id
-        let userPledges = db.collection("UserPledges").document(currentUser).collection("Pledges").document(String(id)).updateData(["started":true, "durationInDays": durationSelected])
+        let userPledges = db.collection("UserPledges").document(currentUser).collection("Pledges").document(String(id)).updateData(["started":true, "durationInDays": durationSelected, "XP": (durationSelected*10)])
         
         
 //     pledgesToReturn.append(pledgePicked)
@@ -177,13 +181,26 @@ class FirebaseLogic: ObservableObject {
 
         })
       }
+        print("progress size", pledgesInProgress.count)
     return pledgesInProgress;
 
 }
     
+    func incrementUserXP(pledge: Pledge, uid: String){
+        let db = Firestore.firestore()
+        db.collection("Users").document(uid).updateData(["XP": pledge.XP])
+        
+    }
+    
 
-    func incrementPledgeCompletedDays(pledge: Pledge){
-        print("todo")
+    func incrementPledgeCompletedDays(pledge: Pledge, uid: String){
+        let db = Firestore.firestore()
+        if(pledge.daysCompleted+1 == pledge.durationInDays){
+
+            db.collection("UserPledges").document(uid).collection("Pledges").document(String(pledge.id)).updateData(["daysCompleted": FieldValue.increment(Int64(1)), "completed": true, "endDate": Date()])
+        }else{
+            db.collection("UserPledges").document(uid).collection("Pledges").document(String(pledge.id)).updateData(["daysCompleted": FieldValue.increment(Int64(1))])
+        }
     }
         
     func getUserData(uid: String) -> [UserData]{
@@ -278,9 +295,10 @@ class FirebaseLogic: ObservableObject {
                 let daysCompleted = documentData["daysCompleted"] as? Int
                 let startDateInterval = documentData["startDate"] as? Timestamp
                 let endDate = documentData["endDate"] as? String
+                let XP = documentData["XP"] as? Int
                 let startDate = Date(timeIntervalSince1970: TimeInterval(startDateInterval!.seconds))
 
-                let object = Pledge(id: ID!, description: description!, category: category!, imageName: imageName!, durationInDays: durationInDays!, startDate: startDate, started: started!, completed: completed!, daysCompleted: daysCompleted!, endDate: endDate ?? "")
+                let object = Pledge(id: ID!, description: description!, category: category!, imageName: imageName!, durationInDays: durationInDays!, startDate: startDate, started: started!, completed: completed!, daysCompleted: daysCompleted!, endDate: endDate ?? "", XP: XP!)
             
                     self.allPledges.append(object)
                 
@@ -307,7 +325,7 @@ func findPledgeWithThisID(ID: Int) -> Pledge{
         let db = Firestore.firestore()
         let auth = Auth.auth();
         pledgesCompleted = [Pledge]()
-        var pledgesToReturn = [Pledge]()
+
         let currentUser = (auth.currentUser?.uid)!
         db.collection("UserPledges").document(currentUser).collection("Pledges")
           .getDocuments { (snapshot, error) in
@@ -324,7 +342,8 @@ func findPledgeWithThisID(ID: Int) -> Pledge{
                 }
             })
           }
-         return pledgesToReturn;
+        print("pledgesCompleted size", pledgesCompleted.count)
+         return pledgesCompleted;
     
 
     }
@@ -370,4 +389,4 @@ func findPledgeWithThisID(ID: Int) -> Pledge{
     
 }
 
-let emptyPledge = Pledge(id: 1, description: "nil", category: "nil", imageName: "nil", durationInDays: 0, startDate: Date(), started: false, completed: false, daysCompleted: 0, endDate: "")
+let emptyPledge = Pledge(id: 1, description: "nil", category: "nil", imageName: "nil", durationInDays: 0, startDate: Date(), started: false, completed: false, daysCompleted: 0, endDate: "", XP: 0)

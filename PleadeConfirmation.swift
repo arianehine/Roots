@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PleadeConfirmation: View {
     var pledgePicked: Pledge
-    @State private var durationSelected = 1
+    @State private var durationSelected = 3
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var fbLogic: FirebaseLogic
     var body: some View {

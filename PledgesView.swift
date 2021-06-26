@@ -99,6 +99,7 @@ var started: Bool
 var completed: Bool
 var daysCompleted: Int
 var endDate: String
+var XP: Int
 
 
 }
