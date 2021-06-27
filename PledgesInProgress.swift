@@ -32,7 +32,7 @@ struct PledgesInProgress: View {
 
 
                         Button(action: {
-                            print(fbLogic.pledgesInProgress[index].startDate);
+                        
                             showFurtherInfo = true
                             showFurtherInfoProgress = true
                             selectedForFurtherInfo = fbLogic.pledgesInProgress[index]
@@ -128,7 +128,7 @@ struct PledgesInProgress: View {
         fbLogic.pledgesCompleted = fbLogic.getPledgesCompleted()
         fbLogic.pledgesInProgress = fbLogic.getPledgesInProgress(pledgePicked: pledgePicked ?? emptyPledge, durationSelected: durationSelected ?? 7)
   
-        print("size of pledges in progress: ", fbLogic.pledgesInProgress)
+       
     }
 }
 
@@ -167,22 +167,22 @@ class FirebaseLogic: ObservableObject {
           //handle error
           return
         }
-        print("Number of documents: \(snapshot.documents.count ?? -1)")
+    
         snapshot.documents.forEach({ (documentSnapshot) in
             
             
           let documentData = documentSnapshot.data()
             let started = documentData["started"] as? Bool
             let endDate = documentData["endDate"] as? String
-            print(started)
+         
             if (started == true && endDate==""){
-                print("append", self.findPledgeWithThisID(ID: documentData["ID"] as! Int))
+          
                 pledgesInProgress.append(self.findPledgeWithThisID(ID: documentData["ID"] as! Int))
             }
 
         })
       }
-        print("progress size", pledgesInProgress.count)
+     
     return pledgesInProgress;
 
 }
@@ -207,7 +207,11 @@ class FirebaseLogic: ObservableObject {
                    //handle error
                    return
                  }
-                 print("Number of documents get records: \(snapshot.documents.count ?? -1)")
+                if((snapshot.documents.count)==0){
+                    completion(true)
+                }else{
+                    print(snapshot.documents.count)
+                }
                  snapshot.documents.forEach({ (documentSnapshot) in
                      
                      
@@ -216,7 +220,7 @@ class FirebaseLogic: ObservableObject {
                   
                   let dateConverted = Date(timeIntervalSince1970: TimeInterval(date!.seconds))
                     if(Calendar.current.isDateInToday(dateConverted)){
-                    
+                    print("completion false")
                         completion(false)
                     }
                  })
@@ -270,14 +274,14 @@ db.collection("UserPledges").document(uid).collection("Pledges").document(String
             userData = [UserData]()
             let auth = Auth.auth();
             let currentUser = (auth.currentUser?.uid)!
-            print("fb logic current user, ", currentUser)
+        
             
                 let data = db.collection("UserData").document(currentUser).collection("Data")    .getDocuments { [self] (snapshot, error) in
                     guard let snapshot = snapshot, error == nil else {
                      //handle error
                      return
                    }
-                   print("Number of documents fb logic get user data: \(snapshot.documents.count ?? -1)")
+                
                    snapshot.documents.forEach({ (documentSnapshot) in
                        
                        
@@ -319,7 +323,7 @@ db.collection("UserPledges").document(uid).collection("Pledges").document(String
     //                   }
 
                    })
-                    print("size at closure", userData.count)
+                 
                  }
                 
                 
@@ -344,7 +348,7 @@ db.collection("UserPledges").document(uid).collection("Pledges").document(String
               //handle error
               return
             }
-            print("Number of documents: \(snapshot.documents.count ?? -1)")
+          
             snapshot.documents.forEach({ (documentSnapshot) in
                 let documentData = documentSnapshot.data()
                 let ID = documentData["ID"]! as? Int
@@ -376,7 +380,7 @@ db.collection("UserPledges").document(uid).collection("Pledges").document(String
 func findPledgeWithThisID(ID: Int) -> Pledge{
     for pledge in allPledges{
         if pledge.id == ID{
-            print("ID WITH PLEDGE: ", pledge)
+         
             return pledge;
         }
     }
@@ -395,7 +399,7 @@ func findPledgeWithThisID(ID: Int) -> Pledge{
               //handle error
               return
             }
-            print("Number of documents: \(snapshot.documents.count ?? -1)")
+           
             snapshot.documents.forEach({ (documentSnapshot) in
               let documentData = documentSnapshot.data()
                 let endDate = documentData["endDate"] as? String
@@ -404,7 +408,7 @@ func findPledgeWithThisID(ID: Int) -> Pledge{
                 }
             })
           }
-        print("pledgesCompleted size", pledgesCompleted.count)
+      
          return pledgesCompleted;
     
 
@@ -423,14 +427,14 @@ func findPledgeWithThisID(ID: Int) -> Pledge{
               //handle error
               return
             }
-            print("Number of documents: \(snapshot.documents.count ?? -1)")
+         
             snapshot.documents.forEach({ (documentSnapshot) in
               let documentData = documentSnapshot.data()
                 let category = documentData["category"] as? String
                 let started = documentData["started"] as? Bool
                 if (!started! && category == chosenArea){
                     self.pledgesForArea.append(self.findPledgeWithThisID(ID: documentData["ID"] as! Int))
-                    print("appending pledge for area")
+                 
                 }
             })
           }
