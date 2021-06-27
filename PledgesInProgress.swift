@@ -16,6 +16,7 @@ struct PledgesInProgress: View {
     @EnvironmentObject var fbLogic: FirebaseLogic
     @State var selectedForFurtherInfo: Pledge = emptyPledge;
     @State var durationSelected: Int?
+   
     var pledgePicked: Pledge?
     @State var morePledges = false
 
@@ -144,7 +145,7 @@ class FirebaseLogic: ObservableObject {
 @Published var pledgesForArea = [Pledge]()
 @Published var allPledges = [Pledge]()
 @Published var userData = [UserData]()
-
+@Published var results = [Bool]()
 
     func getPledgesInProgress(pledgePicked: Pledge, durationSelected: Int)-> [Pledge]{
     let db = Firestore.firestore()
@@ -193,16 +194,77 @@ class FirebaseLogic: ObservableObject {
     }
     
 
-    func incrementPledgeCompletedDays(pledge: Pledge, uid: String){
+    func incrementPledgeCompletedDays(pledge: Pledge, uid: String, completion: @escaping (Bool) ->Void){
         let db = Firestore.firestore()
-        if(pledge.daysCompleted+1 == pledge.durationInDays){
-
-            db.collection("UserPledges").document(uid).collection("Pledges").document(String(pledge.id)).updateData(["daysCompleted": FieldValue.increment(Int64(1)), "completed": true, "endDate": Date()])
-        }else{
-            db.collection("UserPledges").document(uid).collection("Pledges").document(String(pledge.id)).updateData(["daysCompleted": FieldValue.increment(Int64(1))])
-        }
-    }
         
+
+
+            ///if completed
+         
+            
+            db.collection("UserPledges").document(uid).collection("Pledges").document(String(pledge.id)).collection("Records").getDocuments { [self] (snapshot, error) in
+                  guard let snapshot = snapshot, error == nil else {
+                   //handle error
+                   return
+                 }
+                 print("Number of documents get records: \(snapshot.documents.count ?? -1)")
+                 snapshot.documents.forEach({ (documentSnapshot) in
+                     
+                     
+                  let documentData = documentSnapshot.data()
+                  let date = documentData["date"] as? Timestamp
+                  
+                  let dateConverted = Date(timeIntervalSince1970: TimeInterval(date!.seconds))
+                    if(Calendar.current.isDateInToday(dateConverted)){
+                    
+                        completion(false)
+                    }
+                 })
+    
+    
+               }
+        
+        
+
+          
+            }
+      
+
+    
+func incrementPledgeCompletedDays2(pledge: Pledge, uid: String){
+    let db = Firestore.firestore()
+    
+    if(pledge.daysCompleted+1 == pledge.durationInDays){
+
+        ///if completed
+     
+db.collection("UserPledges").document(uid).collection("Pledges").document(String(pledge.id)).updateData(["daysCompleted": FieldValue.increment(Int64(1)), "completed": true, "endDate": Date()])
+    let date =  Date()
+db.collection("UserPledges").document(uid).collection("Pledges").document(String(pledge.id)).collection("Records").document(dateToString(date: date)).setData(["date": date])
+        
+        
+    } else{
+  
+        db.collection("UserPledges").document(uid).collection("Pledges").document(String(pledge.id)).updateData(["daysCompleted": FieldValue.increment(Int64(1))])
+                let date = Date()
+            db.collection("UserPledges").document(uid).collection("Pledges").document(String(pledge.id)).collection("Records").document(dateToString(date:date)).setData(["date": date])
+            
+
+        }
+
+}
+    public func dateToString(date: Date) -> String{
+        // Create Date Formatter
+        let dateFormatter = DateFormatter()
+
+        // Set Date Format
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+        // Convert Date to String
+        return dateFormatter.string(from: date)
+    }
+
+    
     func getUserData(uid: String) -> [UserData]{
             let db = Firestore.firestore()
             userData = [UserData]()

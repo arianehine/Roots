@@ -14,6 +14,7 @@ struct PledgeUpdate: View {
     @State var toastShow: Bool = false
     @State var goBack = false
     @State var auth = Auth.auth();
+    @State var message = ""
     var body: some View {
         VStack{
         Text("Track activity for pledge").font(.title2)
@@ -23,8 +24,8 @@ struct PledgeUpdate: View {
     
         Button(action: {
             
-            let result = updatePledge(pledgeToUpdate: pledgeToUpdate, daysCompleted: pledgeToUpdate.daysCompleted, durationInDays: pledgeToUpdate.durationInDays)
-            print(result)
+            updatePledge(pledgeToUpdate: pledgeToUpdate, daysCompleted: pledgeToUpdate.daysCompleted, durationInDays: pledgeToUpdate.durationInDays)
+
             toastShow = true
             
           
@@ -52,23 +53,39 @@ struct PledgeUpdate: View {
     )
     }
     func getMessage(pledgeToUpdate: Pledge, daysCompleted: Int, durationInDays: Int) -> String{
-        if(daysCompleted+1 == durationInDays){
-            return "Yay, you've completed this pledge. + \(pledgeToUpdate.XP) XP "
-        }else{
-            return "Well done! Only \(durationInDays - (daysCompleted+1)) days until you are finished"
+       return message
         }
-    }
+    
     //TODO IMPLEMENT THIS
-    func updatePledge(pledgeToUpdate: Pledge, daysCompleted: Int, durationInDays: Int) -> Bool{
-        self.fbLogic.incrementPledgeCompletedDays(pledge: pledgeToUpdate, uid: auth.currentUser!.uid);
-        if((daysCompleted+1) == durationInDays){
-            self.fbLogic.incrementUserXP(pledge: pledgeToUpdate, uid: auth.currentUser!.uid);
-       return true
-        }
-        return false
+    func updatePledge(pledgeToUpdate: Pledge, daysCompleted: Int, durationInDays: Int){
+        auth = Auth.auth()
+        
+       self.fbLogic.incrementPledgeCompletedDays(pledge: pledgeToUpdate, uid: auth.currentUser!.uid){ (isSucceeded) in
+            if !isSucceeded {
+                print("NOT SUCESS")
+                message = "Oops, come back tomorrow to track progress for this pledge"
+            } else {
+                print("SUCESS")
+                if((daysCompleted+1) == durationInDays){
+                    message =  "Yay, you've completed this pledge. + \(pledgeToUpdate.XP) XP "
+                    self.fbLogic.incrementPledgeCompletedDays2(pledge: pledgeToUpdate, uid: auth.currentUser!.uid)
+                    self.fbLogic.incrementUserXP(pledge: pledgeToUpdate, uid: auth.currentUser!.uid);
+                    
+             
+                }else{
+                    message = "Well done! Only \(durationInDays - (daysCompleted+1)) days until you are finished"
+                    self.fbLogic.incrementPledgeCompletedDays2(pledge: pledgeToUpdate, uid: auth.currentUser!.uid)
+                
+                }
+                
+             
+            }
+     
         
     }
 }
+}
+
 
 //struct PledgeUpdate_Previews: PreviewProvider {
 //    static var previews: some View {

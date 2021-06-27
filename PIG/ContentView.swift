@@ -120,7 +120,7 @@ class AppViewModel: ObservableObject{
     }
         
    
-    func dateToString(date: Date) -> String{
+    public func dateToString(date: Date) -> String{
         // Create Date Formatter
         let dateFormatter = DateFormatter()
 
