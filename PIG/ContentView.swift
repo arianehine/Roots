@@ -31,7 +31,7 @@ class AppViewModel: ObservableObject{
         auth.signIn(withEmail: email, password: password) { [weak self] result, error in
             guard result != nil, error == nil else{
                 self?.error = error!.localizedDescription
-                print(error!.localizedDescription)
+              
                 self?.alert.toggle()
                 return
             }
@@ -107,7 +107,7 @@ class AppViewModel: ObservableObject{
     func setDataForUser(userId: String, db: Firestore, statsController: StatsDataController){
         
         let userData = statsController.convertCSVIntoArray()
-        print(userData.count)
+
         for user in userData{
             if(user.ID == "8"){
             var stringDate = dateToString(date: user.date)
@@ -290,7 +290,7 @@ struct ContentView: View {
             if let document = document, document.exists {
                 let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
                 XP = document.data()?["XP"] as? Int ?? 0
-                print(XP)
+    
                 return
             } else {
                 print("Document does not exist")
@@ -319,9 +319,9 @@ struct ContentView: View {
             docRef.getDocument { (document, error) in
                 if let document = document, document.exists {
                     let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                    print("Document data: \(dataDescription)")
+                
                     name = document.data()?["firstName"] as! String
-                    print(name)
+        
                     return
                 } else {
                     print("Document does not exist")

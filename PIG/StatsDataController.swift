@@ -24,11 +24,11 @@ class StatsDataController: ObservableObject {
     }
     
     func retrieveUserData() -> [UserData]{
-        print("convert csv call")
+
         let auth = Auth.auth();
         var toReturn = [UserData]()
         if(auth.currentUser != nil){
-        print(auth.currentUser?.uid, " current user")
+        
 
             fbLogic.userData = fbLogic.getUserData(uid: auth.currentUser!.uid)
             toReturn = fbLogic.userData
@@ -46,13 +46,13 @@ class StatsDataController: ObservableObject {
 func convertCSVIntoArray() -> [UserData]{
 
     if(originalPeople.count == 0){
-        print("converting CSV into array")
+
     var people = [UserData]()
     
 
        //locate the file you want to use
        guard let filepath = Bundle.main.path(forResource: "synthesisedData", ofType: "csv") else {
-           print("not found")
+
            return [UserData]()
        }
 
@@ -61,8 +61,7 @@ func convertCSVIntoArray() -> [UserData]{
        do {
            data = try String(contentsOfFile: filepath)
        } catch {
-           print(error)
-           print("no")
+   
            return [UserData]()
        }
 
@@ -116,13 +115,13 @@ func convertCSVIntoArray() -> [UserData]{
     originalPeople = orderByDate(array: people);
         return people;
     }else {
-        print("original people has", originalPeople.count)
+      
         return originalPeople;
     }
 }
     
     func orderByDate(array: [UserData]) -> [UserData]{
-        print("ordering")
+
       
         var dateFormatter = DateFormatter()
         var convertedArray = [UserData]()
@@ -141,7 +140,7 @@ func convertCSVIntoArray() -> [UserData]{
     }
     
     func orderReportsByDate(array: [Report]) -> [Report]{
-        print("ordering")
+     
         var dateFormatter = DateFormatter()
         var convertedArray = [Report]()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -172,11 +171,11 @@ func convertCSVIntoArray() -> [UserData]{
     func convertToReports(users: [UserData]) -> [Report]{
         var reportsToReturn = [Report]()
         for x in users{
-            print("converting")
+
             let stringDate = String(dateToString(date: x.date))
             reportsToReturn.append(Report(year:  String(stringDate.split(separator: "-")[0] + "-" + stringDate.split(separator: "-")[1]), average: x.average, date: x.date, transport: x.transport, household: x.household, clothing: x.clothing, health: x.health, food: x.health, transport_walking: x.transport_walking, transport_car: x.transport_car, transport_train: x.transport_train, transport_bus: x.transport_bus, transport_plane: x.transport_plane, household_heating: x.household_heating, household_electricity: x.household_electricity, household_furnishings: x.household_furnishings, household_lighting: x.household_lighting, clothing_fastfashion: x.clothing_fastfashion, clothing_sustainable: x.clothing_sustainable, health_meds: x.health_meds, health_scans: x.health_scans, food_meat: x.food_meat, food_fish: x.food_fish, food_dairy: x.food_dairy, food_oils: x.food_oils))
         }
-        print("NUMBER OF REPORTS:", reportsToReturn.count)
+        
         return reportsToReturn;
         
     }
@@ -272,7 +271,7 @@ func convertCSVIntoArray() -> [UserData]{
             if report.date<now.endOfDay && report.date>startOfYear.startOfDay{
                 
                 var stringMonth = Date.getMonth(date: report.date)
-                print("string month ", stringMonth)
+     
                 stringMonth = String(stringMonth.prefix(3))
                 let reportNew = Report(year: stringMonth, average: report.average, date: report.date, transport: report.transport, household: report.household, clothing: report.clothing, health: report.health, food: report.food, transport_walking: report.transport_walking, transport_car: report.transport_car, transport_train: report.transport_train, transport_bus: report.transport_bus, transport_plane: report.transport_plane, household_heating: report.household_heating,household_electricity: report.household_electricity, household_furnishings: report.household_furnishings, household_lighting: report.household_lighting, clothing_fastfashion: report.clothing_fastfashion, clothing_sustainable: report.clothing_sustainable, health_meds: report.health_meds, health_scans: report.health_scans, food_meat: report.food_meat, food_fish: report.food_fish, food_dairy: report.food_dairy, food_oils: report.food_oils)
                 returnReports.append(reportNew)
@@ -314,31 +313,31 @@ func convertCSVIntoArray() -> [UserData]{
     func updateReports(value: String, reports: [Report], statsController: StatsDataController) -> [Report]{
         
         let copyOfReports = reports;
-        print("Reports going in", copyOfReports)
+     
 
         switch value {
         case "Day":
             var reportsToReturn = statsController.getToday(reports: copyOfReports)
             reportsToReturn = checkIfMerge(reports: reportsToReturn)
-            print("Reports returned: ", reportsToReturn)
+         
             return reportsToReturn;
             break;
         case "Week":
             var reportsToReturn = statsController.getThisWeek(reports: copyOfReports)
             reportsToReturn = checkIfMerge(reports: reportsToReturn)
-            print("Reports returned: ", reportsToReturn)
+          
             return reportsToReturn;
             break;
         case "Month":
             var reportsToReturn = statsController.getThisMonth(reports: copyOfReports)
             reportsToReturn = checkIfMerge(reports: reportsToReturn)
-            print("Reports returned: ", reportsToReturn)
+         
             return reportsToReturn;
             break;
         case "Year":
             var reportsToReturn = statsController.getThisYear(reports: copyOfReports)
             reportsToReturn = checkIfMerge(reports: reportsToReturn)
-            print("Reports returned: ", reportsToReturn)
+           
             return reportsToReturn;
             break;
         default: break
@@ -354,7 +353,7 @@ func convertCSVIntoArray() -> [UserData]{
 
 
     func findUserData(people: [UserData], ID: String) -> [UserData]{
-        print("findng user")
+
         var user = [UserData]();
         if(stateUser.count == 0 ){
         let matches = people.filter { $0.ID == ID }
@@ -362,7 +361,7 @@ func convertCSVIntoArray() -> [UserData]{
         for item in matches{
             user.append(item)
     }
-        print(user.count)
+
         }else {
             user = stateUser;}
         return user;

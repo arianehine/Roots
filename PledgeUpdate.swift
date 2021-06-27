@@ -62,10 +62,10 @@ struct PledgeUpdate: View {
         
        self.fbLogic.incrementPledgeCompletedDays(pledge: pledgeToUpdate, uid: auth.currentUser!.uid){ (isSucceeded) in
             if !isSucceeded {
-                print("NOT SUCESS")
+  
                 message = "Oops, come back tomorrow to track progress for this pledge"
             } else {
-                print("SUCESS")
+
                 if((daysCompleted+1) == durationInDays){
                     self.fbLogic.incrementPledgeCompletedDays2(pledge: pledgeToUpdate, uid: auth.currentUser!.uid)
                     self.fbLogic.incrementUserXP(pledge: pledgeToUpdate, uid: auth.currentUser!.uid);

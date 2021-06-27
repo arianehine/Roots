@@ -47,7 +47,7 @@ struct BarGraphView: View {
         }
 func initFunc(){
     if (selection != "") {
-        print("filter for ", selection)
+
     reports = statsController.updateReports(value: selection, reports: originalReports, statsController: statsController)
     }
             }

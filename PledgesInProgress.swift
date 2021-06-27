@@ -209,8 +209,6 @@ class FirebaseLogic: ObservableObject {
                  }
                 if((snapshot.documents.count)==0){
                     completion(true)
-                }else{
-                    print(snapshot.documents.count)
                 }
                  snapshot.documents.forEach({ (documentSnapshot) in
                      
@@ -220,7 +218,7 @@ class FirebaseLogic: ObservableObject {
                   
                   let dateConverted = Date(timeIntervalSince1970: TimeInterval(date!.seconds))
                     if(Calendar.current.isDateInToday(dateConverted)){
-                    print("completion false")
+                   
                         completion(false)
                     }
                  })

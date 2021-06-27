@@ -173,24 +173,24 @@ struct DoughnutView: View {
             }.frame(minHeight: 350, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
             .onAppear{
                 
-                print(statsController.originalPeople.count)
+   
                 
                 if(statsController.originalPeople.count != 0){
-                    print("it was not 0")
+        
                     people = statsController.originalPeople
                    
                 }
                    
                   else{
-                    print("it was 0")
+
                     people = originalPeople
                    }
         
-                print("yo")
+
                 let user = statsController.findUserData(people: people, ID: ID);
 //                self.reports = statsController.convertToReports(users: user);
                 self.originalReports = statsController.convertToReports(users: user);
-                print(reports);};
+                };
             Spacer()
             if !(reports.count==0){
 
@@ -291,7 +291,7 @@ final class ChartDataModel: ObservableObject {
             startingAngle = lastBarEndAngle
         }
         lastBarEndAngle += Angle(degrees: Double(value / totalValue) * 360 )
-        print(lastBarEndAngle.degrees)
+    
         return lastBarEndAngle
     }
 }
