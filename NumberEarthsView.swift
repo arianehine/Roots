@@ -51,7 +51,7 @@ struct NumberEarthsView: View {
 
 //WORK ON THIS CALCULATION
 func getNumEarths(report: Report) ->Double{
-    let returnVal = ((report.average / 100) / Double(report.numReportsComposingReport)) / 10;
+    let returnVal = ((report.average / 100) / Double(report.numReportsComposingReport)) / 5;
     print("num composing", report.numReportsComposingReport)
     return (round(returnVal*100)) / 100.0;
 
