@@ -196,7 +196,7 @@ class FirebaseLogic: ObservableObject {
 
     func incrementPledgeCompletedDays(pledge: Pledge, uid: String, completion: @escaping (Bool) ->Void){
         let db = Firestore.firestore()
-        
+        var found = [Bool]()
 
 
             ///if completed
@@ -220,8 +220,12 @@ class FirebaseLogic: ObservableObject {
                     if(Calendar.current.isDateInToday(dateConverted)){
                    
                         completion(false)
+                        found.append(false)
                     }
                  })
+                if(!(found.count > 0)){
+                    completion(true)
+                }
     
     
                }

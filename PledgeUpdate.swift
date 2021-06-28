@@ -37,12 +37,12 @@ struct PledgeUpdate: View {
         }) {
             
         Text("+1 to pledge count").padding(.vertical).padding(.horizontal,25).foregroundColor(.white)
-        }.toast(isPresenting: $toastShow, message: getMessage(pledgeToUpdate: pledgeToUpdate, daysCompleted: pledgeToUpdate.daysCompleted, durationInDays: pledgeToUpdate.durationInDays))
-        .background(LinearGradient(gradient: .init(colors: [Color("Color"),Color("Color1")]), startPoint: .leading, endPoint: .trailing))
+        } .background(LinearGradient(gradient: .init(colors: [Color("Color"),Color("Color1")]), startPoint: .leading, endPoint: .trailing))
         .clipShape(Capsule())
-
     
-    }
+    }.toast(isPresenting: $toastShow, message: getMessage(pledgeToUpdate: pledgeToUpdate, daysCompleted: pledgeToUpdate.daysCompleted, durationInDays: pledgeToUpdate.durationInDays))
+       
+
         .background(
             VStack{
                 NavigationLink(destination: PledgesInProgress(), isActive: $goBack) {
@@ -62,9 +62,11 @@ struct PledgeUpdate: View {
         
        self.fbLogic.incrementPledgeCompletedDays(pledge: pledgeToUpdate, uid: auth.currentUser!.uid){ (isSucceeded) in
             if !isSucceeded {
+                print("not success")
   
                 message = "Oops, come back tomorrow to track progress for this pledge"
             } else {
+                print("success")
 
                 if((daysCompleted+1) == durationInDays){
                     self.fbLogic.incrementPledgeCompletedDays2(pledge: pledgeToUpdate, uid: auth.currentUser!.uid)
