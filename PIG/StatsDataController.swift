@@ -173,7 +173,7 @@ func convertCSVIntoArray() -> [UserData]{
         for x in users{
 
             let stringDate = String(dateToString(date: x.date))
-            reportsToReturn.append(Report(year:  String(stringDate.split(separator: "-")[0] + "-" + stringDate.split(separator: "-")[1]), average: x.average, date: x.date, transport: x.transport, household: x.household, clothing: x.clothing, health: x.health, food: x.health, transport_walking: x.transport_walking, transport_car: x.transport_car, transport_train: x.transport_train, transport_bus: x.transport_bus, transport_plane: x.transport_plane, household_heating: x.household_heating, household_electricity: x.household_electricity, household_furnishings: x.household_furnishings, household_lighting: x.household_lighting, clothing_fastfashion: x.clothing_fastfashion, clothing_sustainable: x.clothing_sustainable, health_meds: x.health_meds, health_scans: x.health_scans, food_meat: x.food_meat, food_fish: x.food_fish, food_dairy: x.food_dairy, food_oils: x.food_oils))
+            reportsToReturn.append(Report(year:  String(stringDate.split(separator: "-")[0] + "-" + stringDate.split(separator: "-")[1]), average: x.average, date: x.date, transport: x.transport, household: x.household, clothing: x.clothing, health: x.health, food: x.health, transport_walking: x.transport_walking, transport_car: x.transport_car, transport_train: x.transport_train, transport_bus: x.transport_bus, transport_plane: x.transport_plane, household_heating: x.household_heating, household_electricity: x.household_electricity, household_furnishings: x.household_furnishings, household_lighting: x.household_lighting, clothing_fastfashion: x.clothing_fastfashion, clothing_sustainable: x.clothing_sustainable, health_meds: x.health_meds, health_scans: x.health_scans, food_meat: x.food_meat, food_fish: x.food_fish, food_dairy: x.food_dairy, food_oils: x.food_oils, numReportsComposingReport: 1))
         }
         
         return reportsToReturn;
@@ -206,6 +206,7 @@ func convertCSVIntoArray() -> [UserData]{
         var now = Date();
         let startOfMonth = now.startOfMonth
         let tz = TimeZone.current
+        var count = 0;
         if tz.isDaylightSavingTime(for: now) {
             now = now.addingTimeInterval(+3600)
             }
@@ -215,8 +216,9 @@ func convertCSVIntoArray() -> [UserData]{
         
         for report in reportsCopy{
             if report.date<now.endOfDay && report.date>startOfMonth.startOfDay{
+                count += 1;
                 let weekOfMonth = Date.getWeekOfMonth(date: report.date);
-                let reportNew = Report(year: weekOfMonth, average: report.average, date: report.date, transport: report.transport, household: report.household, clothing: report.clothing, health: report.health, food: report.food, transport_walking: report.transport_walking, transport_car: report.transport_car, transport_train: report.transport_train, transport_bus: report.transport_bus, transport_plane: report.transport_plane, household_heating: report.household_heating,household_electricity: report.household_electricity, household_furnishings: report.household_furnishings, household_lighting: report.household_lighting, clothing_fastfashion: report.clothing_fastfashion, clothing_sustainable: report.clothing_sustainable, health_meds: report.health_meds, health_scans: report.health_scans, food_meat: report.food_meat, food_fish: report.food_fish, food_dairy: report.food_dairy, food_oils: report.food_oils)
+                let reportNew = Report(year: weekOfMonth, average: report.average, date: report.date, transport: report.transport, household: report.household, clothing: report.clothing, health: report.health, food: report.food, transport_walking: report.transport_walking, transport_car: report.transport_car, transport_train: report.transport_train, transport_bus: report.transport_bus, transport_plane: report.transport_plane, household_heating: report.household_heating,household_electricity: report.household_electricity, household_furnishings: report.household_furnishings, household_lighting: report.household_lighting, clothing_fastfashion: report.clothing_fastfashion, clothing_sustainable: report.clothing_sustainable, health_meds: report.health_meds, health_scans: report.health_scans, food_meat: report.food_meat, food_fish: report.food_fish, food_dairy: report.food_dairy, food_oils: report.food_oils, numReportsComposingReport: count)
                 returnReports.append(reportNew)
             }
         }
@@ -230,7 +232,7 @@ func convertCSVIntoArray() -> [UserData]{
     
     func getThisWeek(reports: [Report]) -> [Report]{
         var reportsCopy = orderReportsByDate(array: reports);
-       
+        var count = 0;
         let monday = Date.today().previous(.monday)
         var returnReports = [Report]();
         var now = Date();
@@ -243,9 +245,10 @@ func convertCSVIntoArray() -> [UserData]{
         
         for report in reportsCopy{
             if report.date<now.endOfDay && report.date>monday.startOfDay{
+                count += 1;
                 var stringWeekday = Date.getWeekday(date: report.date)
                 stringWeekday = String(stringWeekday.prefix(3))
-                let reportNew = Report(year: stringWeekday, average: report.average, date: report.date, transport: report.transport, household: report.household, clothing: report.clothing, health: report.health, food: report.food, transport_walking: report.transport_walking, transport_car: report.transport_car, transport_train: report.transport_train, transport_bus: report.transport_bus, transport_plane: report.transport_plane, household_heating: report.household_heating,household_electricity: report.household_electricity, household_furnishings: report.household_furnishings, household_lighting: report.household_lighting, clothing_fastfashion: report.clothing_fastfashion, clothing_sustainable: report.clothing_sustainable, health_meds: report.health_meds, health_scans: report.health_scans, food_meat: report.food_meat, food_fish: report.food_fish, food_dairy: report.food_dairy, food_oils: report.food_oils)
+                let reportNew = Report(year: stringWeekday, average: report.average, date: report.date, transport: report.transport, household: report.household, clothing: report.clothing, health: report.health, food: report.food, transport_walking: report.transport_walking, transport_car: report.transport_car, transport_train: report.transport_train, transport_bus: report.transport_bus, transport_plane: report.transport_plane, household_heating: report.household_heating,household_electricity: report.household_electricity, household_furnishings: report.household_furnishings, household_lighting: report.household_lighting, clothing_fastfashion: report.clothing_fastfashion, clothing_sustainable: report.clothing_sustainable, health_meds: report.health_meds, health_scans: report.health_scans, food_meat: report.food_meat, food_fish: report.food_fish, food_dairy: report.food_dairy, food_oils: report.food_oils, numReportsComposingReport: count)
                 returnReports.append(reportNew)
             }
         }
@@ -257,6 +260,7 @@ func convertCSVIntoArray() -> [UserData]{
     func getThisYear(reports: [Report]) -> [Report]{
         var reportsCopy = orderReportsByDate(array: reports);
         var returnReports = [Report]();
+        var count = 0;
         var now = Date();
         let startOfYear = now.startOfYear
         let tz = TimeZone.current
@@ -269,11 +273,11 @@ func convertCSVIntoArray() -> [UserData]{
         
         for report in reportsCopy{
             if report.date<now.endOfDay && report.date>startOfYear.startOfDay{
-                
+                count += 1;
                 var stringMonth = Date.getMonth(date: report.date)
      
                 stringMonth = String(stringMonth.prefix(3))
-                let reportNew = Report(year: stringMonth, average: report.average, date: report.date, transport: report.transport, household: report.household, clothing: report.clothing, health: report.health, food: report.food, transport_walking: report.transport_walking, transport_car: report.transport_car, transport_train: report.transport_train, transport_bus: report.transport_bus, transport_plane: report.transport_plane, household_heating: report.household_heating,household_electricity: report.household_electricity, household_furnishings: report.household_furnishings, household_lighting: report.household_lighting, clothing_fastfashion: report.clothing_fastfashion, clothing_sustainable: report.clothing_sustainable, health_meds: report.health_meds, health_scans: report.health_scans, food_meat: report.food_meat, food_fish: report.food_fish, food_dairy: report.food_dairy, food_oils: report.food_oils)
+                let reportNew = Report(year: stringMonth, average: report.average, date: report.date, transport: report.transport, household: report.household, clothing: report.clothing, health: report.health, food: report.food, transport_walking: report.transport_walking, transport_car: report.transport_car, transport_train: report.transport_train, transport_bus: report.transport_bus, transport_plane: report.transport_plane, household_heating: report.household_heating,household_electricity: report.household_electricity, household_furnishings: report.household_furnishings, household_lighting: report.household_lighting, clothing_fastfashion: report.clothing_fastfashion, clothing_sustainable: report.clothing_sustainable, health_meds: report.health_meds, health_scans: report.health_scans, food_meat: report.food_meat, food_fish: report.food_fish, food_dairy: report.food_dairy, food_oils: report.food_oils, numReportsComposingReport: count)
                 returnReports.append(reportNew)
             }
         }
@@ -471,7 +475,7 @@ func checkIfMerge(reports: [Report]) -> [Report]{
 //            food_dairy = food_dairy / Double(matches.count)
 //            food_oils = food_oils / Double(matches.count)
             
-            mergedReports.append(Report(year: year, average: average, date: date, transport: transport, household: household, clothing: clothing, health: health, food: food, transport_walking: transport_walking, transport_car: transport_car, transport_train: transport_train, transport_bus: transport_bus,transport_plane: transport_plane,household_heating: household_heating, household_electricity: household_electricity,household_furnishings: household_furnishings,household_lighting: household_lighting,clothing_fastfashion: clothing_fastfashion, clothing_sustainable: clothing_sustainable,health_meds: health_meds, health_scans: health_scans, food_meat: food_meat, food_fish: food_fish, food_dairy: food_dairy, food_oils: food_oils))
+            mergedReports.append(Report(year: year, average: average, date: date, transport: transport, household: household, clothing: clothing, health: health, food: food, transport_walking: transport_walking, transport_car: transport_car, transport_train: transport_train, transport_bus: transport_bus,transport_plane: transport_plane,household_heating: household_heating, household_electricity: household_electricity,household_furnishings: household_furnishings,household_lighting: household_lighting,clothing_fastfashion: clothing_fastfashion, clothing_sustainable: clothing_sustainable,health_meds: health_meds, health_scans: health_scans, food_meat: food_meat, food_fish: food_fish, food_dairy: food_dairy, food_oils: food_oils, numReportsComposingReport: matches.count))
             
         }
         

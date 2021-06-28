@@ -228,15 +228,15 @@ struct ContentView: View {
                         }
                         .tag(1)
                         
-                        NumberEarthsView(ID: "6").environmentObject(statsController)
-                            .tabItem {
-                                VStack {
-                                    Image(systemName: "person")
-                                    Text("Info") // Update tab title
-                                }
-                            }
-                        .tag(2)
-                    
+//                        NumberEarthsView(ID: "6").environmentObject(statsController)
+//                            .tabItem {
+//                                VStack {
+//                                    Image(systemName: "person")
+//                                    Text("Info") // Update tab title
+//                                }
+//                            }
+//                        .tag(2)
+//
                     
                     
                         PledgesInProgress(

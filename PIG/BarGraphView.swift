@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-import SwiftUI
+import FirebaseAuth
 
 struct BarGraphView: View {
     @Binding var selection: String
@@ -65,13 +65,15 @@ struct BarView: View {
         let yValue = Swift.min(value * 20, divisor)
         
         return VStack {
-            
             Text(String(format: "%.2f kg Co2",report.average)).font(/*@START_MENU_TOKEN@*/.caption/*@END_MENU_TOKEN@*/).padding(.bottom, 50)
+            NavigationLink(destination: NumberEarthsView(ID: Auth.auth().currentUser!.uid,  report: report)){
+         
              Chimney().foregroundColor(report.average < 2200 ? Color.green : Color.red)
                 .frame(width: barWidth, height: CGFloat(yValue))
             
+          
+            }
             Text(report.year)
-            
         }
         
         
@@ -148,6 +150,8 @@ struct Report: Hashable{
     let food_fish: Double;
     let food_dairy: Double;
     let food_oils: Double;
+    let numReportsComposingReport: Int;
+
 }
 
 //extension Report {

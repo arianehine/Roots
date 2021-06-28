@@ -10,10 +10,11 @@ import WrappingHStack
 
 struct NumberEarthsView: View {
     let ID: String
+    let report: Report
     //    @Binding var reports: [Report]
     //    @Binding var originalReports: [Report]
     @EnvironmentObject var statsController: StatsDataController
-    @State var numEarths : Double = 7.75;
+    @State var numEarths : Double = 0;
     @State var numEarthsInt = 0;
     var body: some View {
         VStack{
@@ -40,11 +41,21 @@ struct NumberEarthsView: View {
             }
             
             
+        }.onAppear(){
+            numEarths = getNumEarths(report: report);
         }
        
     }
 }
 
+
+//WORK ON THIS CALCULATION
+func getNumEarths(report: Report) ->Double{
+    let returnVal = 3.8;
+    print("num composing", report.numReportsComposingReport)
+    return (round(returnVal*100)) / 100.0;
+
+}
 @ViewBuilder func checkIfPartial(numEarths: Double, numEarthsInt: Int)-> some View{
     
     if Double(numEarthsInt) > numEarths {
@@ -60,8 +71,8 @@ struct NumberEarthsView: View {
 
 }
 
-struct NumberEarthsView_Previews: PreviewProvider {
-    static var previews: some View {
-        NumberEarthsView(ID: "6")
-    }
-}
+//struct NumberEarthsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NumberEarthsView(ID: "6")
+//    }
+//}
