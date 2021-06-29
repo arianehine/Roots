@@ -22,25 +22,57 @@ struct PIGApp: App {
 
     var body: some Scene {
         WindowGroup {
+            let encryptedCSV = encryptCSV();
+           // write the encrypted file to document directory
+            let docDirectory = getDocumentsDirectory().appendingPathComponent("sythesisedData.txt")
             var statsController = StatsDataController(fbLogic: fbLogic)
-            let viewModel = AppViewModel(statsController: statsController, fbLogic: fbLogic)
-            let originalPeople = statsController.convertCSVIntoArray()
-            ContentView(fbLogic: fbLogic, originalPeople: originalPeople)
+            let viewModel = AppViewModel(statsController: statsController, fbLogic: fbLogic, directory: docDirectory)
+         
+            
+            let success = writeToDocDirectory(string: encryptedCSV, location: docDirectory)
+            
+            let originalPeople = statsController.convertCSVIntoArray(directory: docDirectory)
+            ContentView(directory: docDirectory, fbLogic: fbLogic, originalPeople: originalPeople)
                 .environmentObject(viewModel)
                 .environmentObject(statsController)
                 .environmentObject(fbLogic)
         }
     }
 }
+func writeToDocDirectory(string:String, location: URL) ->Bool{
+do {
+            try string.write(to: location, atomically: true, encoding: .utf8)
+
+    return true
+           
+        } catch {
+            print(error.localizedDescription)
+            return false
+        }
+}
+
+
+public func getDocumentsDirectory() -> URL {
+    // find all possible documents directories for this user
+    let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+
+    // just send back the first one, which ought to be the only one
+    return paths[0]
+}
+
 //Encrypt CSV file
 func encryptCSV() -> String{
 
 //convert that file into one long string
+    guard let filepath = Bundle.main.path(forResource: "synthesisedData", ofType: "csv") else {
+
+             return "fail"
+         }
     var data = ""
     do {
-        data = try String(contentsOfFile: "sythesisedData.csv")
+        data = try String(contentsOfFile: filepath)
     } catch {
-
+        print(error)
         return "fail"
     }
     

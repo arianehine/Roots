@@ -10,6 +10,7 @@ target 'PIG' do
  pod 'Firebase/Storage'
  pod 'Charts'
  pod 'ExytePopupView'
+ pod 'RNCryptor', '~> 5.0'
  # Pods for PIG
 
   target 'PIGTests' do

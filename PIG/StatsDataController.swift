@@ -43,7 +43,7 @@ class StatsDataController: ObservableObject {
 
     }
     
-func convertCSVIntoArray() -> [UserData]{
+    func convertCSVIntoArray(directory: URL) -> [UserData]{
 
     if(originalPeople.count == 0){
 
@@ -51,19 +51,19 @@ func convertCSVIntoArray() -> [UserData]{
     
 
        //locate the file you want to use
-       guard let filepath = Bundle.main.path(forResource: "synthesisedData", ofType: "csv") else {
-
-           return [UserData]()
-       }
+        
+                             
 
        //convert that file into one long string
        var data = ""
+        var encryptedData = ""
        do {
-           data = try String(contentsOfFile: filepath)
+           encryptedData =  try String(contentsOf: directory)
        } catch {
    
            return [UserData]()
        }
+        data = decryptCSV(encryptedText: encryptedData, password: "$3N2@C7@pXp")
 
        //now split that string into an array of "rows" of data.  Each row is a string.
        var rows = data.components(separatedBy: "\n")

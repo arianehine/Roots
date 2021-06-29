@@ -17,6 +17,7 @@ import Combine
 
 class AppViewModel: ObservableObject{
     @State var statsController: StatsDataController
+    @State var directory: URL
     let auth = Auth.auth();
     @State var fbLogic: FirebaseLogic
 
@@ -47,9 +48,10 @@ class AppViewModel: ObservableObject{
         
     }
     
-    public init(statsController: StatsDataController, fbLogic: FirebaseLogic){
+    public init(statsController: StatsDataController, fbLogic: FirebaseLogic, directory: URL){
         self.statsController = statsController
         self.fbLogic = fbLogic
+        self.directory = directory
     }
     
     func displayError(error: Error?){
@@ -106,7 +108,7 @@ class AppViewModel: ObservableObject{
  
     func setDataForUser(userId: String, db: Firestore, statsController: StatsDataController){
         
-        let userData = statsController.convertCSVIntoArray()
+        let userData = statsController.convertCSVIntoArray(directory: directory)
 
         for user in userData{
             if(user.ID == "8"){
@@ -175,6 +177,7 @@ struct ContentView: View {
     let auth = Auth.auth();
     @EnvironmentObject var viewModel: AppViewModel
     @EnvironmentObject var statsController: StatsDataController
+    @State var directory: URL
     @State var fbLogic: FirebaseLogic
     @State var selection = ""
     @State var name = ""

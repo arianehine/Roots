@@ -68,7 +68,7 @@ struct BarView: View {
             Text(String(format: "%.2f kg Co2 total",report.average)).font(/*@START_MENU_TOKEN@*/.caption/*@END_MENU_TOKEN@*/).padding(.bottom, 50)
             NavigationLink(destination: NumberEarthsView(ID: Auth.auth().currentUser!.uid,  report: report)){
          
-             Chimney().foregroundColor(report.average < 2200 ? Color.green : Color.red)
+                Chimney().foregroundColor((report.average / Double(report.numReportsComposingReport)) < 2200 ? Color.green : Color.red)
                 .frame(width: barWidth, height: CGFloat(yValue))
             
           
