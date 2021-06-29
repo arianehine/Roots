@@ -22,7 +22,10 @@ struct PIGApp: App {
 
     var body: some Scene {
         WindowGroup {
-            let encryptedCSV = encryptCSV();
+            let encryptedCSV = readEncryptedCSV();
+            
+//            let success1 = writeEncryptedDoc(string: encryptedCSV)
+            
            // write the encrypted file to document directory
             let docDirectory = getDocumentsDirectory().appendingPathComponent("sythesisedData.txt")
             var statsController = StatsDataController(fbLogic: fbLogic)
@@ -39,6 +42,27 @@ struct PIGApp: App {
         }
     }
 }
+
+//func writeEncryptedDoc(string:String)-> Bool{
+//guard let location = Bundle.main.path(forResource: "synthesisedData", ofType: "csv") else {
+//    print("doesn't exist")
+//
+// return false
+//
+//     }
+//    do {
+//
+//                try string.write(to: URL(fileURLWithPath: location), atomically: true, encoding: .utf8)
+//
+//        print("written to \(URL(fileURLWithPath: location))")
+//        return true
+//
+//            } catch {
+//                print("didn't write")
+//                print(error.localizedDescription)
+//                return false
+//            }
+//}
 func writeToDocDirectory(string:String, location: URL) ->Bool{
 do {
             try string.write(to: location, atomically: true, encoding: .utf8)
@@ -84,6 +108,31 @@ func encryptCSV() -> String{
     //getting base 64 encoded string of encrypted data
     let encryptString : String = encryptedData.base64EncodedString()
     return encryptString
+
+//        //now split that string into an array of "rows" of data.  Each row is a string.
+//    var rows = data.components(separatedBy: "\n")
+//
+//    //if you have a header row, remove it here
+//    rows.removeFirst()
+}
+
+func readEncryptedCSV() -> String{
+
+//convert that file into one long string
+    guard let filepath = Bundle.main.path(forResource: "synthesisedDataEncrypted", ofType: "txt") else {
+
+        print("doesnt exist")
+             return "fail"
+         }
+    var data = ""
+    do {
+        data = try String(contentsOfFile: filepath)
+    } catch {
+        print(error)
+        return "fail"
+    }
+
+    return data
 
 //        //now split that string into an array of "rows" of data.  Each row is a string.
 //    var rows = data.components(separatedBy: "\n")
