@@ -8,21 +8,28 @@
 import SwiftUI
 import Firebase
 import RNCryptor
+import Keys
 
-let encryptionKEY = "$3N2@C7@pXp"
-let loginUsername = "3000100"
-let loginPassword = "sF52bx24v~h^s-Y+3000100"
+
+
+
 @main
 struct PIGApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @State var fbLogic = FirebaseLogic()
     @State var originalPeople =  [UserData]();
-
+    
 
     var body: some Scene {
         WindowGroup {
+            
             let encryptedCSV = readEncryptedCSV();
+            let keys = PIGXcodeprojKeys()
+            let encryptionKEY = keys.encryptionKEY
+            
+           
+          
             
 //            let success1 = writeEncryptedDoc(string: encryptedCSV)
             
@@ -85,7 +92,7 @@ public func getDocumentsDirectory() -> URL {
 }
 
 //Encrypt CSV file
-func encryptCSV() -> String{
+func encryptCSV(encryptionKEY: String) -> String{
 
 //convert that file into one long string
     guard let filepath = Bundle.main.path(forResource: "synthesisedData", ofType: "csv") else {
@@ -155,9 +162,13 @@ func decryptCSV(encryptedText: String, password: String) -> String{
 }
 
 class AppDelegate: NSObject, UIApplicationDelegate{
+    
+  
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
         
         return true;
     }
+    
+ 
 }

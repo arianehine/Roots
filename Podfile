@@ -13,6 +13,13 @@ target 'PIG' do
  pod 'RNCryptor', '~> 5.0'
  # Pods for PIG
 
+ plugin 'cocoapods-keys', {
+   :keys => [
+     "encryptionKEY"
+   ],
+   :target => "PIG"
+ }
+ 
   target 'PIGTests' do
     inherit! :search_paths
     # Pods for testing

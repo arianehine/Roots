@@ -13,6 +13,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseFirestore
 import Combine
+import Keys
 
 
 class AppViewModel: ObservableObject{
@@ -20,7 +21,7 @@ class AppViewModel: ObservableObject{
     @State var directory: URL
     let auth = Auth.auth();
     @State var fbLogic: FirebaseLogic
-
+   
     
     func addUserInfo(fName: String, lName: String, email: String){
         let db = Firestore.firestore();
