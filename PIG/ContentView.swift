@@ -201,7 +201,8 @@ struct ContentView: View {
     @State var pledgesInProgress = [Pledge]()
     @State var XP = 0;
     @State var level = 1;
-
+    @State var toastShow: Bool = false
+    @State var message = ""
     var body: some View {
         NavigationView{
 
@@ -270,7 +271,7 @@ struct ContentView: View {
                     }
                 
 //                    getName()
-                }.navigationBarTitle("Welcome back " +  name)
+                }.toast(isPresenting: $toastShow, message: message).navigationBarTitle("Welcome back " +  name)
                 .navigationBarItems(leading:
                                         Text("XP: \(XP) Level: \(getLevel(XP: XP))"),
                                     trailing: Button(action: {
@@ -304,6 +305,37 @@ struct ContentView: View {
         let date = Date()
         let db = Firestore.firestore()
         db.collection("Users").document(uid).collection("logins").document(dateToString(date: date)).setData(["date": date])
+        fbLogic.getStreak(uid: uid)
+        if(checkIfStreak(fbLogic: fbLogic)){
+            //increment by streak amount
+            if(!Calendar.current.isDateInToday(fbLogic.lastVisit)){
+                fbLogic.incrementUserXP(amount: fbLogic.streak*10, uid: uid)
+                message = "Congrats, you have a \(fbLogic.streak) day streak. + \(fbLogic.streak * 10)XP"
+                print("increment by streak")
+                toastShow = true;
+            }
+      
+          
+        }else{
+          
+            if(!Calendar.current.isDateInToday(fbLogic.lastVisit)){
+                if(!Calendar.current.isDateInToday(fbLogic.lastVisit)){
+                    fbLogic.incrementUserXP(amount: 10, uid: uid)
+                    message = "No streak. Log in tomorrow to get one! +10XP"
+                    print("increment by 10")
+                    toastShow = true;
+                }
+            }else if(!fbLogic.moreThan1Visit){
+                fbLogic.incrementUserXP(amount: 10, uid: uid)
+                message = "No streak. Log in tomorrow to get one! +10XP"
+                print("increment by 10")
+                toastShow = true;
+            }else{
+                print("no increment")
+            }
+           
+        }
+    
         
     }
     public func dateToString(date: Date) -> String{
@@ -319,10 +351,21 @@ struct ContentView: View {
     
     
     
-    func checkIfStreak(){
-        
+    func checkIfStreak(fbLogic: FirebaseLogic) -> Bool{
+
+
+        if(fbLogic.streak>1){
+            
+            return true
+        }else{
+            return false
+        }
         
     }
+
+
+
+
     func getXP(uid: String){
         let auth = Auth.auth();
         let db = Firestore.firestore();

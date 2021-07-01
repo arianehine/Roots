@@ -70,7 +70,7 @@ struct PledgeUpdate: View {
 
                 if((daysCompleted+1) == durationInDays){
                     self.fbLogic.incrementPledgeCompletedDays2(pledge: pledgeToUpdate, uid: auth.currentUser!.uid)
-                    self.fbLogic.incrementUserXP(pledge: pledgeToUpdate, uid: auth.currentUser!.uid);
+                    self.fbLogic.incrementUserXPPledge(pledge: pledgeToUpdate, uid: auth.currentUser!.uid);
                     
                message =  "Yay, you've completed this pledge. + \(pledgeToUpdate.XP) XP "
                 }else{
