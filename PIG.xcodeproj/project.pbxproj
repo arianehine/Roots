@@ -24,6 +24,7 @@
 		D665D79D268E171E0021156A /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665D79C268E171E0021156A /* MapView.swift */; };
 		D665D7A7268E18DA0021156A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665D7A6268E18DA0021156A /* LocationManager.swift */; };
 		D665D7AA268E1BC30021156A /* LocationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665D7A9268E1BC30021156A /* LocationExtensions.swift */; };
+		D665D7AC268E4FA10021156A /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665D7AB268E4FA10021156A /* Place.swift */; };
 		D68366DD2655557000648C1B /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68366DC2655557000648C1B /* ToggleView.swift */; };
 		D68DCAD8266AA64600AA9116 /* PledgesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68DCAD7266AA64600AA9116 /* PledgesView.swift */; };
 		D68DCADD266AA65800AA9116 /* TrophiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68DCADC266AA65800AA9116 /* TrophiesView.swift */; };
@@ -81,6 +82,7 @@
 		D665D79C268E171E0021156A /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		D665D7A6268E18DA0021156A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		D665D7A9268E1BC30021156A /* LocationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationExtensions.swift; sourceTree = "<group>"; };
+		D665D7AB268E4FA10021156A /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		D68366DC2655557000648C1B /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
 		D68DCAD7266AA64600AA9116 /* PledgesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PledgesView.swift; sourceTree = "<group>"; };
 		D68DCADC266AA65800AA9116 /* TrophiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophiesView.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		D6DC2C6E264D2E9C008C6A72 = {
 			isa = PBXGroup;
 			children = (
+				D665D7AB268E4FA10021156A /* Place.swift */,
 				D665D79C268E171E0021156A /* MapView.swift */,
 				D65C3611268677EB003A504F /* PledgeUpdate.swift */,
 				D65C360C26866F10003A504F /* TrackPledges.swift */,
@@ -503,6 +506,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D665D7AC268E4FA10021156A /* Place.swift in Sources */,
 				D69C7AAE26592F3E00D209DB /* NumberEarthsView.swift in Sources */,
 				D601C13626541C1B0050BE7D /* BarChart.swift in Sources */,
 				D665D797268DF9A40021156A /* StreaksView.swift in Sources */,
