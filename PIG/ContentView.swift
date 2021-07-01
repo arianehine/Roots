@@ -150,20 +150,20 @@ class AppViewModel: ObservableObject{
 
     
     let pledges = [
-        Pledge(id: 1, description: "Walk to work 2 days a week", category: "Transport", imageName: "figure.walk", durationInDays: 7, startDate: Date(), started: false, completed: false, daysCompleted: 0, endDate: "", XP: 70),
-        Pledge(id: 2,description: "Drive only 3 days this week", category: "Transport", imageName: "car.fill", durationInDays: 7, startDate: Date(), started: false, completed: false, daysCompleted: 0,endDate: "", XP: 70),
+        Pledge(id: 1, description: "Walk to work", category: "Transport", imageName: "figure.walk", durationInDays: 7, startDate: Date(), started: false, completed: false, daysCompleted: 0, endDate: "", XP: 70),
+        Pledge(id: 2,description: "Swap the car for walking", category: "Transport", imageName: "car.fill", durationInDays: 7, startDate: Date(), started: false, completed: false, daysCompleted: 0,endDate: "", XP: 70),
         Pledge(id: 3, description: "Swap the car for the train", category: "Transport", imageName: "tram.fill",durationInDays: 7, startDate: Date(), started: false, completed: false, daysCompleted: 0,endDate: "", XP: 70),
-        Pledge(id: 4, description: "Take 0 taxis this week", category: "Transport", imageName: "figure.wave",durationInDays: 7, startDate: Date(), started: false,completed: false, daysCompleted: 0, endDate: "", XP: 70),
-        Pledge(id: 5, description: "Eat meat only once a week", category: "Food", imageName: "m.circle.fill",durationInDays: 7, startDate: Date(), started: false, completed: false, daysCompleted: 0,endDate: "", XP: 70),
-        Pledge(id: 6, description: "Cut fish out of your diet for 2 weeks", category: "Food", imageName: "f.circle.fill",durationInDays: 7, startDate: Date(), started: false,completed: false, daysCompleted: 0, endDate: "", XP: 70),
+        Pledge(id: 4, description: "Take 0 taxis", category: "Transport", imageName: "figure.wave",durationInDays: 7, startDate: Date(), started: false,completed: false, daysCompleted: 0, endDate: "", XP: 70),
+        Pledge(id: 5, description: "Cut out dairy", category: "Food", imageName: "m.circle.fill",durationInDays: 7, startDate: Date(), started: false, completed: false, daysCompleted: 0,endDate: "", XP: 70),
+        Pledge(id: 6, description: "Cut fish out of your dairy", category: "Food", imageName: "f.circle.fill",durationInDays: 7, startDate: Date(), started: false,completed: false, daysCompleted: 0, endDate: "", XP: 70),
         Pledge(id: 7, description: "Swap cow's milk for a non-dairy alternative", category: "Food", imageName: "d.circle.fill",durationInDays: 7, startDate: Date(), started: false, completed: false, daysCompleted: 0,endDate: "", XP: 70),
         Pledge(id: 8, description: "Eat vegetarian ", category: "Food", imageName: "d.circle.fill",durationInDays: 7, startDate: Date(), started: false, completed: false, daysCompleted: 0,endDate: "", XP: 70),
         Pledge(id: 9,description: "Eat vegan", category: "Food", imageName: "leaf.fill",durationInDays: 7, startDate: Date(), started: false, completed: false, daysCompleted: 0,endDate: "", XP: 70),
         Pledge(id: 10,description: "Put your heating on a set timer!", category: "Household", imageName: "flame.fill",durationInDays: 7, startDate: Date(), started: false, completed: false, daysCompleted: 0,endDate: "", XP: 70),
         Pledge(id: 11, description: "Only fill the kettle for 1 cup when you boil it", category: "Household", imageName: "bolt.fill",durationInDays: 7, startDate: Date(), started: false, completed: false, daysCompleted: 0,endDate: "", XP: 70),
-        Pledge(id: 12, description: "Don't buy any furniature for 4 month", category: "Household", imageName: "house.fill",durationInDays: 7, startDate: Date(), started: false,completed: false, daysCompleted: 0, endDate: "", XP: 70),
+        Pledge(id: 12, description: "Don't buy any furniature", category: "Household", imageName: "house.fill",durationInDays: 7, startDate: Date(), started: false,completed: false, daysCompleted: 0, endDate: "", XP: 70),
         Pledge(id: 13,description: "Turn lights off when you leave the room!", category: "Household", imageName: "lightbulb.fill",durationInDays: 7, startDate: Date(), started: false,completed: false, daysCompleted: 0, endDate: "", XP: 70),
-        Pledge(id: 14,description: "Don't buy any fast fashion for 2 weeks", category: "Fashion", imageName: "hourglass",durationInDays: 7, startDate: Date(), started: false,completed: false, daysCompleted: 0, endDate: "", XP: 70),
+        Pledge(id: 14,description: "Don't buy any fast fashion", category: "Fashion", imageName: "hourglass",durationInDays: 7, startDate: Date(), started: false,completed: false, daysCompleted: 0, endDate: "", XP: 70),
         Pledge(id: 15, description: "Take a trip to the charity shop instead of buying new!", category: "Fashion", imageName: "arrow.3.trianglepath",durationInDays: 7, startDate: Date(), started: false, completed: false, daysCompleted: 0,endDate: "", XP: 70),
         Pledge(id: 16,description: "Download Depop and sell some of your own clothes!", category: "Fashion", imageName: "bag.circle.fill",durationInDays: 7, startDate: Date(), started: false, completed: false, daysCompleted: 0,endDate: "", XP: 70),
         Pledge(id: 17, description: "Sort thrugh your medidicnes at home, so you know how much you have!", category: "Health", imageName: "pills.fill",durationInDays: 7, startDate: Date(), started: false,completed: false, daysCompleted: 0, endDate: "", XP: 70)
@@ -268,7 +268,18 @@ struct ContentView: View {
                     .tag(3)
 
                     
+                    
+                    MapView()
+                    .tabItem {
+                        VStack {
+                            Image(systemName: "network")
+                            Text("Map") // Update tab title
+                        }
                     }
+                .tag(4)
+
+                
+                }
                 
 //                    getName()
                 }.toast(isPresenting: $toastShow, message: message).navigationBarTitle("Welcome back " +  name)

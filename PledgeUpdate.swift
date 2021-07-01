@@ -15,6 +15,7 @@ struct PledgeUpdate: View {
     @State var goBack = false
     @State var auth = Auth.auth();
     @State var message = ""
+    @State var showModal = false
     var body: some View {
         VStack{
         Text("Track activity for pledge").font(.title2)
@@ -24,6 +25,10 @@ struct PledgeUpdate: View {
     
         Button(action: {
             
+            if(pledgeToUpdate.description.contains("Walk to work")){
+                showModal = true;
+                
+            }else{
             updatePledge(pledgeToUpdate: pledgeToUpdate, daysCompleted: pledgeToUpdate.daysCompleted, durationInDays: pledgeToUpdate.durationInDays)
 
             toastShow = true
@@ -32,9 +37,12 @@ struct PledgeUpdate: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     goBack = true
                        }
+            }
            
             
         }) {
+            
+            //check if pledge is walk to work, if it is track location.
             
         Text("+1 to pledge count").padding(.vertical).padding(.horizontal,25).foregroundColor(.white)
         } .background(LinearGradient(gradient: .init(colors: [Color("Color"),Color("Color1")]), startPoint: .leading, endPoint: .trailing))
