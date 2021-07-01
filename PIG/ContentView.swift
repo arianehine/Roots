@@ -26,6 +26,12 @@ class AppViewModel: ObservableObject{
     func addUserInfo(fName: String, lName: String, email: String){
         let db = Firestore.firestore();
         db.collection("Users").document().setData(["firstName": fName, "lastName":lName, "email": email, "XP": 0])
+        
+        let uid = auth.currentUser!.uid
+        
+        let date = Date()
+        db.collection("Users").document(uid).collection("logins").document(dateToString(date: date)).setData(["date": date])
+        
     
     }
     
@@ -33,8 +39,11 @@ class AppViewModel: ObservableObject{
         auth.signIn(withEmail: email, password: password) { [weak self] result, error in
             guard result != nil, error == nil else{
                 self?.error = error!.localizedDescription
-              
+                let db = Firestore.firestore();
                 self?.alert.toggle()
+                let uid = self!.auth.currentUser!.uid
+                let date = Date()
+                db.collection("Users").document(uid).collection("logins").document(self!.dateToString(date: date)).setData(["date": date])
                 return
             }
             
@@ -81,6 +90,10 @@ class AppViewModel: ObservableObject{
                            //creates profile doc under uid with all the info
             db.collection("Users").document(result!.user.uid)
                 .setData([ "firstName":firstName, "lastName":lastName, "uid":uid, "email":email]);
+            
+  
+            let date = Date()
+            db.collection("Users").document(uid).collection("logins").document(self!.dateToString(date: date)).setData(["date": date])
             
             self!.setPledgesForUser(userId: result!.user.uid, db: db);
             self!.setDataForUser(userId: result!.user.uid, db: db, statsController: self!.statsController);
@@ -232,15 +245,15 @@ struct ContentView: View {
                         }
                         .tag(1)
                         
-//                        NumberEarthsView(ID: "6").environmentObject(statsController)
-//                            .tabItem {
-//                                VStack {
-//                                    Image(systemName: "person")
-//                                    Text("Info") // Update tab title
-//                                }
-//                            }
-//                        .tag(2)
-//
+                        StreaksView(uid: auth.currentUser!.uid)
+                            .tabItem {
+                                VStack {
+                                    Image(systemName: "star.fill")
+                                    Text("Streaks") // Update tab title
+                                }
+                            }
+                        .tag(2)
+
                     
                     
                         PledgesInProgress(
@@ -267,6 +280,7 @@ struct ContentView: View {
                                         }))
                 .onAppear(){
                     getName()
+                    logVisit(uid: auth.currentUser!.uid)
                     getXP(uid: auth.currentUser!.uid)
                     level = getLevel(XP: XP)
                 }
@@ -286,6 +300,29 @@ struct ContentView: View {
         
     }
     
+    func logVisit(uid: String){
+        let date = Date()
+        let db = Firestore.firestore()
+        db.collection("Users").document(uid).collection("logins").document(dateToString(date: date)).setData(["date": date])
+        
+    }
+    public func dateToString(date: Date) -> String{
+        // Create Date Formatter
+        let dateFormatter = DateFormatter()
+
+        // Set Date Format
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+        // Convert Date to String
+        return dateFormatter.string(from: date)
+    }
+    
+    
+    
+    func checkIfStreak(){
+        
+        
+    }
     func getXP(uid: String){
         let auth = Auth.auth();
         let db = Firestore.firestore();

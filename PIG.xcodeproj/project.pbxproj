@@ -11,7 +11,7 @@
 		6E00F220A7C7ADD4CC5AC9E2 /* Pods_PIGTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 405F9D59AB59DC35EB48BDD8 /* Pods_PIGTests.framework */; };
 		D601C13626541C1B0050BE7D /* BarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = D601C13526541C1B0050BE7D /* BarChart.swift */; };
 		D601C13E26541F8B0050BE7D /* BarGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D601C13D26541F8B0050BE7D /* BarGraphView.swift */; };
-		D612F6292659478700914C0E /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = D612F6282659478700914C0E /* SwiftPackageProductDependency */; };
+		D612F6292659478700914C0E /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = D612F6282659478700914C0E /* WrappingHStack */; };
 		D6440A63265AA9BD0023F889 /* ImproveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6440A62265AA9BD0023F889 /* ImproveView.swift */; };
 		D64DB1C72652BE5E00D6FA4D /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64DB1C62652BE5E00D6FA4D /* StatsView.swift */; };
 		D6523D8726614DF1005A83D6 /* TipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6523D8626614DF1005A83D6 /* TipsView.swift */; };
@@ -20,13 +20,14 @@
 		D65C360826861CC0003A504F /* AdditionalPledgesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65C360726861CC0003A504F /* AdditionalPledgesView.swift */; };
 		D65C360D26866F10003A504F /* TrackPledges.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65C360C26866F10003A504F /* TrackPledges.swift */; };
 		D65C3612268677EB003A504F /* PledgeUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65C3611268677EB003A504F /* PledgeUpdate.swift */; };
+		D665D797268DF9A40021156A /* StreaksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665D796268DF9A40021156A /* StreaksView.swift */; };
 		D68366DD2655557000648C1B /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68366DC2655557000648C1B /* ToggleView.swift */; };
 		D68DCAD8266AA64600AA9116 /* PledgesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68DCAD7266AA64600AA9116 /* PledgesView.swift */; };
 		D68DCADD266AA65800AA9116 /* TrophiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68DCADC266AA65800AA9116 /* TrophiesView.swift */; };
 		D69C7AA4265801E500D209DB /* DoughnutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69C7AA3265801E500D209DB /* DoughnutView.swift */; };
 		D69C7AA92658099B00D209DB /* StatsDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69C7AA82658099B00D209DB /* StatsDataController.swift */; };
 		D69C7AAE26592F3E00D209DB /* NumberEarthsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69C7AAD26592F3E00D209DB /* NumberEarthsView.swift */; };
-		D6AE5B3D266FFB5D002AF0BE /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = D6AE5B3C266FFB5D002AF0BE /* SwiftPackageProductDependency */; };
+		D6AE5B3D266FFB5D002AF0BE /* ToastSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D6AE5B3C266FFB5D002AF0BE /* ToastSwiftUI */; };
 		D6DC2C7B264D2E9D008C6A72 /* PIGApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DC2C7A264D2E9D008C6A72 /* PIGApp.swift */; };
 		D6DC2C7D264D2E9D008C6A72 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DC2C7C264D2E9D008C6A72 /* ContentView.swift */; };
 		D6DC2C7F264D2EA3008C6A72 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6DC2C7E264D2EA3008C6A72 /* Assets.xcassets */; };
@@ -73,6 +74,7 @@
 		D65C360726861CC0003A504F /* AdditionalPledgesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalPledgesView.swift; sourceTree = "<group>"; };
 		D65C360C26866F10003A504F /* TrackPledges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPledges.swift; sourceTree = "<group>"; };
 		D65C3611268677EB003A504F /* PledgeUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PledgeUpdate.swift; sourceTree = "<group>"; };
+		D665D796268DF9A40021156A /* StreaksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreaksView.swift; sourceTree = "<group>"; };
 		D68366DC2655557000648C1B /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
 		D68DCAD7266AA64600AA9116 /* PledgesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PledgesView.swift; sourceTree = "<group>"; };
 		D68DCADC266AA65800AA9116 /* TrophiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophiesView.swift; sourceTree = "<group>"; };
@@ -102,8 +104,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D6AE5B3D266FFB5D002AF0BE /* BuildFile in Frameworks */,
-				D612F6292659478700914C0E /* BuildFile in Frameworks */,
+				D6AE5B3D266FFB5D002AF0BE /* ToastSwiftUI in Frameworks */,
+				D612F6292659478700914C0E /* WrappingHStack in Frameworks */,
 				EFE493A395E86D0C9219A49A /* Pods_PIG.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -187,6 +189,7 @@
 				D6EF45B1268B625B00F56D73 /* synthesisedDataEncrypted.txt */,
 				D6DC2C7A264D2E9D008C6A72 /* PIGApp.swift */,
 				D6DC2C7C264D2E9D008C6A72 /* ContentView.swift */,
+				D665D796268DF9A40021156A /* StreaksView.swift */,
 				D69C7AA3265801E500D209DB /* DoughnutView.swift */,
 				D64DB1C62652BE5E00D6FA4D /* StatsView.swift */,
 				D69C7AA82658099B00D209DB /* StatsDataController.swift */,
@@ -247,8 +250,8 @@
 			);
 			name = PIG;
 			packageProductDependencies = (
-				D612F6282659478700914C0E /* SwiftPackageProductDependency */,
-				D6AE5B3C266FFB5D002AF0BE /* SwiftPackageProductDependency */,
+				D612F6282659478700914C0E /* WrappingHStack */,
+				D6AE5B3C266FFB5D002AF0BE /* ToastSwiftUI */,
 			);
 			productName = PIG;
 			productReference = D6DC2C77264D2E9D008C6A72 /* PIG.app */;
@@ -325,8 +328,8 @@
 			);
 			mainGroup = D6DC2C6E264D2E9C008C6A72;
 			packageReferences = (
-				D612F6272659478700914C0E /* RemoteSwiftPackageReference */,
-				D6AE5B3B266FFB5C002AF0BE /* RemoteSwiftPackageReference */,
+				D612F6272659478700914C0E /* XCRemoteSwiftPackageReference "WrappingHStack" */,
+				D6AE5B3B266FFB5C002AF0BE /* XCRemoteSwiftPackageReference "ToastSwiftUI" */,
 			);
 			productRefGroup = D6DC2C78264D2E9D008C6A72 /* Products */;
 			projectDirPath = "";
@@ -477,6 +480,7 @@
 			files = (
 				D69C7AAE26592F3E00D209DB /* NumberEarthsView.swift in Sources */,
 				D601C13626541C1B0050BE7D /* BarChart.swift in Sources */,
+				D665D797268DF9A40021156A /* StreaksView.swift in Sources */,
 				D69C7AA92658099B00D209DB /* StatsDataController.swift in Sources */,
 				D601C13E26541F8B0050BE7D /* BarGraphView.swift in Sources */,
 				D6DC2C7D264D2E9D008C6A72 /* ContentView.swift in Sources */,
@@ -814,7 +818,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D612F6272659478700914C0E /* RemoteSwiftPackageReference */ = {
+		D612F6272659478700914C0E /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/dkk/WrappingHStack";
 			requirement = {
@@ -822,7 +826,7 @@
 				minimumVersion = 2.1.1;
 			};
 		};
-		D6AE5B3B266FFB5C002AF0BE /* RemoteSwiftPackageReference */ = {
+		D6AE5B3B266FFB5C002AF0BE /* XCRemoteSwiftPackageReference "ToastSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/huynguyencong/ToastSwiftUI.git";
 			requirement = {
@@ -833,14 +837,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D612F6282659478700914C0E /* SwiftPackageProductDependency */ = {
+		D612F6282659478700914C0E /* WrappingHStack */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D612F6272659478700914C0E /* RemoteSwiftPackageReference */;
+			package = D612F6272659478700914C0E /* XCRemoteSwiftPackageReference "WrappingHStack" */;
 			productName = WrappingHStack;
 		};
-		D6AE5B3C266FFB5D002AF0BE /* SwiftPackageProductDependency */ = {
+		D6AE5B3C266FFB5D002AF0BE /* ToastSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D6AE5B3B266FFB5C002AF0BE /* RemoteSwiftPackageReference */;
+			package = D6AE5B3B266FFB5C002AF0BE /* XCRemoteSwiftPackageReference "ToastSwiftUI" */;
 			productName = ToastSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
