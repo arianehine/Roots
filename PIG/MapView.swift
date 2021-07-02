@@ -13,7 +13,7 @@ struct MapView: View {
     @StateObject var mapData = MapViewModel()
     // Location Manager....
     @Binding var showingModal: Bool
-    @State var locationManager = CLLocationManager()
+    @State var locationManager = makeLocationManager()
     
     var body: some View {
         
@@ -91,7 +91,7 @@ struct MapView: View {
                             .background(Color.primary)
                             .clipShape(Circle())
                     })
-                    Spacer()
+  
                     Button(action: {
                         self.showingModal = false
                     }) {
@@ -139,4 +139,10 @@ struct MapView: View {
             }
         })
     }
+}
+private func makeLocationManager() -> CLLocationManager {
+  // 3
+  let manager = CLLocationManager()
+  // 4
+  return manager
 }

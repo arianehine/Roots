@@ -17,6 +17,7 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
     
     // Region...
     @Published var region : MKCoordinateRegion!
+    @Published var circularRegion: CLCircularRegion!
     // Based On Location It Will Set Up....
     
     // Alert...
@@ -165,6 +166,14 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
         guard let location = locations.last else{return}
         
         self.region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
+        
+        self.circularRegion = CLCircularRegion(
+            center: location.coordinate,
+           radius: 2,
+           identifier: UUID().uuidString)
+         // 3
+        circularRegion.notifyOnEntry = true
+        
         self.sourceCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         // Updating Map....
         
