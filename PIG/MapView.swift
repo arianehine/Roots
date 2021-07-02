@@ -12,6 +12,7 @@ struct MapView: View {
     
     @StateObject var mapData = MapViewModel()
     // Location Manager....
+    @Binding var showingModal: Bool
     @State var locationManager = CLLocationManager()
     
     var body: some View {
@@ -94,6 +95,12 @@ struct MapView: View {
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding()
             }
+            Button(action: {
+                self.showingModal = false
+            }) {
+                Text("Dismiss").frame(height: 60)
+            }
+        
         }
         .onAppear(perform: {
             

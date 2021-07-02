@@ -269,14 +269,14 @@ struct ContentView: View {
 
                     
                     
-                    MapView()
-                    .tabItem {
-                        VStack {
-                            Image(systemName: "network")
-                            Text("Map") // Update tab title
-                        }
-                    }
-                .tag(4)
+//                    MapView()
+//                    .tabItem {
+//                        VStack {
+//                            Image(systemName: "network")
+//                            Text("Map") // Update tab title
+//                        }
+//                    }
+//                .tag(4)
 
                 
                 }
