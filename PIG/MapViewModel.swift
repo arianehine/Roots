@@ -238,32 +238,27 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate, UNUserN
 
 
 extension LocationManager: UNUserNotificationCenterDelegate {
-  // 1
-//  func userNotificationCenter(
-//    _ center: UNUserNotificationCenter,
-//    didReceive response: UNNotificationResponse,
-//    withCompletionHandler completionHandler: @escaping () -> Void
-//  ) {
-//    // 2
-//    print("Received Notification")
-//    didArriveAtDestination = true
-//    // 3
-//    completionHandler()
-//  }
-//
-//  // 4
-//  func userNotificationCenter(
-//    _ center: UNUserNotificationCenter,
-//    willPresent notification: UNNotification,
-//    withCompletionHandler completionHandler:
-//      @escaping (UNNotificationPresentationOptions) -> Void
-//  ) {
-//    // 5
-//    print("Received Notification in Foreground")
-//    didArriveAtDestination = true
-//    // 6
-//    completionHandler(.sound)
-//  }
-//}
+    func userNotificationCenter(
+      _ center: UNUserNotificationCenter,
+      didReceive response: UNNotificationResponse,
+      withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+      // 2
+      print("Received Notification")
+      // 3
+      completionHandler()
+    }
 
+    // 4
+    func userNotificationCenter(
+      _ center: UNUserNotificationCenter,
+      willPresent notification: UNNotification,
+      withCompletionHandler completionHandler:
+        @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+      // 5
+      print("Received Notification in Foreground")
+      // 6
+      completionHandler(.sound)
+    }
 }

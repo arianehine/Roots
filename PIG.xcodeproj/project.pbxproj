@@ -87,6 +87,7 @@
 		D665D7AB268E4FA10021156A /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		D665D7AD268EADC40021156A /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		D665D7AF268EAE410021156A /* MapShower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapShower.swift; sourceTree = "<group>"; };
+		D665D807268FB8710021156A /* SimulatedLocations.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SimulatedLocations.gpx; sourceTree = "<group>"; };
 		D68366DC2655557000648C1B /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
 		D68DCAD7266AA64600AA9116 /* PledgesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PledgesView.swift; sourceTree = "<group>"; };
 		D68DCADC266AA65800AA9116 /* TrophiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophiesView.swift; sourceTree = "<group>"; };
@@ -183,6 +184,7 @@
 		D6DC2C6E264D2E9C008C6A72 = {
 			isa = PBXGroup;
 			children = (
+				D665D807268FB8710021156A /* SimulatedLocations.gpx */,
 				D65C3611268677EB003A504F /* PledgeUpdate.swift */,
 				D65C360C26866F10003A504F /* TrackPledges.swift */,
 				D65C360726861CC0003A504F /* AdditionalPledgesView.swift */,
