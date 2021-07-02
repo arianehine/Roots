@@ -15,6 +15,7 @@ class LocationManager: NSObject, ObservableObject{
     @Published var location: CLLocation?
     @Published var searchText = ""
     @Published var places = [Place]()
+    @Published var mapView: MKMapView = MKMapView()
     override init(){
         super.init()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -22,8 +23,15 @@ class LocationManager: NSObject, ObservableObject{
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
         locationManager.delegate = self
-    }
     
+    }
+    func setMapView(map: MKMapView) -> Bool{
+        DispatchQueue.main.async {
+            self.mapView = map
+           
+        }
+        return true;
+    }
     func searchQuery(searchText: String){
         
         places.removeAll()
@@ -37,6 +45,20 @@ class LocationManager: NSObject, ObservableObject{
                 return Place(placemark: item.placemark)
             })
         }
+    }
+    
+    //pick search result from list
+    func selectPlace(place: Place){
+        //show pin on map
+        searchText = ""
+        guard let coordinate = place.placemark.location?.coordinate else { return }
+        
+        let pointAnnotation = MKPointAnnotation()
+        pointAnnotation.coordinate = coordinate
+        pointAnnotation.title = place.placemark.name ?? "No Name"
+        mapView.removeAnnotations(mapView.annotations)
+        mapView.addAnnotation(pointAnnotation)
+    
     }
    
 }
