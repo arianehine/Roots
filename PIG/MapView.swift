@@ -112,6 +112,7 @@ struct MapView: View {
             // Setting Delegate...
             locationManager.delegate = mapData
             locationManager.requestWhenInUseAuthorization()
+            mapData.requestNotificationAuthorization()
         })
         // Permission Denied Alert...
         .alert(isPresented: $mapData.permissionDenied, content: {

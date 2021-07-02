@@ -8,7 +8,8 @@
 import SwiftUI
 import MapKit
 import CoreLocation
-
+import UserNotifications
+let notificationCenter = UNUserNotificationCenter.current()
 // All Map Data Goes Here....
 
 class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
@@ -150,6 +151,16 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
             manager.requestLocation()
         default:
             (print("default"))
+        }
+    }
+    func requestNotificationAuthorization() {
+      // 2
+      let options: UNAuthorizationOptions = [.sound, .alert]
+      // 3
+      notificationCenter
+        .requestAuthorization(options: options) { result, _ in
+          // 4
+          print("Notification Auth Request result: \(result)")
         }
     }
     
