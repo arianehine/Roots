@@ -9,16 +9,21 @@ import SwiftUI
 import MapKit
 import CoreLocation
 import UserNotifications
-let notificationCenter = UNUserNotificationCenter.current()
-// All Map Data Goes Here....
 
-class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
-    
+// All Map Data Goes Here....
+//notification tutorial from https://www.raywenderlich.com/20690666-location-notifications-with-unlocationnotificationtrigger
+
+class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate, UNUserNotificationCenterDelegate{
+    let notificationCenter = UNUserNotificationCenter.current()
     @Published var mapView = MKMapView()
     
     // Region...
     @Published var region : MKCoordinateRegion!
-    @Published var circularRegion: CLCircularRegion!
+    @Published var circularRegion: CLCircularRegion = CLCircularRegion(
+        center:CLLocationCoordinate2D(latitude:  51.5074, longitude: -0.1278),
+       radius: 2,
+       identifier: UUID().uuidString)
+     // 3
     // Based On Location It Will Set Up....
     
     // Alert...
@@ -158,8 +163,10 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
       let options: UNAuthorizationOptions = [.sound, .alert]
       // 3
       notificationCenter
-        .requestAuthorization(options: options) { result, _ in
-          // 4
+        .requestAuthorization(options: options) { [weak self] result, _ in
+            if result {
+              self?.registerNotification()
+            }
           print("Notification Auth Request result: \(result)")
         }
     }
@@ -171,6 +178,37 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
     }
     
     // Getting user Region....
+    private func registerNotification() {
+      // 2
+      let notificationContent = UNMutableNotificationContent()
+      notificationContent.title = "Carbon Footprint App Tracking"
+      notificationContent.body = "Congrats on walking to work! +1 on your pledge commitment"
+      notificationContent.sound = .default
+
+      // 3
+      let trigger = UNLocationNotificationTrigger(
+        region: circularRegion,
+        repeats: false)
+
+      // 4
+      let request = UNNotificationRequest(
+        identifier: UUID().uuidString,
+        content: notificationContent,
+        trigger: trigger)
+
+      // 5
+      notificationCenter
+        .add(request) { error in
+          if error != nil {
+            print("Error: \(String(describing: error))")
+          }
+        }
+    }
+    override init() {
+      super.init()
+      // 2
+      notificationCenter.delegate = self
+    }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
@@ -185,6 +223,8 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
          // 3
         circularRegion.notifyOnEntry = true
         
+        requestNotificationAuthorization()
+        
         self.sourceCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         // Updating Map....
         
@@ -196,3 +236,34 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
 }
 
 
+
+extension LocationManager: UNUserNotificationCenterDelegate {
+  // 1
+//  func userNotificationCenter(
+//    _ center: UNUserNotificationCenter,
+//    didReceive response: UNNotificationResponse,
+//    withCompletionHandler completionHandler: @escaping () -> Void
+//  ) {
+//    // 2
+//    print("Received Notification")
+//    didArriveAtDestination = true
+//    // 3
+//    completionHandler()
+//  }
+//
+//  // 4
+//  func userNotificationCenter(
+//    _ center: UNUserNotificationCenter,
+//    willPresent notification: UNNotification,
+//    withCompletionHandler completionHandler:
+//      @escaping (UNNotificationPresentationOptions) -> Void
+//  ) {
+//    // 5
+//    print("Received Notification in Foreground")
+//    didArriveAtDestination = true
+//    // 6
+//    completionHandler(.sound)
+//  }
+//}
+
+}
