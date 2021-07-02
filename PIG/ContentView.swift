@@ -200,7 +200,7 @@ struct ContentView: View {
     @State var originalPeople =  [UserData]();
     @State var pledgesInProgress = [Pledge]()
     @State var XP = 0;
-    @State var level = 1;
+    @State var level = 0;
     @State var toastShow: Bool = false
     @State var message = ""
     var body: some View {
@@ -398,7 +398,7 @@ struct ContentView: View {
     
     func getLevel(XP: Int) -> Int{
 
-        return Int(XP / 100)+1;
+        return Int(XP / 100);
     }
     
     func getName(){

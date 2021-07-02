@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationUsageDescription</key>
+	<string>&quot;This app requires location permissions&quot;</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>&quot;This app requires location permissions&quot;</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>&quot;This app reqires location permissions&quot;</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>&quot;This app requires location permissions&quot;</string>
 	<key>CFBundleDevelopmentRegion</key>
