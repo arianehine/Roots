@@ -26,12 +26,16 @@ struct MapShower: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
+        uiView.delegate = context.coordinator
         
     }
     
     class Coordinator: NSObject,MKMapViewDelegate{
         
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+            
+            
+
             
             // Custom Pins....
             
@@ -47,5 +51,32 @@ struct MapShower: UIViewRepresentable {
                 return pinAnnotation
             }
         }
+        
+        func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+
+            if let routePolyline = overlay as? MKPolyline {
+                let renderer = MKPolylineRenderer(polyline: routePolyline)
+                renderer.strokeColor = .orange
+                renderer.lineWidth = 7
+                return renderer
+            }
+
+            return MKOverlayRenderer()
+        }
+//        private func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKPolylineRenderer{
+//            
+//
+//
+//            let render = MKPolylineRenderer(overlay: overlay)
+//            render.strokeColor = .orange
+//            render.lineWidth = 4
+//
+//            // Custom Pins....
+//
+//            // Excluding User Blue Circle...
+//
+//            return render;
+//
+//        }
     }
 }

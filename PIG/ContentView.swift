@@ -89,7 +89,7 @@ class AppViewModel: ObservableObject{
 
                            //creates profile doc under uid with all the info
             db.collection("Users").document(result!.user.uid)
-                .setData([ "firstName":firstName, "lastName":lastName, "uid":uid, "email":email]);
+                .setData([ "firstName":firstName, "lastName":lastName, "uid":uid, "email":email, "currentStreak": 0, "longestStreak":0]);
             
   
             let date = Date()

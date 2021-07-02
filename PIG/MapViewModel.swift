@@ -27,9 +27,11 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
     
     // SearchText...
     @Published var searchTxt = ""
-    
-    // Searched Places...
+    @Published var sourceCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 51.5074, longitude: -0.1278)
+    @Published var destinationCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 51.5074, longitude: -0.1278)
+
     @Published var places : [Place] = []
+    @Published var directions : MKDirections = MKDirections(request: MKDirections.Request())
     
     // Updating Map Type...
     
@@ -90,16 +92,41 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
         pointAnnotation.title = place.placemark.name ?? "No Name"
         
         // Removing All Old Ones...
-        mapView.removeAnnotations(mapView.annotations)
-        
-        mapView.addAnnotation(pointAnnotation)
+
         
         // Moving Map To That Location...
         
         let coordinateRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
-        
+        mapView.removeAnnotations(mapView.annotations)
         mapView.setRegion(coordinateRegion, animated: true)
         mapView.setVisibleMapRect(mapView.visibleMapRect, animated: true)
+        self.destinationCoordinate = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
+    
+        let req = MKDirections.Request()
+        req.source = MKMapItem(placemark: MKPlacemark(coordinate: sourceCoordinate))
+        req.destination = MKMapItem(placemark: MKPlacemark(coordinate: destinationCoordinate))
+        req.transportType =  .walking
+        
+        directions = MKDirections(request: req)
+        
+        directions.calculate{ [self] (direct, err) in
+            if err != nil{
+                //an error has occured
+                print(err?.localizedDescription)
+                
+            }else{
+               let polyline = direct?.routes.first?.polyline
+                self.mapView.setRegion(MKCoordinateRegion(polyline!.boundingMapRect), animated: true)
+                self.mapView.addOverlay(polyline!)
+            
+                print("directions", direct?.routes.first)
+                print("source:", sourceCoordinate, "dest", destinationCoordinate)
+               
+            }
+        }
+     
+      
+        mapView.addAnnotation(pointAnnotation)
     }
     
     
@@ -138,8 +165,9 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
         guard let location = locations.last else{return}
         
         self.region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
-        
+        self.sourceCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         // Updating Map....
+        
         self.mapView.setRegion(self.region, animated: true)
         
         // Smooth Animations...
