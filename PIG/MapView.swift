@@ -91,15 +91,20 @@ struct MapView: View {
                             .background(Color.primary)
                             .clipShape(Circle())
                     })
+                    Spacer()
+                    Button(action: {
+                        self.showingModal = false
+                    }) {
+                        Text("Quit tracking pledge?").frame(height: 20)
+                            
+                    }.background(Color.white)
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding()
             }
-            Button(action: {
-                self.showingModal = false
-            }) {
-                Text("Dismiss").frame(height: 60)
-            }
+          
+        
+        
         
         }
         .onAppear(perform: {
