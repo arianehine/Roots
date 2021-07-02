@@ -328,19 +328,17 @@ struct ContentView: View {
       
           
         }else{
+            //no streak
           
-            if(!Calendar.current.isDateInToday(fbLogic.lastVisit)){
-                if(!Calendar.current.isDateInToday(fbLogic.lastVisit)){
+            if(!Calendar.current.isDateInToday(fbLogic.lastVisit) && fbLogic.moreThan1Visit == true){
+              
+                  
                     fbLogic.incrementUserXP(amount: 10, uid: uid)
                     message = "No streak. Log in tomorrow to get one! +10XP"
                     print("increment by 10")
                     toastShow = true;
-                }
-            }else if(!fbLogic.moreThan1Visit){
-                fbLogic.incrementUserXP(amount: 10, uid: uid)
-                message = "No streak. Log in tomorrow to get one! +10XP"
-                print("increment by 10")
-                toastShow = true;
+                
+            
             }else{
                 print("no increment")
             }

@@ -191,7 +191,6 @@ class FirebaseLogic: ObservableObject {
 }
     
     
-    
     func getStreak(uid: String){
         let db = Firestore.firestore()
         var dates = [Date]();
@@ -217,6 +216,7 @@ class FirebaseLogic: ObservableObject {
             if(dates.count>2){
             self.lastVisit = dates[dates.count-2]
                 self.moreThan1Visit = true;
+             
             }else{
                 self.lastVisit = dates[dates.count-1]
                 self.moreThan1Visit = false;
