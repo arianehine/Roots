@@ -34,6 +34,8 @@ struct PledgesView: View {
        
     }
     func initVars(){
+      
+        fbLogic.allPledges = fbLogic.getAllPledges()
         fbLogic.allPledges = fbLogic.getAllPledges()
         fbLogic.pledgesForArea = fbLogic.getPledgesToChooseFromArea(chosenArea: worstArea)
     }

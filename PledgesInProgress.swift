@@ -125,6 +125,8 @@ struct PledgesInProgress: View {
     func initVars(){
  
         fbLogic.allPledges = fbLogic.getAllPledges();
+        fbLogic.checkIfAnyPledgesToReset()
+        fbLogic.allPledges = fbLogic.getAllPledges();
         fbLogic.pledgesCompleted = fbLogic.getPledgesCompleted()
         fbLogic.pledgesInProgress = fbLogic.getPledgesInProgress(pledgePicked: pledgePicked ?? emptyPledge, durationSelected: durationSelected ?? 7)
   
@@ -463,13 +465,82 @@ db.collection("UserPledges").document(uid).collection("Pledges").document(String
                 
             })
           }
+    
          return pledgesToReturn;
     
 
     }
     
 
+    func checkIfAnyPledgesToReset(){
+      
+        let db = Firestore.firestore()
+        let auth = Auth.auth();
+        let currentUser = (auth.currentUser?.uid)!
+        print("checking for :", currentUser)
+        self.allPledges = [Pledge]()
+        var pledgesToReturn = [Pledge]()
+    
+        db.collection("UserPledges").document(currentUser).collection("Pledges")
+          .getDocuments { (snapshot, error) in
+             guard let snapshot = snapshot, error == nil else {
+              //handle error
+              return
+            }
+          
+            snapshot.documents.forEach({ (documentSnapshot) in
+                let documentData = documentSnapshot.data()
+                let ID = documentData["ID"]! as? Int
+                let startDateInterval = documentData["startDate"] as? Timestamp
+                let durationInDays = documentData["durationInDays"] as? Int
+                let endDate = documentData["endDate"] as? String
+                let startDate = Date(timeIntervalSince1970: TimeInterval(startDateInterval!.seconds))
+                let calendar = Calendar.current
+                let components = calendar.dateComponents([.day], from: startDate, to: Date())
+                var numDays : Int = components.day!
+                print(numDays)
+                if(numDays >= durationInDays!){
+                    self.resetPledge(pledgeID: ID!)
+                }
+                })
+                
+                
+              }
 
+    
+        
+    }
+    
+    func resetPledge(pledgeID: Int){
+        let db = Firestore.firestore()
+        let auth = Auth.auth();
+        let currentUser = (auth.currentUser?.uid)!
+        print("current user", currentUser)
+        self.allPledges = [Pledge]()
+        var pledgesToReturn = [Pledge]()
+    
+        db.collection("UserPledges").document(currentUser).collection("Pledges")
+            .document(String(pledgeID)).updateData(["started": false, "daysCompleted": 0])
+        db.collection("UserPledges").document(currentUser).collection("Pledges")
+            .document(String(pledgeID)).collection("Records").getDocuments { (snapshot, error) in
+                guard let snapshot = snapshot, error == nil else {
+                 //handle error
+                 return
+               }
+             
+               snapshot.documents.forEach({ (documentSnapshot) in
+                let documentData = documentSnapshot.data()
+                let date = documentData["date"]! as? Timestamp
+                let dateConverted = Date(timeIntervalSince1970: TimeInterval(date!.seconds))
+                db.collection("UserPledges").document(currentUser).collection("Pledges")
+                    .document(String(pledgeID)).collection("Records").document(self.dateToString(date: dateConverted)).delete()
+                
+               })
+            }
+        self.allPledges = getAllPledges()
+          
+        
+    }
 func findPledgeWithThisID(ID: Int) -> Pledge{
     for pledge in allPledges{
         if pledge.id == ID{
