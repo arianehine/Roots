@@ -22,7 +22,6 @@
 		D65C3612268677EB003A504F /* PledgeUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65C3611268677EB003A504F /* PledgeUpdate.swift */; };
 		D665D797268DF9A40021156A /* StreaksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665D796268DF9A40021156A /* StreaksView.swift */; };
 		D665D79D268E171E0021156A /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665D79C268E171E0021156A /* MapView.swift */; };
-		D665D7A7268E18DA0021156A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665D7A6268E18DA0021156A /* LocationManager.swift */; };
 		D665D7AA268E1BC30021156A /* LocationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665D7A9268E1BC30021156A /* LocationExtensions.swift */; };
 		D665D7AC268E4FA10021156A /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665D7AB268E4FA10021156A /* Place.swift */; };
 		D665D7AE268EADC40021156A /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665D7AD268EADC40021156A /* MapViewModel.swift */; };
@@ -82,7 +81,6 @@
 		D65C3611268677EB003A504F /* PledgeUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PledgeUpdate.swift; sourceTree = "<group>"; };
 		D665D796268DF9A40021156A /* StreaksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreaksView.swift; sourceTree = "<group>"; };
 		D665D79C268E171E0021156A /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		D665D7A6268E18DA0021156A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		D665D7A9268E1BC30021156A /* LocationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationExtensions.swift; sourceTree = "<group>"; };
 		D665D7AB268E4FA10021156A /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		D665D7AD268EADC40021156A /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
@@ -168,7 +166,6 @@
 		D665D7A3268E18AA0021156A /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				D665D7A6268E18DA0021156A /* LocationManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -533,7 +530,6 @@
 				D68366DD2655557000648C1B /* ToggleView.swift in Sources */,
 				D69C7AA4265801E500D209DB /* DoughnutView.swift in Sources */,
 				D65C3612268677EB003A504F /* PledgeUpdate.swift in Sources */,
-				D665D7A7268E18DA0021156A /* LocationManager.swift in Sources */,
 				D665D79D268E171E0021156A /* MapView.swift in Sources */,
 				D65C360826861CC0003A504F /* AdditionalPledgesView.swift in Sources */,
 				D665D7B0268EAE410021156A /* MapShower.swift in Sources */,
@@ -698,6 +694,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"PIG/Preview Content\"";
+				DEVELOPMENT_TEAM = ZS3WS4H3V6;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PIG/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -720,6 +717,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"PIG/Preview Content\"";
+				DEVELOPMENT_TEAM = ZS3WS4H3V6;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PIG/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;

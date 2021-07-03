@@ -13,7 +13,7 @@ import UserNotifications
 // All Map Data Goes Here....
 //notification tutorial from https://www.raywenderlich.com/20690666-location-notifications-with-unlocationnotificationtrigger
 
-class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate, UNUserNotificationCenterDelegate{
+class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
     let notificationCenter = UNUserNotificationCenter.current()
     @Published var mapView = MKMapView()
     
@@ -93,6 +93,12 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate, UNUserN
         searchTxt = ""
         
         guard let coordinate = place.placemark.location?.coordinate else{return}
+        self.circularRegion = CLCircularRegion(
+            center: coordinate,
+           radius: 2,
+           identifier: UUID().uuidString)
+         // 3
+        circularRegion.notifyOnEntry = true
         
         let pointAnnotation = MKPointAnnotation()
         pointAnnotation.coordinate = coordinate
@@ -105,6 +111,7 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate, UNUserN
         
         let coordinateRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
         mapView.removeAnnotations(mapView.annotations)
+
         mapView.setRegion(coordinateRegion, animated: true)
         mapView.setVisibleMapRect(mapView.visibleMapRect, animated: true)
         self.destinationCoordinate = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
@@ -113,6 +120,9 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate, UNUserN
         req.source = MKMapItem(placemark: MKPlacemark(coordinate: sourceCoordinate))
         req.destination = MKMapItem(placemark: MKPlacemark(coordinate: destinationCoordinate))
         req.transportType =  .walking
+        
+        let overlays = mapView.overlays
+        mapView.removeOverlays(overlays)
         
         directions = MKDirections(request: req)
         
@@ -216,12 +226,7 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate, UNUserN
         
         self.region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
         
-        self.circularRegion = CLCircularRegion(
-            center: location.coordinate,
-           radius: 2,
-           identifier: UUID().uuidString)
-         // 3
-        circularRegion.notifyOnEntry = true
+       
         
         requestNotificationAuthorization()
         
@@ -237,7 +242,7 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate, UNUserN
 
 
 
-extension LocationManager: UNUserNotificationCenterDelegate {
+extension MapViewModel: UNUserNotificationCenterDelegate {
     func userNotificationCenter(
       _ center: UNUserNotificationCenter,
       didReceive response: UNNotificationResponse,
