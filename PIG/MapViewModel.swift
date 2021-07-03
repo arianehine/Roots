@@ -246,6 +246,33 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
         
         // Smooth Animations...
         self.mapView.setVisibleMapRect(self.mapView.visibleMapRect, animated: true)
+        
+        // Create and add your MKPolyline here based on locations
+                    // passed (the last element of the array is the most recent
+                    // position).
+        
+        
+            let req = MKDirections.Request()
+        req.source = MKMapItem(placemark: MKPlacemark(coordinate: self.sourceCoordinate))
+            req.destination = MKMapItem(placemark: MKPlacemark(coordinate: destinationCoordinate))
+            req.transportType =  .walking
+            
+            let overlays = mapView.overlays
+        self.mapView.removeOverlays(overlays)
+            
+            directions = MKDirections(request: req)
+            
+            directions.calculate{ [self] (direct, err) in
+                if err != nil{
+                    //an error has occured
+                    print(err?.localizedDescription, "location: ", req.source?.name, req.destination!.name)
+                    
+                }else{
+                   let polyline = direct?.routes.first?.polyline
+                    self.mapView.addOverlay(polyline!)
+    }
+            }
+      
     }
 }
 
