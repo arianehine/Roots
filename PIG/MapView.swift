@@ -11,6 +11,7 @@ import CoreLocation
 struct MapView: View {
     
     @StateObject var mapData = MapViewModel()
+    @Binding var completed: Bool
     // Location Manager....
     @Binding var showingModal: Bool
     @State var locationManager = makeLocationManager()
@@ -108,7 +109,15 @@ struct MapView: View {
         
         
         }.alert(isPresented: $mapData.didArriveAtDestination) {
-            Alert(
+            
+
+                locationManager.stopMonitoring(for: mapData.circularRegion)
+            print("arrived")
+            completed = true
+                showingModal = false
+
+          
+            return Alert(
               title: Text("You have arrived!"),
               message:
                 Text("""
@@ -117,7 +126,9 @@ struct MapView: View {
               primaryButton: .default(Text("Yes")),
               secondaryButton: .default(Text("No"))
             )
-          }
+        }
+           
+        
         .onAppear(perform: {
             
             // Setting Delegate...

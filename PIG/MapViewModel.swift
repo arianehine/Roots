@@ -96,7 +96,7 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
         guard let coordinate = place.placemark.location?.coordinate else{return}
         self.circularRegion = CLCircularRegion(
             center: coordinate,
-           radius: 1000,
+           radius: 500,
            identifier: UUID().uuidString)
          // 3
         
@@ -230,7 +230,10 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
         print("current location ", location)
          
         if(circularRegion.contains(CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))){
-            print("contains")
+            didArriveAtDestination = true
+        
+        }else{
+            print("not contains")
         }
         self.region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
         

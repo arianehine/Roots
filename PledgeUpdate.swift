@@ -16,8 +16,10 @@ struct PledgeUpdate: View {
     @State var auth = Auth.auth();
     @State var message = ""
     @State var showModal = false
+    @State var completed = false
     var body: some View {
         VStack{
+            
         Text("Track activity for pledge").font(.title2)
         Text("Pledge: \(pledgeToUpdate.description)")
         Text("Days until finished: \(pledgeToUpdate.durationInDays - pledgeToUpdate.daysCompleted)")
@@ -27,6 +29,9 @@ struct PledgeUpdate: View {
             
             if(pledgeToUpdate.description.contains("Walk to work")){
                 showModal = true;
+       
+                    
+                
                 
             }else{
             updatePledge(pledgeToUpdate: pledgeToUpdate, daysCompleted: pledgeToUpdate.daysCompleted, durationInDays: pledgeToUpdate.durationInDays)
@@ -41,14 +46,29 @@ struct PledgeUpdate: View {
            
             
         }) {
+          
             
             //check if pledge is walk to work, if it is track location.
             
         Text("+1 to pledge count").padding(.vertical).padding(.horizontal,25).foregroundColor(.white)
+        }.onChange(of: completed) { value in
+            if value == true {
+                
+                
+                updatePledge(pledgeToUpdate: pledgeToUpdate, daysCompleted: pledgeToUpdate.daysCompleted, durationInDays: pledgeToUpdate.durationInDays)
+
+                toastShow = true
+                
+              
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        goBack = true
+                
+            }
+            }
         } .background(LinearGradient(gradient: .init(colors: [Color("Color"),Color("Color1")]), startPoint: .leading, endPoint: .trailing))
         .clipShape(Capsule())
     
-        }.sheet(isPresented: $showModal) { MapView(showingModal: $showModal) }
+        }.sheet(isPresented: $showModal) { MapView(completed: $completed, showingModal: $showModal) }
         .toast(isPresenting: $toastShow, message: getMessage(pledgeToUpdate: pledgeToUpdate, daysCompleted: pledgeToUpdate.daysCompleted, durationInDays: pledgeToUpdate.durationInDays))
  
        
@@ -59,8 +79,8 @@ struct PledgeUpdate: View {
                             
                         }
             .hidden()
-            }
-    )
+            } )
+   
     }
     func getMessage(pledgeToUpdate: Pledge, daysCompleted: Int, durationInDays: Int) -> String{
        return message
@@ -85,6 +105,7 @@ struct PledgeUpdate: View {
                message =  "Yay, you've completed this pledge. + \(pledgeToUpdate.XP) XP "
                 }else{
                     self.fbLogic.incrementPledgeCompletedDays2(pledge: pledgeToUpdate, uid: auth.currentUser!.uid)
+                    self.fbLogic.incrementUserXP(amount: 10, uid: auth.currentUser!.uid)
                   message = "Well done! Only \(durationInDays - (daysCompleted+1)) days until you are finished"
                 }
                 
