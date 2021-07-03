@@ -16,12 +16,13 @@ import UserNotifications
 class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
     let notificationCenter = UNUserNotificationCenter.current()
     @Published var mapView = MKMapView()
+    @Published var didArriveAtDestination = false
     
     // Region...
     @Published var region : MKCoordinateRegion!
     @Published var circularRegion: CLCircularRegion = CLCircularRegion(
-        center:CLLocationCoordinate2D(latitude:  51.5074, longitude: -0.1278),
-       radius: 2,
+        center:CLLocationCoordinate2D(latitude:  51.50074076097613, longitude: -0.178478644001959924),
+       radius: 1000,
        identifier: UUID().uuidString)
      // 3
     // Based On Location It Will Set Up....
@@ -34,8 +35,8 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
     
     // SearchText...
     @Published var searchTxt = ""
-    @Published var sourceCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 51.5074, longitude: -0.1278)
-    @Published var destinationCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 51.5074, longitude: -0.1278)
+    @Published var sourceCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 51.50074076097613, longitude: -0.178478644001959924)
+    @Published var destinationCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 51.50074076097613, longitude: -0.178478644001959924)
 
     @Published var places : [Place] = []
     @Published var directions : MKDirections = MKDirections(request: MKDirections.Request())
@@ -95,10 +96,13 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
         guard let coordinate = place.placemark.location?.coordinate else{return}
         self.circularRegion = CLCircularRegion(
             center: coordinate,
-           radius: 2,
+           radius: 1000,
            identifier: UUID().uuidString)
          // 3
+        
         circularRegion.notifyOnEntry = true
+       
+      
         
         let pointAnnotation = MKPointAnnotation()
         pointAnnotation.coordinate = coordinate
@@ -129,7 +133,7 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
         directions.calculate{ [self] (direct, err) in
             if err != nil{
                 //an error has occured
-                print(err?.localizedDescription)
+                print(err?.localizedDescription, "location: ", req.source?.name, req.destination!.name)
                 
             }else{
                let polyline = direct?.routes.first?.polyline
@@ -223,12 +227,14 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         guard let location = locations.last else{return}
-        
+        print("current location ", location)
+         
+        if(circularRegion.contains(CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))){
+            print("contains")
+        }
         self.region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
         
-       
-        
-        requestNotificationAuthorization()
+
         
         self.sourceCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         // Updating Map....
@@ -251,6 +257,7 @@ extension MapViewModel: UNUserNotificationCenterDelegate {
       // 2
       print("Received Notification")
       // 3
+        didArriveAtDestination = true
       completionHandler()
     }
 
@@ -264,6 +271,7 @@ extension MapViewModel: UNUserNotificationCenterDelegate {
       // 5
       print("Received Notification in Foreground")
       // 6
+        didArriveAtDestination = true
       completionHandler(.sound)
     }
 }

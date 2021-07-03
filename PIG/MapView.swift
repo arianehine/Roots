@@ -23,6 +23,7 @@ struct MapView: View {
             MapShower()
                 // using it as environment object so that it can be used ints subViews....
                 .environmentObject(mapData)
+                
                 .ignoresSafeArea(.all, edges: .all)
             
             VStack{
@@ -106,12 +107,24 @@ struct MapView: View {
         
         
         
-        }
+        }.alert(isPresented: $mapData.didArriveAtDestination) {
+            Alert(
+              title: Text("You have arrived!"),
+              message:
+                Text("""
+                  You have arrived to your work - ready to collect your pledge points?
+                  """),
+              primaryButton: .default(Text("Yes")),
+              secondaryButton: .default(Text("No"))
+            )
+          }
         .onAppear(perform: {
             
             // Setting Delegate...
             locationManager.delegate = mapData
             locationManager.requestWhenInUseAuthorization()
+            locationManager.startMonitoring(for: mapData.circularRegion)
+           
 //            mapData.requestNotificationAuthorization()
         })
         // Permission Denied Alert...
@@ -144,6 +157,8 @@ struct MapView: View {
 private func makeLocationManager() -> CLLocationManager {
   // 3
   let manager = CLLocationManager()
+    manager.allowsBackgroundLocationUpdates = true
   // 4
+    manager.startUpdatingLocation()
   return manager
 }
