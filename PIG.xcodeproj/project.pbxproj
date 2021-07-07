@@ -40,6 +40,7 @@
 		D6DC2C8D264D2EA3008C6A72 /* PIGTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DC2C8C264D2EA3008C6A72 /* PIGTests.swift */; };
 		D6DC2C98264D2EA3008C6A72 /* PIGUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DC2C97264D2EA3008C6A72 /* PIGUITests.swift */; };
 		D6DC2CC3264D34A6008C6A72 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D6DC2CC2264D34A6008C6A72 /* GoogleService-Info.plist */; };
+		D6DD127B269638CB00AEB590 /* Recycling.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DD127A269638CB00AEB590 /* Recycling.swift */; };
 		D6EF45B2268B625B00F56D73 /* synthesisedDataEncrypted.txt in Resources */ = {isa = PBXBuildFile; fileRef = D6EF45B1268B625B00F56D73 /* synthesisedDataEncrypted.txt */; };
 		EFE493A395E86D0C9219A49A /* Pods_PIG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F520879173FDBF1704B8EBD2 /* Pods_PIG.framework */; };
 /* End PBXBuildFile section */
@@ -105,6 +106,7 @@
 		D6DC2C97264D2EA3008C6A72 /* PIGUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIGUITests.swift; sourceTree = "<group>"; };
 		D6DC2C99264D2EA4008C6A72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6DC2CC2264D34A6008C6A72 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D6DD127A269638CB00AEB590 /* Recycling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recycling.swift; sourceTree = "<group>"; };
 		D6EF45B1268B625B00F56D73 /* synthesisedDataEncrypted.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = synthesisedDataEncrypted.txt; sourceTree = "<group>"; };
 		EFD34037079C9C2C6CEBF9FA /* Pods-PIG-PIGUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PIG-PIGUITests.debug.xcconfig"; path = "Target Support Files/Pods-PIG-PIGUITests/Pods-PIG-PIGUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F520879173FDBF1704B8EBD2 /* Pods_PIG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PIG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -183,6 +185,7 @@
 			children = (
 				D665D807268FB8710021156A /* SimulatedLocations.gpx */,
 				D65C3611268677EB003A504F /* PledgeUpdate.swift */,
+				D6DD127A269638CB00AEB590 /* Recycling.swift */,
 				D65C360C26866F10003A504F /* TrackPledges.swift */,
 				D65C360726861CC0003A504F /* AdditionalPledgesView.swift */,
 				D6440A62265AA9BD0023F889 /* ImproveView.swift */,
@@ -531,6 +534,7 @@
 				D69C7AA4265801E500D209DB /* DoughnutView.swift in Sources */,
 				D65C3612268677EB003A504F /* PledgeUpdate.swift in Sources */,
 				D665D79D268E171E0021156A /* MapView.swift in Sources */,
+				D6DD127B269638CB00AEB590 /* Recycling.swift in Sources */,
 				D65C360826861CC0003A504F /* AdditionalPledgesView.swift in Sources */,
 				D665D7B0268EAE410021156A /* MapShower.swift in Sources */,
 				D64DB1C72652BE5E00D6FA4D /* StatsView.swift in Sources */,

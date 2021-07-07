@@ -203,6 +203,8 @@ struct ContentView: View {
     @State var level = 0;
     @State var toastShow: Bool = false
     @State var message = ""
+    @State var showingModal = false
+    @State var completed = false
     var body: some View {
         NavigationView{
 
@@ -269,14 +271,14 @@ struct ContentView: View {
 
                     
                     
-//                    MapView()
-//                    .tabItem {
-//                        VStack {
-//                            Image(systemName: "network")
-//                            Text("Map") // Update tab title
-//                        }
-//                    }
-//                .tag(4)
+                        Recycling(completed: $completed, showingModal: $showingModal)
+                    .tabItem {
+                        VStack {
+                            Image(systemName: "leaf.arrow.triangle.circlepath")
+                            Text("Recycle") // Update tab title
+                        }
+                    }
+                .tag(4)
 
                 
                 }

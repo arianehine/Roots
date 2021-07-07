@@ -15,7 +15,8 @@ struct PledgeUpdate: View {
     @State var goBack = false
     @State var auth = Auth.auth();
     @State var message = ""
-    @State var showModal = false
+    @State var showWalkModal = false
+    @State var showRecycleModal = false
     @State var completed = false
     var body: some View {
         VStack{
@@ -28,9 +29,10 @@ struct PledgeUpdate: View {
         Button(action: {
             
             if(pledgeToUpdate.description.contains("Walk to work")){
-                showModal = true;
+                showWalkModal = true;
        
                     
+            }else if(pledgeToUpdate.description.contains("Recycle")){
                 
                 
             }else{
@@ -68,7 +70,8 @@ struct PledgeUpdate: View {
         } .background(LinearGradient(gradient: .init(colors: [Color("Color"),Color("Color1")]), startPoint: .leading, endPoint: .trailing))
         .clipShape(Capsule())
     
-        }.sheet(isPresented: $showModal) { MapView(completed: $completed, showingModal: $showModal) }
+        }.sheet(isPresented: $showWalkModal) { MapView(completed: $completed, showingModal: $showWalkModal) }
+        .sheet(isPresented: $showRecycleModal) { Recycling(completed: $completed, showingModal: $showRecycleModal) }
         .toast(isPresenting: $toastShow, message: getMessage(pledgeToUpdate: pledgeToUpdate, daysCompleted: pledgeToUpdate.daysCompleted, durationInDays: pledgeToUpdate.durationInDays))
  
        
@@ -92,11 +95,11 @@ struct PledgeUpdate: View {
         
        self.fbLogic.incrementPledgeCompletedDays(pledge: pledgeToUpdate, uid: auth.currentUser!.uid){ (isSucceeded) in
             if !isSucceeded {
-                print("not success")
+             
   
                 message = "Oops, come back tomorrow to track progress for this pledge"
             } else {
-                print("success")
+              
 
                 if((daysCompleted+1) == durationInDays){
                     self.fbLogic.incrementPledgeCompletedDays2(pledge: pledgeToUpdate, uid: auth.currentUser!.uid)

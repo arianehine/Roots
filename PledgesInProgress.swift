@@ -357,18 +357,13 @@ db.collection("UserPledges").document(uid).collection("Pledges").document(String
                    
                     userData.append(UserData(ID: ID!, date: dateConverted, average: average!, transport: transport!, household: household!, clothing: clothing!, health: health!, food: food!, transport_walking: transport_walking!, transport_car: transport_car!, transport_train: transport_train!, transport_bus: transport_bus!, transport_plane: transport_plane!, household_heating: household_heating!, household_electricity: household_electricity!, household_furnishings: household_furnishings!, household_lighting: household_lighting!, clothing_fastfashion: clothing_fastfashion!, clothing_sustainable: clothing_sustainable!, health_meds: health_meds!, health_scans: health_scans!, food_meat: food_meat!, food_fish: food_fish!, food_dairy: food_dairy!, food_oils: food_oils!))
                     
-    //                   print(started)
-    //                   if (started == true && endDate==""){
-    //                       print("append", self.findPledgeWithThisID(ID: documentData["ID"] as! Int))
-    //                       pledgesInProgress.append(self.findPledgeWithThisID(ID: documentData["ID"] as! Int))
-    //                   }
+
 
                    })
                  
                  }
                 
-                
-        //     pledgesToReturn.append(pledgePicked)
+        
            
             
             return userData
@@ -423,7 +418,7 @@ db.collection("UserPledges").document(uid).collection("Pledges").document(String
         let db = Firestore.firestore()
         let auth = Auth.auth();
         let currentUser = (auth.currentUser?.uid)!
-        print("checking for :", currentUser)
+        
         self.allPledges = [Pledge]()
         var pledgesToReturn = [Pledge]()
     
@@ -444,7 +439,7 @@ db.collection("UserPledges").document(uid).collection("Pledges").document(String
                 let calendar = Calendar.current
                 let components = calendar.dateComponents([.day], from: startDate, to: Date())
                 var numDays : Int = components.day!
-                print(numDays)
+               
                 if(numDays >= durationInDays!){
                     self.resetPledge(pledgeID: ID!)
                 }
@@ -461,7 +456,7 @@ db.collection("UserPledges").document(uid).collection("Pledges").document(String
         let db = Firestore.firestore()
         let auth = Auth.auth();
         let currentUser = (auth.currentUser?.uid)!
-        print("current user", currentUser)
+       
         self.allPledges = [Pledge]()
         var pledgesToReturn = [Pledge]()
     

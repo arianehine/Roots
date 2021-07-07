@@ -112,7 +112,7 @@ struct MapView: View {
             
 
                 locationManager.stopMonitoring(for: mapData.circularRegion)
-            print("arrived")
+           
             completed = true
                 showingModal = false
 

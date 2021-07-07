@@ -85,8 +85,38 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
         }
     }
     
+    func setSearchText(query: String){
+        self.searchTxt = query;
+    }
+    
+    func appendAllPlaces(places: [Place], currentLocation: CLLocation){
+//        let annotations = mapView.annotations
+//        mapView.removeAnnotations(annotations)
+       
+        for place in places {
+            guard let coordinate = place.placemark.location?.coordinate else{return}
+            let pointAnnotation = MKPointAnnotation()
+            let targetLocationCL = CLLocation(latitude: place.placemark.location!.coordinate.latitude, longitude: place.placemark.location!.coordinate.longitude)
+            var distanceInMeters = currentLocation.distance(from: targetLocationCL)
+            pointAnnotation.coordinate = coordinate
+            pointAnnotation.title = place.placemark.name ?? "No Name"
+            let distanceFloat = Float(distanceInMeters)
+            let distanceString = String(format: "%.1f", distanceFloat)
+
+            pointAnnotation.subtitle = "Distance: \(distanceString) metres";
+            let coordinateRegion = MKCoordinateRegion(center: coordinate,
+                                                      latitudinalMeters: 10000, longitudinalMeters: 10000)
+//            mapView.removeAnnotations(mapView.annotations)
+
+            mapView.setRegion(coordinateRegion, animated: true)
+            mapView.setVisibleMapRect(mapView.visibleMapRect, animated: true)
+            mapView.addAnnotation(pointAnnotation)
+           
+        }
+    }
     // Pick Search Result...
     
+
     func selectPlace(place: Place){
         
         // Showing Pin On Map....
@@ -140,8 +170,6 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
                 self.mapView.setRegion(MKCoordinateRegion(polyline!.boundingMapRect), animated: true)
                 self.mapView.addOverlay(polyline!)
             
-                print("directions", direct?.routes.first)
-                print("source:", sourceCoordinate, "dest", destinationCoordinate)
                
             }
         }
@@ -227,13 +255,11 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         guard let location = locations.last else{return}
-        print("current location ", location)
+       
          
         if(circularRegion.contains(CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))){
             didArriveAtDestination = true
         
-        }else{
-            print("not contains")
         }
         self.region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
         
