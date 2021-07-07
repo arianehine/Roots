@@ -209,7 +209,7 @@ struct ContentView: View {
 
             
             if viewModel.signedIn{
-                
+             
                
 
                 VStack{
@@ -315,38 +315,96 @@ struct ContentView: View {
     func logVisit(uid: String){
         let date = Date()
         let db = Firestore.firestore()
-        db.collection("Users").document(uid).collection("logins").document(dateToString(date: date)).setData(["date": date])
-        fbLogic.getStreak(uid: uid)
-        if(checkIfStreak(fbLogic: fbLogic)){
-            //increment by streak amount
-            if(!Calendar.current.isDateInToday(fbLogic.lastVisit)){
-                fbLogic.incrementUserXP(amount: fbLogic.streak*10, uid: uid)
-                message = "Congrats, you have a \(fbLogic.streak) day streak. + \(fbLogic.streak * 10)XP"
-                print("increment by streak")
-                toastShow = true;
+        var lastVisit: Date = Date()
+        var streak: Int = 0
+    
+            let docRef = db.collection("Users").document(uid)
+
+            docRef.getDocument { (document, error) in
+                if let document = document, document.exists {
+                    let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                
+                    streak = document.data()?["currentStreak"] as! Int
+        
+                 
+                } else {
+                    print("Document does not exist")
+                }
+                
+                streak = document!.data()?["currentStreak"] as! Int
+
+            
+        
+        if(streak == 0){
+            print("SET IT TO 1")
+            db.collection("Users").document(uid).updateData(["currentStreak": 1])
+            fbLogic.incrementUserXP(amount: 10, uid: uid)
+            message = "No streak. Log in tomorrow to get one! +10XP"
+            print("increment by 10")
+            toastShow = true;
+            db.collection("Users").document(uid).collection("logins").document(dateToString(date: date)).setData(["date": date])
+        }else if(streak != 0){
+            var dates = [Date]()
+            db.collection("Users").document(uid).collection("logins").getDocuments { (snapshot, error) in
+                  guard let snapshot = snapshot, error == nil else {
+                   //handle error
+                   return
+                 }
+               
+                 snapshot.documents.forEach({ (documentSnapshot) in
+                     
+                     
+                  let documentData = documentSnapshot.data()
+                  let date = documentData["date"] as? Timestamp
+                    dates.append(date!.dateValue())
+                 
+                  
+                 })
+               
+                 lastVisit = dates[dates.count-1]
+          
+               
+                let dateConverted = Date(timeIntervalSince1970: TimeInterval(lastVisit.timeIntervalSince1970))
+                print(dateConverted)
+                  if(!(Calendar.current.isDateInToday(dateConverted))){
+                    if(Calendar.current.isDateInYesterday(dateConverted)){
+                        print("continue streak")
+                        db.collection("Users").document(uid).updateData(["currentStreak": FieldValue.increment(Int64(1))])
+                        fbLogic.incrementUserXP(amount: ((streak+1)*10), uid: uid)
+                        message = "Congrats, you have a \(streak) day streak. + \((streak) * 10)XP"
+                        print("increment by streak")
+                        toastShow = true;
+                        db.collection("Users").document(uid).collection("logins").document(dateToString(date: date)).setData(["date": date])
+                    }else{
+                        print("start new streak")
+                        db.collection("Users").document(uid).updateData(["currentStreak": 1])
+                        fbLogic.incrementUserXP(amount: 10, uid: uid)
+                        message = "No streak. Log in tomorrow to get one! +10XP"
+                        print("increment by 10")
+                        toastShow = true;
+                        db.collection("Users").document(uid).collection("logins").document(dateToString(date: date)).setData(["date": date])
+                    }
+                    
+                 
+                   
+                  }else{
+                    print("logged in today, so no increase");
+                    db.collection("Users").document(uid).collection("logins").document(dateToString(date: date)).setData(["date": date])
+                  }
+            }
+            
+            
+            
+        }
+
             }
       
-          
-        }else{
-            //no streak
-          
-            if(!Calendar.current.isDateInToday(fbLogic.lastVisit) && fbLogic.moreThan1Visit == true){
-              
-                  
-                    fbLogic.incrementUserXP(amount: 10, uid: uid)
-                    message = "No streak. Log in tomorrow to get one! +10XP"
-                    print("increment by 10")
-                    toastShow = true;
-                
-            
-            }else{
-                print("no increment")
-            }
-           
-        }
-    
         
+      
     }
+        
+        
+        
     public func dateToString(date: Date) -> String{
         // Create Date Formatter
         let dateFormatter = DateFormatter()
@@ -402,34 +460,35 @@ struct ContentView: View {
     }
     
     func getName(){
-        let auth = Auth.auth();
-        let db = Firestore.firestore();
-        
-        
-        let uid = auth.currentUser!.uid
-            let docRef = db.collection("Users").document(uid)
+           let auth = Auth.auth();
+           let db = Firestore.firestore();
+           
+           
+           let uid = auth.currentUser!.uid
+               let docRef = db.collection("Users").document(uid)
 
-            docRef.getDocument { (document, error) in
-                if let document = document, document.exists {
-                    let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                
-                    name = document.data()?["firstName"] as! String
-        
-                    return
-                } else {
-                    print("Document does not exist")
-                }
-                name = document?.data()?["firstName"] as! String
-                
-              
-            }
+               docRef.getDocument { (document, error) in
+                   if let document = document, document.exists {
+                       let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                   
+                    name = document.data()?["firstName"] as? String ?? "waiting"
+                    print(document.data())
+           
+                       return
+                   } else {
+                       print("Document does not exist")
+                   }
+                   name = document?.data()?["firstName"] as! String
+                   
+                 
+               }
+          
        
-    
-        
-      
-        }
-    
-    
+           
+         
+           }
+       
+       
     
     struct SignInView: View {
         @State var email = ""
