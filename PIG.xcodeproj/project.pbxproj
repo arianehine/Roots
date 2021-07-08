@@ -15,6 +15,7 @@
 		D6440A63265AA9BD0023F889 /* ImproveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6440A62265AA9BD0023F889 /* ImproveView.swift */; };
 		D64DB1C72652BE5E00D6FA4D /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64DB1C62652BE5E00D6FA4D /* StatsView.swift */; };
 		D6523D8726614DF1005A83D6 /* TipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6523D8626614DF1005A83D6 /* TipsView.swift */; };
+		D657445B2697B0A200CC4916 /* MyAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D657445A2697B0A200CC4916 /* MyAnnotation.swift */; };
 		D659E7FC266D674F0038A086 /* PleadeConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D659E7FB266D674F0038A086 /* PleadeConfirmation.swift */; };
 		D659E819266E91100038A086 /* PledgesInProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = D659E818266E910F0038A086 /* PledgesInProgress.swift */; };
 		D65C360826861CC0003A504F /* AdditionalPledgesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65C360726861CC0003A504F /* AdditionalPledgesView.swift */; };
@@ -75,6 +76,7 @@
 		D6440A62265AA9BD0023F889 /* ImproveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImproveView.swift; sourceTree = "<group>"; };
 		D64DB1C62652BE5E00D6FA4D /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		D6523D8626614DF1005A83D6 /* TipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipsView.swift; sourceTree = "<group>"; };
+		D657445A2697B0A200CC4916 /* MyAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAnnotation.swift; sourceTree = "<group>"; };
 		D659E7FB266D674F0038A086 /* PleadeConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PleadeConfirmation.swift; sourceTree = "<group>"; };
 		D659E818266E910F0038A086 /* PledgesInProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PledgesInProgress.swift; sourceTree = "<group>"; };
 		D65C360726861CC0003A504F /* AdditionalPledgesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalPledgesView.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 			children = (
 				D665D7AD268EADC40021156A /* MapViewModel.swift */,
 				D665D7AF268EAE410021156A /* MapShower.swift */,
+				D657445A2697B0A200CC4916 /* MyAnnotation.swift */,
 				D665D79C268E171E0021156A /* MapView.swift */,
 				D665D7AB268E4FA10021156A /* Place.swift */,
 				D665D7A8268E1BB30021156A /* Extensions */,
@@ -526,6 +529,7 @@
 				D6523D8726614DF1005A83D6 /* TipsView.swift in Sources */,
 				D65C360D26866F10003A504F /* TrackPledges.swift in Sources */,
 				D6440A63265AA9BD0023F889 /* ImproveView.swift in Sources */,
+				D657445B2697B0A200CC4916 /* MyAnnotation.swift in Sources */,
 				D68DCAD8266AA64600AA9116 /* PledgesView.swift in Sources */,
 				D68DCADD266AA65800AA9116 /* TrophiesView.swift in Sources */,
 				D6DC2C7B264D2E9D008C6A72 /* PIGApp.swift in Sources */,

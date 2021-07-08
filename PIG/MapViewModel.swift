@@ -95,15 +95,17 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
        
         for place in places {
             guard let coordinate = place.placemark.location?.coordinate else{return}
-            let pointAnnotation = MKPointAnnotation()
+            let pointAnnotation = MyAnnotation()
             let targetLocationCL = CLLocation(latitude: place.placemark.location!.coordinate.latitude, longitude: place.placemark.location!.coordinate.longitude)
             var distanceInMeters = currentLocation.distance(from: targetLocationCL)
             pointAnnotation.coordinate = coordinate
             pointAnnotation.title = place.placemark.name ?? "No Name"
+            pointAnnotation.identifier = "Recycling"
             let distanceFloat = Float(distanceInMeters)
             let distanceString = String(format: "%.1f", distanceFloat)
 
             pointAnnotation.subtitle = "Distance: \(distanceString) metres";
+          
             let coordinateRegion = MKCoordinateRegion(center: coordinate,
                                                       latitudinalMeters: 10000, longitudinalMeters: 10000)
 //            mapView.removeAnnotations(mapView.annotations)
@@ -113,6 +115,7 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
             mapView.addAnnotation(pointAnnotation)
            
         }
+        mapView.setRegion(region, animated: true)
     }
     // Pick Search Result...
     
@@ -134,7 +137,8 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
        
       
         
-        let pointAnnotation = MKPointAnnotation()
+        let pointAnnotation = MyAnnotation()
+        pointAnnotation.identifier = "Location"
         pointAnnotation.coordinate = coordinate
         pointAnnotation.title = place.placemark.name ?? "No Name"
         
@@ -159,7 +163,7 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
         mapView.removeOverlays(overlays)
         
         directions = MKDirections(request: req)
-        
+        mapView.addAnnotation(pointAnnotation)
         directions.calculate{ [self] (direct, err) in
             if err != nil{
                 //an error has occured
@@ -175,7 +179,7 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
         }
      
       
-        mapView.addAnnotation(pointAnnotation)
+       
     }
     
     
