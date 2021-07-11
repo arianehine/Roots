@@ -33,7 +33,7 @@ struct PledgeUpdate: View {
        
                     
             }else if(pledgeToUpdate.description.contains("Recycle")){
-                
+                showRecycleModal = true
                 
             }else{
             updatePledge(pledgeToUpdate: pledgeToUpdate, daysCompleted: pledgeToUpdate.daysCompleted, durationInDays: pledgeToUpdate.durationInDays)

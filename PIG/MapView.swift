@@ -111,7 +111,10 @@ struct MapView: View {
         }.alert(isPresented: $mapData.didArriveAtDestination) {
             
 
-                locationManager.stopMonitoring(for: mapData.circularRegion)
+               
+            for region in locationManager.monitoredRegions {
+                locationManager.stopMonitoring(for: region)
+            }
            
             completed = true
                 showingModal = false
@@ -121,7 +124,7 @@ struct MapView: View {
               title: Text("You have arrived!"),
               message:
                 Text("""
-                  You have arrived to your work - ready to collect your pledge points?
+                  You have arrived - ready to collect your pledge points?
                   """),
               primaryButton: .default(Text("Yes")),
               secondaryButton: .default(Text("No"))
@@ -134,7 +137,7 @@ struct MapView: View {
             // Setting Delegate...
             locationManager.delegate = mapData
             locationManager.requestWhenInUseAuthorization()
-            locationManager.startMonitoring(for: mapData.circularRegion)
+            //locationManager.startMonitoring(for: mapData.circularRegions[0])
            
 //            mapData.requestNotificationAuthorization()
         })

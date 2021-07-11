@@ -20,10 +20,7 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
     
     // Region...
     @Published var region : MKCoordinateRegion!
-    @Published var circularRegion: CLCircularRegion = CLCircularRegion(
-        center:CLLocationCoordinate2D(latitude:  51.50074076097613, longitude: -0.178478644001959924),
-       radius: 1000,
-       identifier: UUID().uuidString)
+    @Published var circularRegions = [CLCircularRegion]()
      // 3
     // Based On Location It Will Set Up....
     
@@ -89,11 +86,12 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
         self.searchTxt = query;
     }
     
-    func appendAllPlaces(places: [Place], currentLocation: CLLocation){
-//        let annotations = mapView.annotations
-//        mapView.removeAnnotations(annotations)
-       
-        for place in places {
+    func appendAllPlaces(places: [Place], currentLocation: CLLocation, locatioManager: CLLocationManager){
+        let annotations = mapView.annotations
+        mapView.removeAnnotations(annotations)
+        let closestFive = getClosestPlaces(places: places, currentLocation: currentLocation)
+        
+        for place in closestFive {
             guard let coordinate = place.placemark.location?.coordinate else{return}
             let pointAnnotation = MyAnnotation()
             let targetLocationCL = CLLocation(latitude: place.placemark.location!.coordinate.latitude, longitude: place.placemark.location!.coordinate.longitude)
@@ -113,27 +111,54 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
             mapView.setRegion(coordinateRegion, animated: true)
             mapView.setVisibleMapRect(mapView.visibleMapRect, animated: true)
             mapView.addAnnotation(pointAnnotation)
+            circularRegions.append(CLCircularRegion(center: coordinate, radius: 500, identifier: UUID().uuidString))
+            locatioManager.startMonitoring(for: circularRegions[circularRegions.count-1])
            
         }
         mapView.setRegion(region, animated: true)
+        searchTxt = ""
+        
     }
     // Pick Search Result...
     
+    func getClosestPlaces(places: [Place], currentLocation: CLLocation) -> [Place]{
+        var placesWithDistance = [PlaceWithDistance]()
+        var returnPlaces = [Place]()
+        for place in places{
+            let targetLocationCL = CLLocation(latitude: place.placemark.location!.coordinate.latitude, longitude: place.placemark.location!.coordinate.longitude)
+            var distanceInMeters = currentLocation.distance(from: targetLocationCL)
+            let distanceFloat = Float(distanceInMeters)
+            placesWithDistance.append(PlaceWithDistance(placemark: place.placemark, distance: distanceFloat))
+            
+        }
+        placesWithDistance.sort { $0.distance < $1.distance }
+        print(placesWithDistance)
+        let closestPlaces = Array(placesWithDistance[0...4])
+        
+        for place in closestPlaces{
+            let obj = places.first(where: {$0.placemark.name == place.placemark.name})
+            returnPlaces.append(obj!)
+        }
+        print("places size", returnPlaces.count)
+        return returnPlaces
+    }
 
     func selectPlace(place: Place){
+        print("selected place")
         
         // Showing Pin On Map....
         
         searchTxt = ""
         
         guard let coordinate = place.placemark.location?.coordinate else{return}
-        self.circularRegion = CLCircularRegion(
+        let circularRegion = CLCircularRegion(
             center: coordinate,
            radius: 500,
            identifier: UUID().uuidString)
          // 3
         
         circularRegion.notifyOnEntry = true
+        circularRegions.append(circularRegion)
        
       
         
@@ -211,7 +236,7 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
       notificationCenter
         .requestAuthorization(options: options) { [weak self] result, _ in
             if result {
-              self?.registerNotification()
+//              self?.registerNotification()
             }
           print("Notification Auth Request result: \(result)")
         }
@@ -224,47 +249,56 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
     }
     
     // Getting user Region....
-    private func registerNotification() {
-      // 2
-      let notificationContent = UNMutableNotificationContent()
-      notificationContent.title = "Carbon Footprint App Tracking"
-      notificationContent.body = "Congrats on walking to work! +1 on your pledge commitment"
-      notificationContent.sound = .default
-
-      // 3
-      let trigger = UNLocationNotificationTrigger(
-        region: circularRegion,
-        repeats: false)
-
-      // 4
-      let request = UNNotificationRequest(
-        identifier: UUID().uuidString,
-        content: notificationContent,
-        trigger: trigger)
-
-      // 5
-      notificationCenter
-        .add(request) { error in
-          if error != nil {
-            print("Error: \(String(describing: error))")
-          }
-        }
-    }
-    override init() {
-      super.init()
-      // 2
-      notificationCenter.delegate = self
-    }
-    
+//    private func registerNotification() {
+//      // 2
+//      let notificationContent = UNMutableNotificationContent()
+//      notificationContent.title = "Carbon Footprint App Tracking"
+//      notificationContent.body = "Congrats on walking to work! +1 on your pledge commitment"
+//      notificationContent.sound = .default
+//
+//      // 3
+//      let trigger = UNLocationNotificationTrigger(
+//        region: circularRegions[0],
+//        repeats: false)
+//
+//      // 4
+//      let request = UNNotificationRequest(
+//        identifier: UUID().uuidString,
+//        content: notificationContent,
+//        trigger: trigger)
+//
+//      // 5
+//      notificationCenter
+//        .add(request) { error in
+//          if error != nil {
+//            print("Error: \(String(describing: error))")
+//          }
+//        }
+//    }
+//    override init() {
+//      super.init()
+//      // 2
+//      notificationCenter.delegate = self
+//    }
+//
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("moved")
         
         guard let location = locations.last else{return}
        
          
-        if(circularRegion.contains(CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))){
-            didArriveAtDestination = true
+        print("not returned circ regions count = ", circularRegions.count)
+            for region in circularRegions {
+                if(region.contains(CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))){
+                    didArriveAtDestination = true
+                    print("did arrive")
+                    return
+                }else{
+                    print("didn't arrive")
+                }
+            }
         
-        }
+        
         self.region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
         
 
@@ -333,5 +367,14 @@ extension MapViewModel: UNUserNotificationCenterDelegate {
       // 6
         didArriveAtDestination = true
       completionHandler(.sound)
+    }
+}
+struct PlaceWithDistance : Identifiable{
+    var id = UUID()
+    var placemark: CLPlacemark
+    var distance: Float
+    init(placemark: CLPlacemark, distance: Float){
+        self.placemark = placemark
+        self.distance = distance
     }
 }

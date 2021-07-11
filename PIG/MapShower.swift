@@ -10,6 +10,7 @@ import MapKit
 struct MapShower: UIViewRepresentable {
     
     @EnvironmentObject var mapData: MapViewModel
+  
     
     
     func makeCoordinator() -> Coordinator {
@@ -54,7 +55,7 @@ struct MapShower: UIViewRepresentable {
                 
                 
             }else{
-                print("ann not nil")
+              
                 annotationView?.annotation = annotation
             }
             
@@ -117,6 +118,9 @@ struct MapShower: UIViewRepresentable {
             return MKPolylineRenderer()
         }
         
+        func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
+            var selectedAnnotation = view.annotation
+          }
         
         
     }

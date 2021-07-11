@@ -29,7 +29,8 @@ struct Recycling: View {
                 .ignoresSafeArea(.all, edges: .all)
             
             if !mapData.places.isEmpty && mapData.searchTxt != ""{
-                let result = mapData.appendAllPlaces(places: mapData.places, currentLocation: locationManager.location!)
+                let result = mapData.appendAllPlaces(places: mapData.places, currentLocation: locationManager.location!, locatioManager: locationManager)
+             
             }
                 Spacer()
                 
@@ -90,7 +91,11 @@ struct Recycling: View {
                 // Setting Delegate...
                 locationManager.delegate = mapData
                 locationManager.requestWhenInUseAuthorization()
-//                locationManager.startMonitoring(for: mapData.circularRegion)
+//            let regionsToMonitor = getMonitorRegions(places: places);
+//            for region in regionsToMonitor {
+//                mapData.circularRegions.append(region)
+//                locationManager.startMonitoring(for: region)
+//            }
                
     //            mapData.requestNotificationAuthorization()
             })
@@ -99,6 +104,7 @@ struct Recycling: View {
             // Searching Places...
             
             // You can use your own delay time to avoid Continous Search Request...
+            if(mapData.searchTxt != ""){
             let delay = 0.3
             
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
@@ -111,20 +117,65 @@ struct Recycling: View {
                     print("no")
                 }
             }
+            }
         
         })
+        
+    }.alert(isPresented: $mapData.didArriveAtDestination) {
+    
+        completed = true
+            showingModal = false
+    
+    for region in locationManager.monitoredRegions {
+        locationManager.stopMonitoring(for: region)
     }
+   
+   
+
+  
+    return Alert(
+      title: Text("You have arrived!"),
+      message:
+        Text("""
+          You have arrived - ready to collect your pledge points?
+          """),
+      primaryButton: .default(Text("Yes")),
+      secondaryButton: .default(Text("No"))
+    )
+}
           
         
     
+//}
+//    func monitorPlaces(places: [Place]){
+//        let regionsToMonitor = getMonitorRegions(places: places);
+//        for region in regionsToMonitor {
+//            mapData.circularRegions.append(region)
+//            locationManager.startMonitoring(for: region)
+//        }
+//    }
+//
+//    func getMonitorRegions(places: [Place]) -> [CLCircularRegion]{
+//        var circRegions = [CLCircularRegion]()
+//        for place in places {
+//            let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: (place.placemark.location?.coordinate.latitude)!, longitude: (place.placemark.location?.coordinate.longitude)!), radius: 500, identifier: UUID().uuidString)
+//            circRegions.append(region)
+//    }
+//
+//
+//    return circRegions;
+//    }
+ 
 }
 }
+
 
 //struct Recycling_Previews: PreviewProvider {
 //    static var previews: some View {
 //        Recycling()
 //    }
 //}
+    
 private func makeLocationManager() -> CLLocationManager {
   // 3
   let manager = CLLocationManager()
