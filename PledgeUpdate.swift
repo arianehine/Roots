@@ -71,7 +71,7 @@ struct PledgeUpdate: View {
         .clipShape(Capsule())
     
         }.sheet(isPresented: $showWalkModal) { MapView(completed: $completed, showingModal: $showWalkModal) }
-        .sheet(isPresented: $showRecycleModal) { Recycling(completed: $completed, showingModal: $showRecycleModal) }
+        .sheet(isPresented: $showRecycleModal) { Recycling(completed: $completed, showingRecycleModal: $showRecycleModal) }
         .toast(isPresenting: $toastShow, message: getMessage(pledgeToUpdate: pledgeToUpdate, daysCompleted: pledgeToUpdate.daysCompleted, durationInDays: pledgeToUpdate.durationInDays))
  
        

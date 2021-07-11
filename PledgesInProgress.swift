@@ -160,7 +160,7 @@ class FirebaseLogic: ObservableObject {
     let currentUser = (auth.currentUser?.uid)!
      if(pledgePicked.description != "nil"){
         let id = pledgePicked.id
-        let userPledges = db.collection("UserPledges").document(currentUser).collection("Pledges").document(String(id)).updateData(["started":true, "durationInDays": durationSelected, "XP": (durationSelected*10)])
+        let userPledges = db.collection("UserPledges").document(currentUser).collection("Pledges").document(String(id)).updateData(["started":true, "durationInDays": durationSelected, "XP": (durationSelected*10), "startDate" : Date()])
         
         
 //     pledgesToReturn.append(pledgePicked)

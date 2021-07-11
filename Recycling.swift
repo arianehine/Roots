@@ -13,7 +13,7 @@ struct Recycling: View {
     @StateObject var mapData = MapViewModel()
     @Binding var completed: Bool
     // Location Manager....
-    @Binding var showingModal: Bool
+    @Binding var showingRecycleModal: Bool
     @State var locationManager = makeLocationManager()
     @State var query = "Recycling centres"
     @State var places = [Place]()
@@ -70,7 +70,7 @@ struct Recycling: View {
                     })
   
                     Button(action: {
-                        self.showingModal = false
+                        self.showingRecycleModal = false
                     }) {
                         Text("Quit finding recycling centres?").frame(height: 20)
                             
@@ -123,13 +123,13 @@ struct Recycling: View {
         
     }.alert(isPresented: $mapData.didArriveAtDestination) {
     
-        completed = true
-            showingModal = false
-    
+        self.completed = true
+        self.showingRecycleModal = false
+
     for region in locationManager.monitoredRegions {
         locationManager.stopMonitoring(for: region)
     }
-   
+
    
 
   

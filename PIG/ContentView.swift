@@ -271,14 +271,14 @@ struct ContentView: View {
 
                     
                     
-                        Recycling(completed: $completed, showingModal: $showingModal)
-                    .tabItem {
-                        VStack {
-                            Image(systemName: "leaf.arrow.triangle.circlepath")
-                            Text("Recycle") // Update tab title
-                        }
-                    }
-                .tag(4)
+//                        Recycling(completed: $completed, showingRecycleModal: $showingModal)
+//                    .tabItem {
+//                        VStack {
+//                            Image(systemName: "leaf.arrow.triangle.circlepath")
+//                            Text("Recycle") // Update tab title
+//                        }
+//                    }
+//                .tag(4)
 
                 
                 }
