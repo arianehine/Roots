@@ -271,7 +271,7 @@ struct ContentView: View {
 
                     
                     
-                      CameraView()
+                      ComputerVision()
                     .tabItem {
                         VStack {
                             Image(systemName: "leaf.arrow.triangle.circlepath")

@@ -28,6 +28,8 @@
 		D665D7AE268EADC40021156A /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665D7AD268EADC40021156A /* MapViewModel.swift */; };
 		D665D7B0268EAE410021156A /* MapShower.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665D7AF268EAE410021156A /* MapShower.swift */; };
 		D6770F1C269EE8F400E3D646 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6770F1B269EE8F400E3D646 /* CameraView.swift */; };
+		D6770F1E269F9A8400E3D646 /* MobileNetV2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = D6770F1D269F9A8300E3D646 /* MobileNetV2.mlmodel */; };
+		D6770F20269F9AD400E3D646 /* ComputerVision.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6770F1F269F9AD400E3D646 /* ComputerVision.swift */; };
 		D68366DD2655557000648C1B /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68366DC2655557000648C1B /* ToggleView.swift */; };
 		D68DCAD8266AA64600AA9116 /* PledgesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68DCAD7266AA64600AA9116 /* PledgesView.swift */; };
 		D68DCADD266AA65800AA9116 /* TrophiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68DCADC266AA65800AA9116 /* TrophiesView.swift */; };
@@ -91,6 +93,8 @@
 		D665D7AF268EAE410021156A /* MapShower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapShower.swift; sourceTree = "<group>"; };
 		D665D807268FB8710021156A /* SimulatedLocations.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SimulatedLocations.gpx; sourceTree = "<group>"; };
 		D6770F1B269EE8F400E3D646 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		D6770F1D269F9A8300E3D646 /* MobileNetV2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = MobileNetV2.mlmodel; path = ../../../Downloads/MobileNetV2.mlmodel; sourceTree = "<group>"; };
+		D6770F1F269F9AD400E3D646 /* ComputerVision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputerVision.swift; sourceTree = "<group>"; };
 		D68366DC2655557000648C1B /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
 		D68DCAD7266AA64600AA9116 /* PledgesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PledgesView.swift; sourceTree = "<group>"; };
 		D68DCADC266AA65800AA9116 /* TrophiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophiesView.swift; sourceTree = "<group>"; };
@@ -220,6 +224,7 @@
 		D6DC2C79264D2E9D008C6A72 /* PIG */ = {
 			isa = PBXGroup;
 			children = (
+				D6770F1D269F9A8300E3D646 /* MobileNetV2.mlmodel */,
 				D665D7AD268EADC40021156A /* MapViewModel.swift */,
 				D665D7AF268EAE410021156A /* MapShower.swift */,
 				D657445A2697B0A200CC4916 /* MyAnnotation.swift */,
@@ -243,6 +248,7 @@
 				D68366DC2655557000648C1B /* ToggleView.swift */,
 				D68DCADC266AA65800AA9116 /* TrophiesView.swift */,
 				D6770F1B269EE8F400E3D646 /* CameraView.swift */,
+				D6770F1F269F9AD400E3D646 /* ComputerVision.swift */,
 			);
 			path = PIG;
 			sourceTree = "<group>";
@@ -527,6 +533,7 @@
 				D69C7AA92658099B00D209DB /* StatsDataController.swift in Sources */,
 				D601C13E26541F8B0050BE7D /* BarGraphView.swift in Sources */,
 				D6DC2C7D264D2E9D008C6A72 /* ContentView.swift in Sources */,
+				D6770F20269F9AD400E3D646 /* ComputerVision.swift in Sources */,
 				D665D7AA268E1BC30021156A /* LocationExtensions.swift in Sources */,
 				D659E7FC266D674F0038A086 /* PleadeConfirmation.swift in Sources */,
 				D6523D8726614DF1005A83D6 /* TipsView.swift in Sources */,
@@ -534,6 +541,7 @@
 				D6440A63265AA9BD0023F889 /* ImproveView.swift in Sources */,
 				D657445B2697B0A200CC4916 /* MyAnnotation.swift in Sources */,
 				D68DCAD8266AA64600AA9116 /* PledgesView.swift in Sources */,
+				D6770F1E269F9A8400E3D646 /* MobileNetV2.mlmodel in Sources */,
 				D68DCADD266AA65800AA9116 /* TrophiesView.swift in Sources */,
 				D6DC2C7B264D2E9D008C6A72 /* PIGApp.swift in Sources */,
 				D659E819266E91100038A086 /* PledgesInProgress.swift in Sources */,
