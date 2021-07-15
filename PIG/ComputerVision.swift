@@ -7,49 +7,55 @@
 
 import SwiftUI
 struct ComputerVision: View {
-    @State private var classificationLabel: String = ""
+    @State var classificationLabel: String = ""
+
     let model = MobileNetV2()
     var body: some View {
         VStack{
             if(classificationLabel.contains("trash can")){
                 Text("This image is of a trash can")
             }else{
-                Text("NOT a trash can")
+                Text("NOT a trash can, it is \(classificationLabel)")
             }
-        Button("classify"){
-            self.performImageClassification()
-        }
-        }
+        Button("Take picture of recycle bin"){
+            classificationLabel = self.performImageClassification(img: UIImage(named: "images")!)
+        }.background(LinearGradient(gradient: .init(colors: [Color("Color"),Color("Color1")]), startPoint: .leading, endPoint: .trailing))
+        .clipShape(Capsule())
+        
+        
     }
-    private func performImageClassification(){
-        let img = UIImage(named: "images")
-        let resizedImage = img!.resizeTo(modelSize: CGSize(width: 224, height: 224))
+        }
+    
+    func performImageClassification(img: UIImage) ->String{
+        print("performing")
+        let resizedImage = img.resizeTo(modelSize: CGSize(width: 224, height: 224))
+        print("1")
         let buffer = resizedImage.buffer()
+        print("2")
         let output = try? model.prediction(image: buffer!)
+        print("3")
      
         
         if let output = output {
+            print("4")
             self.classificationLabel = output.classLabel
             
             //key: string, confidence level: double
             let results = output.classLabelProbs.sorted { $0.1 > $1.1 }
             let result = "\(results[0].key) - confidence: \(results[0].value)"
-            classificationLabel = result
+            print("\(result)")
+            self.classificationLabel = result
+            return result
         }
+        print("5")
+        print("classif label: \(self.classificationLabel)")
+        return classificationLabel
         
     }
 }
 
 
-func classify(){
-    
-    
-}
-struct ComputerVision_Previews: PreviewProvider {
-    static var previews: some View {
-        ComputerVision()
-    }
-}
+
 extension UIImage{
     func buffer() -> CVPixelBuffer? {
       let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue, kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary

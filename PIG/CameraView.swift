@@ -11,7 +11,9 @@ import AVFoundation
 struct CameraView: View {
     
     @StateObject var camera = CameraModel()
-    
+    @Binding var completed: Bool
+    @Binding var showModal: Bool
+
     var body: some View{
         
         ZStack{
@@ -88,6 +90,15 @@ struct CameraView: View {
         .alert(isPresented: $camera.alert) {
             Alert(title: Text("Please Enable Camera Access"))
         }
+        .alert(isPresented: $camera.isOfTrashCan) {
+            self.completed = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                showModal = false;
+            }
+            return Alert(title: Text("Yay, you've recycled!"))
+            
+           
+        }
     }
 }
 
@@ -109,9 +120,13 @@ class CameraModel: NSObject,ObservableObject,AVCapturePhotoCaptureDelegate{
     
     // Pic Data...
     
+    @Published var image: UIImage = UIImage(named: "images")!
     @Published var isSaved = false
     
     @Published var picData = Data(count: 0)
+    @Published var classificationLabel = ""
+    @State var CV = ComputerVision()
+    @Published var isOfTrashCan = false
     
     func Check(){
         
@@ -166,10 +181,13 @@ class CameraModel: NSObject,ObservableObject,AVCapturePhotoCaptureDelegate{
             }
             
             self.session.commitConfiguration()
+            print("CHECK DONE")
         }
         catch{
             print(error.localizedDescription)
         }
+        print("CHECK DONE2")
+       
     }
     
     // take and retake functions...
@@ -193,6 +211,7 @@ class CameraModel: NSObject,ObservableObject,AVCapturePhotoCaptureDelegate{
         
         DispatchQueue.global(qos: .background).async {
             
+            print("retaking")
             self.session.startRunning()
             
             DispatchQueue.main.async {
@@ -207,28 +226,64 @@ class CameraModel: NSObject,ObservableObject,AVCapturePhotoCaptureDelegate{
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         
         if error != nil{
+            print(error?.localizedDescription)
             return
         }
         
         print("pic taken...")
-        
+        DispatchQueue.main.async {
         guard let imageData = photo.fileDataRepresentation() else{return}
         
         self.picData = imageData
+        guard let image = UIImage(data: self.picData) else{
+            print("oops1")
+            return}
+        }
+        
+        
     }
     
+
+    
     func savePic(){
+        var classLabel = ""
+        print("here")
         
-        guard let image = UIImage(data: self.picData) else{return}
+        do {
+        let localImage = UIImage(data: self.picData)
+          
+            
+            if((localImage) != nil){
+            classLabel = CV.performImageClassification(img: localImage!)
+            }else{
+                throw ValidationError.conversionIssue
+            }
+              
+
+        }catch{
+            print("caught")
+            let image = self.image
+            classLabel = CV.performImageClassification(img: image)
+            self.isSaved = true
+        }
+        print("saved Successfully....")
         
         // saving Image...
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+//        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
         
-        self.isSaved = true
+        if(classLabel.contains("trash can")){
+            isOfTrashCan = true
+            print("yes this is a trash can")
+
+        }
+        print("\(classLabel)")
         
-        print("saved Successfully....")
     }
 }
+enum ValidationError: Error {
+      case conversionIssue
+    
+  }
 
 // setting view for preview...
 

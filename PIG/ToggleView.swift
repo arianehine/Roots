@@ -27,7 +27,7 @@ struct ToggleView: View {
                     
                 }) {
                     
-                Text("Open").padding(.vertical).padding(.horizontal,25).foregroundColor(.white)
+                    Text("Open").padding(.vertical).padding(.horizontal,25).foregroundColor(.white)
                 }
                 .background(LinearGradient(gradient: .init(colors: [Color("Color"),Color("Color1")]), startPoint: .leading, endPoint: .trailing))
                 .clipShape(Capsule())

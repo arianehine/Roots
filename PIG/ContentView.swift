@@ -271,14 +271,15 @@ struct ContentView: View {
 
                     
                     
-                      ComputerVision()
-                    .tabItem {
-                        VStack {
-                            Image(systemName: "leaf.arrow.triangle.circlepath")
-                            Text("Recycle") // Update tab title
-                        }
-                    }
-                .tag(4)
+//                      ComputerVision(
+//                      )
+//                     .tabItem {
+//                        VStack {
+//                            Image(systemName: "leaf.arrow.triangle.circlepath")
+//                            Text("CV") // Update tab title
+//                        }
+//                    }
+//                .tag(4)
 
                 
                 }
