@@ -29,8 +29,9 @@ struct PledgeUpdate: View {
         //TODO: make sure this can only be done once every day
     
         Button(action: {
-            
+            if(allowedToTrack(pledgeInQuestion: pledgeToUpdate)){
             if(pledgeToUpdate.description.contains("Walk to work")){
+                
                 showWalkModal = true;
        
                     
@@ -49,7 +50,12 @@ struct PledgeUpdate: View {
                     goBack = true
                        }
             }
-           
+            }else{
+              message = "Oops, come back tomorrow to track progress for this pledge"
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    goBack = true
+                       }
+            }
             
         }) {
           
@@ -62,10 +68,10 @@ struct PledgeUpdate: View {
                 
                 
                
-                DispatchQueue.main.async {
+        
                     updatePledge(pledgeToUpdate: pledgeToUpdate, daysCompleted: pledgeToUpdate.daysCompleted, durationInDays: pledgeToUpdate.durationInDays)
                     toastShow = true
-                }
+
               
                 print("should show toast")
                 
@@ -104,6 +110,9 @@ struct PledgeUpdate: View {
    
     }
     
+    func allowedToTrack(pledgeInQuestion: Pledge)->Bool{
+        return true
+    }
     func trackWalkCallback(){
         showRecycleModal = true
     }
@@ -122,9 +131,9 @@ struct PledgeUpdate: View {
        self.fbLogic.incrementPledgeCompletedDays(pledge: pledgeToUpdate, uid: auth.currentUser!.uid){ (isSucceeded) in
             if !isSucceeded {
              
-                DispatchQueue.main.async {
+               
                 message = "Oops, come back tomorrow to track progress for this pledge"
-                }
+                
                 print("oops")
             } else {
               

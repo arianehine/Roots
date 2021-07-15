@@ -122,14 +122,16 @@ struct Recycling: View {
         })
         
     }.alert(isPresented: $mapData.didArriveAtDestination) {
-    
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2){
         self.completed = true
         self.showingRecycleModal = false
+        print("should close modal")
 
     for region in locationManager.monitoredRegions {
         locationManager.stopMonitoring(for: region)
     }
 
+        }
    
 
   
