@@ -77,15 +77,24 @@ struct PledgesView_Previews: PreviewProvider {
         struct pledgeRow: View {
             var pledge: Pledge
             var worstArea: String
+   
             
             var body: some View {
+         
                 HStack{
                     Image(systemName: pledge.imageName)
                     Text(pledge.description).padding(.bottom)
                 }.frame(maxWidth: .infinity, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                             RoundedRectangle(cornerRadius: 16)
                                 .stroke(setTextColor(worstArea: worstArea), lineWidth: 4)).padding(.bottom)
-                                }
+                    
+           
+                            
+                    
+                    
+                
+               
+            }
                     
                 }
     
@@ -102,6 +111,7 @@ var completed: Bool
 var daysCompleted: Int
 var endDate: String
 var XP: Int
+var notifications: Bool
 
 
 }

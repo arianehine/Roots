@@ -16,7 +16,6 @@ struct PledgesInProgress: View {
     @EnvironmentObject var fbLogic: FirebaseLogic
     @State var selectedForFurtherInfo: Pledge = emptyPledge;
     @State var durationSelected: Int?
-   
     var pledgePicked: Pledge?
     @State var morePledges = false
 
@@ -43,6 +42,18 @@ struct PledgesInProgress: View {
                                 .frame(width: 50, height: 50, alignment: .center)
                                
                               }
+                    Toggle("Notifs?", isOn: $fbLogic.pledgesInProgress[index].notifications).padding(.leading)
+                        .toggleStyle(SwitchToggleStyle(tint: .green)).onChange(of: fbLogic.pledgesInProgress[index].notifications, perform: {value in
+                                                                                
+                           
+                                fbLogic.turnNotificationsOn(pledge: fbLogic.pledgesInProgress[index], value: value)
+                            
+                        }
+                            
+                        
+                                                                               
+                        )
+
                        
                     
 
@@ -103,7 +114,9 @@ struct PledgesInProgress: View {
             
            
 
-        }.toast(isPresenting: $showFurtherInfo, message: selectedForFurtherInfo.description).onAppear(perform: initVars)
+        }
+        
+        .toast(isPresenting: $showFurtherInfo, message: selectedForFurtherInfo.description).onAppear(perform: initVars)
         .background(
             VStack{
             NavigationLink(destination: AdditionalPledgesView(ID: "6", fbLogic: fbLogic), isActive: $morePledges) {
@@ -152,6 +165,22 @@ class FirebaseLogic: ObservableObject {
 @Published var lastVisit = Date()
 @Published var moreThan1Visit = false;
 
+    func turnNotificationsOn(pledge: Pledge, value: Bool){
+        print("turn on notifs for \(pledge.description)")
+        let db = Firestore.firestore()
+        let auth = Auth.auth();
+
+        let currentUser = (auth.currentUser?.uid)!
+         if(pledge.description != "nil"){
+            let id = pledge.id
+            let userPledges = db.collection("UserPledges").document(currentUser).collection("Pledges").document(String(id)).updateData(["notficatons": value])
+            
+            
+    //     pledgesToReturn.append(pledgePicked)
+         }
+        
+    }
+    
     func getPledgesInProgress(pledgePicked: Pledge, durationSelected: Int)-> [Pledge]{
     let db = Firestore.firestore()
     let auth = Auth.auth();
@@ -398,9 +427,10 @@ db.collection("UserPledges").document(uid).collection("Pledges").document(String
                 let startDateInterval = documentData["startDate"] as? Timestamp
                 let endDate = documentData["endDate"] as? String
                 let XP = documentData["XP"] as? Int
+                let notifications = documentData["notifications"] as? Bool
                 let startDate = Date(timeIntervalSince1970: TimeInterval(startDateInterval!.seconds))
 
-                let object = Pledge(id: ID!, description: description!, category: category!, imageName: imageName!, durationInDays: durationInDays!, startDate: startDate, started: started!, completed: completed!, daysCompleted: daysCompleted!, endDate: endDate ?? "", XP: XP!)
+                let object = Pledge(id: ID!, description: description!, category: category!, imageName: imageName!, durationInDays: durationInDays!, startDate: startDate, started: started!, completed: completed!, daysCompleted: daysCompleted!, endDate: endDate ?? "", XP: XP!, notifications: notifications ?? false)
             
                     self.allPledges.append(object)
                 
@@ -560,4 +590,4 @@ func findPledgeWithThisID(ID: Int) -> Pledge{
     
 }
 
-let emptyPledge = Pledge(id: 1, description: "nil", category: "nil", imageName: "nil", durationInDays: 0, startDate: Date(), started: false, completed: false, daysCompleted: 0, endDate: "", XP: 0)
+let emptyPledge = Pledge(id: 1, description: "nil", category: "nil", imageName: "nil", durationInDays: 0, startDate: Date(), started: false, completed: false, daysCompleted: 0, endDate: "", XP: 0, notifications: false)
