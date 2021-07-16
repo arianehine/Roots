@@ -91,8 +91,9 @@ struct CameraView: View {
             Alert(title: Text("Please Enable Camera Access"))
         }
         .alert(isPresented: $camera.isOfTrashCan) {
-            self.completed = true
+         
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                self.completed = true
                 showModal = false;
             }
             return Alert(title: Text("Yay, you've recycled!"))
