@@ -9,6 +9,7 @@ import SwiftUI
 import ToastSwiftUI
 import FirebaseFirestore
 import FirebaseAuth
+import UserNotifications
 
 struct PledgesInProgress: View {
     @State var showFurtherInfo :Bool = false
@@ -44,7 +45,15 @@ struct PledgesInProgress: View {
                               }
                     Toggle("Notifs?", isOn: $fbLogic.pledgesInProgress[index].notifications).padding(.leading)
                         .toggleStyle(SwitchToggleStyle(tint: .green)).onChange(of: fbLogic.pledgesInProgress[index].notifications, perform: {value in
-                                                                                
+                            
+                            if(value){
+                                //turn notifs on
+                             requestPermissions(pledge: fbLogic.pledgesInProgress[index], value: value)
+                            }else{
+                                //turn them off
+                            }
+                         
+                            
                            
                                 fbLogic.turnNotificationsOn(pledge: fbLogic.pledgesInProgress[index], value: value)
                             
@@ -134,7 +143,40 @@ struct PledgesInProgress: View {
                     
  
     }
-    
+    func setNotifReminder(pledge: Pledge){
+        print("setting stuff")
+        let content = UNMutableNotificationContent()
+        content.title = "Complete your pledge"
+        content.subtitle = "\(pledge.description)"
+        content.sound = UNNotificationSound.default
+
+        // show this notification five seconds from now
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 86400, repeats: true)
+
+        // choose a random identifier
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+
+        // add our notification request
+        UNUserNotificationCenter.current().add(request)
+        print("done")
+    }
+    func requestPermissions(pledge: Pledge, value: Bool){
+       
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+           
+            if success && value{
+              print("granted")
+                    setNotifReminder(pledge: pledge)
+              
+                
+            } else if let error = error {
+                print("not granted")
+                Swift.print(error.localizedDescription)
+             
+            }
+        }
+     
+    }
     func initVars(){
  
         fbLogic.allPledges = fbLogic.getAllPledges();
@@ -148,12 +190,7 @@ struct PledgesInProgress: View {
 }
 
 
-func print(date1: Date, date2: Date, days: Int) ->String{
-    print(date1)
-    print(date2)
-    print(days)
-    return "hi"
-}
+
 class FirebaseLogic: ObservableObject {
 @Published var pledgesInProgress = [Pledge]()
 @Published var pledgesCompleted = [Pledge]()
