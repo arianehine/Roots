@@ -74,7 +74,7 @@ struct PledgeUpdate: View {
                     toastShow = true
 
               
-                print("should show toast")
+              
                 
               
                     DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
@@ -91,23 +91,21 @@ struct PledgeUpdate: View {
         .toast(isPresenting: $toastShow, message: getMessage(pledgeToUpdate: pledgeToUpdate, daysCompleted: pledgeToUpdate.daysCompleted, durationInDays: pledgeToUpdate.durationInDays))
         .alert(isPresented: $showAlert){
             Alert(title: Text("How would you like to track this pledge?"), message: Text("Select option..."), primaryButton: .default (Text("Track walk")) {
-                print("Track walk selected")
+              
                 self.trackWalkCallback()             // << here !!
           },secondaryButton: .default (Text("Take picture")) {
-            print("Take picture selected")
+           
             self.takePictureCallback()}
             )
 
-        }
-       
-
-        .background(
+        }.background(
             VStack{
-                NavigationLink(destination: PledgesInProgress(), isActive: $goBack) {
+                NavigationLink(destination: PledgesInProgress().environmentObject(fbLogic), isActive: $goBack){
                             
                         }
             .hidden()
-            } )
+            }
+        )
    
     }
     
@@ -126,7 +124,7 @@ struct PledgeUpdate: View {
     
     //TODO IMPLEMENT THIS
     func updatePledge(pledgeToUpdate: Pledge, daysCompleted: Int, durationInDays: Int){
-        print("updating pledge")
+       
         auth = Auth.auth()
         
        self.fbLogic.incrementPledgeCompletedDays(pledge: pledgeToUpdate, uid: auth.currentUser!.uid){ (isSucceeded) in
@@ -135,7 +133,7 @@ struct PledgeUpdate: View {
                
                 message = "Oops, come back tomorrow to track progress for this pledge"
                 
-                print("oops")
+              
             } else {
               
 
@@ -148,7 +146,7 @@ struct PledgeUpdate: View {
                     self.fbLogic.incrementPledgeCompletedDays2(pledge: pledgeToUpdate, uid: auth.currentUser!.uid)
                     self.fbLogic.incrementUserXP(amount: 10, uid: auth.currentUser!.uid)
                   message = "Well done! Only \(durationInDays - (daysCompleted+1)) days until you are finished"
-                    self.csvHandler.reduceFootprint(amount: pledgeToUpdate.reductionPerDay, days: pledgeToUpdate.durationInDays)
+                    self.csvHandler.reduceFootprint(amount: pledgeToUpdate.reductionPerDay, days: pledgeToUpdate.durationInDays, pledgeArea: pledgeToUpdate.category)
                 }
                 
              

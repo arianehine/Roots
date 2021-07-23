@@ -725,7 +725,7 @@
 				DEVELOPMENT_TEAM = ZS3WS4H3V6;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PIG/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -748,7 +748,7 @@
 				DEVELOPMENT_TEAM = ZS3WS4H3V6;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PIG/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

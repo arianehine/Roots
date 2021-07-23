@@ -13,6 +13,7 @@ import UserNotifications
 
 struct PledgesInProgress: View {
     @State var showFurtherInfo :Bool = false
+    @State var defaultNotifs = false
     @State var showFurtherInfoProgress:Bool = false
     @EnvironmentObject var fbLogic: FirebaseLogic
     @State var selectedForFurtherInfo: Pledge = emptyPledge;
@@ -35,43 +36,43 @@ struct PledgesInProgress: View {
                         
                             showFurtherInfo = true
                             showFurtherInfoProgress = true
-                            selectedForFurtherInfo = fbLogic.pledgesInProgress[index]
+                            selectedForFurtherInfo = fbLogic.pledgesInProgress[safe: index] ?? emptyPledge
 
                               }) {
-                            Image(systemName: fbLogic.pledgesInProgress[index].imageName).renderingMode(.original)
+                                  Image(systemName: fbLogic.pledgesInProgress[safe: index]?.imageName ?? "figure.walk").renderingMode(.original)
                                 .resizable()
                                 .frame(width: 50, height: 50, alignment: .center)
                                
                               }
-                    Toggle("Notifs?", isOn: $fbLogic.pledgesInProgress[index].notifications).padding(.leading)
-                        .toggleStyle(SwitchToggleStyle(tint: .green)).onChange(of: fbLogic.pledgesInProgress[index].notifications, perform: {value in
-                            
-                            if(value){
+                    Toggle("Notifs?", isOn: $fbLogic.pledgesInProgress[safe: index]?.notifications ?? $defaultNotifs).padding(.leading)
+                        .toggleStyle(SwitchToggleStyle(tint: .green)).onChange(of: fbLogic.pledgesInProgress[safe: index]?.notifications, perform: {value in
+
+                            if(value ?? false){
                                 //turn notifs on
-                             requestPermissions(pledge: fbLogic.pledgesInProgress[index], value: value)
+                                requestPermissions(pledge: fbLogic.pledgesInProgress[safe: index] ?? emptyPledge, value: value ?? false)
                             }else{
                                 //turn them off
                             }
-                         
-                            
-                           
-                                fbLogic.turnNotificationsOn(pledge: fbLogic.pledgesInProgress[index], value: value)
-                            
+
+
+
+                            fbLogic.turnNotificationsOn(pledge: fbLogic.pledgesInProgress[safe: index] ?? emptyPledge, value: value ?? false)
+
                         }
-                            
-                        
-                                                                               
+
+
+
                         )
 
                        
                     
 
                     let calendar = Calendar.current
-                    let endDate = Calendar.current.date(byAdding: .day, value:  fbLogic.pledgesInProgress[index].durationInDays, to: fbLogic.pledgesInProgress[index].startDate)!
+                    let endDate = Calendar.current.date(byAdding: .day, value:  fbLogic.pledgesInProgress[safe: index]?.durationInDays ?? 0, to: fbLogic.pledgesInProgress[safe: index]?.startDate ?? Date())
                   
     
                     let date1 = calendar.date(bySettingHour: 12, minute: 00, second: 00, of: calendar.startOfDay(for:  Date()))
-                    let date2 = calendar.date(bySettingHour: 12, minute: 00, second: 00, of: calendar.startOfDay(for: endDate))
+                    let date2 = calendar.date(bySettingHour: 12, minute: 00, second: 00, of: calendar.startOfDay(for: endDate ?? Date()))
 
                     let components = calendar.dateComponents([.day], from: date1!, to: date2!)
                     var numDays : Int = components.day!
@@ -144,7 +145,7 @@ struct PledgesInProgress: View {
  
     }
     func setNotifReminder(pledge: Pledge){
-        print("setting stuff")
+   
         let content = UNMutableNotificationContent()
         content.title = "Complete your pledge"
         content.subtitle = "\(pledge.description)"
@@ -165,12 +166,12 @@ struct PledgesInProgress: View {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
            
             if success && value{
-              print("granted")
+  
                     setNotifReminder(pledge: pledge)
               
                 
             } else if let error = error {
-                print("not granted")
+     
                 Swift.print(error.localizedDescription)
              
             }
@@ -629,3 +630,27 @@ func findPledgeWithThisID(ID: Int) -> Pledge{
 }
 
 let emptyPledge = Pledge(id: 1, description: "nil", category: "nil", imageName: "nil", durationInDays: 0, startDate: Date(), started: false, completed: false, daysCompleted: 0, endDate: "", XP: 0, notifications: false, reductionPerDay: 0)
+
+struct Safe<T: RandomAccessCollection & MutableCollection, C: View>: View {
+    
+    typealias BoundElement = Binding<T.Element>
+    private let binding: BoundElement
+    private let content: (BoundElement) -> C
+    
+    init(_ binding: Binding<T>, index: T.Index, @ViewBuilder content: @escaping (BoundElement) -> C) {
+        self.content = content
+        self.binding = .init(get: { binding.wrappedValue[index] },
+                             set: { binding.wrappedValue[index] = $0 })
+    }
+    
+    var body: some View {
+        content(binding)
+    }
+}
+extension Collection {
+
+    /// Returns the element at the specified index if it is within bounds, otherwise nil.
+    subscript (safe index: Index) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
+}

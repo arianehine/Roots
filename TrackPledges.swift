@@ -11,6 +11,7 @@ struct TrackPledges: View {
     @State var selectedForFurtherInfo: Pledge
     @State var trackPledge = false
     var body: some View {
+        
         VStack{
         Text("Pledge: \(selectedForFurtherInfo.description)")
         Text("Goal: \(selectedForFurtherInfo.durationInDays) days")
@@ -18,8 +19,9 @@ struct TrackPledges: View {
         Spacer();
             
             Button(action: {
-                
+                print("pressed")
                 self.trackPledge = true
+                
                 
             }) {
                 
@@ -30,10 +32,14 @@ struct TrackPledges: View {
             
             Spacer()
         }  .background(
+            
             VStack{
+                NavigationView {
                 NavigationLink(destination: PledgeUpdate(pledgeToUpdate: selectedForFurtherInfo), isActive: $trackPledge) {
+                    
                             
                         }
+                }
             .hidden()
             }
            
@@ -43,6 +49,8 @@ struct TrackPledges: View {
         
     }
 }
+
+
 //
 //struct TrackPledges_Previews: PreviewProvider {
 //    static var previews: some View {

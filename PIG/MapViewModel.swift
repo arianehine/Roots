@@ -139,7 +139,7 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
             let obj = places.first(where: {$0.placemark.name == place.placemark.name})
             returnPlaces.append(obj!)
         }
-        print("places size", returnPlaces.count)
+    
         return returnPlaces
     }
 

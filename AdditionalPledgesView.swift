@@ -14,11 +14,14 @@ struct AdditionalPledgesView: View {
     var body: some View {
         let categories = ["Transport", "Health", "Food", "Household", "Fashion"];
         Text("Select a category:")
+        NavigationView {
         List {
+          
             ForEach(categories, id: \.self) { category in
             Spacer()
             NavigationLink(destination: PledgesView(worstArea: category).environmentObject(fbLogic)){
                 CategoryRow(area: category)
+            }
 
         }
         }
