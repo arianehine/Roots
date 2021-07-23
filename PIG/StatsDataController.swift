@@ -400,7 +400,7 @@ print("converting")
 func checkIfMerge(reports: [Report]) -> [Report]{
     var reportsEdit = reports;
     var mergedReports = [Report]()
-    if(reports.count>1){
+   
     for report in reports{
         let matches = reports.filter { $0.year == report.year }
         if(matches.count>1){
@@ -491,16 +491,14 @@ func checkIfMerge(reports: [Report]) -> [Report]{
             
             mergedReports.append(Report(year: year, average: average, date: date, transport: transport, household: household, clothing: clothing, health: health, food: food, transport_walking: transport_walking, transport_car: transport_car, transport_train: transport_train, transport_bus: transport_bus,transport_plane: transport_plane,household_heating: household_heating, household_electricity: household_electricity,household_furnishings: household_furnishings,household_lighting: household_lighting,clothing_fastfashion: clothing_fastfashion, clothing_sustainable: clothing_sustainable,health_meds: health_meds, health_scans: health_scans, food_meat: food_meat, food_fish: food_fish, food_dairy: food_dairy, food_oils: food_oils, numReportsComposingReport: matches.count))
             
+        }else{
+            mergedReports.append(report)
         }
         
         
     }
         mergedReports = mergedReports.uniqued();
-    }
-    else {
-        mergedReports = reports
-
-}
+    
 
     return mergedReports;
 }
