@@ -128,7 +128,7 @@ struct PledgesInProgress: View {
         .toast(isPresenting: $showFurtherInfo, message: selectedForFurtherInfo.description).onAppear(perform: initVars)
         .background(
             VStack{
-            NavigationLink(destination: AdditionalPledgesView(ID: "6", fbLogic: fbLogic), isActive: $morePledges) {
+            NavigationLink(destination: AdditionalPledgesView(ID: "8", fbLogic: fbLogic), isActive: $morePledges) {
                             
                         }
             .hidden();
@@ -466,8 +466,9 @@ db.collection("UserPledges").document(uid).collection("Pledges").document(String
                 let XP = documentData["XP"] as? Int
                 let notifications = documentData["notifications"] as? Bool
                 let startDate = Date(timeIntervalSince1970: TimeInterval(startDateInterval!.seconds))
+                let reductionPerDay = documentData["reductionPerDay"] as? Int
 
-                let object = Pledge(id: ID!, description: description!, category: category!, imageName: imageName!, durationInDays: durationInDays!, startDate: startDate, started: started!, completed: completed!, daysCompleted: daysCompleted!, endDate: endDate ?? "", XP: XP!, notifications: notifications ?? false)
+                let object = Pledge(id: ID!, description: description!, category: category!, imageName: imageName!, durationInDays: durationInDays!, startDate: startDate, started: started!, completed: completed!, daysCompleted: daysCompleted!, endDate: endDate ?? "", XP: XP!, notifications: notifications ?? false, reductionPerDay: reductionPerDay ?? 100)
             
                     self.allPledges.append(object)
                 
@@ -627,4 +628,4 @@ func findPledgeWithThisID(ID: Int) -> Pledge{
     
 }
 
-let emptyPledge = Pledge(id: 1, description: "nil", category: "nil", imageName: "nil", durationInDays: 0, startDate: Date(), started: false, completed: false, daysCompleted: 0, endDate: "", XP: 0, notifications: false)
+let emptyPledge = Pledge(id: 1, description: "nil", category: "nil", imageName: "nil", durationInDays: 0, startDate: Date(), started: false, completed: false, daysCompleted: 0, endDate: "", XP: 0, notifications: false, reductionPerDay: 0)

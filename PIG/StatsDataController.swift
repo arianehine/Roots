@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseAuth
+import Keys
 
 class StatsDataController: ObservableObject {
     @State var originalPeople =  [UserData]();
@@ -43,8 +44,9 @@ class StatsDataController: ObservableObject {
 
     }
     
-    func convertCSVIntoArray(directory: URL) -> [UserData]{
-
+    func convertCSVIntoArray(csvHandler: CSVHandler, directory: URL) -> [UserData]{
+print("converting")
+        let encryptionKEY = PIGKeys().encryptionKEY
     if(originalPeople.count == 0){
 
     var people = [UserData]()
@@ -63,10 +65,13 @@ class StatsDataController: ObservableObject {
    
            return [UserData]()
        }
-        data = decryptCSV(encryptedText: encryptedData, password: "$3N2@C7@pXp")
+        data = csvHandler.decryptCSV(encryptedText: encryptedData, password: encryptionKEY)
 
        //now split that string into an array of "rows" of data.  Each row is a string.
        var rows = data.components(separatedBy: "\n")
+        print(rows.count)
+
+        
 
        //if you have a header row, remove it here
        rows.removeFirst()
@@ -106,16 +111,21 @@ class StatsDataController: ObservableObject {
             let person = UserData(ID: ID, date: date, average: average, transport: transport, household: household, clothing: clothing, health: health, food: food, transport_walking: transport_walking, transport_car: transport_car, transport_train: transport_train, transport_bus: transport_bus, transport_plane: transport_plane, household_heating: household_heating, household_electricity: household_electricity, household_furnishings: household_furnishings, household_lighting: household_lighting, clothing_fastfashion: clothing_fastfashion, clothing_sustainable: clothing_sustainable, health_meds: health_meds, health_scans: health_scans, food_meat: food_meat, food_fish: food_fish, food_dairy: food_dairy, food_oils: food_oils)
                people.append(person)
            }
+          
     else {
-        print("wrong num columns at ID \(columns[0])")
+        print("wrong num columns at ID with rows \(row.count)")
        }
+      
+          
     }
-    
-    
+        people.append(UserData(ID: "8", date: Date(), average: 2226.49, transport: 639.88, household: 551.62, clothing: 328.91, health: 308.91, food: 397.17, transport_walking: 159.97, transport_car: 63.99, transport_train: 121.58, transport_bus: 121.58, transport_plane: 70.39, household_heating: 126.87, household_electricity: 165.49, household_furnishings: 132.39, household_lighting: 126.87, clothing_fastfashion: 179.17, clothing_sustainable: 129.74, health_meds: 210.06, health_scans: 98.85, food_meat: 123.12, food_fish: 91.35, food_dairy: 99.29, food_oils: 83.41))
+       
+        print(people[people.count-1])
     originalPeople = orderByDate(array: people);
+        print(people.count)
         return people;
     }else {
-      
+  print("origiiakl \(originalPeople)")
         return originalPeople;
     }
 }
@@ -183,6 +193,7 @@ class StatsDataController: ObservableObject {
     func getToday(reports: [Report]) -> [Report]{
         
         var returnReports = [Report]();
+        print("user reports \(reports[reports.count-1])")
         var now = Date();
         let tz = TimeZone.current
         if tz.isDaylightSavingTime(for: now) {
@@ -196,6 +207,7 @@ class StatsDataController: ObservableObject {
                 returnReports.append(report)
             }
         }
+        print((reports[reports.count-1]).date > now.startOfDay, (reports[reports.count-1]).date < now.endOfDay)
        
         return returnReports;
         
@@ -322,8 +334,9 @@ class StatsDataController: ObservableObject {
         switch value {
         case "Day":
             var reportsToReturn = statsController.getToday(reports: copyOfReports)
+           
             reportsToReturn = checkIfMerge(reports: reportsToReturn)
-         
+            print("reports to return size \(reportsToReturn.count)")
             return reportsToReturn;
             break;
         case "Week":
@@ -387,6 +400,7 @@ class StatsDataController: ObservableObject {
 func checkIfMerge(reports: [Report]) -> [Report]{
     var reportsEdit = reports;
     var mergedReports = [Report]()
+    if(reports.count>1){
     for report in reports{
         let matches = reports.filter { $0.year == report.year }
         if(matches.count>1){
@@ -479,10 +493,15 @@ func checkIfMerge(reports: [Report]) -> [Report]{
             
         }
         
-        mergedReports = mergedReports.uniqued();
-    
+        
     }
-    
+        mergedReports = mergedReports.uniqued();
+    }
+    else {
+        mergedReports = reports
+
+}
+
     return mergedReports;
 }
 
@@ -504,7 +523,7 @@ func removeArrayFromArray(allReports:[Report], reportsToRemove:[Report]) -> [Rep
     }
     return reportsEdit
 }
-struct UserData {
+struct UserData: Hashable {
     var ID: String
     var date: Date
     var average: Double

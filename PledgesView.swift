@@ -112,6 +112,7 @@ var daysCompleted: Int
 var endDate: String
 var XP: Int
 var notifications: Bool
+var reductionPerDay: Int
 
 
 }

@@ -20,6 +20,7 @@ struct PledgeUpdate: View {
     @State var showRecycleModal = false
     @State var showRecycleCamera = false
     @State var completed = false
+    @State var csvHandler = CSVHandler()
     var body: some View {
         VStack{
             
@@ -147,6 +148,7 @@ struct PledgeUpdate: View {
                     self.fbLogic.incrementPledgeCompletedDays2(pledge: pledgeToUpdate, uid: auth.currentUser!.uid)
                     self.fbLogic.incrementUserXP(amount: 10, uid: auth.currentUser!.uid)
                   message = "Well done! Only \(durationInDays - (daysCompleted+1)) days until you are finished"
+                    self.csvHandler.reduceFootprint(amount: pledgeToUpdate.reductionPerDay, days: pledgeToUpdate.durationInDays)
                 }
                 
              
