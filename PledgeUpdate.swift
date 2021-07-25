@@ -152,7 +152,7 @@ struct PledgeUpdate: View {
                   message = "Well done! Only \(durationInDays - (daysCompleted+1)) days until you are finished"
                    
                 }
-                self.csvHandler.reduceFootprint(amount: pledgeToUpdate.reductionPerDay, days: pledgeToUpdate.durationInDays, pledgeArea: pledgeToUpdate.category)
+                //self.csvHandler.reduceFootprint(amount: pledgeToUpdate.reductionPerDay, days: pledgeToUpdate.durationInDays, pledgeArea: pledgeToUpdate.category)
                 let dataToReduceBy = self.csvHandler.getReductionData(amount: pledgeToUpdate.reductionPerDay, days: pledgeToUpdate.durationInDays, pledgeArea: pledgeToUpdate.category)
                 print("reduction data: \(dataToReduceBy)")
              
