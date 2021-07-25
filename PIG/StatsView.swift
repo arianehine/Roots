@@ -37,7 +37,13 @@ struct StatsView: View {
             
            // self.reports = statsController.convertToReports(users: user);
             self.originalReports = statsController.convertToReports(users: user);
-           };
+        }.onChange(of: statsController.originalPeople){ value in
+      
+            self.originalPeople = statsController.originalPeople
+            
+        }
+    
+     
         
         
      

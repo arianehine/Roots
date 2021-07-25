@@ -20,7 +20,8 @@ struct PledgeUpdate: View {
     @State var showRecycleModal = false
     @State var showRecycleCamera = false
     @State var completed = false
-    @State var csvHandler = CSVHandler()
+    @State var statsController: StatsDataController
+    @State var csvHandler = CSVHandler(fbLogic: FirebaseLogic())
     var body: some View {
         VStack{
             
@@ -85,7 +86,10 @@ struct PledgeUpdate: View {
         } .background(LinearGradient(gradient: .init(colors: [Color("Color"),Color("Color1")]), startPoint: .leading, endPoint: .trailing))
         .clipShape(Capsule())
     
-        }.sheet(isPresented: $showWalkModal) { MapView(completed: $completed, showingModal: $showWalkModal) }
+        }.onAppear(){
+            self.csvHandler.fbLogic = self.fbLogic
+        }
+        .sheet(isPresented: $showWalkModal) { MapView(completed: $completed, showingModal: $showWalkModal) }
         .sheet(isPresented: $showRecycleCamera) { CameraView(completed: $completed, showModal: $showRecycleCamera)}
         .sheet(isPresented: $showRecycleModal) { Recycling(completed: $completed, showingRecycleModal: $showRecycleModal) }
         .toast(isPresenting: $toastShow, message: getMessage(pledgeToUpdate: pledgeToUpdate, daysCompleted: pledgeToUpdate.daysCompleted, durationInDays: pledgeToUpdate.durationInDays))
@@ -100,7 +104,7 @@ struct PledgeUpdate: View {
 
         }.background(
             VStack{
-                NavigationLink(destination: PledgesInProgress().environmentObject(fbLogic), isActive: $goBack){
+                NavigationLink(destination: PledgesInProgress(statsController: statsController).environmentObject(fbLogic), isActive: $goBack){
                             
                         }
             .hidden()
@@ -146,9 +150,17 @@ struct PledgeUpdate: View {
                     self.fbLogic.incrementPledgeCompletedDays2(pledge: pledgeToUpdate, uid: auth.currentUser!.uid)
                     self.fbLogic.incrementUserXP(amount: 10, uid: auth.currentUser!.uid)
                   message = "Well done! Only \(durationInDays - (daysCompleted+1)) days until you are finished"
-                    self.csvHandler.reduceFootprint(amount: pledgeToUpdate.reductionPerDay, days: pledgeToUpdate.durationInDays, pledgeArea: pledgeToUpdate.category)
+                   
                 }
-                
+                self.csvHandler.reduceFootprint(amount: pledgeToUpdate.reductionPerDay, days: pledgeToUpdate.durationInDays, pledgeArea: pledgeToUpdate.category)
+                let dataToReduceBy = self.csvHandler.getReductionData(amount: pledgeToUpdate.reductionPerDay, days: pledgeToUpdate.durationInDays, pledgeArea: pledgeToUpdate.category)
+             
+                self.statsController.originalPeople.append(dataToReduceBy)
+//                self.statsController.stateUser.append(dataToReduceBy)
+//                self.fbLogic.userData.append(dataToReduceBy)
+                print("original people should reduce")
+                let docDirectory = csvHandler.getDocumentsDirectory()
+                let originalPeople = statsController.convertCSVIntoArray(csvHandler: csvHandler, directory: docDirectory)
              
             }
      

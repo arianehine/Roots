@@ -7,8 +7,12 @@
 
 import Foundation
 import RNCryptor
-
+import Keys
+import SwiftUI
 class CSVHandler: ObservableObject{
+
+    @State var fbLogic: FirebaseLogic
+
     func appendFakeInfoForToday(existingData: String) ->String{
         
         var existingDataCopy = existingData
@@ -21,6 +25,9 @@ class CSVHandler: ObservableObject{
 
         return existingDataCopy
         
+    }
+     init(fbLogic: FirebaseLogic){
+        self.fbLogic = fbLogic
     }
     public func dateToString(date: Date) -> String{
         // Create Date Formatter
@@ -75,6 +82,7 @@ class CSVHandler: ObservableObject{
         }else if(pledgeArea == "household"){
             let dataToAdd = UserData(ID: "8", date: Date(), average: Double(-amount), transport: 0, household: Double(-amount), clothing: 0, health: 0, food: 0, transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds:0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0)
             appendToCSV(toAppend: dataToAdd)
+            
         }else if(pledgeArea == "clothing"){
             let dataToAdd = UserData(ID: "8", date: Date(), average: Double(-amount), transport: 0, household: 0, clothing: Double(-amount), health: 0, food: 0, transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds:0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0)
             appendToCSV(toAppend: dataToAdd)
@@ -88,6 +96,28 @@ class CSVHandler: ObservableObject{
     }
         
     }
+    
+    func getReductionData(amount: Int, days: Int, pledgeArea: String) ->UserData{
+        if(pledgeArea == "transport"){
+            let dataToAdd = UserData(ID: "8", date: Date(), average: Double(-amount), transport: Double(-amount), household: 0, clothing: 0, health: 0 , food: 0, transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds:0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0)
+           return dataToAdd
+        }else if(pledgeArea == "household"){
+            let dataToAdd = UserData(ID: "8", date: Date(), average: Double(-amount), transport: 0, household: Double(-amount), clothing: 0, health: 0, food: 0, transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds:0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0)
+            return dataToAdd
+            
+        }else if(pledgeArea == "clothing"){
+            let dataToAdd = UserData(ID: "8", date: Date(), average: Double(-amount), transport: 0, household: 0, clothing: Double(-amount), health: 0, food: 0, transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds:0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0)
+            return dataToAdd
+    }else if(pledgeArea == "health"){
+        let dataToAdd = UserData(ID: "8", date: Date(), average: Double(-amount), transport: 0, household: 0, clothing:0, health: Double(-amount), food: 0, transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds:0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0)
+        return dataToAdd
+    }else{
+        let dataToAdd = UserData(ID: "8", date: Date(), average: Double(-amount), transport: 0, household: 0, clothing:0, health: 0, food: Double(-amount), transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds:0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0)
+        return dataToAdd
+    }
+        
+    }
+    
     
     func writeToDocDirectory(string:String, location: URL) ->Bool{
     do {
@@ -144,7 +174,32 @@ class CSVHandler: ObservableObject{
     //    //if you have a header row, remove it here
     //    rows.removeFirst()
     func appendToCSV(toAppend: UserData){
-        print("append")
+        let encryptedCSV = self.readEncryptedCSV();
+        let keys = PIGKeys()
+        let encryptionKEY = keys.encryptionKEY
+        let decryptedCSV = self.decryptCSV(encryptedText: encryptedCSV, password: encryptionKEY)
+
+      
+        
+//            let success1 = writeEncryptedDoc(string: encryptedCSV)
+        
+       // write the encrypted file to document directory
+        let docDirectory = self.getDocumentsDirectory().appendingPathComponent("sythesisedData.txt")
+        let dataAdded = self.appendFakeInfoForToday(existingData: decryptedCSV)
+
+        let dataEncrypted = self.encryptString(text: dataAdded, key: encryptionKEY)
+
+
+        let success1 = self.writeEncryptedDoc(string: dataEncrypted)
+       
+        var statsController = StatsDataController(fbLogic: fbLogic)
+
+            
+     
+
+//            let success = self.writeToDocDirectory(string: encryptedCSV, location: docDirectory)
+
+
         
     }
     

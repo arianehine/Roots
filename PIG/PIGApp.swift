@@ -18,12 +18,13 @@ struct PIGApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @State var fbLogic = FirebaseLogic()
-    @State var csvHandler = CSVHandler()
+
     @State var originalPeople =  [UserData]();
     
 
     var body: some Scene {
         WindowGroup {
+            let csvHandler = CSVHandler(fbLogic: fbLogic)
             
             let encryptedCSV = csvHandler.readEncryptedCSV();
             let keys = PIGKeys()
@@ -53,7 +54,7 @@ struct PIGApp: App {
          
             
 //            let success = csvHandler.writeToDocDirectory(string: encryptedCSV, location: docDirectory)
-//
+
             let originalPeople = statsController.convertCSVIntoArray(csvHandler: csvHandler, directory: docDirectory)
             ContentView(directory: docDirectory, fbLogic: fbLogic, originalPeople: originalPeople)
                 .environmentObject(viewModel)

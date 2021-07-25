@@ -11,6 +11,7 @@ struct AdditionalPledgesView: View {
     let ID: String
     @State var selected: String = ""
     @State var fbLogic: FirebaseLogic
+    @State var statsController: StatsDataController
     var body: some View {
         let categories = ["Transport", "Health", "Food", "Household", "Fashion"];
         Text("Select a category:")
@@ -19,7 +20,7 @@ struct AdditionalPledgesView: View {
           
             ForEach(categories, id: \.self) { category in
             Spacer()
-            NavigationLink(destination: PledgesView(worstArea: category).environmentObject(fbLogic)){
+            NavigationLink(destination: PledgesView(worstArea: category, statsController: statsController).environmentObject(fbLogic)){
                 CategoryRow(area: category)
             }
 

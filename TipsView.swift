@@ -16,7 +16,7 @@ struct TipsView: View {
         Spacer()
         whatToImprove(worstArea: worstArea)
         Spacer()
-        NavigationLink(destination: PledgesView(worstArea: worstArea).environmentObject(fbLogic)) {
+        NavigationLink(destination: PledgesView(worstArea: worstArea, statsController: statsController).environmentObject(fbLogic)) {
             ButtonView(worstArea: worstArea)
         }
         

@@ -13,7 +13,9 @@ struct PledgesView: View {
     let auth = Auth.auth();
     let worstArea: String
     @State var selection: String? = nil
-    @State var pledgesInProgress = [Pledge]()
+    @State var pledgesInProgress =
+    [Pledge]()
+    @State var statsController: StatsDataController
     @EnvironmentObject var fbLogic: FirebaseLogic
     var body: some View {
 
@@ -24,7 +26,7 @@ struct PledgesView: View {
                         pledge in
                         Spacer()
                         NavigationLink(destination: PleadeConfirmation(
-                                        pledgePicked: pledge).environmentObject(fbLogic)){
+                                        pledgePicked: pledge, statsController: statsController).environmentObject(fbLogic)){
                             pledgeRow(pledge: pledge, worstArea: worstArea)
 
                     }
@@ -51,11 +53,11 @@ struct PledgesView: View {
 //
 //
 
-struct PledgesView_Previews: PreviewProvider {
-    static var previews: some View {
-        PledgesView(worstArea: "Household")
-    }
-}
+//struct PledgesView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PledgesView(worstArea: "Household")
+//    }
+//}
 
 }
 

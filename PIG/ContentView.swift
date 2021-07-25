@@ -121,7 +121,7 @@ class AppViewModel: ObservableObject{
     }
  
     func setDataForUser(userId: String, db: Firestore, statsController: StatsDataController){
-        let csvHandler = CSVHandler()
+        let csvHandler = CSVHandler(fbLogic: fbLogic)
         let userData = statsController.convertCSVIntoArray(csvHandler: csvHandler, directory: directory)
 
         for user in userData{
@@ -260,7 +260,7 @@ struct ContentView: View {
                     
                     
                         PledgesInProgress(
-                        ).environmentObject(fbLogic)
+                        statsController: statsController).environmentObject(fbLogic)
                         .tabItem {
                             VStack {
                                 Image(systemName: "hands.sparkles.fill")

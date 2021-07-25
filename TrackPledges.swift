@@ -10,6 +10,7 @@ import SwiftUI
 struct TrackPledges: View {
     @State var selectedForFurtherInfo: Pledge
     @State var trackPledge = false
+    @State var statsController: StatsDataController
     var body: some View {
         
         VStack{
@@ -35,7 +36,7 @@ struct TrackPledges: View {
             
             VStack{
                 NavigationView {
-                NavigationLink(destination: PledgeUpdate(pledgeToUpdate: selectedForFurtherInfo), isActive: $trackPledge) {
+                NavigationLink(destination: PledgeUpdate(pledgeToUpdate: selectedForFurtherInfo, statsController: statsController), isActive: $trackPledge) {
                     
                             
                         }

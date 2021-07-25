@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PleadeConfirmation: View {
     var pledgePicked: Pledge
+    @State var statsController: StatsDataController
     @State private var durationSelected = 3
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var fbLogic: FirebaseLogic
@@ -27,7 +28,7 @@ struct PleadeConfirmation: View {
         HStack{
             HStack{
                 NavigationLink(destination: PledgesInProgress(
-                                durationSelected: durationSelected, pledgePicked: pledgePicked).environmentObject(fbLogic)){
+                    statsController: statsController, durationSelected: durationSelected, pledgePicked: pledgePicked).environmentObject(fbLogic)){
                 Text("Yes")
             Image(systemName: "person.fill.checkmark").foregroundColor(Color(.green))
                 }

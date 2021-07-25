@@ -14,6 +14,7 @@ import UserNotifications
 struct PledgesInProgress: View {
     @State var showFurtherInfo :Bool = false
     @State var defaultNotifs = false
+    @State var statsController: StatsDataController
     @State var showFurtherInfoProgress:Bool = false
     @EnvironmentObject var fbLogic: FirebaseLogic
     @State var selectedForFurtherInfo: Pledge = emptyPledge;
@@ -78,7 +79,7 @@ struct PledgesInProgress: View {
                     var numDays : Int = components.day!
                     Text("Days remaining: \(numDays)").font(.caption)
 
-                }.frame(width: 150, height: 100, alignment: .center);
+                }.frame(width: 150, height: 150, alignment: .center);
                        
         
                       
@@ -129,12 +130,12 @@ struct PledgesInProgress: View {
         .toast(isPresenting: $showFurtherInfo, message: selectedForFurtherInfo.description).onAppear(perform: initVars)
         .background(
             VStack{
-            NavigationLink(destination: AdditionalPledgesView(ID: "8", fbLogic: fbLogic), isActive: $morePledges) {
+            NavigationLink(destination: AdditionalPledgesView(ID: "8", fbLogic: fbLogic, statsController: statsController), isActive: $morePledges) {
                             
                         }
             .hidden();
                 
-                NavigationLink(destination: TrackPledges(selectedForFurtherInfo: selectedForFurtherInfo), isActive: $showFurtherInfoProgress) {
+                NavigationLink(destination: TrackPledges(selectedForFurtherInfo: selectedForFurtherInfo, statsController: statsController), isActive: $showFurtherInfoProgress) {
                             
                         }
                         .hidden()
