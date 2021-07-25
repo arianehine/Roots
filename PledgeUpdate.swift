@@ -43,6 +43,7 @@ struct PledgeUpdate: View {
               
                 
             }else{
+     
             updatePledge(pledgeToUpdate: pledgeToUpdate, daysCompleted: pledgeToUpdate.daysCompleted, durationInDays: pledgeToUpdate.durationInDays)
 
             toastShow = true
@@ -67,7 +68,7 @@ struct PledgeUpdate: View {
         Text("+1 to pledge count").padding(.vertical).padding(.horizontal,25).foregroundColor(.white)
         }.onChange(of: completed) { value in
             if value == true {
-                
+               
                 
                
         
@@ -87,6 +88,7 @@ struct PledgeUpdate: View {
         .clipShape(Capsule())
     
         }.onAppear(){
+     
             self.csvHandler.fbLogic = self.fbLogic
         }
         .sheet(isPresented: $showWalkModal) { MapView(completed: $completed, showingModal: $showWalkModal) }
@@ -128,11 +130,13 @@ struct PledgeUpdate: View {
     
     //TODO IMPLEMENT THIS
     func updatePledge(pledgeToUpdate: Pledge, daysCompleted: Int, durationInDays: Int){
-       
+ 
         auth = Auth.auth()
         
        self.fbLogic.incrementPledgeCompletedDays(pledge: pledgeToUpdate, uid: auth.currentUser!.uid){ (isSucceeded) in
+           
             if !isSucceeded {
+                
              
                
                 message = "Oops, come back tomorrow to track progress for this pledge"
@@ -142,11 +146,13 @@ struct PledgeUpdate: View {
               
 
                 if((daysCompleted+1) == durationInDays){
+           
                     self.fbLogic.incrementPledgeCompletedDays2(pledge: pledgeToUpdate, uid: auth.currentUser!.uid)
                     self.fbLogic.incrementUserXPPledge(pledge: pledgeToUpdate, uid: auth.currentUser!.uid);
                     
                message =  "Yay, you've completed this pledge. + \(pledgeToUpdate.XP) XP "
                 }else{
+           
                     self.fbLogic.incrementPledgeCompletedDays2(pledge: pledgeToUpdate, uid: auth.currentUser!.uid)
                     self.fbLogic.incrementUserXP(amount: 10, uid: auth.currentUser!.uid)
                   message = "Well done! Only \(durationInDays - (daysCompleted+1)) days until you are finished"
@@ -154,12 +160,12 @@ struct PledgeUpdate: View {
                 }
                 //self.csvHandler.reduceFootprint(amount: pledgeToUpdate.reductionPerDay, days: pledgeToUpdate.durationInDays, pledgeArea: pledgeToUpdate.category)
                 let dataToReduceBy = self.csvHandler.getReductionData(amount: pledgeToUpdate.reductionPerDay, days: pledgeToUpdate.durationInDays, pledgeArea: pledgeToUpdate.category)
-                print("reduction data: \(dataToReduceBy)")
+
              
                 self.statsController.originalPeople.append(dataToReduceBy)
 //                self.statsController.stateUser.append(dataToReduceBy)
 //                self.fbLogic.userData.append(dataToReduceBy)
-                print("original people should reduce")
+               
 //                let docDirectory = csvHandler.getDocumentsDirectory()
 //                let originalPeople = statsController.convertCSVIntoArray(csvHandler: csvHandler, directory: docDirectory)
              

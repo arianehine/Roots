@@ -304,8 +304,8 @@ class FirebaseLogic: ObservableObject {
     func incrementPledgeCompletedDays(pledge: Pledge, uid: String, completion: @escaping (Bool) ->Void){
         let db = Firestore.firestore()
         var found = [Bool]()
-
-
+        
+print("callling this")
             ///if completed
          
             
@@ -315,7 +315,9 @@ class FirebaseLogic: ObservableObject {
                    return
                  }
                 if((snapshot.documents.count)==0){
+                    print("set to true")
                     completion(true)
+                    return
                 }
                  snapshot.documents.forEach({ (documentSnapshot) in
                      
@@ -328,10 +330,13 @@ class FirebaseLogic: ObservableObject {
                    
                         completion(false)
                         found.append(false)
+                        return
                     }
                  })
                 if(!(found.count > 0)){
+                    print("set to true2")
                     completion(true)
+                    return
                 }
     
     
@@ -345,9 +350,11 @@ class FirebaseLogic: ObservableObject {
 
     
 func incrementPledgeCompletedDays2(pledge: Pledge, uid: String){
+    print("incrementing")
     let db = Firestore.firestore()
     
     if(pledge.daysCompleted+1 == pledge.durationInDays){
+        print("yes")
 
         ///if completed
      
@@ -358,6 +365,7 @@ db.collection("UserPledges").document(uid).collection("Pledges").document(String
         
     } else{
   
+        print("yes2")
         db.collection("UserPledges").document(uid).collection("Pledges").document(String(pledge.id)).updateData(["daysCompleted": FieldValue.increment(Int64(1))])
                 let date = Date()
             db.collection("UserPledges").document(uid).collection("Pledges").document(String(pledge.id)).collection("Records").document(dateToString(date:date)).setData(["date": date])
