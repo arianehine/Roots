@@ -194,7 +194,7 @@ struct DoughnutView: View {
             Spacer()
             if !(reports.count==0){
 
-                NavigationLink(destination: ImproveView(statsController: statsController, worstArea: $worstArea, reports: $reports, sample: $sample, timePeriod: $selection)) {
+                 NavigationLink(destination: ImproveView(statsController: statsController, worstArea: $worstArea, reports: $reports, sample: $sample, timePeriod: $selection)) {
                     Text("Your worst area is \(worstArea)").foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/).underline()
                 }.environmentObject(statsController).buttonStyle(PlainButtonStyle())
                 
@@ -210,6 +210,23 @@ struct DoughnutView: View {
            
             
             
+        }.onChange(of: statsController.originalPeople) {value in
+            self.originalPeople = statsController.originalPeople
+              print(self.statsController.originalPeople[self.statsController.originalPeople.count-1])
+            //update originalreports
+            let user = statsController.findUserData(people: originalPeople, ID: ID);
+            self.originalReports = statsController.convertToReports(users: user);
+            
+            reports = statsController.updateReports(value: selection, reports: originalReports, statsController: statsController);
+              
+          
+//                self.reports = statsController.convertToReports(users: user);
+              
+             
+            
+            print("local")
+            sample = convertRecordsToSamples(records: reports);
+            worstArea = updateWorstArea(samples: sample);
         }.frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).navigationBarHidden(true)
         }
         

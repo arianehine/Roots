@@ -38,6 +38,7 @@ struct StatsView: View {
            // self.reports = statsController.convertToReports(users: user);
             self.originalReports = statsController.convertToReports(users: user);
         }.onChange(of: statsController.originalPeople){ value in
+            print("bar chart change")
       
             self.originalPeople = statsController.originalPeople
             

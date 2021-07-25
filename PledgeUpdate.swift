@@ -154,13 +154,14 @@ struct PledgeUpdate: View {
                 }
                 self.csvHandler.reduceFootprint(amount: pledgeToUpdate.reductionPerDay, days: pledgeToUpdate.durationInDays, pledgeArea: pledgeToUpdate.category)
                 let dataToReduceBy = self.csvHandler.getReductionData(amount: pledgeToUpdate.reductionPerDay, days: pledgeToUpdate.durationInDays, pledgeArea: pledgeToUpdate.category)
+                print("reduction data: \(dataToReduceBy)")
              
                 self.statsController.originalPeople.append(dataToReduceBy)
 //                self.statsController.stateUser.append(dataToReduceBy)
 //                self.fbLogic.userData.append(dataToReduceBy)
                 print("original people should reduce")
-                let docDirectory = csvHandler.getDocumentsDirectory()
-                let originalPeople = statsController.convertCSVIntoArray(csvHandler: csvHandler, directory: docDirectory)
+//                let docDirectory = csvHandler.getDocumentsDirectory()
+//                let originalPeople = statsController.convertCSVIntoArray(csvHandler: csvHandler, directory: docDirectory)
              
             }
      

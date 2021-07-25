@@ -245,8 +245,7 @@ struct ContentView: View {
                                     Image(systemName: "chart.pie")
                                     Text("Detailed Stats") // Update tab title
                                 }
-                        }
-                        .tag(1)
+                        }.tag(1)
                         
                         StreaksView(uid: auth.currentUser!.uid)
                             .tabItem {
