@@ -206,7 +206,7 @@ struct DoughnutView: View {
                 reports = statsController.updateReports(value: value, reports: originalReports, statsController: statsController);
                 sample = convertRecordsToSamples(records: reports);
                 worstArea = updateWorstArea(samples: sample);
-            });
+            }).font(.subheadline);
            
             
             
