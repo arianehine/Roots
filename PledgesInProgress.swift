@@ -43,27 +43,31 @@ struct PledgesInProgress: View {
                                   Image(systemName: fbLogic.pledgesInProgress[safe: index]?.imageName ?? "figure.walk").renderingMode(.original)
                                 .resizable()
                                 .frame(width: 50, height: 50, alignment: .center)
-                               
+                                .colorInvert()
                               }
-                    Toggle("Notifs?", isOn: $fbLogic.pledgesInProgress[safe: index]?.notifications ?? $defaultNotifs).padding(.leading)
-                        .toggleStyle(SwitchToggleStyle(tint: .green)).onChange(of: fbLogic.pledgesInProgress[safe: index]?.notifications, perform: {value in
-
-                            if(value ?? false){
-                                //turn notifs on
-                                requestPermissions(pledge: fbLogic.pledgesInProgress[safe: index] ?? emptyPledge, value: value ?? false)
-                            }else{
-                                //turn them off
+                    if #available(iOS 15.0, *) {
+                        Toggle("Notifs?", isOn: $fbLogic.pledgesInProgress[safe: index]?.notifications ?? $defaultNotifs).padding(.leading)
+                            .toggleStyle(SwitchToggleStyle(tint: .green)).onChange(of: fbLogic.pledgesInProgress[safe: index]?.notifications, perform: {value in
+                                
+                                if(value ?? false){
+                                    //turn notifs on
+                                    requestPermissions(pledge: fbLogic.pledgesInProgress[safe: index] ?? emptyPledge, value: value ?? false)
+                                }else{
+                                    //turn them off
+                                }
+                                
+                                
+                                
+                                fbLogic.turnNotificationsOn(pledge: fbLogic.pledgesInProgress[safe: index] ?? emptyPledge, value: value ?? false)
+                                
                             }
-
-
-
-                            fbLogic.turnNotificationsOn(pledge: fbLogic.pledgesInProgress[safe: index] ?? emptyPledge, value: value ?? false)
-
-                        }
-
-
-
-                        )
+                                                                                   
+                                                                                   
+                                                                                   
+                            )
+                    } else {
+                        // Fallback on earlier versions
+                    }
 
                        
                     
@@ -100,7 +104,7 @@ struct PledgesInProgress: View {
                         Image(systemName: fbLogic.pledgesCompleted[index].imageName).renderingMode(.original)
                             .resizable()
                             .frame(width: 50, height: 50, alignment: .center)
-                           
+                            .colorInvert()
                           }
                    
                 }

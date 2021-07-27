@@ -192,8 +192,9 @@ print("converting")
     }
     
     func getToday(reports: [Report]) -> [Report]{
-        
+    
         var returnReports = [Report]();
+        if(reports.count>=1){
         print("user reports \(reports[reports.count-1])")
         var now = Date();
         let tz = TimeZone.current
@@ -209,7 +210,7 @@ print("converting")
             }
         }
         print((reports[reports.count-1]).date > now.startOfDay, (reports[reports.count-1]).date < now.endOfDay)
-       
+        }
         return returnReports;
         
     }

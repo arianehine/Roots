@@ -60,6 +60,7 @@ struct PIGApp: App {
                 .environmentObject(viewModel)
                 .environmentObject(statsController)
                 .environmentObject(fbLogic)
+                .preferredColorScheme(.dark)
         }
     }
 }

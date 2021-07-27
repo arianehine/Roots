@@ -326,14 +326,14 @@ struct ContentView: View {
                 if let document = document, document.exists {
                     let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
                 
-                    streak = document.data()?["currentStreak"] as! Int
+                    streak = document.data()?["currentStreak"] as? Int ?? 0
         
                  
                 } else {
                     print("Document does not exist")
                 }
                 
-                streak = document!.data()?["currentStreak"] as! Int
+                streak = document!.data()?["currentStreak"] as? Int ?? 0
 
             
         

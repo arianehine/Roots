@@ -47,6 +47,7 @@ struct ToggleView: View {
         }.frame(maxHeight: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
         .background(Color.white.edgesIgnoringSafeArea(.all))
         .animation(.default)
+        .colorInvert()
     }
 }
 
