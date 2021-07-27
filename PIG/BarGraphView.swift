@@ -22,7 +22,7 @@ struct BarGraphView: View {
                     
                     HStack(alignment: .lastTextBaseline) {
                         if !(reports.count == 0 || selection == "") {
-                        let maxValue =  reports.map { $0.average }.max()
+                            let maxValue =  reports.map { ($0.average / Double($0.numReportsComposingReport))}.max()
                             let divisor = (maxValue ?? 500) / 5.0
                             let barWidth = 300 / reports.count
                         ForEach(self.reports, id: \.year) { report in
@@ -61,11 +61,11 @@ struct BarView: View {
     
     var body: some View {
         
-        let value = report.average / divisor
+        let value = (report.average / Double(report.numReportsComposingReport)) / divisor
         let yValue = Swift.min(value * 20, divisor)
         
         return VStack {
-            Text(String(format: "%.2f kg Co2 total",report.average)).font(/*@START_MENU_TOKEN@*/.caption/*@END_MENU_TOKEN@*/).padding(.bottom, 50)
+            Text(String(format: "%.2f kg Co2 per day",(report.average / Double(report.numReportsComposingReport)))).font(/*@START_MENU_TOKEN@*/.caption/*@END_MENU_TOKEN@*/).padding(.bottom, 50)
             NavigationLink(destination: NumberEarthsView(ID: Auth.auth().currentUser!.uid,  report: report)){
          
                 Chimney().foregroundColor((report.average / Double(report.numReportsComposingReport)) < 2200 ? Color.green : Color.red)
