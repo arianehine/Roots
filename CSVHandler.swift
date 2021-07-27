@@ -180,7 +180,7 @@ class CSVHandler: ObservableObject{
         let keys = PIGKeys()
         let encryptionKEY = keys.encryptionKEY
         let decryptedCSV = self.decryptCSV(encryptedText: encryptedCSV, password: encryptionKEY)
-
+        print("count", decryptedCSV.count)
       
         
 //            let success1 = writeEncryptedDoc(string: encryptedCSV)
@@ -199,7 +199,7 @@ class CSVHandler: ObservableObject{
             
      
 
-//            let success = self.writeToDocDirectory(string: encryptedCSV, location: docDirectory)
+            let success = self.writeToDocDirectory(string: encryptedCSV, location: docDirectory)
 
 
         
@@ -279,9 +279,11 @@ class CSVHandler: ObservableObject{
             let data: Data = Data(base64Encoded: encryptedText)!
             let decryptedData = try RNCryptor.decrypt(data: data, withPassword: password)
             let decryptedString = String(data: decryptedData, encoding: .utf8)
+            print("count", decryptedString?.count)
             return decryptedString ?? ""
         }
         catch{
+            print("failed decryption")
             return "failed"
         }
     }

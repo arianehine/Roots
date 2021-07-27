@@ -30,7 +30,7 @@ struct PIGApp: App {
             let keys = PIGKeys()
             let encryptionKEY = keys.encryptionKEY
             let decryptedCSV = csvHandler.decryptCSV(encryptedText: encryptedCSV, password: encryptionKEY)
-         
+            
        
             
            
@@ -53,9 +53,10 @@ struct PIGApp: App {
                 
          
             
-//            let success = csvHandler.writeToDocDirectory(string: encryptedCSV, location: docDirectory)
+            let success = csvHandler.writeToDocDirectory(string: encryptedCSV, location: docDirectory)
 
             let originalPeople = statsController.convertCSVIntoArray(csvHandler: csvHandler, directory: docDirectory)
+            
             ContentView(directory: docDirectory, fbLogic: fbLogic, originalPeople: originalPeople)
                 .environmentObject(viewModel)
                 .environmentObject(statsController)

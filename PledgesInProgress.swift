@@ -80,7 +80,7 @@ struct PledgesInProgress: View {
                     let date2 = calendar.date(bySettingHour: 12, minute: 00, second: 00, of: calendar.startOfDay(for: endDate ?? Date()))
 
                     let components = calendar.dateComponents([.day], from: date1!, to: date2!)
-                    var numDays : Int = components.day!
+                    let numDays : Int = components.day!
                     Text("Days remaining: \(numDays)").font(.caption)
 
                 }.frame(width: 150, height: 150, alignment: .center);
