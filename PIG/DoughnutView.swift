@@ -59,7 +59,7 @@ struct DonutChart: View {
         ZStack {
             if !(dataModel.chartCellModel.count==0) {
             PieChart(dataModel: dataModel, onTap: onTap)
-            InnerCircle(ratio: 1/3).foregroundColor(.white)
+                InnerCircle(ratio: 1/3).foregroundColor(.white).colorInvert()
             }
         }
     }

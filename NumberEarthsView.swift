@@ -43,6 +43,7 @@ struct NumberEarthsView: View {
             
         }.onAppear(){
             numEarths = getNumEarths(report: report);
+            print(report.numReportsComposingReport)
         }
        
     }

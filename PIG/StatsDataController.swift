@@ -120,7 +120,8 @@ print("converting")
     }
         people.append(UserData(ID: "8", date: Date(), average: 2226.49, transport: 639.88, household: 551.62, clothing: 328.91, health: 308.91, food: 397.17, transport_walking: 159.97, transport_car: 63.99, transport_train: 121.58, transport_bus: 121.58, transport_plane: 70.39, household_heating: 126.87, household_electricity: 165.49, household_furnishings: 132.39, household_lighting: 126.87, clothing_fastfashion: 179.17, clothing_sustainable: 129.74, health_meds: 210.06, health_scans: 98.85, food_meat: 123.12, food_fish: 91.35, food_dairy: 99.29, food_oils: 83.41))
        
-
+//        people.append(UserData(ID: "8", date: Date(), average: 0.01, transport: 0.01, household: 0, clothing:0, health: 0, food:0, transport_walking:0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds: 0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0))
+//
     originalPeople = orderByDate(array: people);
         print(people.count)
         return people
@@ -232,7 +233,7 @@ print("converting")
             if report.date<now.endOfDay && report.date>startOfMonth.startOfDay{
                 count += 1;
                 let weekOfMonth = Date.getWeekOfMonth(date: report.date);
-                let reportNew = Report(year: weekOfMonth, average: report.average, date: report.date, transport: report.transport, household: report.household, clothing: report.clothing, health: report.health, food: report.food, transport_walking: report.transport_walking, transport_car: report.transport_car, transport_train: report.transport_train, transport_bus: report.transport_bus, transport_plane: report.transport_plane, household_heating: report.household_heating,household_electricity: report.household_electricity, household_furnishings: report.household_furnishings, household_lighting: report.household_lighting, clothing_fastfashion: report.clothing_fastfashion, clothing_sustainable: report.clothing_sustainable, health_meds: report.health_meds, health_scans: report.health_scans, food_meat: report.food_meat, food_fish: report.food_fish, food_dairy: report.food_dairy, food_oils: report.food_oils, numReportsComposingReport: count)
+                let reportNew = Report(year: weekOfMonth, average: report.average, date: report.date, transport: report.transport, household: report.household, clothing: report.clothing, health: report.health, food: report.food, transport_walking: report.transport_walking, transport_car: report.transport_car, transport_train: report.transport_train, transport_bus: report.transport_bus, transport_plane: report.transport_plane, household_heating: report.household_heating,household_electricity: report.household_electricity, household_furnishings: report.household_furnishings, household_lighting: report.household_lighting, clothing_fastfashion: report.clothing_fastfashion, clothing_sustainable: report.clothing_sustainable, health_meds: report.health_meds, health_scans: report.health_scans, food_meat: report.food_meat, food_fish: report.food_fish, food_dairy: report.food_dairy, food_oils: report.food_oils, numReportsComposingReport: 1)
                 returnReports.append(reportNew)
             }
         }
@@ -262,7 +263,7 @@ print("converting")
                 count += 1;
                 var stringWeekday = Date.getWeekday(date: report.date)
                 stringWeekday = String(stringWeekday.prefix(3))
-                let reportNew = Report(year: stringWeekday, average: report.average, date: report.date, transport: report.transport, household: report.household, clothing: report.clothing, health: report.health, food: report.food, transport_walking: report.transport_walking, transport_car: report.transport_car, transport_train: report.transport_train, transport_bus: report.transport_bus, transport_plane: report.transport_plane, household_heating: report.household_heating,household_electricity: report.household_electricity, household_furnishings: report.household_furnishings, household_lighting: report.household_lighting, clothing_fastfashion: report.clothing_fastfashion, clothing_sustainable: report.clothing_sustainable, health_meds: report.health_meds, health_scans: report.health_scans, food_meat: report.food_meat, food_fish: report.food_fish, food_dairy: report.food_dairy, food_oils: report.food_oils, numReportsComposingReport: count)
+                let reportNew = Report(year: stringWeekday, average: report.average, date: report.date, transport: report.transport, household: report.household, clothing: report.clothing, health: report.health, food: report.food, transport_walking: report.transport_walking, transport_car: report.transport_car, transport_train: report.transport_train, transport_bus: report.transport_bus, transport_plane: report.transport_plane, household_heating: report.household_heating,household_electricity: report.household_electricity, household_furnishings: report.household_furnishings, household_lighting: report.household_lighting, clothing_fastfashion: report.clothing_fastfashion, clothing_sustainable: report.clothing_sustainable, health_meds: report.health_meds, health_scans: report.health_scans, food_meat: report.food_meat, food_fish: report.food_fish, food_dairy: report.food_dairy, food_oils: report.food_oils, numReportsComposingReport: 1)
                 returnReports.append(reportNew)
             }
         }
@@ -272,6 +273,7 @@ print("converting")
     }
    
     func getThisYear(reports: [Report]) -> [Report]{
+        print("getting year reports in \(reports.count)")
         var reportsCopy = orderReportsByDate(array: reports);
         var returnReports = [Report]();
         var count = 0;
@@ -290,9 +292,13 @@ print("converting")
                 count += 1;
                 var stringMonth = Date.getMonth(date: report.date)
      
+        
                 stringMonth = String(stringMonth.prefix(3))
-                let reportNew = Report(year: stringMonth, average: report.average, date: report.date, transport: report.transport, household: report.household, clothing: report.clothing, health: report.health, food: report.food, transport_walking: report.transport_walking, transport_car: report.transport_car, transport_train: report.transport_train, transport_bus: report.transport_bus, transport_plane: report.transport_plane, household_heating: report.household_heating,household_electricity: report.household_electricity, household_furnishings: report.household_furnishings, household_lighting: report.household_lighting, clothing_fastfashion: report.clothing_fastfashion, clothing_sustainable: report.clothing_sustainable, health_meds: report.health_meds, health_scans: report.health_scans, food_meat: report.food_meat, food_fish: report.food_fish, food_dairy: report.food_dairy, food_oils: report.food_oils, numReportsComposingReport: count)
+                let reportNew = Report(year: stringMonth, average: report.average, date: report.date, transport: report.transport, household: report.household, clothing: report.clothing, health: report.health, food: report.food, transport_walking: report.transport_walking, transport_car: report.transport_car, transport_train: report.transport_train, transport_bus: report.transport_bus, transport_plane: report.transport_plane, household_heating: report.household_heating,household_electricity: report.household_electricity, household_furnishings: report.household_furnishings, household_lighting: report.household_lighting, clothing_fastfashion: report.clothing_fastfashion, clothing_sustainable: report.clothing_sustainable, health_meds: report.health_meds, health_scans: report.health_scans, food_meat: report.food_meat, food_fish: report.food_fish, food_dairy: report.food_dairy, food_oils: report.food_oils, numReportsComposingReport: 1)
                 returnReports.append(reportNew)
+                if(reportNew.year == "Jul"){
+                    print("yes jul")
+                }
             }
         }
        
@@ -338,7 +344,7 @@ print("converting")
             var reportsToReturn = statsController.getToday(reports: copyOfReports)
            
             reportsToReturn = checkIfMerge(reports: reportsToReturn)
-            print("reports to return size \(reportsToReturn.count)")
+            //print("reports to return size \(reportsToReturn.count)")
             return reportsToReturn;
             break;
         case "Week":
@@ -355,8 +361,9 @@ print("converting")
             break;
         case "Year":
             var reportsToReturn = statsController.getThisYear(reports: copyOfReports)
+            print("reports to return size \(reportsToReturn.count)")
             reportsToReturn = checkIfMerge(reports: reportsToReturn)
-           
+            print("reports to return size \(reportsToReturn.count)")
             return reportsToReturn;
             break;
         default: break
@@ -494,7 +501,9 @@ func checkIfMerge(reports: [Report]) -> [Report]{
             mergedReports.append(Report(year: year, average: average, date: date, transport: transport, household: household, clothing: clothing, health: health, food: food, transport_walking: transport_walking, transport_car: transport_car, transport_train: transport_train, transport_bus: transport_bus,transport_plane: transport_plane,household_heating: household_heating, household_electricity: household_electricity,household_furnishings: household_furnishings,household_lighting: household_lighting,clothing_fastfashion: clothing_fastfashion, clothing_sustainable: clothing_sustainable,health_meds: health_meds, health_scans: health_scans, food_meat: food_meat, food_fish: food_fish, food_dairy: food_dairy, food_oils: food_oils, numReportsComposingReport: matches.count))
             
         }else{
+            print("else report \(report.year)")
             mergedReports.append(report)
+            print(report)
         }
         
         
