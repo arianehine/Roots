@@ -53,7 +53,7 @@ struct StreaksView: View {
                     let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
                 
                     self.streak = document.data()?["currentStreak"] as! Int
-                    print(self.streak)
+                   
         return
                    
                 } else {

@@ -274,6 +274,7 @@ print("converting, \(directory)")
         
     }
    
+   
     func getThisYear(reports: [Report]) -> [Report]{
         print("getting year reports in \(reports.count)")
         var reportsCopy = orderReportsByDate(array: reports);
@@ -407,13 +408,121 @@ print("converting, \(directory)")
     }
 
 }
-
-func checkIfMerge(reports: [Report]) -> [Report]{
-    var reportsEdit = reports;
+func mergeReportsWithSameDay(reports: [Report]) ->[Report]{
+    print("checking on day")
+    var reportsCopy = reports
+    
     var mergedReports = [Report]()
    
-    for report in reports{
-        let matches = reports.filter { $0.year == report.year }
+    for report in reportsCopy{
+        let matches = reports.filter { $0.date.endOfDay == report.date.endOfDay }
+        if(matches.count>1){
+        
+            var year = ""
+            var average = 0.0
+            var date = Date()
+            var transport = 0.0
+            var household = 0.0
+            var clothing = 0.0
+            var health = 0.0
+            var food = 0.0
+            var transport_walking = 0.0
+            var transport_car = 0.0
+            var transport_train = 0.0
+            var transport_bus = 0.0
+            var transport_plane = 0.0
+            var household_heating = 0.0
+            var household_electricity = 0.0
+            var household_furnishings = 0.0
+            var household_lighting = 0.0
+            var clothing_fastfashion = 0.0
+            var clothing_sustainable = 0.0
+            var health_meds = 0.0
+            var health_scans = 0.0
+            var food_meat = 0.0
+            var food_fish = 0.0
+            var food_dairy = 0.0
+            var food_oils = 0.0
+
+            
+            for (index,item) in matches.enumerated(){
+                
+                year = item.year
+                average = average + item.average
+                date = item.date
+                transport = transport + item.transport
+                household = household + item.household
+                clothing = clothing + item.clothing
+                health = health + item.health
+                food = food + item.food
+                transport_walking = transport_walking + item.transport_walking
+                transport_car = transport_car + item.transport_car
+                transport_train = transport_train + item.transport_train
+                transport_bus = transport_bus + item.transport_bus
+                transport_plane = transport_plane + item.transport_plane
+                household_heating = household_heating + item.household_heating
+                household_electricity = household_electricity + item.household_electricity
+                household_furnishings = household_furnishings + item.household_furnishings
+                household_lighting = household_lighting + item.household_lighting
+                clothing_fastfashion = clothing_fastfashion + item.clothing_fastfashion
+                clothing_sustainable = clothing_sustainable + item.clothing_sustainable
+                health_meds = health_meds + item.health_meds
+                health_scans = health_scans + item.health_scans
+                food_meat = food_meat + item.food_meat
+                food_fish = food_fish + item.food_fish
+                food_dairy = food_dairy + item.food_dairy
+                food_oils = food_oils + item.food_oils
+                
+                //remove it because it's counting it twice
+                
+            }
+            
+            //average it out
+//            average = average / Double(matches.count)
+//            transport = transport / Double(matches.count)
+//            household = household / Double(matches.count)
+//            clothing = clothing / Double(matches.count)
+//            health = health / Double(matches.count)
+//            food = food / Double(matches.count)
+//            transport_walking = transport_walking / Double(matches.count)
+//            transport_car = transport_car / Double(matches.count)
+//            transport_train = transport_train / Double(matches.count)
+//            transport_bus = transport_bus / Double(matches.count)
+//            transport_plane = transport_plane / Double(matches.count)
+//            household_heating = household_heating / Double(matches.count)
+//            household_electricity = household_electricity / Double(matches.count)
+//            household_furnishings = household_furnishings / Double(matches.count)
+//            household_lighting = household_lighting / Double(matches.count)
+//            clothing_fastfashion = clothing_fastfashion  / Double(matches.count)
+//            clothing_sustainable = clothing_sustainable / Double(matches.count)
+//            health_meds = health_meds / Double(matches.count)
+//            health_scans = health_scans  / Double(matches.count)
+//            food_meat = food_meat  / Double(matches.count)
+//            food_fish = food_fish / Double(matches.count)
+//            food_dairy = food_dairy / Double(matches.count)
+//            food_oils = food_oils / Double(matches.count)
+            
+            mergedReports.append(Report(year: year, average: average, date: date, transport: transport, household: household, clothing: clothing, health: health, food: food, transport_walking: transport_walking, transport_car: transport_car, transport_train: transport_train, transport_bus: transport_bus,transport_plane: transport_plane,household_heating: household_heating, household_electricity: household_electricity,household_furnishings: household_furnishings,household_lighting: household_lighting,clothing_fastfashion: clothing_fastfashion, clothing_sustainable: clothing_sustainable,health_meds: health_meds, health_scans: health_scans, food_meat: food_meat, food_fish: food_fish, food_dairy: food_dairy, food_oils: food_oils, numReportsComposingReport: 1))
+            print("merged")
+        }else{
+           
+            mergedReports.append(report)
+           
+        }
+        
+        
+    }
+        mergedReports = mergedReports.uniqued();
+    
+    return mergedReports
+    
+}
+func checkIfMerge(reports: [Report]) -> [Report]{
+    var reportsEdit = mergeReportsWithSameDay(reports: reports);
+    var mergedReports = [Report]()
+   
+    for report in reportsEdit{
+        let matches = reportsEdit.filter { $0.year == report.year }
         if(matches.count>1){
         
             var year = ""

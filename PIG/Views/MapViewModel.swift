@@ -132,7 +132,7 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
             
         }
         placesWithDistance.sort { $0.distance < $1.distance }
-        print(placesWithDistance)
+    
         let closestPlaces = Array(placesWithDistance[0...4])
         
         for place in closestPlaces{
@@ -144,7 +144,7 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
     }
 
     func selectPlace(place: Place){
-        print("selected place")
+       
         
         // Showing Pin On Map....
         
@@ -282,19 +282,19 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
 //    }
 //
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("moved")
+        
         
         guard let location = locations.last else{return}
        
          
-        print("not returned circ regions count = ", circularRegions.count)
+       
             for region in circularRegions {
                 if(region.contains(CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))){
                     didArriveAtDestination = true
                     print("did arrive")
                     return
                 }else{
-                    print("didn't arrive")
+                   
                 }
             }
         
@@ -342,12 +342,3 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
 
 
 
-struct PlaceWithDistance : Identifiable{
-    var id = UUID()
-    var placemark: CLPlacemark
-    var distance: Float
-    init(placemark: CLPlacemark, distance: Float){
-        self.placemark = placemark
-        self.distance = distance
-    }
-}

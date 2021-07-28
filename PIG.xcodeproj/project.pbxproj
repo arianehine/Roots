@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		708F7187FF2F39D949F69758 /* Pods_PIGTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC6951E73E0F37681623915 /* Pods_PIGTests.framework */; };
 		C3CAC21BE0335EB3BA5C4781 /* Pods_PIG_PIGUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AA6954425C74E460409F510 /* Pods_PIG_PIGUITests.framework */; };
-		D601C13626541C1B0050BE7D /* BarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = D601C13526541C1B0050BE7D /* BarChart.swift */; };
 		D601C13E26541F8B0050BE7D /* BarGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D601C13D26541F8B0050BE7D /* BarGraphView.swift */; };
 		D60773AF26A9EA4C00029C3D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D60773AE26A9EA4C00029C3D /* GoogleService-Info.plist */; };
 		D60773B126AABE1100029C3D /* CSVHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60773B026AABE1100029C3D /* CSVHandler.swift */; };
@@ -21,6 +20,14 @@
 		D60DC0EB26B1ABD40041D82D /* MobileNetV2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = D60DC0E726B1A8990041D82D /* MobileNetV2.mlmodel */; };
 		D60DC0ED26B1AC610041D82D /* SafeArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60DC0EC26B1AC610041D82D /* SafeArray.swift */; };
 		D60DC0EF26B1AC9E0041D82D /* FirebaseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60DC0EE26B1AC9E0041D82D /* FirebaseHandler.swift */; };
+		D60DC0F126B1C6550041D82D /* Pledge.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60DC0F026B1C6550041D82D /* Pledge.swift */; };
+		D60DC0F326B1C6A60041D82D /* Places.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60DC0F226B1C6A60041D82D /* Places.swift */; };
+		D60DC0F626B1C7230041D82D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60DC0F526B1C7230041D82D /* ErrorView.swift */; };
+		D60DC0F826B1C7420041D82D /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60DC0F726B1C7420041D82D /* SignUpView.swift */; };
+		D60DC0FA26B1C76E0041D82D /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60DC0F926B1C76E0041D82D /* SignInView.swift */; };
+		D60DC0FD26B1C7BB0041D82D /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60DC0FC26B1C7BB0041D82D /* AppViewModel.swift */; };
+		D60DC0FF26B1CC310041D82D /* Chimney.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60DC0FE26B1CC310041D82D /* Chimney.swift */; };
+		D60DC10126B1CC400041D82D /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60DC10026B1CC400041D82D /* Report.swift */; };
 		D612F6292659478700914C0E /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = D612F6282659478700914C0E /* WrappingHStack */; };
 		D6440A63265AA9BD0023F889 /* ImproveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6440A62265AA9BD0023F889 /* ImproveView.swift */; };
 		D64DB1C72652BE5E00D6FA4D /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64DB1C62652BE5E00D6FA4D /* StatsView.swift */; };
@@ -41,7 +48,6 @@
 		D6770F20269F9AD400E3D646 /* ComputerVision.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6770F1F269F9AD400E3D646 /* ComputerVision.swift */; };
 		D68366DD2655557000648C1B /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68366DC2655557000648C1B /* ToggleView.swift */; };
 		D68DCAD8266AA64600AA9116 /* PledgesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68DCAD7266AA64600AA9116 /* PledgesView.swift */; };
-		D68DCADD266AA65800AA9116 /* TrophiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68DCADC266AA65800AA9116 /* TrophiesView.swift */; };
 		D69C7AA4265801E500D209DB /* DoughnutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69C7AA3265801E500D209DB /* DoughnutView.swift */; };
 		D69C7AA92658099B00D209DB /* StatsDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69C7AA82658099B00D209DB /* StatsDataController.swift */; };
 		D69C7AAE26592F3E00D209DB /* NumberEarthsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69C7AAD26592F3E00D209DB /* NumberEarthsView.swift */; };
@@ -83,7 +89,6 @@
 		844CD551FB07ED68EF9959DF /* Pods-PIGTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PIGTests.release.xcconfig"; path = "Target Support Files/Pods-PIGTests/Pods-PIGTests.release.xcconfig"; sourceTree = "<group>"; };
 		99CDBF77F2A2A1A309E9ADB4 /* Pods-PIG-PIGUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PIG-PIGUITests.release.xcconfig"; path = "Target Support Files/Pods-PIG-PIGUITests/Pods-PIG-PIGUITests.release.xcconfig"; sourceTree = "<group>"; };
 		ACC6951E73E0F37681623915 /* Pods_PIGTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PIGTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D601C13526541C1B0050BE7D /* BarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChart.swift; sourceTree = "<group>"; };
 		D601C13D26541F8B0050BE7D /* BarGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarGraphView.swift; sourceTree = "<group>"; };
 		D60773AE26A9EA4C00029C3D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D60773B026AABE1100029C3D /* CSVHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVHandler.swift; sourceTree = "<group>"; };
@@ -95,6 +100,14 @@
 		D60DC0E726B1A8990041D82D /* MobileNetV2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = MobileNetV2.mlmodel; path = ../MobileNetV2.mlmodel; sourceTree = "<group>"; };
 		D60DC0EC26B1AC610041D82D /* SafeArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeArray.swift; sourceTree = "<group>"; };
 		D60DC0EE26B1AC9E0041D82D /* FirebaseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FirebaseHandler.swift; path = PIG/DataStructures/FirebaseHandler.swift; sourceTree = SOURCE_ROOT; };
+		D60DC0F026B1C6550041D82D /* Pledge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pledge.swift; sourceTree = "<group>"; };
+		D60DC0F226B1C6A60041D82D /* Places.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Places.swift; sourceTree = "<group>"; };
+		D60DC0F526B1C7230041D82D /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		D60DC0F726B1C7420041D82D /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		D60DC0F926B1C76E0041D82D /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		D60DC0FC26B1C7BB0041D82D /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
+		D60DC0FE26B1CC310041D82D /* Chimney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chimney.swift; sourceTree = "<group>"; };
+		D60DC10026B1CC400041D82D /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		D6391E32E4A92519B968FD70 /* Pods_PIG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PIG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6440A62265AA9BD0023F889 /* ImproveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImproveView.swift; sourceTree = "<group>"; };
 		D64DB1C62652BE5E00D6FA4D /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
@@ -116,7 +129,6 @@
 		D6770F1F269F9AD400E3D646 /* ComputerVision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputerVision.swift; sourceTree = "<group>"; };
 		D68366DC2655557000648C1B /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
 		D68DCAD7266AA64600AA9116 /* PledgesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PledgesView.swift; sourceTree = "<group>"; };
-		D68DCADC266AA65800AA9116 /* TrophiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophiesView.swift; sourceTree = "<group>"; };
 		D69C7AA3265801E500D209DB /* DoughnutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoughnutView.swift; sourceTree = "<group>"; };
 		D69C7AA82658099B00D209DB /* StatsDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsDataController.swift; sourceTree = "<group>"; };
 		D69C7AAD26592F3E00D209DB /* NumberEarthsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberEarthsView.swift; sourceTree = "<group>"; };
@@ -193,14 +205,61 @@
 		D60DC0E626B1A87C0041D82D /* DataStructures */ = {
 			isa = PBXGroup;
 			children = (
+				D657445A2697B0A200CC4916 /* MyAnnotation.swift */,
+				D665D7AB268E4FA10021156A /* Place.swift */,
 				D60DC0EC26B1AC610041D82D /* SafeArray.swift */,
+				D60DC0F026B1C6550041D82D /* Pledge.swift */,
+				D60DC0F226B1C6A60041D82D /* Places.swift */,
+				D60DC0FE26B1CC310041D82D /* Chimney.swift */,
+				D60DC10026B1CC400041D82D /* Report.swift */,
 			);
 			path = DataStructures;
+			sourceTree = "<group>";
+		};
+		D60DC0F426B1C7180041D82D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D665D796268DF9A40021156A /* StreaksView.swift */,
+				D6DC2C7C264D2E9D008C6A72 /* ContentView.swift */,
+				D665D79C268E171E0021156A /* MapView.swift */,
+				D665D7AF268EAE410021156A /* MapShower.swift */,
+				D665D7AD268EADC40021156A /* MapViewModel.swift */,
+				D65C3611268677EB003A504F /* PledgeUpdate.swift */,
+				D69C7AA3265801E500D209DB /* DoughnutView.swift */,
+				D6DD127A269638CB00AEB590 /* Recycling.swift */,
+				D60773B026AABE1100029C3D /* CSVHandler.swift */,
+				D65C360C26866F10003A504F /* TrackPledges.swift */,
+				D64DB1C62652BE5E00D6FA4D /* StatsView.swift */,
+				D65C360726861CC0003A504F /* AdditionalPledgesView.swift */,
+				D68366DC2655557000648C1B /* ToggleView.swift */,
+				D69C7AAD26592F3E00D209DB /* NumberEarthsView.swift */,
+				D6440A62265AA9BD0023F889 /* ImproveView.swift */,
+				D6770F1B269EE8F400E3D646 /* CameraView.swift */,
+				D6770F1F269F9AD400E3D646 /* ComputerVision.swift */,
+				D6523D8626614DF1005A83D6 /* TipsView.swift */,
+				D68DCAD7266AA64600AA9116 /* PledgesView.swift */,
+				D601C13D26541F8B0050BE7D /* BarGraphView.swift */,
+				D659E7FB266D674F0038A086 /* PleadeConfirmation.swift */,
+				D659E818266E910F0038A086 /* PledgesInProgress.swift */,
+				D60DC0F526B1C7230041D82D /* ErrorView.swift */,
+				D60DC0F726B1C7420041D82D /* SignUpView.swift */,
+				D60DC0F926B1C76E0041D82D /* SignInView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D60DC0FB26B1C7B10041D82D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D60DC0FC26B1C7BB0041D82D /* AppViewModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		D665D7A3268E18AA0021156A /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				D69C7AA82658099B00D209DB /* StatsDataController.swift */,
 				D60DC0EE26B1AC9E0041D82D /* FirebaseHandler.swift */,
 			);
 			path = Managers;
@@ -244,45 +303,20 @@
 		D6DC2C79264D2E9D008C6A72 /* PIG */ = {
 			isa = PBXGroup;
 			children = (
-				D69C7AAD26592F3E00D209DB /* NumberEarthsView.swift */,
-				D659E818266E910F0038A086 /* PledgesInProgress.swift */,
+				D60DC0FB26B1C7B10041D82D /* Models */,
+				D60DC0F426B1C7180041D82D /* Views */,
 				D665D807268FB8710021156A /* SimulatedLocations.gpx */,
-				D659E7FB266D674F0038A086 /* PleadeConfirmation.swift */,
-				D68DCAD7266AA64600AA9116 /* PledgesView.swift */,
-				D6523D8626614DF1005A83D6 /* TipsView.swift */,
-				D6440A62265AA9BD0023F889 /* ImproveView.swift */,
-				D65C360726861CC0003A504F /* AdditionalPledgesView.swift */,
-				D65C360C26866F10003A504F /* TrackPledges.swift */,
-				D6DD127A269638CB00AEB590 /* Recycling.swift */,
-				D60773B026AABE1100029C3D /* CSVHandler.swift */,
-				D65C3611268677EB003A504F /* PledgeUpdate.swift */,
 				D60DC0E726B1A8990041D82D /* MobileNetV2.mlmodel */,
 				D60DC0E626B1A87C0041D82D /* DataStructures */,
 				D60773AE26A9EA4C00029C3D /* GoogleService-Info.plist */,
-				D665D7AD268EADC40021156A /* MapViewModel.swift */,
-				D665D7AF268EAE410021156A /* MapShower.swift */,
-				D657445A2697B0A200CC4916 /* MyAnnotation.swift */,
-				D665D79C268E171E0021156A /* MapView.swift */,
-				D665D7AB268E4FA10021156A /* Place.swift */,
 				D665D7A8268E1BB30021156A /* Extensions */,
 				D665D7A3268E18AA0021156A /* Managers */,
 				D6EF45B1268B625B00F56D73 /* synthesisedDataEncrypted.txt */,
 				D6DC2C7A264D2E9D008C6A72 /* PIGApp.swift */,
-				D6DC2C7C264D2E9D008C6A72 /* ContentView.swift */,
-				D665D796268DF9A40021156A /* StreaksView.swift */,
-				D69C7AA3265801E500D209DB /* DoughnutView.swift */,
-				D64DB1C62652BE5E00D6FA4D /* StatsView.swift */,
-				D69C7AA82658099B00D209DB /* StatsDataController.swift */,
-				D601C13526541C1B0050BE7D /* BarChart.swift */,
 				D6DC2CC2264D34A6008C6A72 /* GoogleService-Info.plist */,
 				D6DC2C7E264D2EA3008C6A72 /* Assets.xcassets */,
 				D6DC2C83264D2EA3008C6A72 /* Info.plist */,
 				D6DC2C80264D2EA3008C6A72 /* Preview Content */,
-				D601C13D26541F8B0050BE7D /* BarGraphView.swift */,
-				D68366DC2655557000648C1B /* ToggleView.swift */,
-				D68DCADC266AA65800AA9116 /* TrophiesView.swift */,
-				D6770F1B269EE8F400E3D646 /* CameraView.swift */,
-				D6770F1F269F9AD400E3D646 /* ComputerVision.swift */,
 			);
 			path = PIG;
 			sourceTree = "<group>";
@@ -563,7 +597,7 @@
 				D60DC0EB26B1ABD40041D82D /* MobileNetV2.mlmodel in Sources */,
 				D665D7AC268E4FA10021156A /* Place.swift in Sources */,
 				D69C7AAE26592F3E00D209DB /* NumberEarthsView.swift in Sources */,
-				D601C13626541C1B0050BE7D /* BarChart.swift in Sources */,
+				D60DC0F126B1C6550041D82D /* Pledge.swift in Sources */,
 				D665D797268DF9A40021156A /* StreaksView.swift in Sources */,
 				D69C7AA92658099B00D209DB /* StatsDataController.swift in Sources */,
 				D601C13E26541F8B0050BE7D /* BarGraphView.swift in Sources */,
@@ -574,14 +608,18 @@
 				D6523D8726614DF1005A83D6 /* TipsView.swift in Sources */,
 				D65C360D26866F10003A504F /* TrackPledges.swift in Sources */,
 				D6440A63265AA9BD0023F889 /* ImproveView.swift in Sources */,
+				D60DC0F626B1C7230041D82D /* ErrorView.swift in Sources */,
 				D657445B2697B0A200CC4916 /* MyAnnotation.swift in Sources */,
 				D60DC0E326B1A8380041D82D /* SequenceExtension.swift in Sources */,
+				D60DC0F826B1C7420041D82D /* SignUpView.swift in Sources */,
+				D60DC0F326B1C6A60041D82D /* Places.swift in Sources */,
 				D60DC0ED26B1AC610041D82D /* SafeArray.swift in Sources */,
+				D60DC0FF26B1CC310041D82D /* Chimney.swift in Sources */,
 				D68DCAD8266AA64600AA9116 /* PledgesView.swift in Sources */,
-				D68DCADD266AA65800AA9116 /* TrophiesView.swift in Sources */,
 				D6DC2C7B264D2E9D008C6A72 /* PIGApp.swift in Sources */,
 				D659E819266E91100038A086 /* PledgesInProgress.swift in Sources */,
 				D68366DD2655557000648C1B /* ToggleView.swift in Sources */,
+				D60DC0FD26B1C7BB0041D82D /* AppViewModel.swift in Sources */,
 				D69C7AA4265801E500D209DB /* DoughnutView.swift in Sources */,
 				D65C3612268677EB003A504F /* PledgeUpdate.swift in Sources */,
 				D60DC0EF26B1AC9E0041D82D /* FirebaseHandler.swift in Sources */,
@@ -592,8 +630,10 @@
 				D65C360826861CC0003A504F /* AdditionalPledgesView.swift in Sources */,
 				D665D7B0268EAE410021156A /* MapShower.swift in Sources */,
 				D60DC0E126B1A50F0041D82D /* DateTimeExtensions.swift in Sources */,
+				D60DC0FA26B1C76E0041D82D /* SignInView.swift in Sources */,
 				D60773B126AABE1100029C3D /* CSVHandler.swift in Sources */,
 				D60DC0DF26B1A4C90041D82D /* MapExtensions.swift in Sources */,
+				D60DC10126B1CC400041D82D /* Report.swift in Sources */,
 				D64DB1C72652BE5E00D6FA4D /* StatsView.swift in Sources */,
 				D60DC0DD26B1A49D0041D82D /* CollectionExtensions.swift in Sources */,
 				D665D7AE268EADC40021156A /* MapViewModel.swift in Sources */,

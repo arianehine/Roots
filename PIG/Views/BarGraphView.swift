@@ -65,7 +65,7 @@ struct BarView: View {
         let yValue = Swift.min(value * 20, divisor)
         
         return VStack {
-            Text(String(format: "%.2f kg Co2 per day",(report.average / Double(report.numReportsComposingReport)))).font(/*@START_MENU_TOKEN@*/.caption/*@END_MENU_TOKEN@*/).padding(.bottom, 50)
+            Text(String(format: "%.2f kg Co2 average",(report.average / Double(report.numReportsComposingReport)))).font(/*@START_MENU_TOKEN@*/.caption/*@END_MENU_TOKEN@*/).padding(.bottom, 50)
             NavigationLink(destination: NumberEarthsView(ID: Auth.auth().currentUser!.uid,  report: report)){
          
                 Chimney().foregroundColor((report.average / Double(report.numReportsComposingReport)) < 2200 ? Color.green : Color.red)
@@ -81,76 +81,9 @@ struct BarView: View {
     
 }
 
-struct Chimney: Shape{
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        
-        
-        //brown
-
-        path.move(to: CGPoint(x: rect.midX-10, y: rect.minY+5))
-        //top right
-        path.addLine(to: CGPoint(x: rect.minX+10, y: rect.maxY))
-        //bottom right
-        //bottom left
-        path.addLine(to: CGPoint(x: rect.maxX-10, y: rect.maxY))
-        //top left
-        path.addLine(to: CGPoint(x: rect.midX+10, y: rect.minY+5))
-        path.addLine(to: CGPoint(x: rect.midX+10, y: rect.minY+5))
-        //top right
-       
-        
-        path.move(to: CGPoint(x: rect.midX, y: rect.minY))
-        path.addArc(center: .init(x: rect.midX, y: rect.minY), radius: 4, startAngle: Angle(degrees: 0.0), endAngle: Angle(degrees: 0.2), clockwise: true)
-        
-        path.move(to: CGPoint(x: rect.midX+5, y: rect.minY-10))
-        path.addArc(center: .init(x: rect.midX+5, y: rect.minY-10), radius: 8, startAngle: Angle(degrees: 0.0), endAngle: Angle(degrees: 0.2), clockwise: true)
-        
-        path.move(to: CGPoint(x: rect.midX+10, y: rect.minY-20))
-        path.addArc(center: .init(x: rect.midX+1, y: rect.minY-20), radius: 12, startAngle: Angle(degrees: 0.0), endAngle: Angle(degrees: 0.2), clockwise: true)
-        
-        path.move(to: CGPoint(x: rect.midX+15, y: rect.minY-30))
-        path.addArc(center: .init(x: rect.midX+15, y: rect.minY-30), radius: 18, startAngle: Angle(degrees: 0.0), endAngle: Angle(degrees: 0.2), clockwise: true)
-        //green
-        
-        //oval for now
-        return path
-    }
-}
-
 //struct BarGraphView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        BarGraphView(reports: Report.all())
 //    }
 //}
-
-struct Report: Hashable{
-    var year: String;
-    let average: Double;
-    var date: Date;
-    let transport: Double
-    let household: Double
-    let clothing: Double
-    let health: Double
-    let food: Double
-    let transport_walking: Double;
-    let transport_car: Double;
-    let transport_train: Double;
-    let transport_bus: Double;
-    let transport_plane: Double;
-    let household_heating: Double;
-    let household_electricity: Double;
-    let household_furnishings: Double;
-    let household_lighting: Double;
-    let clothing_fastfashion: Double;
-    let clothing_sustainable: Double;
-    let health_meds: Double;
-    let health_scans: Double;
-    let food_meat: Double;
-    let food_fish: Double;
-    let food_dairy: Double;
-    let food_oils: Double;
-    let numReportsComposingReport: Int;
-
-}
 

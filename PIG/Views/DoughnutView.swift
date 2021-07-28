@@ -222,9 +222,8 @@ struct DoughnutView: View {
           
 //                self.reports = statsController.convertToReports(users: user);
               
-             
-            
-            print("local")
+
+          
             sample = convertRecordsToSamples(records: reports);
             worstArea = updateWorstArea(samples: sample);
         }.frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).navigationBarHidden(true)
