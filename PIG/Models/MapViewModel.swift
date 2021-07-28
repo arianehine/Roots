@@ -21,7 +21,6 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
     // Region...
     @Published var region : MKCoordinateRegion!
     @Published var circularRegions = [CLCircularRegion]()
-     // 3
     // Based On Location It Will Set Up....
     
     // Alert...
@@ -145,7 +144,7 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
 
     func selectPlace(place: Place){
        
-        
+
         // Showing Pin On Map....
         
         searchTxt = ""
@@ -155,21 +154,18 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
             center: coordinate,
            radius: 500,
            identifier: UUID().uuidString)
-         // 3
+      
         
         circularRegion.notifyOnEntry = true
         circularRegions.append(circularRegion)
-       
-      
+
         
         let pointAnnotation = MyAnnotation()
         pointAnnotation.identifier = "Location"
         pointAnnotation.coordinate = coordinate
         pointAnnotation.title = place.placemark.name ?? "No Name"
         
-        // Removing All Old Ones...
 
-        
         // Moving Map To That Location...
         
         let coordinateRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
@@ -202,9 +198,7 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
                
             }
         }
-     
-      
-       
+
     }
     
     
@@ -215,24 +209,23 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
         switch manager.authorizationStatus {
         case .denied:
             // Alert...
-            print("denied")
             permissionDenied.toggle()
         case .notDetermined:
-            print("not determined")
+   
             // Requesting....
             manager.requestWhenInUseAuthorization()
         case .authorizedWhenInUse:
             // If Permissin Given...
-            print("auth")
+       
             manager.requestLocation()
         default:
             (print("default"))
         }
     }
     func requestNotificationAuthorization() {
-      // 2
+
       let options: UNAuthorizationOptions = [.sound, .alert]
-      // 3
+ 
       notificationCenter
         .requestAuthorization(options: options) { [weak self] result, _ in
             if result {
@@ -248,39 +241,8 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
         print(error.localizedDescription)
     }
     
-    // Getting user Region....
-//    private func registerNotification() {
-//      // 2
-//      let notificationContent = UNMutableNotificationContent()
-//      notificationContent.title = "Carbon Footprint App Tracking"
-//      notificationContent.body = "Congrats on walking to work! +1 on your pledge commitment"
-//      notificationContent.sound = .default
-//
-//      // 3
-//      let trigger = UNLocationNotificationTrigger(
-//        region: circularRegions[0],
-//        repeats: false)
-//
-//      // 4
-//      let request = UNNotificationRequest(
-//        identifier: UUID().uuidString,
-//        content: notificationContent,
-//        trigger: trigger)
-//
-//      // 5
-//      notificationCenter
-//        .add(request) { error in
-//          if error != nil {
-//            print("Error: \(String(describing: error))")
-//          }
-//        }
-//    }
-//    override init() {
-//      super.init()
-//      // 2
-//      notificationCenter.delegate = self
-//    }
-//
+  
+
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         
@@ -301,17 +263,13 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
         
         self.region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
         
-
-        
         self.sourceCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        // Updating Map....
         
         self.mapView.setRegion(self.region, animated: true)
         
-        // Smooth Animations...
         self.mapView.setVisibleMapRect(self.mapView.visibleMapRect, animated: true)
         
-        // Create and add your MKPolyline here based on locations
+        // Create your MKPolyline here based on locations
                     // passed (the last element of the array is the most recent
                     // position).
         

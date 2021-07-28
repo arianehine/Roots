@@ -45,7 +45,7 @@ class StatsDataController: ObservableObject {
     }
     
     func convertCSVIntoArray(csvHandler: CSVHandler, directory: URL) -> [UserData]{
-print("converting, \(directory)")
+
         let encryptionKEY = PIGKeys().encryptionKEY
     if(originalPeople.count == 0){
 
@@ -71,7 +71,7 @@ print("converting, \(directory)")
 
        //now split that string into an array of "rows" of data.  Each row is a string.
        var rows = data.components(separatedBy: "\n")
-        print(rows.count)
+
 
         
 
@@ -114,9 +114,7 @@ print("converting, \(directory)")
                people.append(person)
            }
           
-    else {
-        print("wrong num columns at ID with rows \(row.count)")
-       }
+   
       
           
     }
@@ -125,11 +123,11 @@ print("converting, \(directory)")
 //        people.append(UserData(ID: "8", date: Date(), average: 0.01, transport: 0.01, household: 0, clothing:0, health: 0, food:0, transport_walking:0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds: 0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0))
 //
     originalPeople = orderByDate(array: people);
-        print("finished converting", people.count)
+
         return people
     }else {
   print("original \(originalPeople)")
-        print("return orig converting", originalPeople.count)
+   
         return originalPeople;
     }
 }
@@ -198,7 +196,7 @@ print("converting, \(directory)")
     
         var returnReports = [Report]();
         if(reports.count>=1){
-        print("user reports \(reports[reports.count-1])")
+      
         var now = Date();
         let tz = TimeZone.current
         if tz.isDaylightSavingTime(for: now) {
@@ -212,7 +210,7 @@ print("converting, \(directory)")
                 returnReports.append(report)
             }
         }
-        print((reports[reports.count-1]).date > now.startOfDay, (reports[reports.count-1]).date < now.endOfDay)
+    
         }
         return returnReports;
         
@@ -276,7 +274,7 @@ print("converting, \(directory)")
    
    
     func getThisYear(reports: [Report]) -> [Report]{
-        print("getting year reports in \(reports.count)")
+      
         var reportsCopy = orderReportsByDate(array: reports);
         var returnReports = [Report]();
         var count = 0;
@@ -299,9 +297,7 @@ print("converting, \(directory)")
                 stringMonth = String(stringMonth.prefix(3))
                 let reportNew = Report(year: stringMonth, average: report.average, date: report.date, transport: report.transport, household: report.household, clothing: report.clothing, health: report.health, food: report.food, transport_walking: report.transport_walking, transport_car: report.transport_car, transport_train: report.transport_train, transport_bus: report.transport_bus, transport_plane: report.transport_plane, household_heating: report.household_heating,household_electricity: report.household_electricity, household_furnishings: report.household_furnishings, household_lighting: report.household_lighting, clothing_fastfashion: report.clothing_fastfashion, clothing_sustainable: report.clothing_sustainable, health_meds: report.health_meds, health_scans: report.health_scans, food_meat: report.food_meat, food_fish: report.food_fish, food_dairy: report.food_dairy, food_oils: report.food_oils, numReportsComposingReport: 1)
                 returnReports.append(reportNew)
-                if(reportNew.year == "Jul"){
-                    print("yes jul")
-                }
+           
             }
         }
        
@@ -364,9 +360,9 @@ print("converting, \(directory)")
             break;
         case "Year":
             var reportsToReturn = statsController.getThisYear(reports: copyOfReports)
-            print("reports to return size \(reportsToReturn.count)")
+          
             reportsToReturn = checkIfMerge(reports: reportsToReturn)
-            print("reports to return size \(reportsToReturn.count)")
+           
             return reportsToReturn;
             break;
         default: break
@@ -409,7 +405,7 @@ print("converting, \(directory)")
 
 }
 func mergeReportsWithSameDay(reports: [Report]) ->[Report]{
-    print("checking on day")
+
     var reportsCopy = reports
     
     var mergedReports = [Report]()
@@ -503,7 +499,7 @@ func mergeReportsWithSameDay(reports: [Report]) ->[Report]{
 //            food_oils = food_oils / Double(matches.count)
             
             mergedReports.append(Report(year: year, average: average, date: date, transport: transport, household: household, clothing: clothing, health: health, food: food, transport_walking: transport_walking, transport_car: transport_car, transport_train: transport_train, transport_bus: transport_bus,transport_plane: transport_plane,household_heating: household_heating, household_electricity: household_electricity,household_furnishings: household_furnishings,household_lighting: household_lighting,clothing_fastfashion: clothing_fastfashion, clothing_sustainable: clothing_sustainable,health_meds: health_meds, health_scans: health_scans, food_meat: food_meat, food_fish: food_fish, food_dairy: food_dairy, food_oils: food_oils, numReportsComposingReport: 1))
-            print("merged")
+       
         }else{
            
             mergedReports.append(report)
@@ -580,41 +576,17 @@ func checkIfMerge(reports: [Report]) -> [Report]{
                 food_dairy = food_dairy + item.food_dairy
                 food_oils = food_oils + item.food_oils
                 
-                //remove it because it's counting it twice
+
                 
             }
-            
-            //average it out
-//            average = average / Double(matches.count)
-//            transport = transport / Double(matches.count)
-//            household = household / Double(matches.count)
-//            clothing = clothing / Double(matches.count)
-//            health = health / Double(matches.count)
-//            food = food / Double(matches.count)
-//            transport_walking = transport_walking / Double(matches.count)
-//            transport_car = transport_car / Double(matches.count)
-//            transport_train = transport_train / Double(matches.count)
-//            transport_bus = transport_bus / Double(matches.count)
-//            transport_plane = transport_plane / Double(matches.count)
-//            household_heating = household_heating / Double(matches.count)
-//            household_electricity = household_electricity / Double(matches.count)
-//            household_furnishings = household_furnishings / Double(matches.count)
-//            household_lighting = household_lighting / Double(matches.count)
-//            clothing_fastfashion = clothing_fastfashion  / Double(matches.count)
-//            clothing_sustainable = clothing_sustainable / Double(matches.count)
-//            health_meds = health_meds / Double(matches.count)
-//            health_scans = health_scans  / Double(matches.count)
-//            food_meat = food_meat  / Double(matches.count)
-//            food_fish = food_fish / Double(matches.count)
-//            food_dairy = food_dairy / Double(matches.count)
-//            food_oils = food_oils / Double(matches.count)
+
             
             mergedReports.append(Report(year: year, average: average, date: date, transport: transport, household: household, clothing: clothing, health: health, food: food, transport_walking: transport_walking, transport_car: transport_car, transport_train: transport_train, transport_bus: transport_bus,transport_plane: transport_plane,household_heating: household_heating, household_electricity: household_electricity,household_furnishings: household_furnishings,household_lighting: household_lighting,clothing_fastfashion: clothing_fastfashion, clothing_sustainable: clothing_sustainable,health_meds: health_meds, health_scans: health_scans, food_meat: food_meat, food_fish: food_fish, food_dairy: food_dairy, food_oils: food_oils, numReportsComposingReport: matches.count))
             
         }else{
-            print("else report \(report.year)")
+          
             mergedReports.append(report)
-            print(report)
+     
         }
         
         
@@ -636,31 +608,3 @@ func removeArrayFromArray(allReports:[Report], reportsToRemove:[Report]) -> [Rep
     }
     return reportsEdit
 }
-struct UserData: Hashable{
-    var ID: String
-    var date: Date
-    var average: Double
-    var transport: Double
-    var household: Double
-    var clothing: Double
-    var health: Double
-    var food: Double
-    let transport_walking: Double;
-    let transport_car: Double;
-    let transport_train: Double;
-    let transport_bus: Double;
-    let transport_plane: Double;
-    let household_heating: Double;
-    let household_electricity: Double;
-    let household_furnishings: Double;
-    let household_lighting: Double;
-    let clothing_fastfashion: Double;
-    let clothing_sustainable: Double;
-    let health_meds: Double;
-    let health_scans: Double;
-    let food_meat: Double;
-    let food_fish: Double;
-    let food_dairy: Double;
-    let food_oils: Double;
-}
-

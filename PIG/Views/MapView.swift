@@ -139,7 +139,7 @@ struct MapView: View {
             locationManager.requestWhenInUseAuthorization()
             //locationManager.startMonitoring(for: mapData.circularRegions[0])
            
-//            mapData.requestNotificationAuthorization()
+
         })
         // Permission Denied Alert...
         .alert(isPresented: $mapData.permissionDenied, content: {
@@ -154,7 +154,7 @@ struct MapView: View {
             
             // Searching Places...
             
-            // You can use your own delay time to avoid Continous Search Request...
+            // Delay to avoid Continous Search Request...
             let delay = 0.3
             
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
@@ -169,10 +169,10 @@ struct MapView: View {
     }
 }
 private func makeLocationManager() -> CLLocationManager {
-  // 3
+
   let manager = CLLocationManager()
     manager.allowsBackgroundLocationUpdates = true
-  // 4
+
     manager.startUpdatingLocation()
   return manager
 }

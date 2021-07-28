@@ -20,7 +20,7 @@ class FirebaseLogic: ObservableObject {
 @Published var moreThan1Visit = false;
 
     func turnNotificationsOn(pledge: Pledge, value: Bool){
-        print("turn on notifs for \(pledge.description)")
+
         let db = Firestore.firestore()
         let auth = Auth.auth();
 
@@ -120,7 +120,7 @@ class FirebaseLogic: ObservableObject {
         let db = Firestore.firestore()
         var found = [Bool]()
         
-print("callling this")
+
             ///if completed
          
             
@@ -130,7 +130,7 @@ print("callling this")
                    return
                  }
                 if((snapshot.documents.count)==0){
-                    print("set to true")
+               
                     completion(true)
                     return
                 }
@@ -149,7 +149,7 @@ print("callling this")
                     }
                  })
                 if(!(found.count > 0)){
-                    print("set to true2")
+           
                     completion(true)
                     return
                 }
@@ -165,11 +165,10 @@ print("callling this")
 
     
 func incrementPledgeCompletedDays2(pledge: Pledge, uid: String){
-    print("incrementing")
+
     let db = Firestore.firestore()
     
     if(pledge.daysCompleted+1 == pledge.durationInDays){
-        print("yes")
 
         ///if completed
      
@@ -180,7 +179,7 @@ db.collection("UserPledges").document(uid).collection("Pledges").document(String
         
     } else{
   
-        print("yes2")
+
         db.collection("UserPledges").document(uid).collection("Pledges").document(String(pledge.id)).updateData(["daysCompleted": FieldValue.increment(Int64(1))])
                 let date = Date()
             db.collection("UserPledges").document(uid).collection("Pledges").document(String(pledge.id)).collection("Records").document(dateToString(date:date)).setData(["date": date])

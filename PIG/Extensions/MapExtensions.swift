@@ -15,7 +15,7 @@ extension MapViewModel: UNUserNotificationCenterDelegate {
       withCompletionHandler completionHandler: @escaping () -> Void
     ) {
       // 2
-      print("Received Notification")
+    
       // 3
         didArriveAtDestination = true
       completionHandler()
