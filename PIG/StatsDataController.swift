@@ -516,13 +516,6 @@ func checkIfMerge(reports: [Report]) -> [Report]{
     return mergedReports;
 }
 
-extension Sequence where Element: Hashable {
-    func uniqued() -> [Element] {
-        var set = Set<Element>()
-        return filter { set.insert($0).inserted }
-    }
-}
-
 
 func removeArrayFromArray(allReports:[Report], reportsToRemove:[Report]) -> [Report]{
     

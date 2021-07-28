@@ -21,19 +21,8 @@ class AppViewModel: ObservableObject{
     @State var directory: URL
     let auth = Auth.auth();
     @State var fbLogic: FirebaseLogic
-   
     
-    func addUserInfo(fName: String, lName: String, email: String){
-        let db = Firestore.firestore();
-        db.collection("Users").document().setData(["firstName": fName, "lastName":lName, "email": email, "XP": 0])
-        
-        let uid = auth.currentUser!.uid
-        
-        let date = Date()
-        db.collection("Users").document(uid).collection("logins").document(dateToString(date: date)).setData(["date": date])
-        
     
-    }
     
     func signIn(email: String, password: String){
         auth.signIn(withEmail: email, password: password) { [weak self] result, error in
@@ -43,7 +32,7 @@ class AppViewModel: ObservableObject{
                 self?.alert.toggle()
                 let uid = self!.auth.currentUser!.uid
                 let date = Date()
-                db.collection("Users").document(uid).collection("logins").document(self!.dateToString(date: date)).setData(["date": date])
+                db.collection("Users").document(uid).collection("logins").document(date.dateToString(date: date)).setData(["date": date])
                 return
             }
             
@@ -52,8 +41,8 @@ class AppViewModel: ObservableObject{
             DispatchQueue.main.async {
                 self?.signedIn = true
             }
-           
-           
+            
+            
         }
         
     }
@@ -67,7 +56,6 @@ class AppViewModel: ObservableObject{
     func displayError(error: Error?){
         print(error?.localizedDescription)
         
-
     }
     
     func signUp(email: String, password: String, firstName: String, lastName:String){
@@ -76,32 +64,36 @@ class AppViewModel: ObservableObject{
             guard result != nil, error == nil else{
                 self?.error = error!.localizedDescription
                 self?.alert.toggle()
+                print(error?.localizedDescription)
+                print("an error occured")
                 return
-               
+                
             }
             
             //success
             //becuase it's a pushlished var we need to update on main thread
             let db = Firestore.firestore()
-
-                           let uid = result!.user.uid
-
-
-                           //creates profile doc under uid with all the info
-            db.collection("Users").document(result!.user.uid)
-                .setData([ "firstName":firstName, "lastName":lastName, "uid":uid, "email":email, "currentStreak": 0, "longestStreak":0]);
             
-  
+            let uid = result!.user.uid
+            
+            
+            //creates profile doc under uid with all the info
+            db.collection("Users").document(result!.user.uid)
+                .setData([ "firstName":firstName, "lastName":lastName, "uid":uid, "email":email, "currentStreak": 0, "longestStreak":0, "XP": 0]);
+            
+            
             let date = Date()
-            db.collection("Users").document(uid).collection("logins").document(self!.dateToString(date: date)).setData(["date": date])
+            db.collection("Users").document(uid).collection("logins").document(date.dateToString(date: date)).setData(["date": date])
             
             self!.setPledgesForUser(userId: result!.user.uid, db: db);
             self!.setDataForUser(userId: result!.user.uid, db: db, statsController: self!.statsController);
-          
+            
             
             DispatchQueue.main.async {
+            
                 self?.signedIn = true
             }
+            print("signed in")
         }
         
     }
@@ -119,35 +111,22 @@ class AppViewModel: ObservableObject{
         }
         
     }
- 
+    
     func setDataForUser(userId: String, db: Firestore, statsController: StatsDataController){
         let csvHandler = CSVHandler(fbLogic: fbLogic)
         let userData = statsController.convertCSVIntoArray(csvHandler: csvHandler, directory: directory)
-
+        
         for user in userData{
             if(user.ID == "8"){
-            var stringDate = dateToString(date: user.date)
-            db.collection("UserData").document(userId).collection("Data").document(stringDate)
-                .setData([ "ID": userId, "date": user.date, "average": user.average, "transport": user.transport, "household": user.household, "clothing": user.clothing, "health": user.health, "food": user.food, "transport_walking": user.transport_walking, "transport_car": user.transport_car, "transport_train": user.transport_train,"transport_plane": user.transport_plane, "transport_bus": user.transport_bus, "household_heating": user.household_heating,"household_electricity": user.household_electricity,"household_furnishings": user.household_furnishings,"household_lighting": user.household_lighting,"clothing_fastfashion": user.clothing_fastfashion,"clothing_sustainable": user.clothing_sustainable,"health_meds": user.health_meds,"health_scans": user.health_scans, "food_meat": user.food_meat,"food_fish": user.food_fish,"food_dairy": user.food_dairy,"food_oils": user.food_oils]);
+                var stringDate = user.date.dateToString(date: user.date)
+                db.collection("UserData").document(userId).collection("Data").document(stringDate)
+                    .setData([ "ID": userId, "date": user.date, "average": user.average, "transport": user.transport, "household": user.household, "clothing": user.clothing, "health": user.health, "food": user.food, "transport_walking": user.transport_walking, "transport_car": user.transport_car, "transport_train": user.transport_train,"transport_plane": user.transport_plane, "transport_bus": user.transport_bus, "household_heating": user.household_heating,"household_electricity": user.household_electricity,"household_furnishings": user.household_furnishings,"household_lighting": user.household_lighting,"clothing_fastfashion": user.clothing_fastfashion,"clothing_sustainable": user.clothing_sustainable,"health_meds": user.health_meds,"health_scans": user.health_scans, "food_meat": user.food_meat,"food_fish": user.food_fish,"food_dairy": user.food_dairy,"food_oils": user.food_oils]);
+            }
         }
-        }
-
-
-    }
         
-   
-    public func dateToString(date: Date) -> String{
-        // Create Date Formatter
-        let dateFormatter = DateFormatter()
-
-        // Set Date Format
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-
-        // Convert Date to String
-        return dateFormatter.string(from: date)
+        
     }
-
-
+    
     
     let pledges = [
         Pledge(id: 1, description: "Walk to work", category: "Transport", imageName: "figure.walk", durationInDays: 7, startDate: Date(), started: false, completed: false, daysCompleted: 0, endDate: "", XP: 70, notifications: false, reductionPerDay: 100),
@@ -168,9 +147,8 @@ class AppViewModel: ObservableObject{
         Pledge(id: 16,description: "Download Depop and sell some of your own clothes!", category: "Fashion", imageName: "bag.circle.fill",durationInDays: 7, startDate: Date(), started: false, completed: false, daysCompleted: 0,endDate: "", XP: 70, notifications: false, reductionPerDay: 100),
         Pledge(id: 17, description: "Sort thrugh your medidicnes at home, so you know how much you have!", category: "Health", imageName: "pills.fill",durationInDays: 7, startDate: Date(), started: false,completed: false, daysCompleted: 0, endDate: "", XP: 70, notifications: false, reductionPerDay: 100)
         
-       
-
-       ]
+        
+    ]
     
     //Whenever a published var chages we can update view automatically in real time, because it's a binding
     @Published var signedIn = false
@@ -181,8 +159,6 @@ class AppViewModel: ObservableObject{
         return auth.currentUser != nil
         
     }
-    
-    
     
 }
 
@@ -207,26 +183,13 @@ struct ContentView: View {
     @State var completed = false
     var body: some View {
         NavigationView{
-
-
+            
+            
             
             if viewModel.signedIn{
-             
-               
-
+                
                 VStack{
-//
-//                Text("You are signed in")
-//                    .padding()
-//                Button(action: {
-//                    viewModel.signOut()
-//                }, label: {
-//                    Text("Sign Out")
-//                        .frame(width: 200, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-//                        .background(Color.green)
-//                        .foregroundColor(Color.blue)
-//                        .padding()
-//                })
+                    
                     TabView(selection: $selection){
                         StatsView(ID: "8", originalPeople: originalPeople, fbLogic: $fbLogic, selection: selection).environmentObject(statsController)
                             .tabItem {
@@ -235,9 +198,9 @@ struct ContentView: View {
                                     Text("Stats") // Update tab title
                                 }
                             }
-                        .tag(0)
+                            .tag(0)
                         
-                       
+                        
                         DoughnutView(ID: "8", selection: selection, reports: $reports, originalReports: $originalReports, originalPeople: originalPeople).environmentObject(statsController)
                             .font(.title)
                             .tabItem {
@@ -245,7 +208,7 @@ struct ContentView: View {
                                     Image(systemName: "chart.pie")
                                     Text("Detailed Stats") // Update tab title
                                 }
-                        }.tag(1)
+                            }.tag(1)
                         
                         StreaksView(uid: auth.currentUser!.uid)
                             .tabItem {
@@ -254,60 +217,46 @@ struct ContentView: View {
                                     Text("Streaks") // Update tab title
                                 }
                             }
-                        .tag(2)
-
-                    
-                    
+                            .tag(2)
+                        
+                        
+                        
                         PledgesInProgress(
-                        statsController: statsController).environmentObject(fbLogic)
-                        .tabItem {
-                            VStack {
-                                Image(systemName: "hands.sparkles.fill")
-                                Text("Pledges") // Update tab title
+                            statsController: statsController).environmentObject(fbLogic)
+                            .tabItem {
+                                VStack {
+                                    Image(systemName: "hands.sparkles.fill")
+                                    Text("Pledges") // Update tab title
+                                }
                             }
-                        }
-                    .tag(3)
-
-                    
-                    
-//                      ComputerVision(
-//                      )
-//                     .tabItem {
-//                        VStack {
-//                            Image(systemName: "leaf.arrow.triangle.circlepath")
-//                            Text("CV") // Update tab title
-//                        }
-//                    }
-//                .tag(4)
-
-                
-                }
-                
-//                    getName()
+                            .tag(3)
+                        
+                        
+                    }
                 }.toast(isPresenting: $toastShow, message: message).navigationBarTitle("Welcome back " +  name)
-                .navigationBarItems(leading:
-                                        Text("XP: \(XP) Level: \(getLevel(XP: XP))"),
-                                    trailing: Button(action: {
-                                            viewModel.signOut()
-                                        }, label: {
-                                            Text("Sign Out")
-                                        }))
-                .onAppear(){
-                    getName()
-                    logVisit(uid: auth.currentUser!.uid)
-                    getXP(uid: auth.currentUser!.uid)
-                    level = getLevel(XP: XP)
-                }
-              
-                //replace with app logic
+                    .navigationBarItems(leading:
+                                            Text("XP: \(XP) Level: \(getLevel(XP: XP))"),
+                                        trailing: Button(action: {
+                        viewModel.signOut()
+                    }, label: {
+                        Text("Sign Out")
+                    }))
+                    .onAppear(){
+                        getName()
+                        logVisit(uid: auth.currentUser!.uid)
+                        getXP(uid: auth.currentUser!.uid)
+                        level = getLevel(XP: XP)
+                    }
+                
+                
             }else{
                 
                 SignInView()
                     .navigationBarHidden(true)
             }
-
+            
         }.onAppear{
-    
+            
             viewModel.signedIn = viewModel.isSignedIn;
             viewModel.alert=false
         }
@@ -319,110 +268,103 @@ struct ContentView: View {
         let db = Firestore.firestore()
         var lastVisit: Date = Date()
         var streak: Int = 0
-    
-            let docRef = db.collection("Users").document(uid)
-
-            docRef.getDocument { (document, error) in
-                if let document = document, document.exists {
-                    let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                
-                    streak = document.data()?["currentStreak"] as? Int ?? 0
         
-                 
-                } else {
-                    print("Document does not exist")
-                }
+        let docRef = db.collection("Users").document(uid)
+        
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
                 
-                streak = document!.data()?["currentStreak"] as? Int ?? 0
-
+                streak = document.data()?["currentStreak"] as? Int ?? 0
+                
+                
+            } else {
+                print("Document does not exist")
+            }
             
-        
-        if(streak == 0){
-            print("SET IT TO 1")
-            db.collection("Users").document(uid).updateData(["currentStreak": 1])
-            fbLogic.incrementUserXP(amount: 10, uid: uid)
-            message = "No streak. Log in tomorrow to get one! +10XP"
-            print("increment by 10")
-            toastShow = true;
-            db.collection("Users").document(uid).collection("logins").document(dateToString(date: date)).setData(["date": date])
-        }else if(streak != 0){
-            var dates = [Date]()
-            db.collection("Users").document(uid).collection("logins").getDocuments { (snapshot, error) in
-                  guard let snapshot = snapshot, error == nil else {
-                   //handle error
-                   return
-                 }
+            streak = document!.data()?["currentStreak"] as? Int ?? 0
+            
+            
+            
+            if(streak == 0){
+                print("SET IT TO 1")
+                db.collection("Users").document(uid).updateData(["currentStreak": 1])
+                fbLogic.incrementUserXP(amount: 10, uid: uid)
+                message = "No streak. Log in tomorrow to get one! +10XP"
+                print("increment by 10")
+                getXP(uid: auth.currentUser!.uid)
                
-                 snapshot.documents.forEach({ (documentSnapshot) in
-                     
-                     
-                  let documentData = documentSnapshot.data()
-                  let date = documentData["date"] as? Timestamp
-                    dates.append(date!.dateValue())
-                 
-                  
-                 })
-               
-                 lastVisit = dates[dates.count-1]
-          
-               
-                let dateConverted = Date(timeIntervalSince1970: TimeInterval(lastVisit.timeIntervalSince1970))
-                print(dateConverted)
-                  if(!(Calendar.current.isDateInToday(dateConverted))){
-                    if(Calendar.current.isDateInYesterday(dateConverted)){
-                        print("continue streak")
-                        db.collection("Users").document(uid).updateData(["currentStreak": FieldValue.increment(Int64(1))])
-                        fbLogic.incrementUserXP(amount: ((streak+1)*10), uid: uid)
-                        message = "Congrats, you have a \(streak) day streak. + \((streak) * 10)XP"
-                        print("increment by streak")
-                        toastShow = true;
-                        db.collection("Users").document(uid).collection("logins").document(dateToString(date: date)).setData(["date": date])
-                    }else{
-                        print("start new streak")
-                        db.collection("Users").document(uid).updateData(["currentStreak": 1])
-                        fbLogic.incrementUserXP(amount: 10, uid: uid)
-                        message = "No streak. Log in tomorrow to get one! +10XP"
-                        print("increment by 10")
-                        toastShow = true;
-                        db.collection("Users").document(uid).collection("logins").document(dateToString(date: date)).setData(["date": date])
+                toastShow = true;
+                db.collection("Users").document(uid).collection("logins").document(date.dateToString(date: date)).setData(["date": date])
+            }else if(streak != 0){
+                var dates = [Date]()
+                db.collection("Users").document(uid).collection("logins").getDocuments { (snapshot, error) in
+                    guard let snapshot = snapshot, error == nil else {
+                        //handle error
+                        return
                     }
                     
-                 
-                   
-                  }else{
-                    print("logged in today, so no increase");
-                    db.collection("Users").document(uid).collection("logins").document(dateToString(date: date)).setData(["date": date])
-                  }
+                    snapshot.documents.forEach({ (documentSnapshot) in
+                        
+                        
+                        let documentData = documentSnapshot.data()
+                        let date = documentData["date"] as? Timestamp
+                        dates.append(date!.dateValue())
+                        
+                        
+                    })
+                    
+                    lastVisit = dates[dates.count-1]
+                    
+                    
+                    let dateConverted = Date(timeIntervalSince1970: TimeInterval(lastVisit.timeIntervalSince1970))
+                    print(dateConverted)
+                    if(!(Calendar.current.isDateInToday(dateConverted))){
+                        if(Calendar.current.isDateInYesterday(dateConverted)){
+                            print("continue streak")
+                            db.collection("Users").document(uid).updateData(["currentStreak": FieldValue.increment(Int64(1))])
+                            fbLogic.incrementUserXP(amount: ((streak+1)*10), uid: uid)
+                            message = "Congrats, you have a \(streak+1) day streak. + \((streak+1) * 10)XP"
+                            getXP(uid: auth.currentUser!.uid)
+                           
+                            print("increment by streak")
+                            toastShow = true;
+                            db.collection("Users").document(uid).collection("logins").document(date.dateToString(date: date)).setData(["date": date])
+                        }else{
+                            print("start new streak")
+                            db.collection("Users").document(uid).updateData(["currentStreak": 1])
+                            fbLogic.incrementUserXP(amount: 10, uid: uid)
+                            message = "No streak. Log in tomorrow to get one! +10XP"
+                            print("increment by 10")
+                            getXP(uid: auth.currentUser!.uid)
+                           
+                            toastShow = true;
+                            db.collection("Users").document(uid).collection("logins").document(date.dateToString(date: date)).setData(["date": date])
+                        }
+                        
+                        
+                        
+                    }else{
+                        print("logged in today, so no increase");
+                        db.collection("Users").document(uid).collection("logins").document(date.dateToString(date: date)).setData(["date": date])
+                    }
+                }
+                
+                
+                
             }
-            
-            
             
         }
+        
 
-            }
-      
-        
-      
-    }
-        
-        
-        
-    public func dateToString(date: Date) -> String{
-        // Create Date Formatter
-        let dateFormatter = DateFormatter()
-
-        // Set Date Format
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-
-        // Convert Date to String
-        return dateFormatter.string(from: date)
     }
     
     
+
     
     func checkIfStreak(fbLogic: FirebaseLogic) -> Bool{
-
-
+        
+        
         if(fbLogic.streak>1){
             
             return true
@@ -431,10 +373,10 @@ struct ContentView: View {
         }
         
     }
-
-
-
-
+    
+    
+    
+    
     func getXP(uid: String){
         let auth = Auth.auth();
         let db = Firestore.firestore();
@@ -443,71 +385,69 @@ struct ContentView: View {
             if let document = document, document.exists {
                 let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
                 XP = document.data()?["XP"] as? Int ?? 0
-    
+                
                 return
             } else {
                 print("Document does not exist")
             }
-          
             
-          
+            
+            
         }
-      
+        
         
     }
     
     func getLevel(XP: Int) -> Int{
-
+        
         return Int(XP / 100);
     }
     
     func getName(){
-           let auth = Auth.auth();
-           let db = Firestore.firestore();
-           
-           
-           let uid = auth.currentUser!.uid
-               let docRef = db.collection("Users").document(uid)
+        let auth = Auth.auth();
+        let db = Firestore.firestore();
+        
+        
+        let uid = auth.currentUser!.uid
+        let docRef = db.collection("Users").document(uid)
+        
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                
+                name = document.data()?["firstName"] as? String ?? "waiting"
+                print(document.data())
+                
+                return
+            } else {
+                print("Document does not exist")
+            }
+            name = document?.data()?["firstName"] as! String
+            
+            
+        }
+        
 
-               docRef.getDocument { (document, error) in
-                   if let document = document, document.exists {
-                       let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                   
-                    name = document.data()?["firstName"] as? String ?? "waiting"
-                    print(document.data())
-           
-                       return
-                   } else {
-                       print("Document does not exist")
-                   }
-                   name = document?.data()?["firstName"] as! String
-                   
-                 
-               }
-          
-       
-           
-         
-           }
-       
-       
+    }
+    
+    
     
     struct SignInView: View {
         @State var email = ""
         @State var password = ""
         @EnvironmentObject var viewModel: AppViewModel
-       
+        
         var body: some View {
-          
+            
             VStack{
                 if viewModel.alert{
-                 
+                    
                     
                     ErrorView(alert: $viewModel.alert, error: $viewModel.error)
-              
+                    
                     
                 }else{
-                  //no errors
+                    //no errors
                     
                 }
                 Image("logo")
@@ -530,7 +470,7 @@ struct ContentView: View {
                         .background(Color(.secondarySystemBackground))
                     
                     Button(action:{
-                    
+                        
                         
                         viewModel.signIn(email: email, password: password)
                         guard !email.isEmpty, !password.isEmpty else{
@@ -573,19 +513,19 @@ struct ContentView: View {
             VStack{
                 
                 if viewModel.alert{
-                 
+                    
                     
                     ErrorView(alert: $viewModel.alert, error: $viewModel.error)
-              
+                    
                 }
-            
+                
                 Image("logo")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 150, height: 150, alignment: .center)
                 
                 VStack{
-                 
+                    
                     TextField("First Name", text: $firstName)
                         .disableAutocorrection(true)
                         .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
@@ -609,19 +549,16 @@ struct ContentView: View {
                     
                     Button(action:{
                         
-//                        viewModel.addUserInfo(fName: self.firstName, lName: self.lastName, email: self.email)
-//                        guard !email.isEmpty, !password.isEmpty else{
-//                            return}
-                    
-//
+                        
+                        
                         viewModel.signUp(email: email, password: password, firstName: firstName, lastName: lastName)
                         guard !email.isEmpty, !password.isEmpty else{
                             return
-                        
+                            
                         }
                         
                         
-                       
+                        
                     }, label: {
                         Text("Create Account")
                             .foregroundColor(Color.white)
@@ -643,12 +580,7 @@ struct ContentView: View {
         }
         
     }
-//    struct ContentView_Previews: PreviewProvider {
-//        static var previews: some View {
-//            ContentView(statsController: statsController)
-//        }
-//    }
-//
+    
     struct ErrorView : View {
         
         @State var color = Color.black.opacity(0.7)
@@ -657,14 +589,15 @@ struct ContentView: View {
         
         var body: some View{
             
+            
+            VStack{
                 
-                VStack{
-                    
-                    HStack{
-                        Text(self.error).foregroundColor(Color.red)
-                    }
+                HStack{
+                    Text(self.error).foregroundColor(Color.red)
                 }
             }
+        }
     }
-
+    
+    
 }
