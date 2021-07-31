@@ -16,11 +16,13 @@ struct NumberEarthsView: View {
     @EnvironmentObject var statsController: StatsDataController
     @State var numEarths : Double = 0;
     @State var numEarthsInt = 0;
+    @State var difference = 0.0
+    @State var moreOrless = "more"
     var body: some View {
         VStack{
             
             let numEarthsInt = Int(ceil(numEarths));
-            Text("If everyone were to live like you, we would need \(numEarths, specifier: "%.2f") Earths").font(.title).frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).multilineTextAlignment(.center)
+            Text("If everyone were to live like you, we would need \(numEarths, specifier: "%.2f") Earths. \n\nYou use \(difference, specifier: "%.2f")kg \(moreOrless) Co2 than the UK daily average").font(.title).frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).multilineTextAlignment(.center)
             WrappingHStack(0..<numEarthsInt, id:\.self, alignment: .center) { index in
                 Group{
                     
@@ -43,6 +45,13 @@ struct NumberEarthsView: View {
             
         }.onAppear(){
             numEarths = getNumEarths(report: report);
+            difference = (report.average - 2200) / 1000
+            if difference>0 {
+                moreOrless = "more"
+            }else{
+                moreOrless = "less"
+                difference = abs(difference)
+            }
           
         }
        

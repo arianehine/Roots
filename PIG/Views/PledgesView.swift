@@ -50,7 +50,7 @@ struct pledgeRow: View {
     var body: some View {
         
         HStack{
-            Image(systemName: pledge.imageName)
+            Image(systemName: pledge.imageName).foregroundColor(setTextColor(worstArea: pledge.category))
             Text(pledge.description).padding(.bottom)
         }.frame(maxWidth: .infinity, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
             RoundedRectangle(cornerRadius: 16)

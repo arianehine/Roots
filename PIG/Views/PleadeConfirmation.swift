@@ -11,16 +11,22 @@ struct PleadeConfirmation: View {
     var pledgePicked: Pledge
     @State var statsController: StatsDataController
     @State private var durationSelected = 3
+    @State var saveAmount = 0.3
+    @State var carbonFootprintModel = CarbonFootprint()
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var fbLogic: FirebaseLogic
     var body: some View {
         VStack{
         Text("Commit to pledge: \(pledgePicked.description )").multilineTextAlignment(.center)
+            Text(String(format: "\nThis pledge could save you %.2f Co2", saveAmount))
             Spacer()
             Text("Duration (minimum 3 days)")
             Picker("", selection: $durationSelected) {
                 ForEach(3...14, id: \.self) {
                     Text("\($0)")
+                }.onChange(of: durationSelected){ value in
+                   saveAmount = Double(value) * carbonFootprintModel.getConstant(area: pledgePicked.category)
+                    
                 }
         }
         }

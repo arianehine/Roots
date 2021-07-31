@@ -311,7 +311,8 @@ public func setTextColor(worstArea: String) -> Color{
 else if(worstArea == "Food"){
     return Color.green;
 }
-    return Color.black;
+    print(worstArea)
+    return Color.white;
 }
 
 

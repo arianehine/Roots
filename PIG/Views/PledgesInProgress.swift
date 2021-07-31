@@ -41,9 +41,13 @@ struct PledgesInProgress: View {
 
                               }) {
                                   Image(systemName: fbLogic.pledgesInProgress[safe: index]?.imageName ?? "figure.walk").renderingMode(.original)
+                                
                                 .resizable()
+                                .foregroundColor(setTextColor(worstArea: fbLogic.pledgesInProgress[safe: index]?.category ?? "figure.fill"))
                                 .frame(width: 50, height: 50, alignment: .center)
-                                .colorInvert()
+                               
+                               
+                                  
                               }
                     if #available(iOS 15.0, *) {
                         Toggle("Notifs?", isOn: $fbLogic.pledgesInProgress[safe: index]?.notifications ?? $defaultNotifs).padding(.leading)
@@ -103,8 +107,9 @@ struct PledgesInProgress: View {
                           }) {
                         Image(systemName: fbLogic.pledgesCompleted[index].imageName).renderingMode(.original)
                             .resizable()
+                            .foregroundColor(setTextColor(worstArea: fbLogic.pledgesInProgress[safe: index]?.category ?? "figure.fill"))
                             .frame(width: 50, height: 50, alignment: .center)
-                            .colorInvert()
+                           
                           }
                    
                 }

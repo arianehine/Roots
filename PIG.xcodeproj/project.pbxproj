@@ -33,6 +33,7 @@
 		D60DC10726B206360041D82D /* ChartDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60DC10626B206360041D82D /* ChartDataModel.swift */; };
 		D60DC10926B206680041D82D /* CameraModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60DC10826B206680041D82D /* CameraModel.swift */; };
 		D612F6292659478700914C0E /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = D612F6282659478700914C0E /* WrappingHStack */; };
+		D623872726B5B09A003A8207 /* CarbonFootprintModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D623872626B5B09A003A8207 /* CarbonFootprintModel.swift */; };
 		D6440A63265AA9BD0023F889 /* ImproveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6440A62265AA9BD0023F889 /* ImproveView.swift */; };
 		D64DB1C72652BE5E00D6FA4D /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64DB1C62652BE5E00D6FA4D /* StatsView.swift */; };
 		D6523D8726614DF1005A83D6 /* TipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6523D8626614DF1005A83D6 /* TipsView.swift */; };
@@ -118,6 +119,7 @@
 		D60DC10826B206680041D82D /* CameraModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraModel.swift; sourceTree = "<group>"; };
 		D60DC10B26B209FD0041D82D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D60DC10D26B20A070041D82D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D623872626B5B09A003A8207 /* CarbonFootprintModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarbonFootprintModel.swift; sourceTree = "<group>"; };
 		D6391E32E4A92519B968FD70 /* Pods_PIG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PIG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6440A62265AA9BD0023F889 /* ImproveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImproveView.swift; sourceTree = "<group>"; };
 		D64DB1C62652BE5E00D6FA4D /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				D60DC10426B205E40041D82D /* CoordinatorModel.swift */,
 				D60DC10626B206360041D82D /* ChartDataModel.swift */,
 				D60DC10826B206680041D82D /* CameraModel.swift */,
+				D623872626B5B09A003A8207 /* CarbonFootprintModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -618,6 +621,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D623872726B5B09A003A8207 /* CarbonFootprintModel.swift in Sources */,
 				D60DC0EB26B1ABD40041D82D /* MobileNetV2.mlmodel in Sources */,
 				D665D7AC268E4FA10021156A /* Place.swift in Sources */,
 				D69C7AAE26592F3E00D209DB /* NumberEarthsView.swift in Sources */,
@@ -829,6 +833,7 @@
 				DEVELOPMENT_TEAM = JZBNNCR75D;
 				ENABLE_PREVIEWS = YES;
 				GCC_NO_COMMON_BLOCKS = NO;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				INFOPLIST_FILE = PIG/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -856,6 +861,7 @@
 				DEVELOPMENT_TEAM = JZBNNCR75D;
 				ENABLE_PREVIEWS = YES;
 				GCC_NO_COMMON_BLOCKS = NO;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				INFOPLIST_FILE = PIG/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
