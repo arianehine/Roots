@@ -106,6 +106,9 @@ struct PledgeUpdate: View {
 
         }.background(
             VStack{
+                NavigationLink(destination: EmptyView()) {
+                    EmptyView()
+                }
                 NavigationLink(destination: PledgesInProgress(statsController: statsController).environmentObject(fbLogic), isActive: $goBack){
                             
                         }

@@ -40,6 +40,8 @@
 		D657445B2697B0A200CC4916 /* MyAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D657445A2697B0A200CC4916 /* MyAnnotation.swift */; };
 		D659E7FC266D674F0038A086 /* PleadeConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D659E7FB266D674F0038A086 /* PleadeConfirmation.swift */; };
 		D659E819266E91100038A086 /* PledgesInProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = D659E818266E910F0038A086 /* PledgesInProgress.swift */; };
+		D65A723126B73E8600C60F7D /* SelectFootprint.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D65A723026B73E8600C60F7D /* SelectFootprint.storyboard */; };
+		D65A723326B742DD00C60F7D /* SelectFootprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65A723226B742DD00C60F7D /* SelectFootprint.swift */; };
 		D65C360826861CC0003A504F /* AdditionalPledgesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65C360726861CC0003A504F /* AdditionalPledgesView.swift */; };
 		D65C360D26866F10003A504F /* TrackPledges.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65C360C26866F10003A504F /* TrackPledges.swift */; };
 		D65C3612268677EB003A504F /* PledgeUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65C3611268677EB003A504F /* PledgeUpdate.swift */; };
@@ -127,6 +129,8 @@
 		D657445A2697B0A200CC4916 /* MyAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAnnotation.swift; sourceTree = "<group>"; };
 		D659E7FB266D674F0038A086 /* PleadeConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PleadeConfirmation.swift; sourceTree = "<group>"; };
 		D659E818266E910F0038A086 /* PledgesInProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PledgesInProgress.swift; sourceTree = "<group>"; };
+		D65A723026B73E8600C60F7D /* SelectFootprint.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SelectFootprint.storyboard; sourceTree = "<group>"; };
+		D65A723226B742DD00C60F7D /* SelectFootprint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFootprint.swift; sourceTree = "<group>"; };
 		D65C360726861CC0003A504F /* AdditionalPledgesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalPledgesView.swift; sourceTree = "<group>"; };
 		D65C360C26866F10003A504F /* TrackPledges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPledges.swift; sourceTree = "<group>"; };
 		D65C3611268677EB003A504F /* PledgeUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PledgeUpdate.swift; sourceTree = "<group>"; };
@@ -256,6 +260,8 @@
 				D60DC0F526B1C7230041D82D /* ErrorView.swift */,
 				D60DC0F726B1C7420041D82D /* SignUpView.swift */,
 				D60DC0F926B1C76E0041D82D /* SignInView.swift */,
+				D65A723026B73E8600C60F7D /* SelectFootprint.storyboard */,
+				D65A723226B742DD00C60F7D /* SelectFootprint.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -492,6 +498,7 @@
 			files = (
 				D6DC2C82264D2EA3008C6A72 /* Preview Assets.xcassets in Resources */,
 				D6EF45B2268B625B00F56D73 /* synthesisedDataEncrypted.txt in Resources */,
+				D65A723126B73E8600C60F7D /* SelectFootprint.storyboard in Resources */,
 				D60773AF26A9EA4C00029C3D /* GoogleService-Info.plist in Resources */,
 				D6DC2C7F264D2EA3008C6A72 /* Assets.xcassets in Resources */,
 			);
@@ -621,6 +628,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D65A723326B742DD00C60F7D /* SelectFootprint.swift in Sources */,
 				D623872726B5B09A003A8207 /* CarbonFootprintModel.swift in Sources */,
 				D60DC0EB26B1ABD40041D82D /* MobileNetV2.mlmodel in Sources */,
 				D665D7AC268E4FA10021156A /* Place.swift in Sources */,
@@ -840,7 +848,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Ari.PIG;
+				PRODUCT_BUNDLE_IDENTIFIER = Ariane.PIG;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -868,7 +876,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Ari.PIG;
+				PRODUCT_BUNDLE_IDENTIFIER = Ariane.PIG;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

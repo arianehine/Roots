@@ -22,6 +22,7 @@ struct TrackPledges: View {
             Button(action: {
       
                 self.trackPledge = true
+                print("true")
                 
                 
             }) {
@@ -35,15 +36,24 @@ struct TrackPledges: View {
         }  .background(
             
             VStack{
+                NavigationLink(destination: EmptyView()) {
+                    EmptyView()
+                }
                 NavigationView {
                 NavigationLink(destination: PledgeUpdate(pledgeToUpdate: selectedForFurtherInfo, statsController: statsController), isActive: $trackPledge) {
+                    Text("")
                     
                             
                         }
+                  
                 }
+                NavigationLink(destination: EmptyView()) {
+                    EmptyView()
+                }
+            
             .hidden()
             }
-           
+   
             
                     )
         

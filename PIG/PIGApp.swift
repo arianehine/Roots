@@ -57,11 +57,11 @@ struct PIGApp: App {
 
             let originalPeople = statsController.convertCSVIntoArray(csvHandler: csvHandler, directory: docDirectory)
             
-            ContentView(directory: docDirectory, fbLogic: fbLogic, originalPeople: originalPeople)
+            SelectFootprint(directory: docDirectory, fbLogic: fbLogic, originalPeople: originalPeople)
                 .environmentObject(viewModel)
                 .environmentObject(statsController)
                 .environmentObject(fbLogic)
-                .preferredColorScheme(.dark)
+                .preferredColorScheme(.dark);
         }
     }
 }

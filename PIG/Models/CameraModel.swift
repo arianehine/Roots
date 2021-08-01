@@ -175,7 +175,7 @@ class CameraModel: NSObject,ObservableObject,AVCapturePhotoCaptureDelegate{
         // saving Image...
 //        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
         
-        if(classLabel.contains("trash can")){
+        if(classLabel.contains("trash can") || classLabel.contains("pail")){
             isOfTrashCan = true
             print("yes this is a trash can")
 
