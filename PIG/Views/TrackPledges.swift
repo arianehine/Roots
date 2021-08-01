@@ -14,6 +14,9 @@ struct TrackPledges: View {
     var body: some View {
         
         VStack{
+            if (trackPledge) {
+                PledgeUpdate(pledgeToUpdate: selectedForFurtherInfo, statsController: statsController)
+            }else{
         Text("Pledge: \(selectedForFurtherInfo.description)")
         Text("Goal: \(selectedForFurtherInfo.durationInDays) days")
         Text("Days completed: \(selectedForFurtherInfo.daysCompleted)")
@@ -33,29 +36,8 @@ struct TrackPledges: View {
             .clipShape(Capsule())
             
             Spacer()
-        }  .background(
-            
-            VStack{
-                NavigationLink(destination: EmptyView()) {
-                    EmptyView()
-                }
-                NavigationView {
-                NavigationLink(destination: PledgeUpdate(pledgeToUpdate: selectedForFurtherInfo, statsController: statsController), isActive: $trackPledge) {
-                    Text("")
-                    
-                            
-                        }
-                  
-                }
-                NavigationLink(destination: EmptyView()) {
-                    EmptyView()
-                }
-            
-            .hidden()
-            }
-   
-            
-                    )
+        }
+        }
         
         
     }

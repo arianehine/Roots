@@ -24,6 +24,9 @@ struct PledgeUpdate: View {
     @State var csvHandler = CSVHandler(fbLogic: FirebaseLogic())
     var body: some View {
         VStack{
+            if (goBack) {
+                PledgesInProgress(statsController: statsController).environmentObject(fbLogic)
+            } else{
             
         Text("Track activity for pledge").font(.title2)
         Text("Pledge: \(pledgeToUpdate.description)")
@@ -86,7 +89,7 @@ struct PledgeUpdate: View {
             }
         } .background(LinearGradient(gradient: .init(colors: [Color("Color"),Color("Color1")]), startPoint: .leading, endPoint: .trailing))
         .clipShape(Capsule())
-    
+            }
         }.onAppear(){
      
             self.csvHandler.fbLogic = self.fbLogic
@@ -104,17 +107,8 @@ struct PledgeUpdate: View {
             self.takePictureCallback()}
             )
 
-        }.background(
-            VStack{
-                NavigationLink(destination: EmptyView()) {
-                    EmptyView()
-                }
-                NavigationLink(destination: PledgesInProgress(statsController: statsController).environmentObject(fbLogic), isActive: $goBack){
-                            
-                        }
-            .hidden()
-            }
-        )
+        }
+        
    
     }
     
