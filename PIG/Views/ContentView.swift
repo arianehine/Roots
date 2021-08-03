@@ -106,7 +106,7 @@ struct ContentView: View {
                 
             }else{
                 
-                SignInView()
+                SignInView().environmentObject(viewModel)
                     .navigationBarHidden(true)
             }
             

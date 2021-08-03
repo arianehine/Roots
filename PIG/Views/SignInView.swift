@@ -60,7 +60,7 @@ struct SignInView: View {
                     
                 })
                 
-                NavigationLink("Create Account", destination: SignUpView())
+                NavigationLink("Create Account", destination: SignUpView().environmentObject(viewModel))
                     .padding()
                 
             }

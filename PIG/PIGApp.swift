@@ -1,4 +1,3 @@
-//
 //  PIGApp.swift
 //  PIG
 //
@@ -18,7 +17,7 @@ struct PIGApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @State var fbLogic = FirebaseLogic()
-
+    @State var footprint = ""
     @State var originalPeople =  [UserData]();
     
 
@@ -57,7 +56,7 @@ struct PIGApp: App {
 
             let originalPeople = statsController.convertCSVIntoArray(csvHandler: csvHandler, directory: docDirectory)
             
-            SelectFootprint(directory: docDirectory, fbLogic: fbLogic, originalPeople: originalPeople)
+            ContentView(directory: docDirectory, fbLogic: fbLogic, originalPeople: originalPeople)
                 .environmentObject(viewModel)
                 .environmentObject(statsController)
                 .environmentObject(fbLogic)

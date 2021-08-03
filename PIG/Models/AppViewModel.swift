@@ -17,7 +17,7 @@ class AppViewModel: ObservableObject{
     @State var fbLogic: FirebaseLogic
     
     
-    
+ 
     func signIn(email: String, password: String){
         auth.signIn(withEmail: email, password: password) { [weak self] result, error in
             guard result != nil, error == nil else{
@@ -52,7 +52,7 @@ class AppViewModel: ObservableObject{
         
     }
     
-    func signUp(email: String, password: String, firstName: String, lastName:String){
+    func signUp(email: String, password: String, firstName: String, lastName:String, selection: String){
         auth.createUser(withEmail: email, password: password) { [weak self] (result, error) in
             
             guard result != nil, error == nil else{
@@ -79,12 +79,13 @@ class AppViewModel: ObservableObject{
             db.collection("Users").document(uid).collection("logins").document(date.dateToString(date: date)).setData(["date": date])
             
             self!.setPledgesForUser(userId: result!.user.uid, db: db);
-            self!.setDataForUser(userId: result!.user.uid, db: db, statsController: self!.statsController);
+            self!.setDataForUser(userId: result!.user.uid, db: db, selection: selection, statsController: self!.statsController);
             
             //update published var on main thread
             DispatchQueue.main.async {
             
                 self?.signedIn = true
+                print("done")
             }
           
         }
@@ -104,13 +105,13 @@ class AppViewModel: ObservableObject{
         }
         
     }
-    
-    func setDataForUser(userId: String, db: Firestore, statsController: StatsDataController){
+
+    func setDataForUser(userId: String, db: Firestore, selection: String, statsController: StatsDataController){
         let csvHandler = CSVHandler(fbLogic: fbLogic)
         let userData = statsController.convertCSVIntoArray(csvHandler: csvHandler, directory: directory)
         
         for user in userData{
-            if(user.ID == "8"){
+            if(user.ID == selection){
                 var stringDate = user.date.dateToString(date: user.date)
                 db.collection("UserData").document(userId).collection("Data").document(stringDate)
                     .setData([ "ID": userId, "date": user.date, "average": user.average, "transport": user.transport, "household": user.household, "clothing": user.clothing, "health": user.health, "food": user.food, "transport_walking": user.transport_walking, "transport_car": user.transport_car, "transport_train": user.transport_train,"transport_plane": user.transport_plane, "transport_bus": user.transport_bus, "household_heating": user.household_heating,"household_electricity": user.household_electricity,"household_furnishings": user.household_furnishings,"household_lighting": user.household_lighting,"clothing_fastfashion": user.clothing_fastfashion,"clothing_sustainable": user.clothing_sustainable,"health_meds": user.health_meds,"health_scans": user.health_scans, "food_meat": user.food_meat,"food_fish": user.food_fish,"food_dairy": user.food_dairy,"food_oils": user.food_oils]);

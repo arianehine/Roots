@@ -1,4 +1,3 @@
-//
 //  SelectFootprint.swift
 //  SelectFootprint
 //
@@ -10,13 +9,10 @@ import Firebase
 
 struct SelectFootprint: View {
     
-    @State var transition = false;
+    @Binding var transition: Bool
     let auth = Auth.auth();
-    @EnvironmentObject var viewModel: AppViewModel
-    @EnvironmentObject var statsController: StatsDataController
-    @State var directory: URL
-    @State var fbLogic: FirebaseLogic
-    @State var selection = ""
+
+    @Binding var selection: String
     @State var name = ""
     @State var originalReports: [Report] = [Report]();
     @State var reports: [Report] = [Report]();
@@ -30,15 +26,7 @@ struct SelectFootprint: View {
     @State var completed = false
     
     var body: some View {
-        VStack{
-            if (transition) {
-                ContentView(directory: directory, fbLogic: fbLogic, originalPeople: originalPeople)
-                    .environmentObject(viewModel)
-                    .environmentObject(statsController)
-                    .environmentObject(fbLogic)
-                    .preferredColorScheme(.dark)
-            }else{
-                
+    
             
             
         Text("Select one of the following").font(.title)
@@ -48,7 +36,7 @@ struct SelectFootprint: View {
             
             
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2){
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
                 transition = true;
             }
            
@@ -71,7 +59,7 @@ struct SelectFootprint: View {
                 
            
             selection = "average"
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2){
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
                     transition = true;
                 }
             }) {
@@ -92,8 +80,8 @@ struct SelectFootprint: View {
                 
            
                selection = "high"
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2){
-                    transition = true;
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+                    self.transition = true;
                 }
             }) {
                 
@@ -111,8 +99,8 @@ struct SelectFootprint: View {
             Text("e.g meat often, travel often, heats a large home")
                     }
         }
-    }
-    }
+    
+    
 
 
 
@@ -122,3 +110,4 @@ struct SelectFootprint: View {
 //        SelectFootprint()
 //    }
 //}
+

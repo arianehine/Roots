@@ -8,11 +8,16 @@
 import Foundation
 import SwiftUI
 
+
 struct SignUpView: View {
     @State var email = ""
     @State var password = ""
     @State var firstName = ""
     @State var lastName = ""
+    @State var personalDetailsEntered = false
+    @State var transition = false;
+    @State var selected = ""
+    
     @EnvironmentObject var viewModel: AppViewModel
     
     var body: some View {
@@ -25,6 +30,10 @@ struct SignUpView: View {
                 ErrorView(alert: $viewModel.alert, error: $viewModel.error)
                 
             }
+            if (personalDetailsEntered) {
+                SelectFootprint(transition: $transition, selection: $selected)
+                    .environmentObject(viewModel)
+                .preferredColorScheme(.dark);            }else{
             
             Image("logo")
                 .resizable()
@@ -58,11 +67,7 @@ struct SignUpView: View {
                     
                     
                     
-                    viewModel.signUp(email: email, password: password, firstName: firstName, lastName: lastName)
-                    guard !email.isEmpty, !password.isEmpty else{
-                        return
-                        
-                    }
+                    self.personalDetailsEntered = true
                     
                     
                     
@@ -80,9 +85,28 @@ struct SignUpView: View {
             
             Spacer()
         }
+        }
         .navigationTitle("Create Account")
         .onAppear(){
             viewModel.alert=false
+        }.onChange(of: transition){ value in
+            if (value) {
+                
+                print("selection: ", selected)
+                viewModel.signUp(email: email, password: password, firstName: firstName, lastName: lastName, selection: selected)
+                print("signed up")
+                guard !email.isEmpty, !password.isEmpty else{
+                    print("error")
+                    return
+                 
+                    
+                  
+                    
+                    
+                }
+              
+                
+            }
         }
     }
     
