@@ -17,17 +17,19 @@ struct PIGApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @State var fbLogic = FirebaseLogic()
-    @State var footprint = ""
+    @State var footprint: String = ""
     @State var originalPeople =  [UserData]();
     
 
     var body: some Scene {
         WindowGroup {
-            let csvHandler = CSVHandler(fbLogic: fbLogic)
-            
-            let encryptedCSV = csvHandler.readEncryptedCSV();
             let keys = PIGKeys()
             let encryptionKEY = keys.encryptionKEY
+            let csvHandler = CSVHandler(fbLogic: fbLogic)
+            let encrypt = csvHandler.encryptCSV(encryptionKEY: encryptionKEY)
+            let suc = csvHandler.writeEncryptedDoc(string: encrypt)
+            let encryptedCSV = csvHandler.readEncryptedCSV();
+
             let decryptedCSV = csvHandler.decryptCSV(encryptedText: encryptedCSV, password: encryptionKEY)
             
        

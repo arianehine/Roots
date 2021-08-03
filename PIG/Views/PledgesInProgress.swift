@@ -21,7 +21,7 @@ struct PledgesInProgress: View {
     @State var durationSelected: Int?
     var pledgePicked: Pledge?
     @State var morePledges = false
-
+    @EnvironmentObject var viewModel: AppViewModel
     var body: some View {
         
         VStack{
@@ -139,12 +139,12 @@ struct PledgesInProgress: View {
         .toast(isPresenting: $showFurtherInfo, message: selectedForFurtherInfo.description).onAppear(perform: initVars)
         .background(
             VStack{
-            NavigationLink(destination: AdditionalPledgesView(ID: "8", fbLogic: fbLogic, statsController: statsController), isActive: $morePledges) {
+            NavigationLink(destination: AdditionalPledgesView(ID: "average", fbLogic: fbLogic, statsController: statsController), isActive: $morePledges) {
                             
                         }
             .hidden();
                 
-                NavigationLink(destination: TrackPledges(selectedForFurtherInfo: selectedForFurtherInfo, statsController: statsController), isActive: $showFurtherInfoProgress) {
+                NavigationLink(destination: TrackPledges(selectedForFurtherInfo: selectedForFurtherInfo, statsController: statsController).environmentObject(viewModel), isActive: $showFurtherInfoProgress) {
                             
                         }
                         .hidden()

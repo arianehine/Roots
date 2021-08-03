@@ -46,7 +46,7 @@ struct ContentView: View {
                 VStack{
                     
                     TabView(selection: $selection){
-                        StatsView(ID: "8", originalPeople: originalPeople, fbLogic: $fbLogic, selection: selection).environmentObject(statsController)
+                        StatsView(ID: viewModel.footprint, originalPeople: originalPeople, fbLogic: $fbLogic, selection: selection).environmentObject(statsController).environmentObject(viewModel)
                             .tabItem {
                                 VStack {
                                     Image(systemName: "chart.bar")
@@ -56,7 +56,7 @@ struct ContentView: View {
                             .tag(0)
                         
                         
-                        DoughnutView(ID: "8", selection: selection, reports: $reports, originalReports: $originalReports, originalPeople: originalPeople).environmentObject(statsController)
+                        DoughnutView(ID: $viewModel.footprint, selection: selection, reports: $reports, originalReports: $originalReports, originalPeople: originalPeople).environmentObject(statsController).environmentObject(viewModel)
                             .font(.title)
                             .tabItem {
                                 VStack {
@@ -71,6 +71,8 @@ struct ContentView: View {
                                     Image(systemName: "star.fill")
                                     Text("Streaks") // Update tab title
                                 }
+                            }.onChange(of: viewModel.footprint){ value in
+                                print("fp change: ", value)
                             }
                             .tag(2)
                         
@@ -101,13 +103,16 @@ struct ContentView: View {
                         logVisit(uid: auth.currentUser!.uid)
                         getXP(uid: auth.currentUser!.uid)
                         level = getLevel(XP: XP)
+                        getFootprint()
                     }
                 
                 
             }else{
                 
                 SignInView().environmentObject(viewModel)
-                    .navigationBarHidden(true)
+                    .navigationBarHidden(true).onChange(of: viewModel.footprint){ value in
+                        print("fp change: ", value)
+                    }
             }
             
         }.onAppear{
@@ -116,6 +121,35 @@ struct ContentView: View {
             viewModel.alert=false
         }
         
+    }
+    
+    func getFootprint(){
+        let auth = Auth.auth();
+        let db = Firestore.firestore();
+        var footprint = ""
+        
+        
+        let uid = auth.currentUser!.uid
+        let docRef = db.collection("Users").document(uid)
+        
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                
+                footprint = document.data()?["footprint"] as? String ?? ""
+                viewModel.footprint = footprint
+               print("footprint: ", footprint)
+                
+                return
+            } else {
+                print("Document does not exist")
+            }
+            footprint = document?.data()?["footprint"] as! String
+            viewModel.footprint = footprint
+            return
+        }
+        
+
     }
     
     func logVisit(uid: String){

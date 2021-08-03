@@ -176,6 +176,7 @@ db.collection("UserPledges").document(uid).collection("Pledges").document(String
     let date =  Date()
 db.collection("UserPledges").document(uid).collection("Pledges").document(String(pledge.id)).collection("Records").document(dateToString(date: date)).setData(["date": date])
         
+        turnNotificationsOn(pledge: pledge, value: false)
         
     } else{
   
@@ -371,7 +372,7 @@ db.collection("UserPledges").document(uid).collection("Pledges").document(String
                })
             }
         self.allPledges = getAllPledges()
-          
+        turnNotificationsOn(pledge: findPledgeWithThisID(ID: pledgeID), value: false)
         
     }
 func findPledgeWithThisID(ID: Int) -> Pledge{

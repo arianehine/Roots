@@ -9,6 +9,7 @@ import SwiftUI
 import FirebaseAuth
 
 struct PledgeUpdate: View {
+    @EnvironmentObject var viewModel: AppViewModel
     @State var pledgeToUpdate: Pledge
     @State var fbLogic: FirebaseLogic = FirebaseLogic();
     @State var toastShow: Bool = false
@@ -22,10 +23,11 @@ struct PledgeUpdate: View {
     @State var completed = false
     @State var statsController: StatsDataController
     @State var csvHandler = CSVHandler(fbLogic: FirebaseLogic())
+
     var body: some View {
         VStack{
             if (goBack) {
-                PledgesInProgress(statsController: statsController).environmentObject(fbLogic)
+                PledgesInProgress(statsController: statsController).environmentObject(fbLogic).environmentObject(viewModel)
             } else{
             
         Text("Track activity for pledge").font(.title2)
@@ -156,7 +158,7 @@ struct PledgeUpdate: View {
                    
                 }
                 //self.csvHandler.reduceFootprint(amount: pledgeToUpdate.reductionPerDay, days: pledgeToUpdate.durationInDays, pledgeArea: pledgeToUpdate.category)
-                let dataToReduceBy = self.csvHandler.getReductionData(amount: pledgeToUpdate.reductionPerDay, days: pledgeToUpdate.durationInDays, pledgeArea: pledgeToUpdate.category)
+                let dataToReduceBy = self.csvHandler.getReductionData(amount: pledgeToUpdate.reductionPerDay, days: pledgeToUpdate.durationInDays, pledgeArea: pledgeToUpdate.category, footprint: viewModel.footprint)
 
              
                 self.statsController.originalPeople.append(dataToReduceBy)

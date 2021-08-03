@@ -11,11 +11,12 @@ struct TrackPledges: View {
     @State var selectedForFurtherInfo: Pledge
     @State var trackPledge = false
     @State var statsController: StatsDataController
+    @EnvironmentObject var viewModel: AppViewModel
     var body: some View {
         
         VStack{
             if (trackPledge) {
-                PledgeUpdate(pledgeToUpdate: selectedForFurtherInfo, statsController: statsController)
+                PledgeUpdate(pledgeToUpdate: selectedForFurtherInfo, statsController: statsController).environmentObject(viewModel)
             }else{
         Text("Pledge: \(selectedForFurtherInfo.description)")
         Text("Goal: \(selectedForFurtherInfo.durationInDays) days")

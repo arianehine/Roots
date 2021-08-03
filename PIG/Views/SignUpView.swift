@@ -17,6 +17,7 @@ struct SignUpView: View {
     @State var personalDetailsEntered = false
     @State var transition = false;
     @State var selected = ""
+    @State var footprint = ""
     
     @EnvironmentObject var viewModel: AppViewModel
     
@@ -94,6 +95,8 @@ struct SignUpView: View {
                 
                 print("selection: ", selected)
                 viewModel.signUp(email: email, password: password, firstName: firstName, lastName: lastName, selection: selected)
+                viewModel.footprint = selected
+        
                 print("signed up")
                 guard !email.isEmpty, !password.isEmpty else{
                     print("error")

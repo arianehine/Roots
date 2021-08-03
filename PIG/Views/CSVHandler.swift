@@ -17,7 +17,7 @@ class CSVHandler: ObservableObject{
         
         var existingDataCopy = existingData
 
-        let dataToAdd = UserData(ID: "8", date: Date(), average: 2226.49, transport: 639.88, household: 551.62, clothing: 328.91, health: 308.91, food: 397.17, transport_walking: 159.97, transport_car: 63.99, transport_train: 121.58, transport_bus: 121.58, transport_plane: 70.39, household_heating: 126.87, household_electricity: 165.49, household_furnishings: 132.39, household_lighting: 126.87, clothing_fastfashion: 179.17, clothing_sustainable: 129.74, health_meds: 210.06, health_scans: 98.85, food_meat: 123.12, food_fish: 91.35, food_dairy: 99.29, food_oils: 83.41)
+        let dataToAdd = UserData(ID: "average", date: Date(), average: 2226.49, transport: 639.88, household: 551.62, clothing: 328.91, health: 308.91, food: 397.17, transport_walking: 159.97, transport_car: 63.99, transport_train: 121.58, transport_bus: 121.58, transport_plane: 70.39, household_heating: 126.87, household_electricity: 165.49, household_furnishings: 132.39, household_lighting: 126.87, clothing_fastfashion: 179.17, clothing_sustainable: 129.74, health_meds: 210.06, health_scans: 98.85, food_meat: 123.12, food_fish: 91.35, food_dairy: 99.29, food_oils: 83.41)
       
        
         let stringToAppend = commaSeparate(object: dataToAdd)
@@ -99,22 +99,22 @@ class CSVHandler: ObservableObject{
 //
 //    }
 //
-    func getReductionData(amount: Int, days: Int, pledgeArea: String) ->UserData{
+    func getReductionData(amount: Int, days: Int, pledgeArea: String, footprint: String) ->UserData{
         if(pledgeArea == "Transport"){
-            let dataToAdd = UserData(ID: "8", date: Date(), average: Double(-amount), transport: Double(-amount), household: 0, clothing: 0, health: 0 , food: 0, transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds:0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0)
+            let dataToAdd = UserData(ID: footprint, date: Date(), average: Double(-amount), transport: Double(-amount), household: 0, clothing: 0, health: 0 , food: 0, transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds:0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0)
            return dataToAdd
         }else if(pledgeArea == "Household"){
-            let dataToAdd = UserData(ID: "8", date: Date(), average: Double(-amount), transport: 0, household: Double(-amount), clothing: 0, health: 0, food: 0, transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds:0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0)
+            let dataToAdd = UserData(ID: footprint, date: Date(), average: Double(-amount), transport: 0, household: Double(-amount), clothing: 0, health: 0, food: 0, transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds:0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0)
             return dataToAdd
             
         }else if(pledgeArea == "Clothing"){
-            let dataToAdd = UserData(ID: "8", date: Date(), average: Double(-amount), transport: 0, household: 0, clothing: Double(-amount), health: 0, food: 0, transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds:0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0)
+            let dataToAdd = UserData(ID: footprint, date: Date(), average: Double(-amount), transport: 0, household: 0, clothing: Double(-amount), health: 0, food: 0, transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds:0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0)
             return dataToAdd
     }else if(pledgeArea == "Health"){
-        let dataToAdd = UserData(ID: "8", date: Date(), average: Double(-amount), transport: 0, household: 0, clothing:0, health: Double(-amount), food: 0, transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds:0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0)
+        let dataToAdd = UserData(ID: footprint, date: Date(), average: Double(-amount), transport: 0, household: 0, clothing:0, health: Double(-amount), food: 0, transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds:0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0)
         return dataToAdd
     }else{
-        let dataToAdd = UserData(ID: "8", date: Date(), average: Double(-amount), transport: 0, household: 0, clothing:0, health: 0, food: Double(-amount), transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds:0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0)
+        let dataToAdd = UserData(ID: footprint, date: Date(), average: Double(-amount), transport: 0, household: 0, clothing:0, health: 0, food: Double(-amount), transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds:0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0)
         return dataToAdd
     }
         
@@ -147,6 +147,7 @@ class CSVHandler: ObservableObject{
 
     //convert that file into one long string
         guard let filepath = Bundle.main.path(forResource: "synthesisedData", ofType: "csv") else {
+            print("fail")
 
                  return "fail"
              }
@@ -156,6 +157,7 @@ class CSVHandler: ObservableObject{
             data = try String(contentsOfFile: filepath)
 
         } catch {
+            print("fail")
             print(error.localizedDescription)
          
         }

@@ -118,7 +118,7 @@ class StatsDataController: ObservableObject {
       
           
     }
-        people.append(UserData(ID: "8", date: Date(), average: 2226.49, transport: 639.88, household: 551.62, clothing: 328.91, health: 308.91, food: 397.17, transport_walking: 159.97, transport_car: 63.99, transport_train: 121.58, transport_bus: 121.58, transport_plane: 70.39, household_heating: 126.87, household_electricity: 165.49, household_furnishings: 132.39, household_lighting: 126.87, clothing_fastfashion: 179.17, clothing_sustainable: 129.74, health_meds: 210.06, health_scans: 98.85, food_meat: 123.12, food_fish: 91.35, food_dairy: 99.29, food_oils: 83.41))
+        people.append(UserData(ID: "average", date: Date(), average: 2226.49, transport: 639.88, household: 551.62, clothing: 328.91, health: 308.91, food: 397.17, transport_walking: 159.97, transport_car: 63.99, transport_train: 121.58, transport_bus: 121.58, transport_plane: 70.39, household_heating: 126.87, household_electricity: 165.49, household_furnishings: 132.39, household_lighting: 126.87, clothing_fastfashion: 179.17, clothing_sustainable: 129.74, health_meds: 210.06, health_scans: 98.85, food_meat: 123.12, food_fish: 91.35, food_dairy: 99.29, food_oils: 83.41))
        
 //        people.append(UserData(ID: "8", date: Date(), average: 0.01, transport: 0.01, household: 0, clothing:0, health: 0, food:0, transport_walking:0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds: 0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0))
 //
@@ -378,6 +378,7 @@ class StatsDataController: ObservableObject {
 
 
     func findUserData(people: [UserData], ID: String) -> [UserData]{
+        print("ID ", ID)
 
         var user = [UserData]();
         if(stateUser.count == 0 ){

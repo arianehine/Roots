@@ -15,6 +15,7 @@ class AppViewModel: ObservableObject{
     @State var directory: URL
     let auth = Auth.auth();
     @State var fbLogic: FirebaseLogic
+    @Published var footprint: String = ""
     
     
  
@@ -72,8 +73,8 @@ class AppViewModel: ObservableObject{
             
             //creates profile doc under uid with all the info
             db.collection("Users").document(result!.user.uid)
-                .setData([ "firstName":firstName, "lastName":lastName, "uid":uid, "email":email, "currentStreak": 0, "longestStreak":0, "XP": 0]);
-            
+                .setData([ "firstName":firstName, "lastName":lastName, "uid":uid, "email":email, "currentStreak": 0, "longestStreak":0, "XP": 0, "footprint" : selection]);
+            self?.footprint = selection
             
             let date = Date()
             db.collection("Users").document(uid).collection("logins").document(date.dateToString(date: date)).setData(["date": date])
@@ -148,6 +149,7 @@ class AppViewModel: ObservableObject{
     @Published var signedIn = false
     @Published var alert = false;
     @Published var error = ""
+    @Published var selected = ""
     
     var isSignedIn: Bool{
         return auth.currentUser != nil

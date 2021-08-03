@@ -94,8 +94,8 @@ struct PieChart: View {
 
 
 struct DoughnutView: View {
-    let ID: String
-
+    @Binding var ID: String
+    @EnvironmentObject var viewModel: AppViewModel
     @EnvironmentObject var statsController: StatsDataController
     @State var selection: String
     @State var selectedPie: String = ""
@@ -154,6 +154,7 @@ struct DoughnutView: View {
                 if(statsController.originalPeople.count != 0){
         
                     people = statsController.originalPeople
+                 
                    
                 }
                    
@@ -163,9 +164,13 @@ struct DoughnutView: View {
                    }
         
 
-                let user = statsController.findUserData(people: people, ID: ID);
+                let user = statsController.findUserData(people: people, ID: viewModel.footprint);
+                
 //                self.reports = statsController.convertToReports(users: user);
                 self.originalReports = statsController.convertToReports(users: user);
+                }.onChange(of: viewModel.footprint){ value in
+                    self.ID = value
+                    print("CHANGE")
                 };
             Spacer()
             if !(reports.count==0){
@@ -190,13 +195,16 @@ struct DoughnutView: View {
             self.originalPeople = statsController.originalPeople
            
             //update originalreports
-            let user = statsController.findUserData(people: originalPeople, ID: ID);
+            let user = statsController.findUserData(people: originalPeople, ID: viewModel.footprint);
             self.originalReports = statsController.convertToReports(users: user);
             
             reports = statsController.updateReports(value: selection, reports: originalReports, statsController: statsController);
           
             sample = convertRecordsToSamples(records: reports);
             worstArea = updateWorstArea(samples: sample);
+        }.onChange(of: viewModel.footprint){ value in
+            
+            print(value, "eeee")
         }.frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).navigationBarHidden(true)
         }.preferredColorScheme(.dark)
         

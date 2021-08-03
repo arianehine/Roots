@@ -10,8 +10,9 @@ import Charts
 
 
 struct StatsView: View {
-    let ID: String;
+    @State var ID: String
     @EnvironmentObject var statsController: StatsDataController
+    @EnvironmentObject var viewModel: AppViewModel
    @State var average: String = "not defined"
    @State var ltOrGt: String = "not defined"
    @State var people = [UserData]()
@@ -33,7 +34,7 @@ struct StatsView: View {
             } else{
             people = originalPeople;
             }
-        let user = statsController.findUserData(people: people, ID: ID);
+            let user = statsController.findUserData(people: people, ID: viewModel.footprint);
             
            // self.reports = statsController.convertToReports(users: user);
             self.originalReports = statsController.convertToReports(users: user);
@@ -42,6 +43,13 @@ struct StatsView: View {
       
             self.originalPeople = statsController.originalPeople
             
+        }.onChange(of: viewModel.footprint){ value in
+            print("CHANGE")
+            self.ID = value
+            let user = statsController.findUserData(people: people, ID: ID);
+            
+           // self.reports = statsController.convertToReports(users: user);
+            self.originalReports = statsController.convertToReports(users: user);
         }
     
      
