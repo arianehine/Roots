@@ -111,7 +111,7 @@ class CSVHandler: ObservableObject{
             let dataToAdd = UserData(ID: footprint, date: Date(), average: Double(-amount), transport: 0, household: Double(-amount), clothing: 0, health: 0, food: 0, transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds:0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0)
             return dataToAdd
             
-        }else if(pledgeArea == "Clothing"){
+        }else if(pledgeArea == "Fashion"){
             let dataToAdd = UserData(ID: footprint, date: Date(), average: Double(-amount), transport: 0, household: 0, clothing: Double(-amount), health: 0, food: 0, transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds:0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0)
             return dataToAdd
     }else if(pledgeArea == "Health"){

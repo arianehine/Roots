@@ -150,14 +150,14 @@ struct DoughnutView: View {
             .onAppear{
                 
    
+                if(statsController.fbLogic.userData.count != 0){
                 
-                if(statsController.originalPeople.count != 0){
-        
-                    people = statsController.originalPeople
-                 
-                   
-                }
-                   
+                    people = statsController.fbLogic.userData
+                    print("herey", people.count)
+               
+            }
+               
+   
                   else{
 
                     people = originalPeople
@@ -195,6 +195,7 @@ struct DoughnutView: View {
          
            // self.reports = statsController.convertToReports(users: user);
             self.originalReports = statsController.convertToReports(users: user);
+            
         }.onChange(of: self.statsController.fbLogic.userData) {value in
             
             print("userdata change")
