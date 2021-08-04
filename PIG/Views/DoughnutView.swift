@@ -168,10 +168,7 @@ struct DoughnutView: View {
                 
 //                self.reports = statsController.convertToReports(users: user);
                 self.originalReports = statsController.convertToReports(users: user);
-                }.onChange(of: viewModel.footprint){ value in
-                    self.ID = value
-                    print("CHANGE")
-                };
+                }
             Spacer()
             if !(reports.count==0){
 
@@ -191,20 +188,27 @@ struct DoughnutView: View {
            
             
             
-        }.onChange(of: statsController.originalPeople) {value in
+        }.onChange(of: viewModel.footprint){ value in
+            self.ID = value
+            self.ID = value
+            let user = statsController.findUserData(people: people, ID: ID);
+         
+           // self.reports = statsController.convertToReports(users: user);
+            self.originalReports = statsController.convertToReports(users: user);
+        }.onChange(of: self.statsController.fbLogic.userData) {value in
+            
+            print("userdata change")
             self.originalPeople = statsController.originalPeople
-           
+            self.people = statsController.fbLogic.userData
             //update originalreports
             let user = statsController.findUserData(people: originalPeople, ID: viewModel.footprint);
+            
             self.originalReports = statsController.convertToReports(users: user);
             
             reports = statsController.updateReports(value: selection, reports: originalReports, statsController: statsController);
           
             sample = convertRecordsToSamples(records: reports);
             worstArea = updateWorstArea(samples: sample);
-        }.onChange(of: viewModel.footprint){ value in
-            
-            print(value, "eeee")
         }.frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).navigationBarHidden(true)
         }.preferredColorScheme(.dark)
         

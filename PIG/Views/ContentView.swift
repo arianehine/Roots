@@ -46,7 +46,7 @@ struct ContentView: View {
                 VStack{
                     
                     TabView(selection: $selection){
-                        StatsView(ID: viewModel.footprint, originalPeople: originalPeople, fbLogic: $fbLogic, selection: selection).environmentObject(statsController).environmentObject(viewModel)
+                        StatsView(ID: viewModel.footprint, originalPeople: statsController.fbLogic.userData, fbLogic: $fbLogic, selection: selection).environmentObject(statsController).environmentObject(viewModel)
                             .tabItem {
                                 VStack {
                                     Image(systemName: "chart.bar")
@@ -71,8 +71,6 @@ struct ContentView: View {
                                     Image(systemName: "star.fill")
                                     Text("Streaks") // Update tab title
                                 }
-                            }.onChange(of: viewModel.footprint){ value in
-                                print("fp change: ", value)
                             }
                             .tag(2)
                         
@@ -104,21 +102,23 @@ struct ContentView: View {
                         getXP(uid: auth.currentUser!.uid)
                         level = getLevel(XP: XP)
                         getFootprint()
+                        fbLogic.setFakeData(uid: auth.currentUser!.uid, selection: viewModel.footprint);
+                        fbLogic.getUserData(uid: auth.currentUser!.uid)
                     }
                 
                 
             }else{
                 
                 SignInView().environmentObject(viewModel)
-                    .navigationBarHidden(true).onChange(of: viewModel.footprint){ value in
-                        print("fp change: ", value)
-                    }
+                    .navigationBarHidden(true)
             }
             
         }.onAppear{
             
             viewModel.signedIn = viewModel.isSignedIn;
             viewModel.alert=false
+          
+          
         }
         
     }

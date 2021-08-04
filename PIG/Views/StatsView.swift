@@ -38,11 +38,7 @@ struct StatsView: View {
             
            // self.reports = statsController.convertToReports(users: user);
             self.originalReports = statsController.convertToReports(users: user);
-        }.onChange(of: statsController.originalPeople){ value in
-    
-      
-            self.originalPeople = statsController.originalPeople
-            
+          
         }.onChange(of: viewModel.footprint){ value in
             print("CHANGE")
             self.ID = value
@@ -51,6 +47,44 @@ struct StatsView: View {
            // self.reports = statsController.convertToReports(users: user);
             self.originalReports = statsController.convertToReports(users: user);
         }
+        .onChange(of: statsController.originalPeople) {value in
+            print("original people change")
+            people = statsController.originalPeople;
+            let user = statsController.findUserData(people: people, ID: viewModel.footprint);
+            
+           // self.reports = statsController.convertToReports(users: user);
+            self.originalReports = statsController.convertToReports(users: user);
+            
+        }
+        .onChange(of: statsController.fbLogic.userData) {value in
+            print("userdata change")
+            var user = value
+            self.people = statsController.fbLogic.userData
+            
+           // self.reports = statsController.convertToReports(users: user);
+            self.originalReports = statsController.convertToReports(users: user);
+            
+        }.onAppear(){
+            if(statsController.fbLogic.userData.count != 0){
+            
+                people = statsController.fbLogic.userData
+                print("herey", people.count)
+           
+        }
+           
+          else{
+              print("elsey")
+
+              people = statsController.originalPeople
+           }
+
+            print("peepe", people.count)
+        let user = statsController.findUserData(people: people, ID: viewModel.footprint);
+            print("user", user.count)
+//                self.reports = statsController.convertToReports(users: user);
+        self.originalReports = statsController.convertToReports(users: user);
+        }
+    
     
      
         

@@ -18,7 +18,13 @@ class FirebaseLogic: ObservableObject {
 @Published var streak = 0
 @Published var lastVisit = Date()
 @Published var moreThan1Visit = false;
-
+    func addData(user: UserData, userId: String){
+        let db = Firestore.firestore()
+        db.collection("UserData").document(userId).collection("Data").document(dateToString(date: user.date))
+            .setData([ "ID": userId, "date": user.date, "average": user.average, "transport": user.transport, "household": user.household, "clothing": user.clothing, "health": user.health, "food": user.food, "transport_walking": user.transport_walking, "transport_car": user.transport_car, "transport_train": user.transport_train,"transport_plane": user.transport_plane, "transport_bus": user.transport_bus, "household_heating": user.household_heating,"household_electricity": user.household_electricity,"household_furnishings": user.household_furnishings,"household_lighting": user.household_lighting,"clothing_fastfashion": user.clothing_fastfashion,"clothing_sustainable": user.clothing_sustainable,"health_meds": user.health_meds,"health_scans": user.health_scans, "food_meat": user.food_meat,"food_fish": user.food_fish,"food_dairy": user.food_dairy,"food_oils": user.food_oils]);
+    print("reduction data pushed")
+    }
+    
     func turnNotificationsOn(pledge: Pledge, value: Bool){
 
         let db = Firestore.firestore()
@@ -35,6 +41,32 @@ class FirebaseLogic: ObservableObject {
         
     }
     
+    func setFakeData(uid: String, selection: String){
+        
+        let db = Firestore.firestore()
+        let data = db.collection("UserData").document(uid).collection("Data")    .getDocuments { [self] (snapshot, error) in
+            guard let snapshot = snapshot, error == nil else {
+             print("error")
+             return
+           }
+            
+              
+                   
+                   if(!(snapshot.documents.count>0)){
+                       let fakeData =  UserData(ID: selection, date: Date(), average: 2226.49, transport: 639.88, household: 551.62, clothing: 328.91, health: 308.91, food: 397.17, transport_walking: 159.97, transport_car: 63.99, transport_train: 121.58, transport_bus: 121.58, transport_plane: 70.39, household_heating: 126.87, household_electricity: 165.49, household_furnishings: 132.39, household_lighting: 126.87, clothing_fastfashion: 179.17, clothing_sustainable: 129.74, health_meds: 210.06, health_scans: 98.85, food_meat: 123.12, food_fish: 91.35, food_dairy: 99.29, food_oils: 83.41)
+                       
+                       addData(user: fakeData, userId: uid)
+                       
+                       print("set fake data in FB")
+                   }else{
+                       print("no need to set")
+                   }
+        }
+        
+        
+     
+        
+    }
     func getPledgesInProgress(pledgePicked: Pledge, durationSelected: Int)-> [Pledge]{
     let db = Firestore.firestore()
     let auth = Auth.auth();
@@ -201,16 +233,17 @@ db.collection("UserPledges").document(uid).collection("Pledges").document(String
     }
 
     
-    func getUserData(uid: String) -> [UserData]{
+    func getUserData(uid: String){
             let db = Firestore.firestore()
-            userData = [UserData]()
+            self.userData = [UserData]()
             let auth = Auth.auth();
             let currentUser = (auth.currentUser?.uid)!
+        print("doing")
         
             
                 let data = db.collection("UserData").document(currentUser).collection("Data")    .getDocuments { [self] (snapshot, error) in
                     guard let snapshot = snapshot, error == nil else {
-                     //handle error
+                     print("error")
                      return
                    }
                 
@@ -246,18 +279,19 @@ db.collection("UserPledges").document(uid).collection("Pledges").document(String
                     let dateConverted = Date(timeIntervalSince1970: TimeInterval(date!.seconds))
                     
                    
-                    userData.append(UserData(ID: ID!, date: dateConverted, average: average!, transport: transport!, household: household!, clothing: clothing!, health: health!, food: food!, transport_walking: transport_walking!, transport_car: transport_car!, transport_train: transport_train!, transport_bus: transport_bus!, transport_plane: transport_plane!, household_heating: household_heating!, household_electricity: household_electricity!, household_furnishings: household_furnishings!, household_lighting: household_lighting!, clothing_fastfashion: clothing_fastfashion!, clothing_sustainable: clothing_sustainable!, health_meds: health_meds!, health_scans: health_scans!, food_meat: food_meat!, food_fish: food_fish!, food_dairy: food_dairy!, food_oils: food_oils!))
+                       self.userData.append(UserData(ID: ID!, date: dateConverted, average: average!, transport: transport!, household: household!, clothing: clothing!, health: health!, food: food!, transport_walking: transport_walking!, transport_car: transport_car!, transport_train: transport_train!, transport_bus: transport_bus!, transport_plane: transport_plane!, household_heating: household_heating!, household_electricity: household_electricity!, household_furnishings: household_furnishings!, household_lighting: household_lighting!, clothing_fastfashion: clothing_fastfashion!, clothing_sustainable: clothing_sustainable!, health_meds: health_meds!, health_scans: health_scans!, food_meat: food_meat!, food_fish: food_fish!, food_dairy: food_dairy!, food_oils: food_oils!))
                     
 
 
                    })
-                 
+                    print("finidhed getting user data: ", userData.count)
+                    self.userData = userData
                  }
                 
         
            
             
-            return userData
+            
             
         }
     

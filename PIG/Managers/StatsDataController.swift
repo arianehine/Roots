@@ -24,25 +24,6 @@ class StatsDataController: ObservableObject {
         self.fbLogic = fbLogic
     }
     
-    func retrieveUserData() -> [UserData]{
-
-        let auth = Auth.auth();
-        var toReturn = [UserData]()
-        if(auth.currentUser != nil){
-        
-
-            fbLogic.userData = fbLogic.getUserData(uid: auth.currentUser!.uid)
-            toReturn = fbLogic.userData
-            
-          
-
-        }
-        return toReturn;
-        
-        
-
-
-    }
     
     func convertCSVIntoArray(csvHandler: CSVHandler, directory: URL) -> [UserData]{
 
@@ -212,6 +193,7 @@ class StatsDataController: ObservableObject {
         }
     
         }
+        print("return reports:", returnReports)
         return returnReports;
         
     }
@@ -238,7 +220,7 @@ class StatsDataController: ObservableObject {
             }
         }
       
-       
+        print("return reports:", returnReports)
         return returnReports;
      
     }
@@ -267,7 +249,7 @@ class StatsDataController: ObservableObject {
                 returnReports.append(reportNew)
             }
         }
-       
+     print("return reports:" , returnReports)
         return returnReports;
         
     }
@@ -378,12 +360,19 @@ class StatsDataController: ObservableObject {
 
 
     func findUserData(people: [UserData], ID: String) -> [UserData]{
+        var IDcopy = ID
         print("ID ", ID)
-
+        if(people.count>0){
+        let firstID = people[0].ID
+        if(firstID != "low" && firstID != "average"  && firstID != "high"){
+            IDcopy = Auth.auth().currentUser!.uid
+        }
+        }
         var user = [UserData]();
         if(stateUser.count == 0 ){
-        let matches = people.filter { $0.ID == ID }
-       
+            print(people)
+        let matches = people.filter { $0.ID == IDcopy }
+            print("matches", matches.count)
         for item in matches{
             user.append(item)
     }
@@ -394,6 +383,8 @@ class StatsDataController: ObservableObject {
 
   
 }
+    
+    
     func stringToDate(string: String) -> Date{
         let dateFormatter = DateFormatter()
 

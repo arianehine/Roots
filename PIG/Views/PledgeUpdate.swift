@@ -114,6 +114,7 @@ struct PledgeUpdate: View {
    
     }
     
+
     func allowedToTrack(pledgeInQuestion: Pledge)->Bool{
         return true
     }
@@ -159,6 +160,8 @@ struct PledgeUpdate: View {
                 }
                 //self.csvHandler.reduceFootprint(amount: pledgeToUpdate.reductionPerDay, days: pledgeToUpdate.durationInDays, pledgeArea: pledgeToUpdate.category)
                 let dataToReduceBy = self.csvHandler.getReductionData(amount: pledgeToUpdate.reductionPerDay, days: pledgeToUpdate.durationInDays, pledgeArea: pledgeToUpdate.category, footprint: viewModel.footprint)
+                
+                self.fbLogic.addData(user: dataToReduceBy, userId: auth.currentUser!.uid);
 
              
                 self.statsController.originalPeople.append(dataToReduceBy)

@@ -12,6 +12,7 @@ import SwiftUI
 class CSVHandler: ObservableObject{
 
     @State var fbLogic: FirebaseLogic
+    @Published var fakeData: UserData = UserData(ID: "0", date: Date(), average: 0, transport: 0, household: 0, clothing: 0, health: 0, food: 0, transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds: 0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0.0)
 
     func appendFakeInfoForToday(existingData: String) ->String{
         
@@ -22,10 +23,13 @@ class CSVHandler: ObservableObject{
        
         let stringToAppend = commaSeparate(object: dataToAdd)
         existingDataCopy.append(contentsOf: stringToAppend)
-
+        self.fakeData = dataToAdd
         return existingDataCopy
         
     }
+    
+    
+
      init(fbLogic: FirebaseLogic){
         self.fbLogic = fbLogic
     }
@@ -177,7 +181,7 @@ class CSVHandler: ObservableObject{
     //
     //    //if you have a header row, remove it here
     //    rows.removeFirst()
-    func appendToCSV(toAppend: UserData){
+    func appendToCSV(toAppend: UserData, statsController: StatsDataController){
         let encryptedCSV = self.readEncryptedCSV();
         let keys = PIGKeys()
         let encryptionKEY = keys.encryptionKEY
@@ -196,8 +200,7 @@ class CSVHandler: ObservableObject{
 
         let success1 = self.writeEncryptedDoc(string: dataEncrypted)
        
-        var statsController = StatsDataController(fbLogic: fbLogic)
-
+       
             
      
 
