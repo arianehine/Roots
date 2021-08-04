@@ -69,7 +69,7 @@ struct BarView: View {
             NavigationLink(destination: NumberEarthsView(ID: Auth.auth().currentUser!.uid,  report: report)){
          
                 Chimney().foregroundColor((report.average / Double(report.numReportsComposingReport)) < 2200 ? Color.green : Color.red)
-                .frame(width: barWidth, height: CGFloat(yValue))
+                .frame(width: barWidth, height: CGFloat(abs(yValue)))
             
           
             }
