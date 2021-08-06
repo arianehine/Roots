@@ -10,7 +10,7 @@ import WrappingHStack
 
 struct NumberEarthsView: View {
     let ID: String
-    let report: Report
+    @Binding var report: Report
     //    @Binding var reports: [Report]
     //    @Binding var originalReports: [Report]
     @EnvironmentObject var statsController: StatsDataController
@@ -45,7 +45,7 @@ struct NumberEarthsView: View {
             
         }.onAppear(){
             numEarths = getNumEarths(report: report);
-            difference = (report.average - 2200) / 1000
+            difference = (report.average / Double(report.numReportsComposingReport) - 2200) / 1000
             if difference>0 {
                 moreOrless = "more"
             }else{

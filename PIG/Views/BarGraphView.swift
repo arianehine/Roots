@@ -55,7 +55,7 @@ func initFunc(){
 
 struct BarView: View {
     
-    let report: Report
+    @State var report: Report
     let divisor: Double
     let barWidth: CGFloat
     
@@ -66,7 +66,7 @@ struct BarView: View {
         
         return VStack {
             Text(String(format: "%.2f kg Co2 average",(report.average / Double(report.numReportsComposingReport)))).font(/*@START_MENU_TOKEN@*/.caption/*@END_MENU_TOKEN@*/).padding(.bottom, 50)
-            NavigationLink(destination: NumberEarthsView(ID: Auth.auth().currentUser!.uid,  report: report)){
+            NavigationLink(destination: NumberEarthsView(ID: Auth.auth().currentUser!.uid,  report: $report)){
          
                 Chimney().foregroundColor((report.average / Double(report.numReportsComposingReport)) < 2200 ? Color.green : Color.red)
                 .frame(width: barWidth, height: CGFloat(abs(yValue)))
