@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+//Allows a user to change the time period of data they are viewing
+//This is what is displayed under the graphs
 struct ToggleView: View {
     
     @Binding public var selected: String
@@ -18,7 +20,7 @@ struct ToggleView: View {
             
             VStack{
                 if(self.selected != ""){
-                Text("Currently showing \(self.selected) view" ).padding(.top)
+                    Text("Currently showing \(self.selected) view" ).padding(.top)
                 }
                 
                 Button(action: {
@@ -37,20 +39,17 @@ struct ToggleView: View {
             
             VStack{
                 
-
-                
                 RadioButtons(selected: self.$selected,show: self.$show)
                     .offset(y: self.show ? (UIApplication.shared.windows.last?.safeAreaInsets.bottom)! + 0 : UIScreen.main.bounds.height)
                 
             }.background(Color(UIColor.label.withAlphaComponent(self.show ? 0.2 : 0)).edgesIgnoringSafeArea(.all))
             
         }.frame(maxHeight: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-        .background(Color.white.edgesIgnoringSafeArea(.all))
-        .animation(.default)
-        .colorInvert()
+            .background(Color.white.edgesIgnoringSafeArea(.all))
+            .animation(.default)
+            .colorInvert()
     }
 }
-
 
 
 struct RadioButtons : View {
@@ -88,7 +87,7 @@ struct RadioButtons : View {
                             }
                         }
                         
-
+                        
                         
                     }.foregroundColor(.black)
                     
@@ -99,25 +98,25 @@ struct RadioButtons : View {
                 
                 Spacer()
                 
-                 Button(action: {
-                     
+                Button(action: {
+                    
                     self.show.toggle();
                     
                     
-                 }) {
-                     
-                     Text("Continue").padding(.vertical).padding(.horizontal,25).foregroundColor(.white)
-                     
-                 }
-                 .background(
+                }) {
+                    
+                    Text("Continue").padding(.vertical).padding(.horizontal,25).foregroundColor(.white)
+                    
+                }
+                .background(
                     
                     self.selected != "" ?
                     
                     LinearGradient(gradient: .init(colors: [Color("Color"),Color("Color1")]), startPoint: .leading, endPoint: .trailing) :
-                    
+                        
                         LinearGradient(gradient: .init(colors: [Color.black.opacity(0.2),Color.black.opacity(0.2)]), startPoint: .leading, endPoint: .trailing)
-                 
-                 )
+                    
+                )
                 .clipShape(Capsule())
                 .disabled(self.selected != "" ? false : true)
                 
@@ -125,10 +124,10 @@ struct RadioButtons : View {
             }.padding(.top)
             
         }.padding(.vertical)
-        .padding(.horizontal,25)
-        .padding(.bottom,(UIApplication.shared.windows.last?.safeAreaInsets.bottom)! + 15)
-        .background(Color.white)
-        .cornerRadius(30)
+            .padding(.horizontal,25)
+            .padding(.bottom,(UIApplication.shared.windows.last?.safeAreaInsets.bottom)! + 15)
+            .background(Color.white)
+            .cornerRadius(30)
     }
 }
 

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//The view shown to users when the ask for how to improve their worst carbon fooptprint area
 struct ImproveView: View {
     @StateObject var statsController: StatsDataController
     @Binding var worstArea: String
@@ -24,69 +25,62 @@ struct ImproveView: View {
         VStack{
             
             getSpecifics(worstArea: worstArea, reports: reports, timePeriod: timePeriod, sample: sample, worstTravel: worstTravel);
-
             
             
         }
         NavigationLink(destination: TipsView(statsController: statsController, worstArea: $worstArea)) {
             Text("How to improve \(worstArea)?").background(setTextColor(sample: sample, worstArea: worstArea)).foregroundColor(.white).cornerRadius(10).padding(.bottom)
         }.environmentObject(statsController).buttonStyle(PlainButtonStyle())
-        
-        //            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-        //                Text("How to improve?").background(setTextColor()).foregroundColor(.white).cornerRadius(10)
-        //            }).padding(.bottom)
-        //        }
-        
-        
-        
     }
     
-
+    
 }
+
+//Retrieves the details of their worst area
 @ViewBuilder func getSpecifics(worstArea: String, reports: [Report], timePeriod: String, sample: [ChartCellModel], worstTravel:String) -> some View{
     if (worstArea == "Transport") {
-    
-            var specifics = calculateTransport(reports: reports)
-            var worstTravel = getWorstTravelArea(sample: specifics);
-            let walkedAmount = specifics[0]
-            let drivenAmount = specifics[1]
-            let trainAmount = specifics[2]
-            let busAmount = specifics[3]
-            let taxiAmount = specifics[4]
-            let planeAmount = specifics[5]
-            
-            
+        
+        var specifics = calculateTransport(reports: reports)
+        var worstTravel = getWorstTravelArea(sample: specifics);
+        let walkedAmount = specifics[0]
+        let drivenAmount = specifics[1]
+        let trainAmount = specifics[2]
+        let busAmount = specifics[3]
+        let taxiAmount = specifics[4]
+        let planeAmount = specifics[5]
+        
+        
         Text("\(worstArea) is your worst area").foregroundColor(setTextColor(sample: sample, worstArea: worstArea) as! Color).shadow(color: .black, radius: 1)
-            Text("Your \(worstArea) statistics:")
-            Text("In the last \(timePeriod) you have:").font(.callout).padding(.bottom, 25.0).frame(alignment: .center)
-            Group{
-                HStack{
-                    Image(systemName: "figure.walk")
-                    Text("Walked \(walkedAmount, specifier: "%.2f") km").padding(.bottom) // Update tab title
-                }
-                HStack{
-                    Image(systemName: "car.fill")
-                    Text("Driven \(drivenAmount, specifier: "%.2f") km").padding(.bottom) // Update tab title
-                }
-                HStack{
-                    Image(systemName: "tram.fill")
-                    Text("Travelled \(trainAmount, specifier: "%.2f") km by train").padding(.bottom) // Update tab title
-                }
-                HStack{
-                    Image(systemName: "bus.fill")
-                    Text("Travelled \(busAmount, specifier: "%.2f") km by bus").padding(.bottom) // Update tab title
-                }
-                HStack{
-                    Image(systemName: "figure.wave")
-                    Text("Travelled \(taxiAmount, specifier: "%.2f") km by taxi").padding(.bottom) // Update tab title
-                }
-                HStack{
-                    Image(systemName: "airplane")
-                    Text("Flown \(planeAmount, specifier: "%.2f") km").padding(.bottom) // Update tab title
-                }
-                Spacer()
-                Text("Your worst \(worstArea) area is \(worstTravel)").font(.subheadline);
+        Text("Your \(worstArea) statistics:")
+        Text("In the last \(timePeriod) you have:").font(.callout).padding(.bottom, 25.0).frame(alignment: .center)
+        Group{
+            HStack{
+                Image(systemName: "figure.walk")
+                Text("Walked \(walkedAmount, specifier: "%.2f") km").padding(.bottom) // Update tab title
             }
+            HStack{
+                Image(systemName: "car.fill")
+                Text("Driven \(drivenAmount, specifier: "%.2f") km").padding(.bottom) // Update tab title
+            }
+            HStack{
+                Image(systemName: "tram.fill")
+                Text("Travelled \(trainAmount, specifier: "%.2f") km by train").padding(.bottom) // Update tab title
+            }
+            HStack{
+                Image(systemName: "bus.fill")
+                Text("Travelled \(busAmount, specifier: "%.2f") km by bus").padding(.bottom) // Update tab title
+            }
+            HStack{
+                Image(systemName: "figure.wave")
+                Text("Travelled \(taxiAmount, specifier: "%.2f") km by taxi").padding(.bottom) // Update tab title
+            }
+            HStack{
+                Image(systemName: "airplane")
+                Text("Flown \(planeAmount, specifier: "%.2f") km").padding(.bottom) // Update tab title
+            }
+            Spacer()
+            Text("Your worst \(worstArea) area is \(worstTravel)").font(.subheadline);
+        }
     }else if(worstArea == "Clothing") {
         
         var specifics = calculateClothing(reports: reports)
@@ -95,7 +89,7 @@ struct ImproveView: View {
         let susAmount = specifics[1]
         
         
-    Text("\(worstArea) is your worst area").foregroundColor(setTextColor(sample: sample, worstArea: worstArea) as! Color).shadow(color: .black, radius: 1)
+        Text("\(worstArea) is your worst area").foregroundColor(setTextColor(sample: sample, worstArea: worstArea) as! Color).shadow(color: .black, radius: 1)
         Text("Your \(worstArea) statistics:")
         Text("In the last \(timePeriod) you have used:").font(.callout).padding(.bottom, 25.0).frame(alignment: .center)
         Group{
@@ -107,50 +101,50 @@ struct ImproveView: View {
                 Image(systemName: "arrow.3.trianglepath")
                 Text("Sustainable fashion: \(susAmount, specifier: "%.2f") km").padding(.bottom) // Update tab title
             }
-        
+            
             Spacer()
             Text("Your worst \(worstArea) area is \(worstClothing)").font(.subheadline);
         }
-    
+        
     }else if(worstArea == "Household") {
-       
         
-                var specifics = calculateHouseHold(reports: reports)
-                var worstHouseHold = getWorstHouseHoldArea(sample: specifics);
-                let heatingAmount = specifics[0]
-                let electricAmount = specifics[1]
-                let furnishingsAmount = specifics[2]
-                let lightingAmount = specifics[3]
-                
-                
-            Text("\(worstArea) is your worst area").foregroundColor(setTextColor(sample: sample, worstArea: worstArea) as! Color).shadow(color: .black, radius: 1)
-                Text("Your \(worstArea) statistics:")
-                Text("In the last \(timePeriod) you have:").font(.callout).padding(.bottom, 25.0).frame(alignment: .center)
-                Group{
-                    HStack{
-                        Image(systemName: "flame.fill")
-                        Text("Heating \(heatingAmount, specifier: "%.2f")").padding(.bottom) // Update tab title
-                    }
-                    HStack{
-                        Image(systemName: "bolt.fill")
-                        Text("Electric \(electricAmount, specifier: "%.2f")").padding(.bottom) // Update tab title
-                    }
-                    HStack{
-                        Image(systemName: "house.fill")
-                        Text("Furnishing \(furnishingsAmount, specifier: "%.2f")").padding(.bottom) // Update tab title
-                    }
-                    HStack{
-                        Image(systemName: "lightbulb.fill")
-                        Text("Lighting \(lightingAmount, specifier: "%.2f")").padding(.bottom) // Update tab title
-                    }
-                   
-                    Spacer()
-                    Text("Your worst \(worstArea) area is \(worstHouseHold)").font(.subheadline);
-                }
         
-
+        var specifics = calculateHouseHold(reports: reports)
+        var worstHouseHold = getWorstHouseHoldArea(sample: specifics);
+        let heatingAmount = specifics[0]
+        let electricAmount = specifics[1]
+        let furnishingsAmount = specifics[2]
+        let lightingAmount = specifics[3]
+        
+        
+        Text("\(worstArea) is your worst area").foregroundColor(setTextColor(sample: sample, worstArea: worstArea) as! Color).shadow(color: .black, radius: 1)
+        Text("Your \(worstArea) statistics:")
+        Text("In the last \(timePeriod) you have:").font(.callout).padding(.bottom, 25.0).frame(alignment: .center)
+        Group{
+            HStack{
+                Image(systemName: "flame.fill")
+                Text("Heating \(heatingAmount, specifier: "%.2f")").padding(.bottom) // Update tab title
+            }
+            HStack{
+                Image(systemName: "bolt.fill")
+                Text("Electric \(electricAmount, specifier: "%.2f")").padding(.bottom) // Update tab title
+            }
+            HStack{
+                Image(systemName: "house.fill")
+                Text("Furnishing \(furnishingsAmount, specifier: "%.2f")").padding(.bottom) // Update tab title
+            }
+            HStack{
+                Image(systemName: "lightbulb.fill")
+                Text("Lighting \(lightingAmount, specifier: "%.2f")").padding(.bottom) // Update tab title
+            }
+            
+            Spacer()
+            Text("Your worst \(worstArea) area is \(worstHouseHold)").font(.subheadline);
+        }
+        
+        
     }else if(worstArea == "Food") {
-       
+        
         
         var specifics = calculateFood(reports: reports)
         var worstFood = getWorstFoodArea(sample: specifics);
@@ -160,7 +154,7 @@ struct ImproveView: View {
         let oilsAmount = specifics[3]
         
         
-    Text("\(worstArea) is your worst area").foregroundColor(setTextColor(sample: sample, worstArea: worstArea) as! Color).shadow(color: .black, radius: 1)
+        Text("\(worstArea) is your worst area").foregroundColor(setTextColor(sample: sample, worstArea: worstArea) as! Color).shadow(color: .black, radius: 1)
         Text("Your \(worstArea) statistics:")
         Text("In the last \(timePeriod) you have:").font(.callout).padding(.bottom, 25.0).frame(alignment: .center)
         Group{
@@ -193,7 +187,7 @@ struct ImproveView: View {
         let scansAmount = specifics[1]
         
         
-    Text("\(worstArea) is your worst area").foregroundColor(setTextColor(sample: sample, worstArea: worstArea) as! Color).shadow(color: .black, radius: 1)
+        Text("\(worstArea) is your worst area").foregroundColor(setTextColor(sample: sample, worstArea: worstArea) as! Color).shadow(color: .black, radius: 1)
         Text("Your \(worstArea) statistics:")
         Text("In the last \(timePeriod) you have:").font(.callout).padding(.bottom, 25.0).frame(alignment: .center)
         Group{
@@ -205,7 +199,7 @@ struct ImproveView: View {
                 Image(systemName: "waveform.path.ecg.rectangle")
                 Text("Scans: \(scansAmount, specifier: "%.2f") km").padding(.bottom) // Update tab title
             }
-        
+            
             Spacer()
             Text("Your worst \(worstArea) area is \(worstHealth)").font(.subheadline);
         }
@@ -231,6 +225,7 @@ func calculateTransport(reports: [Report]) -> [Double]{
     
 }
 
+//**THE FUNCTIONS FROM HERE DOWN ARE SIMPLY HELPER FUNCTIONS TO CALCULATE THE AMOUNTS AND HELP THE VIEW**//
 
 func calculateFood(reports: [Report]) -> [Double]{
     var localMeat = 0.0
@@ -299,18 +294,18 @@ func setTextColor(sample: [ChartCellModel], worstArea: String) -> Color{
 }
 
 public func setTextColor(worstArea: String) -> Color{
-        if(worstArea == "Transport"){
-            return Color.red;
-        } else if(worstArea == "Household"){
-            return Color.yellow;
+    if(worstArea == "Transport"){
+        return Color.red;
+    } else if(worstArea == "Household"){
+        return Color.yellow;
     }else if(worstArea == "Health"){
         return Color.blue;
-}else if(worstArea == "Fashion"){
-    return Color.purple;
-}
-else if(worstArea == "Food"){
-    return Color.green;
-}
+    }else if(worstArea == "Fashion"){
+        return Color.purple;
+    }
+    else if(worstArea == "Food"){
+        return Color.green;
+    }
     print(worstArea)
     return Color.white;
 }
