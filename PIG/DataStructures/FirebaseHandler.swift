@@ -9,7 +9,7 @@ import Foundation
 import Firebase
 import FirebaseFirestore
 
-//The class which deals with all of the requests and interactgions with the Firestore Firebase database
+//The class which deals with most of the requests and interactgions with the Firestore Firebase database
 class FirebaseLogic: ObservableObject {
     //All the published vars which other classes read the data from
     @Published var pledgesInProgress = [Pledge]()

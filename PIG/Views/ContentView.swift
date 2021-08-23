@@ -15,8 +15,7 @@ import FirebaseFirestore
 import Combine
 import Keys
 
-
-
+//The main view which all views stem from
 struct ContentView: View {
     
     let auth = Auth.auth();
@@ -39,18 +38,18 @@ struct ContentView: View {
     var body: some View {
         NavigationView{
             
-            
-            
+            //If signed in display the views with user data, otherwise display the sign up / sign in view
             if viewModel.signedIn{
                 
                 VStack{
                     
+                    //Bottom bar with tabs for the different data views
                     TabView(selection: $selection){
                         StatsView(ID: viewModel.footprint, originalPeople: statsController.fbLogic.userData, fbLogic: $fbLogic, selection: selection).environmentObject(statsController).environmentObject(viewModel)
                             .tabItem {
                                 VStack {
                                     Image(systemName: "chart.bar")
-                                    Text("Stats") // Update tab title
+                                    Text("Stats")
                                 }
                             }
                             .tag(0)
@@ -65,7 +64,7 @@ struct ContentView: View {
                                 }
                             }.tag(1)
                         
-                        StreaksView(uid: auth.currentUser!.uid)
+                        StreaksView(uid: auth.currentUser!.uid).environmentObject(fbLogic)
                             .tabItem {
                                 VStack {
                                     Image(systemName: "star.fill")
@@ -73,8 +72,6 @@ struct ContentView: View {
                                 }
                             }
                             .tag(2)
-                        
-                        
                         
                         PledgesInProgress(
                             statsController: statsController).environmentObject(fbLogic)
@@ -109,7 +106,7 @@ struct ContentView: View {
                 
                 
             }else{
-                
+                //If not logged in, get them to sign in
                 SignInView().environmentObject(viewModel)
                     .navigationBarHidden(true)
             }
@@ -118,12 +115,13 @@ struct ContentView: View {
             
             viewModel.signedIn = viewModel.isSignedIn;
             viewModel.alert=false
-          
-          
+            
+            
         }
         
     }
     
+    //Get the user's footprint type from Firestore
     func getFootprint(){
         let auth = Auth.auth();
         let db = Firestore.firestore();
@@ -139,7 +137,7 @@ struct ContentView: View {
                 
                 footprint = document.data()?["footprint"] as? String ?? ""
                 viewModel.footprint = footprint
-             
+                
                 
                 return
             } else {
@@ -150,7 +148,7 @@ struct ContentView: View {
             return
         }
         
-
+        
     }
     
     func logVisit(uid: String){
@@ -177,13 +175,13 @@ struct ContentView: View {
             
             
             if(streak == 0){
-              
+                
                 db.collection("Users").document(uid).updateData(["currentStreak": 1])
                 fbLogic.incrementUserXP(amount: 10, uid: uid)
                 message = "No streak. Log in tomorrow to get one! +10XP"
                 
                 getXP(uid: auth.currentUser!.uid)
-               
+                
                 toastShow = true;
                 db.collection("Users").document(uid).collection("logins").document(date.dateToString(date: date)).setData(["date": date])
             }else if(streak != 0){
@@ -208,26 +206,26 @@ struct ContentView: View {
                     
                     
                     let dateConverted = Date(timeIntervalSince1970: TimeInterval(lastVisit.timeIntervalSince1970))
-
+                    
                     if(!(Calendar.current.isDateInToday(dateConverted))){
                         if(Calendar.current.isDateInYesterday(dateConverted)){
-                          
+                            
                             db.collection("Users").document(uid).updateData(["currentStreak": FieldValue.increment(Int64(1))])
                             fbLogic.incrementUserXP(amount: ((streak+1)*10), uid: uid)
                             message = "Congrats, you have a \(streak+1) day streak. + \((streak+1) * 10)XP"
                             getXP(uid: auth.currentUser!.uid)
-                           
+                            
                             
                             toastShow = true;
                             db.collection("Users").document(uid).collection("logins").document(date.dateToString(date: date)).setData(["date": date])
                         }else{
-                         
+                            
                             db.collection("Users").document(uid).updateData(["currentStreak": 1])
                             fbLogic.incrementUserXP(amount: 10, uid: uid)
                             message = "No streak. Log in tomorrow to get one! +10XP"
-                          
+                            
                             getXP(uid: auth.currentUser!.uid)
-                           
+                            
                             toastShow = true;
                             db.collection("Users").document(uid).collection("logins").document(date.dateToString(date: date)).setData(["date": date])
                         }
@@ -235,7 +233,7 @@ struct ContentView: View {
                         
                         
                     }else{
-                    
+                        
                         db.collection("Users").document(uid).collection("logins").document(date.dateToString(date: date)).setData(["date": date])
                     }
                 }
@@ -246,12 +244,10 @@ struct ContentView: View {
             
         }
         
-
+        
     }
     
-    
-
-    
+    //Check if the user has a streak or not
     func checkIfStreak(fbLogic: FirebaseLogic) -> Bool{
         
         
@@ -264,9 +260,7 @@ struct ContentView: View {
         
     }
     
-    
-    
-    
+    //Get the user's XP
     func getXP(uid: String){
         let auth = Auth.auth();
         let db = Firestore.firestore();
@@ -281,18 +275,17 @@ struct ContentView: View {
                 print("Document does not exist")
             }
             
-            
-            
         }
-        
         
     }
     
+    //Calculate user's level from XP
     func getLevel(XP: Int) -> Int{
         
         return Int(XP / 100);
     }
     
+    //Get the user's name
     func getName(){
         let auth = Auth.auth();
         let db = Firestore.firestore();
@@ -306,7 +299,7 @@ struct ContentView: View {
                 let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
                 
                 name = document.data()?["firstName"] as? String ?? "waiting"
-              
+                
                 
                 return
             } else {
@@ -314,15 +307,8 @@ struct ContentView: View {
             }
             name = document?.data()?["firstName"] as! String
             
-            
         }
         
-
     }
-    
-    
-    
-   
-    
     
 }

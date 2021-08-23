@@ -7,23 +7,18 @@
 import SwiftUI
 import MapKit
 
+//Shows the map view, makes and updates the Map View
 struct MapShower: UIViewRepresentable {
     
     @EnvironmentObject var mapData: MapViewModel
-  
-    
-    
     func makeCoordinator() -> Coordinator {
         return Coordinator()
     }
     
     func makeUIView(context: Context) -> MKMapView {
-        
         let view = mapData.mapView
-        
         view.showsUserLocation = true
         view.delegate = context.coordinator
-        
         return view
     }
     

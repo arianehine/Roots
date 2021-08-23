@@ -7,7 +7,8 @@
 
 import SwiftUI
 import CoreLocation
-
+//Inspired by //https://kavsoft.dev/SwiftUI_2.0/Advance_MapKit
+//Shows the map and manages the format it is displayed in (e.g search bar at top)
 struct MapView: View {
     
     @StateObject var mapData = MapViewModel()
@@ -22,16 +23,14 @@ struct MapView: View {
             
             // MapView...
             MapShower()
-                // using it as environment object so that it can be used ints subViews....
+            // using it as environment object so that it can be used ints subViews....
                 .environmentObject(mapData)
-                
                 .ignoresSafeArea(.all, edges: .all)
             
             VStack{
-                
+                //Show search bar
                 VStack(spacing: 0){
                     HStack{
-                        
                         Image(systemName: "magnifyingglass")
                             .foregroundColor(.gray)
                         
@@ -42,7 +41,7 @@ struct MapView: View {
                     .padding(.horizontal)
                     .background(Color.white)
                     
-                    // Displaying Results...
+                    // Displaying Results of query
                     
                     if !mapData.places.isEmpty && mapData.searchTxt != ""{
                         
@@ -93,55 +92,51 @@ struct MapView: View {
                             .background(Color.primary)
                             .clipShape(Circle())
                     })
-  
+                    
                     Button(action: {
                         self.showingModal = false
                     }) {
                         Text("Quit tracking pledge?").frame(height: 20)
-                            
+                        
                     }.background(Color.white)
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding()
             }
-          
-        
-        
-        
+            
         }.alert(isPresented: $mapData.didArriveAtDestination) {
             
-
-               
+            
+            
             for region in locationManager.monitoredRegions {
                 locationManager.stopMonitoring(for: region)
             }
-           
+            
             completed = true
-                showingModal = false
-
-          
+            showingModal = false
+            
+            //Display alert when user arrives at destination (i.e. enters monitored region)
             return Alert(
-              title: Text("You have arrived!"),
-              message:
-                Text("""
+                title: Text("You have arrived!"),
+                message:
+                    Text("""
                   You have arrived - ready to collect your pledge points?
                   """),
-              primaryButton: .default(Text("Yes")),
-              secondaryButton: .default(Text("No"))
+                primaryButton: .default(Text("Yes")),
+                secondaryButton: .default(Text("No"))
             )
         }
-           
+        
         
         .onAppear(perform: {
             
-            // Setting Delegate...
+            // Setting Delegate.
             locationManager.delegate = mapData
             locationManager.requestWhenInUseAuthorization()
-            //locationManager.startMonitoring(for: mapData.circularRegions[0])
-           
-
+            
+            
         })
-        // Permission Denied Alert...
+        // Permission Denied Alert
         .alert(isPresented: $mapData.permissionDenied, content: {
             
             Alert(title: Text("Permission Denied"), message: Text("Please Enable Permission In App Settings"), dismissButton: .default(Text("Goto Settings"), action: {
@@ -152,8 +147,8 @@ struct MapView: View {
         })
         .onChange(of: mapData.searchTxt, perform: { value in
             
-            // Searching Places...
-            // Delay to avoid Continous Search Request...
+            // Searching Places
+            // Delay to avoid Continous Search Request
             let delay = 0.3
             
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
@@ -167,11 +162,12 @@ struct MapView: View {
         })
     }
 }
+//Make the location manager
 private func makeLocationManager() -> CLLocationManager {
-
-  let manager = CLLocationManager()
+    
+    let manager = CLLocationManager()
     manager.allowsBackgroundLocationUpdates = true
-
+    
     manager.startUpdatingLocation()
-  return manager
+    return manager
 }
