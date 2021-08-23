@@ -7,6 +7,7 @@
 
 import Foundation
 
+//Holds the information about a pledge, in the same format as in Firestore
 public struct Pledge : Identifiable{
     public var id: Int
     var description: String

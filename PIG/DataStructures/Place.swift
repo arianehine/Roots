@@ -6,10 +6,10 @@
 //
 import MapKit
 import Foundation
+//Holds information about a place/map location
 struct Place : Identifiable{
     var id = UUID()
     var placemark: CLPlacemark
-    
     init(placemark: CLPlacemark){
         self.placemark = placemark
     }

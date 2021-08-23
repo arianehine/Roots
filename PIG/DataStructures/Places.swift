@@ -8,6 +8,7 @@
 import Foundation
 import CoreLocation
 
+//Holds information about a place, including a distance (intended to be the distance from the user's location)
 struct PlaceWithDistance : Identifiable{
     var id = UUID()
     var placemark: CLPlacemark

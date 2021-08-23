@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 
+//Safe array construct, which only lets array accesses happen within the given bounds
+//Source: https://stackoverflow.com/questions/66712572/swiftui-list-ondelete-index-out-of-range
 struct Safe<T: RandomAccessCollection & MutableCollection, C: View>: View {
     
     typealias BoundElement = Binding<T.Element>

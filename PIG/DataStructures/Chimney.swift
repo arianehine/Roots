@@ -8,23 +8,19 @@
 import Foundation
 import SwiftUI
 
+//The struct holding the path which draws a `chimney', for use within the bar chart
 struct Chimney: Shape{
     func path(in rect: CGRect) -> Path {
         var path = Path()
-        
-        
-       
 
         path.move(to: CGPoint(x: rect.midX-10, y: rect.minY+5))
-   
+        
         path.addLine(to: CGPoint(x: rect.minX+10, y: rect.maxY))
-    
+        
         path.addLine(to: CGPoint(x: rect.maxX-10, y: rect.maxY))
-
+        
         path.addLine(to: CGPoint(x: rect.midX+10, y: rect.minY+5))
         path.addLine(to: CGPoint(x: rect.midX+10, y: rect.minY+5))
-
-       
         
         path.move(to: CGPoint(x: rect.midX, y: rect.minY))
         path.addArc(center: .init(x: rect.midX, y: rect.minY), radius: 4, startAngle: Angle(degrees: 0.0), endAngle: Angle(degrees: 0.2), clockwise: true)
@@ -37,7 +33,7 @@ struct Chimney: Shape{
         
         path.move(to: CGPoint(x: rect.midX+15, y: rect.minY-30))
         path.addArc(center: .init(x: rect.midX+15, y: rect.minY-30), radius: 18, startAngle: Angle(degrees: 0.0), endAngle: Angle(degrees: 0.2), clockwise: true)
-     
+        
         return path
     }
 }

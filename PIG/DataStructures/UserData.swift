@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+//The data structure holding the user data - in the same format as it is in Firestore
 struct UserData: Hashable{
     var ID: String
     var date: Date

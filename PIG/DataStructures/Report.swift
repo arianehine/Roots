@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+//The data structure holding a report 
 struct Report: Hashable{
     var year: String;
     let average: Double;
