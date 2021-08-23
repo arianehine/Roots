@@ -7,7 +7,8 @@
 
 import Foundation
 import UIKit
-
+//Help converts an image to a pixel buffer for machine learning. These methods assist with the Camera View and ML processing
+//Code from https://www.hackingwithswift.com/whats-new-in-ios-11
 extension UIImage{
     func buffer() -> CVPixelBuffer? {
       let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue, kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary

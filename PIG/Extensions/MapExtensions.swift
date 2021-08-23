@@ -8,30 +8,25 @@
 import Foundation
 import NotificationCenter
 
+//Extend map view model with ability to notify when a region is entered
 extension MapViewModel: UNUserNotificationCenterDelegate {
     func userNotificationCenter(
-      _ center: UNUserNotificationCenter,
-      didReceive response: UNNotificationResponse,
-      withCompletionHandler completionHandler: @escaping () -> Void
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
     ) {
-      // 2
-    
-      // 3
         didArriveAtDestination = true
-      completionHandler()
+        completionHandler()
     }
-
-    // 4
+    
     func userNotificationCenter(
-      _ center: UNUserNotificationCenter,
-      willPresent notification: UNNotification,
-      withCompletionHandler completionHandler:
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler:
         @escaping (UNNotificationPresentationOptions) -> Void
     ) {
-      // 5
-      print("Received Notification in Foreground")
-      // 6
+        print("Received Notification in Foreground")
         didArriveAtDestination = true
-      completionHandler(.sound)
+        completionHandler(.sound)
     }
 }

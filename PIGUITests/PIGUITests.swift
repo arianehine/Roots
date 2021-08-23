@@ -22,19 +22,6 @@ class PIGUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
     
-    func testLabelDisplaysText() throws {
-        let app = XCUIApplication()
-          app.textFields.element.tap()
-
-          app.keys["t"].tap()
-          app.keys["e"].tap()
-          app.keys["s"].tap()
-          app.keys["t"].tap()
-          app.keyboards.buttons["Return"].tap()
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        XCTAssertTrue(app.staticTexts.element.label == "test")
-    }
     
 
     func testExample() throws {
@@ -46,6 +33,7 @@ class PIGUITests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
 
+    //Test to measure launch time
     func testLaunchPerformance() throws {
         if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
             // This measures how long it takes to launch your application.
