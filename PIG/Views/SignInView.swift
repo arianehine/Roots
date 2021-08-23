@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+//View used to sign in to an exisiting account
 struct SignInView: View {
     @State var email = ""
     @State var password = ""
@@ -16,10 +17,8 @@ struct SignInView: View {
         
         VStack{
             if viewModel.alert{
-                
-                
+                //Show an error if there is an issue with the credentials
                 ErrorView(alert: $viewModel.alert, error: $viewModel.error)
-                
                 
             }
             Image("logo")
@@ -34,7 +33,6 @@ struct SignInView: View {
                     .padding()
                     .background(Color(.secondarySystemBackground))
                 
-                
                 SecureField("Password", text: $password)
                     .disableAutocorrection(true)
                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
@@ -42,7 +40,6 @@ struct SignInView: View {
                     .background(Color(.secondarySystemBackground))
                 
                 Button(action:{
-                    
                     
                     viewModel.signIn(email: email, password: password)
                     guard !email.isEmpty, !password.isEmpty else{

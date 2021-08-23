@@ -8,22 +8,23 @@
 import SwiftUI
 import AVFoundation
 
+//The view which is used to take a picture of the recycling bin
 struct CameraView: View {
     
     @StateObject var camera = CameraModel()
     @Binding var completed: Bool
     @Binding var showModal: Bool
-
+    
     var body: some View{
         
         ZStack{
-            
-            
+            //Shows live camera preview
             CameraPreview(camera: camera)
                 .ignoresSafeArea(.all, edges: .all)
             
             VStack{
                 
+                //If photo is taken the show it on the screen
                 if camera.isTaken{
                     
                     HStack {
@@ -31,14 +32,14 @@ struct CameraView: View {
                         Spacer()
                         
                         Button(action: camera.reTake, label: {
-
+                            
                             Image(systemName: "arrow.triangle.2.circlepath.camera")
                                 .foregroundColor(.black)
                                 .padding()
                                 .background(Color.white)
                                 .clipShape(Circle())
                         })
-                        .padding(.trailing,10)
+                            .padding(.trailing,10)
                     }
                 }
                 
@@ -46,8 +47,7 @@ struct CameraView: View {
                 
                 HStack{
                     
-                    // if taken showing save and again take button...
-                    
+                    // If taken show the save and retake buttons
                     if camera.isTaken{
                         
                         Button(action: {if !camera.isSaved{camera.savePic()}}, label: {
@@ -59,14 +59,13 @@ struct CameraView: View {
                                 .background(Color.white)
                                 .clipShape(Capsule())
                         })
-                        .padding(.leading)
+                            .padding(.leading)
                         
                         Spacer()
                     }
                     else{
                         
                         Button(action: camera.takePic, label: {
-                            
                             ZStack{
                                 
                                 Circle()
@@ -91,14 +90,15 @@ struct CameraView: View {
             Alert(title: Text("Please Enable Camera Access"))
         }
         .alert(isPresented: $camera.isOfTrashCan) {
-         
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 self.completed = true
                 showModal = false;
             }
-            return Alert(title: Text("Yay, you've recycled!"))
             
-           
+            //Return sucess alert if the label was of a bin, after ML model processing
+            return Alert(title: Text("Yay, you've recycled!"))
+
         }
     }
 }

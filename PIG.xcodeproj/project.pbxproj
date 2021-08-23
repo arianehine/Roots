@@ -39,7 +39,7 @@
 		D64DB1C72652BE5E00D6FA4D /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64DB1C62652BE5E00D6FA4D /* StatsView.swift */; };
 		D6523D8726614DF1005A83D6 /* TipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6523D8626614DF1005A83D6 /* TipsView.swift */; };
 		D657445B2697B0A200CC4916 /* MyAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D657445A2697B0A200CC4916 /* MyAnnotation.swift */; };
-		D659E7FC266D674F0038A086 /* PleadeConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D659E7FB266D674F0038A086 /* PleadeConfirmation.swift */; };
+		D659E7FC266D674F0038A086 /* PledgeConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D659E7FB266D674F0038A086 /* PledgeConfirmation.swift */; };
 		D659E819266E91100038A086 /* PledgesInProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = D659E818266E910F0038A086 /* PledgesInProgress.swift */; };
 		D65A723326B742DD00C60F7D /* SelectFootprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65A723226B742DD00C60F7D /* SelectFootprint.swift */; };
 		D65C360826861CC0003A504F /* AdditionalPledgesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65C360726861CC0003A504F /* AdditionalPledgesView.swift */; };
@@ -126,7 +126,7 @@
 		D64DB1C62652BE5E00D6FA4D /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		D6523D8626614DF1005A83D6 /* TipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipsView.swift; sourceTree = "<group>"; };
 		D657445A2697B0A200CC4916 /* MyAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAnnotation.swift; sourceTree = "<group>"; };
-		D659E7FB266D674F0038A086 /* PleadeConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PleadeConfirmation.swift; sourceTree = "<group>"; };
+		D659E7FB266D674F0038A086 /* PledgeConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PledgeConfirmation.swift; sourceTree = "<group>"; };
 		D659E818266E910F0038A086 /* PledgesInProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PledgesInProgress.swift; sourceTree = "<group>"; };
 		D65A723226B742DD00C60F7D /* SelectFootprint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFootprint.swift; sourceTree = "<group>"; };
 		D65C360726861CC0003A504F /* AdditionalPledgesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalPledgesView.swift; sourceTree = "<group>"; };
@@ -255,7 +255,7 @@
 				D6523D8626614DF1005A83D6 /* TipsView.swift */,
 				D68DCAD7266AA64600AA9116 /* PledgesView.swift */,
 				D601C13D26541F8B0050BE7D /* BarGraphView.swift */,
-				D659E7FB266D674F0038A086 /* PleadeConfirmation.swift */,
+				D659E7FB266D674F0038A086 /* PledgeConfirmation.swift */,
 				D659E818266E910F0038A086 /* PledgesInProgress.swift */,
 				D60DC0F526B1C7230041D82D /* ErrorView.swift */,
 				D60DC0F726B1C7420041D82D /* SignUpView.swift */,
@@ -642,7 +642,7 @@
 				D6DC2C7D264D2E9D008C6A72 /* ContentView.swift in Sources */,
 				D6770F20269F9AD400E3D646 /* ComputerVision.swift in Sources */,
 				D665D7AA268E1BC30021156A /* LocationExtensions.swift in Sources */,
-				D659E7FC266D674F0038A086 /* PleadeConfirmation.swift in Sources */,
+				D659E7FC266D674F0038A086 /* PledgeConfirmation.swift in Sources */,
 				D6523D8726614DF1005A83D6 /* TipsView.swift in Sources */,
 				D65C360D26866F10003A504F /* TrackPledges.swift in Sources */,
 				D6440A63265AA9BD0023F889 /* ImproveView.swift in Sources */,

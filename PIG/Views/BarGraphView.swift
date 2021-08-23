@@ -9,6 +9,8 @@ import SwiftUI
 
 import FirebaseAuth
 
+//View which displays the bar views which make up the bar graph.
+//Does calculations to ensure bars fit within the device screen size
 struct BarGraphView: View {
     @Binding var selection: String
     @State var divisor = 0;
@@ -19,40 +21,38 @@ struct BarGraphView: View {
     var body: some View {
         
         VStack {
-                    
-                    HStack(alignment: .lastTextBaseline) {
-                        if !(reports.count == 0 || selection == "") {
-                            let maxValue =  reports.map { ($0.average / Double($0.numReportsComposingReport))}.max()
-                            let divisor = (maxValue ?? 500) / 5.0
-                            let barWidth = 300 / reports.count
-                        ForEach(self.reports, id: \.year) { report in
-                            BarView(report: report, divisor: divisor, barWidth: CGFloat(barWidth)) //need to keep a dynamic list of bars/reports
-                        }
-                            
-                        }else{
-                            Text("No data for this time period").font(.title)
-                        }
-                        
+            
+            HStack(alignment: .lastTextBaseline) {
+                if !(reports.count == 0 || selection == "") {
+                    let maxValue =  reports.map { ($0.average / Double($0.numReportsComposingReport))}.max()
+                    let divisor = (maxValue ?? 500) / 5.0
+                    let barWidth = 300 / reports.count
+                    ForEach(self.reports, id: \.year) { report in
+                        BarView(report: report, divisor: divisor, barWidth: CGFloat(barWidth)) //need to keep a dynamic list of bars/reports
                     }
-                    ToggleView(selected: $selection).onChange(of: selection, perform: { value in
-                        reports = statsController.updateReports(value: value, reports: originalReports, statsController: statsController)
-                    });
                     
-                    
-        }.onAppear(perform: initFunc
-    
-          
+                }else{
+                    Text("No data for this time period").font(.title)
+                }
                 
-    )
-        }
-func initFunc(){
-    if (selection != "") {
-
-    reports = statsController.updateReports(value: selection, reports: originalReports, statsController: statsController)
-    }
             }
+            ToggleView(selected: $selection).onChange(of: selection, perform: { value in
+                reports = statsController.updateReports(value: value, reports: originalReports, statsController: statsController)
+            });
+            
+            
+        }.onAppear(perform: initFunc
+        )
+    }
+    func initFunc(){
+        if (selection != "") {
+            
+            reports = statsController.updateReports(value: selection, reports: originalReports, statsController: statsController)
+        }
+    }
 }
 
+//The view which is used to make 1 bar within the graph, shaped like a Chimney
 struct BarView: View {
     
     @State var report: Report
@@ -67,11 +67,9 @@ struct BarView: View {
         return VStack {
             Text(String(format: "%.2f kg Co2 average",(report.average / Double(report.numReportsComposingReport)))).font(/*@START_MENU_TOKEN@*/.caption/*@END_MENU_TOKEN@*/).padding(.bottom, 50)
             NavigationLink(destination: NumberEarthsView(ID: Auth.auth().currentUser!.uid,  report: $report)){
-         
+                
                 Chimney().foregroundColor((report.average / Double(report.numReportsComposingReport)) < 2200 ? Color.green : Color.red)
-                .frame(width: barWidth, height: CGFloat(abs(yValue)))
-            
-          
+                    .frame(width: barWidth, height: CGFloat(abs(yValue)))
             }
             Text(report.year)
         }

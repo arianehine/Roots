@@ -7,9 +7,9 @@
 
 import SwiftUI
 
+//The class which does the processing of an image vis use of MobileNetV2 model
 struct ComputerVision: View {
     @State var classificationLabel: String = ""
-
     let model = MobileNetV2()
     var body: some View {
         VStack{
@@ -18,27 +18,23 @@ struct ComputerVision: View {
             }else{
                 Text("NOT a trash can, it is \(classificationLabel)")
             }
-        Button("Take picture of recycle bin"){
-            classificationLabel = self.performImageClassification(img: UIImage(named: "images")!)
-        }.background(LinearGradient(gradient: .init(colors: [Color("Color"),Color("Color1")]), startPoint: .leading, endPoint: .trailing))
-        .clipShape(Capsule())
-        
-        
-    }
+            Button("Take picture of recycle bin"){
+                classificationLabel = self.performImageClassification(img: UIImage(named: "images")!)
+            }.background(LinearGradient(gradient: .init(colors: [Color("Color"),Color("Color1")]), startPoint: .leading, endPoint: .trailing))
+                .clipShape(Capsule())
+            
+            
         }
+    }
     
+    //Put image through model and get output label
     func performImageClassification(img: UIImage) ->String{
-        print("performing")
+        
         let resizedImage = img.resizeTo(modelSize: CGSize(width: 224, height: 224))
-        print("1")
         let buffer = resizedImage.buffer()
-        print("2")
         let output = try? model.prediction(image: buffer!)
-        print("3")
-     
         
         if let output = output {
-            print("4")
             self.classificationLabel = output.classLabel
             
             //key: string, confidence level: double
@@ -48,8 +44,6 @@ struct ComputerVision: View {
             self.classificationLabel = result
             return result
         }
-        print("5")
-        print("classif label: \(self.classificationLabel)")
         return classificationLabel
         
     }

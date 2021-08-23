@@ -8,7 +8,8 @@
 import Foundation
 import SwiftUI
 
-
+//View which a user uses to sign up for an account
+//Routes them to the select footprint questionnaire upon sign up
 struct SignUpView: View {
     @State var email = ""
     @State var password = ""
@@ -26,66 +27,61 @@ struct SignUpView: View {
         VStack{
             
             if viewModel.alert{
-                
-                
                 ErrorView(alert: $viewModel.alert, error: $viewModel.error)
-                
             }
             if (personalDetailsEntered) {
                 SelectFootprint(transition: $transition, selection: $selected)
                     .environmentObject(viewModel)
-                .preferredColorScheme(.dark);            }else{
-            
-            Image("logo")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 150, height: 150, alignment: .center)
-            
-            VStack{
+                    .preferredColorScheme(.dark);
                 
-                TextField("First Name", text: $firstName)
-                    .disableAutocorrection(true)
-                    .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                    .padding()
-                    .background(Color(.secondarySystemBackground))
-                TextField("Last Name", text: $lastName)
-                    .disableAutocorrection(true)
-                    .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                    .padding()
-                    .background(Color(.secondarySystemBackground))
-                TextField("Email Address", text: $email)
-                    .disableAutocorrection(true)
-                    .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                    .padding()
-                    .background(Color(.secondarySystemBackground))
-                SecureField("Password", text: $password)
-                    .disableAutocorrection(true)
-                    .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                    .padding()
-                    .background(Color(.secondarySystemBackground))
+            }else{
                 
-                Button(action:{
-                    
-                    
-                    
-                    self.personalDetailsEntered = true
-                    
-                    
-                    
-                }, label: {
-                    Text("Create Account")
-                        .foregroundColor(Color.white)
-                        .frame(width: 200, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .cornerRadius(20)
-                        .background(Color.blue)
-                    
-                })
+                Image("logo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 150, height: 150, alignment: .center)
                 
+                VStack{
+                    
+                    TextField("First Name", text: $firstName)
+                        .disableAutocorrection(true)
+                        .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                        .padding()
+                        .background(Color(.secondarySystemBackground))
+                    TextField("Last Name", text: $lastName)
+                        .disableAutocorrection(true)
+                        .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                        .padding()
+                        .background(Color(.secondarySystemBackground))
+                    TextField("Email Address", text: $email)
+                        .disableAutocorrection(true)
+                        .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                        .padding()
+                        .background(Color(.secondarySystemBackground))
+                    SecureField("Password", text: $password)
+                        .disableAutocorrection(true)
+                        .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                        .padding()
+                        .background(Color(.secondarySystemBackground))
+                    
+                    Button(action:{
+                        
+                        self.personalDetailsEntered = true
+                        
+                    }, label: {
+                        Text("Create Account")
+                            .foregroundColor(Color.white)
+                            .frame(width: 200, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                            .cornerRadius(20)
+                            .background(Color.blue)
+                        
+                    })
+                    
+                }
+                .padding()
+                
+                Spacer()
             }
-            .padding()
-            
-            Spacer()
-        }
         }
         .navigationTitle("Create Account")
         .onAppear(){
@@ -96,16 +92,13 @@ struct SignUpView: View {
                 print("selection: ", selected)
                 viewModel.signUp(email: email, password: password, firstName: firstName, lastName: lastName, selection: selected)
                 viewModel.footprint = selected
-        
+                
                 print("signed up")
                 guard !email.isEmpty, !password.isEmpty else{
                     print("error")
                     return
-                 
-
                     
                 }
-              
                 
             }
         }

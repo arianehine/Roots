@@ -7,10 +7,12 @@
 
 import SwiftUI
 
+//The view containing the tips to improve your footprint
 struct TipsView: View {
     @State var statsController: StatsDataController
     @Binding var worstArea: String
     @State var fbLogic = FirebaseLogic()
+    
     var body: some View {
         Text("Tips to improve \(worstArea) :) ");
         Spacer()
@@ -20,13 +22,13 @@ struct TipsView: View {
             ButtonView(worstArea: worstArea)
         }
         
-                
+        
     }
     
+    //A view for the button on the page
     struct ButtonView: View {
         let worstArea: String
         var body: some View {
-            
             
             Text("Ready to improve \(worstArea)?").padding(.vertical).padding(.horizontal,25).foregroundColor(.white).font(.body)
                 .background(LinearGradient(gradient: .init(colors: [Color("Color"),Color("Color1")]), startPoint: .leading, endPoint: .trailing).frame(width: 300, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/))
@@ -34,7 +36,7 @@ struct TipsView: View {
         }
     }
     
-    
+    //Returns a view with the tips according to the area required
     @ViewBuilder func whatToImprove(worstArea: String)-> some View{
         switch worstArea {
         case "Transport":
@@ -46,7 +48,7 @@ struct TipsView: View {
                 }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                     RoundedRectangle(cornerRadius: 16)
                         .stroke(setTextColor(worstArea: worstArea), lineWidth: 4)).padding(.bottom)
-            
+                
                 HStack{
                     HStack{
                         Spacer()
@@ -65,28 +67,28 @@ struct TipsView: View {
                     }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                         RoundedRectangle(cornerRadius: 16)
                             .stroke(setTextColor(worstArea: worstArea), lineWidth: 4)).padding(.bottom)
-                
+                    
                 }
             }
         case "Food":
             VStack{
                 HStack{
-                Text("Try eating veggie for a week!")
+                    Text("Try eating veggie for a week!")
                 }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                     RoundedRectangle(cornerRadius: 16)
                         .stroke(setTextColor(worstArea: worstArea), lineWidth: 4)).padding(.bottom)
-            
+                
                 HStack{
-                Text("Try swapping dairy for dairys alternative")
+                    Text("Try swapping dairy for dairys alternative")
                 }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                     RoundedRectangle(cornerRadius: 16)
                         .stroke(setTextColor(worstArea: worstArea), lineWidth: 4)).padding(.bottom)
                 HStack{
-                Text("Eat organic")
+                    Text("Eat organic")
                 }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                     RoundedRectangle(cornerRadius: 16)
                         .stroke(setTextColor(worstArea: worstArea), lineWidth: 4)).padding(.bottom)
-            
+                
             }
             
         case "Household":
@@ -133,11 +135,11 @@ struct TipsView: View {
         case "Health":
             VStack{
                 HStack{
-                Text("Use the medicines you have at home before buying more!")
+                    Text("Use the medicines you have at home before buying more!")
                 }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                     RoundedRectangle(cornerRadius: 16)
                         .stroke(setTextColor(worstArea: worstArea), lineWidth: 4)).padding(.bottom)
-            
+                
             }
         default:
             VStack{
