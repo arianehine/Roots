@@ -7,7 +7,7 @@
 
 import SwiftUI
 import CoreLocation
-//Inspired by //https://kavsoft.dev/SwiftUI_2.0/Advance_MapKit
+//Inspired by https://kavsoft.dev/SwiftUI_2.0/Advance_MapKit
 //Shows the map and manages the format it is displayed in (e.g search bar at top)
 struct MapView: View {
     

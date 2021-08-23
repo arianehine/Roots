@@ -4,9 +4,10 @@
 //
 //  Created by ariane hine on 21/05/2021.
 //
-// adapted from https://prafullkumar77.medium.com/how-to-make-pie-and-donut-chart-using-swiftui-12e8ef916ce5
+//Source from https://prafullkumar77.medium.com/how-to-make-pie-and-donut-chart-using-swiftui-12e8ef916ce5, adapted
 import SwiftUI
 
+//The pie chart cell structure
 struct PieChartCell: Shape {
     let startAngle: Angle
     let endAngle: Angle
@@ -24,7 +25,7 @@ struct PieChartCell: Shape {
         return path
     }
 }
-
+//Constructs the inner circle which makes the pie chart a doughnut chart
 struct InnerCircle: Shape {
     let ratio: CGFloat
     func path(in rect: CGRect) -> Path {
@@ -41,7 +42,7 @@ struct InnerCircle: Shape {
         return path
     }
 }
-
+//Constructs a doughnut chart (pie chart with inner part blanked out)
 struct DonutChart: View {
     @State private var selectedCell: UUID = UUID()
     
@@ -51,17 +52,15 @@ struct DonutChart: View {
     var body: some View {
         ZStack {
             if !(dataModel.chartCellModel.count==0) {
-            PieChart(dataModel: dataModel, onTap: onTap)
+                PieChart(dataModel: dataModel, onTap: onTap)
                 InnerCircle(ratio: 1/3).foregroundColor(.white).colorInvert()
             }
         }
     }
 }
-
+//Constructs the pie chart
 struct PieChart: View {
     @State private var selectedCell: UUID = UUID()
-    
-    
     let dataModel: ChartDataModel
     let onTap: (ChartCellModel?) -> ()
     var body: some View {
@@ -85,14 +84,14 @@ struct PieChart: View {
                 }
             }else{
                 Text("No data for this time period").font(.title)
-                }
+            }
         }
         
     }
     
 }
 
-
+//Show the doughnut chart which displays the different contributions of each carbon footprint area
 struct DoughnutView: View {
     @Binding var ID: String
     @EnvironmentObject var viewModel: AppViewModel
@@ -106,116 +105,114 @@ struct DoughnutView: View {
     @Binding var reports: [Report]
     @Binding var originalReports: [Report]
     @State var originalPeople : [UserData]
+
     var body: some View {
         NavigationView{
-        ScrollView {
-        
-            VStack(alignment: .center) {
-                if !(reports.count == 0){
-
+            ScrollView {
                 
-                HStack {
+                VStack(alignment: .center) {
+                    if !(reports.count == 0){
+                        
+                        
+                        HStack {
+                            Spacer()
+                            DonutChart(dataModel: ChartDataModel.init(dataModel: sample), onTap: {
+                                dataModel in
+                                if let dataModel = dataModel {
+                                    self.selectedDonut = "Topic: \(dataModel.name)\n kg Co2: " +  String(format: "%.2f", dataModel.value)
+                                } else {
+                                    self.selectedDonut = ""
+                                }
+                            })
+                                .frame(width: 300, height: 300, alignment: .center)
+                                .padding()
+                            Text(selectedDonut)
+                                .font(.footnote)
+                                .multilineTextAlignment(.leading)
+                            Spacer()
+                        }.frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        
                         Spacer()
-                    DonutChart(dataModel: ChartDataModel.init(dataModel: sample), onTap: {
-                        dataModel in
-                        if let dataModel = dataModel {
-                            self.selectedDonut = "Topic: \(dataModel.name)\n kg Co2: " +  String(format: "%.2f", dataModel.value)
-                        } else {
-                            self.selectedDonut = ""
-                        }
-                    })
-                    .frame(width: 300, height: 300, alignment: .center)
-                    .padding()
-                    Text(selectedDonut)
-                        .font(.footnote)
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                    }.frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                   
-                Spacer()
-                HStack {
-                    ForEach(sample) { dataSet in
-                        VStack {
-                            Circle().foregroundColor(dataSet.color)
-                            Text(dataSet.name).font(.footnote)
-                        }
-                    }
-                }.frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                 
-                } else {
-                                Text("No data found for this time period")
+                        HStack {
+                            ForEach(sample) { dataSet in
+                                VStack {
+                                    Circle().foregroundColor(dataSet.color)
+                                    Text(dataSet.name).font(.footnote)
+                                }
                             }
-            
-            }.frame(minHeight: 350, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            .onAppear{
-                
-   
-                if(statsController.fbLogic.userData.count != 0){
-                
-                    people = statsController.fbLogic.userData
-                    print("herey", people.count)
-               
-            }
-               
-   
-                  else{
-
-                    people = originalPeople
-                   }
-        
-
-                let user = statsController.findUserData(people: people, ID: viewModel.footprint);
-                
-//                self.reports = statsController.convertToReports(users: user);
-                self.originalReports = statsController.convertToReports(users: user);
+                        }.frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        
+                    } else {
+                        Text("No data found for this time period")
+                    }
+                    
+                }.frame(minHeight: 350, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    .onAppear{
+                        
+                        
+                        if(statsController.fbLogic.userData.count != 0){
+                            
+                            people = statsController.fbLogic.userData
+                            print("herey", people.count)
+                            
+                        }
+                        
+                        else{
+                            
+                            people = originalPeople
+                        }
+                        
+                        let user = statsController.findUserData(people: people, ID: viewModel.footprint);
+                        self.originalReports = statsController.convertToReports(users: user);
+                    }
+                Spacer()
+                if !(reports.count==0){
+                    
+                    NavigationLink(destination: ImproveView(statsController: statsController, worstArea: $worstArea, reports: $reports, sample: $sample, timePeriod: $selection)) {
+                        Text("Your worst area is \(worstArea)").foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/).underline()
+                    }.environmentObject(statsController).buttonStyle(PlainButtonStyle())
+                    
+                    
                 }
-            Spacer()
-            if !(reports.count==0){
-
-                 NavigationLink(destination: ImproveView(statsController: statsController, worstArea: $worstArea, reports: $reports, sample: $sample, timePeriod: $selection)) {
-                    Text("Your worst area is \(worstArea)").foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/).underline()
-                }.environmentObject(statsController).buttonStyle(PlainButtonStyle())
+                Spacer()
                 
-
-            }
-            Spacer()
-         
-            ToggleView(selected: $selection).onChange(of: selection, perform: { value in
-                reports = statsController.updateReports(value: value, reports: originalReports, statsController: statsController);
+                ToggleView(selected: $selection).onChange(of: selection, perform: { value in
+                    reports = statsController.updateReports(value: value, reports: originalReports, statsController: statsController);
+                    sample = convertRecordsToSamples(records: reports);
+                    worstArea = updateWorstArea(samples: sample);
+                }).font(.subheadline);
+                
+                
+                
+            }.onChange(of: viewModel.footprint){ value in
+                self.ID = value
+                self.ID = value
+                let user = statsController.findUserData(people: people, ID: ID);
+                
+                // self.reports = statsController.convertToReports(users: user);
+                self.originalReports = statsController.convertToReports(users: user);
+                
+            }.onChange(of: self.statsController.fbLogic.userData) {value in
+                
+                print("userdata change")
+                self.originalPeople = statsController.originalPeople
+                self.people = statsController.fbLogic.userData
+                //update originalreports
+                let user = statsController.findUserData(people: originalPeople, ID: viewModel.footprint);
+                
+                self.originalReports = statsController.convertToReports(users: user);
+                
+                reports = statsController.updateReports(value: selection, reports: originalReports, statsController: statsController);
+                
                 sample = convertRecordsToSamples(records: reports);
                 worstArea = updateWorstArea(samples: sample);
-            }).font(.subheadline);
-           
-            
-            
-        }.onChange(of: viewModel.footprint){ value in
-            self.ID = value
-            self.ID = value
-            let user = statsController.findUserData(people: people, ID: ID);
-         
-           // self.reports = statsController.convertToReports(users: user);
-            self.originalReports = statsController.convertToReports(users: user);
-            
-        }.onChange(of: self.statsController.fbLogic.userData) {value in
-            
-            print("userdata change")
-            self.originalPeople = statsController.originalPeople
-            self.people = statsController.fbLogic.userData
-            //update originalreports
-            let user = statsController.findUserData(people: originalPeople, ID: viewModel.footprint);
-            
-            self.originalReports = statsController.convertToReports(users: user);
-            
-            reports = statsController.updateReports(value: selection, reports: originalReports, statsController: statsController);
-          
-            sample = convertRecordsToSamples(records: reports);
-            worstArea = updateWorstArea(samples: sample);
-        }.frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).navigationBarHidden(true)
+            }.frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).navigationBarHidden(true)
         }.preferredColorScheme(.dark)
         
     }
 }
 
+//Calculate the user's worst area
 func updateWorstArea(samples: [ChartCellModel]) -> String{
     
     var worst = ""
@@ -230,8 +227,7 @@ func updateWorstArea(samples: [ChartCellModel]) -> String{
     return worst;
     
 }
-
-
+//Convert records into the ChartCellModel structure needed by the chart
 func convertRecordsToSamples(records: [Report]) -> [ChartCellModel]{
     var transportTotal: CGFloat = 0.0
     var householdTotal: CGFloat = 0.0
