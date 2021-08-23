@@ -104,6 +104,7 @@ struct ContentView: View {
                         getFootprint()
                         fbLogic.setFakeData(uid: auth.currentUser!.uid, selection: viewModel.footprint);
                         fbLogic.getUserData(uid: auth.currentUser!.uid)
+                        print(auth.currentUser?.uid)
                     }
                 
                 
@@ -138,7 +139,7 @@ struct ContentView: View {
                 
                 footprint = document.data()?["footprint"] as? String ?? ""
                 viewModel.footprint = footprint
-               print("footprint: ", footprint)
+             
                 
                 return
             } else {

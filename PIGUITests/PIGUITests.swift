@@ -21,6 +21,21 @@ class PIGUITests: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
+    
+    func testLabelDisplaysText() throws {
+        let app = XCUIApplication()
+          app.textFields.element.tap()
+
+          app.keys["t"].tap()
+          app.keys["e"].tap()
+          app.keys["s"].tap()
+          app.keys["t"].tap()
+          app.keyboards.buttons["Return"].tap()
+        // This is an example of a functional test case.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        XCTAssertTrue(app.staticTexts.element.label == "test")
+    }
+    
 
     func testExample() throws {
         // UI tests must launch the application that they test.
@@ -39,4 +54,6 @@ class PIGUITests: XCTestCase {
             }
         }
     }
+    
+    
 }

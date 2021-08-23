@@ -8,8 +8,11 @@
 import Foundation
 import MapKit
 import SwiftUI
+
+//Class which contains the coordinator for the map view
 class Coordinator: NSObject,MKMapViewDelegate{
     
+    //Instantiate the map and annotation views within the map, for MKAnnotations
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         guard !(annotation is MKUserLocation) else{
@@ -21,20 +24,18 @@ class Coordinator: NSObject,MKMapViewDelegate{
         }
         
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "custom")
-        
-        
+
         if annotationView == nil{
             
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "custom")
             annotationView?.canShowCallout = true
-            
-            
-            
+
         }else{
-          
+            
             annotationView?.annotation = annotation
         }
         
+        //If the annotation ID is for a recycling centre then show the custom map pin
         if(annotation.identifier == "Recycling"){
             let image = UIImage(named: "mappin")
             
@@ -44,6 +45,7 @@ class Coordinator: NSObject,MKMapViewDelegate{
             let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
             annotationView?.image = resizedImage
         }else{
+            //Else just show the regular map pin
             let pinAnnotation = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "PIN_VIEW")
             pinAnnotation.tintColor = .red
             pinAnnotation.animatesDrop = true
@@ -52,14 +54,13 @@ class Coordinator: NSObject,MKMapViewDelegate{
         }
         annotationView?.canShowCallout = true
         annotationView?.calloutOffset = CGPoint(x: -5, y: 5)
-        //if dequeued cache it and hangnto it for performance
-        
+
         return annotationView
         
         
-
+        
     }
-    
+    //Instantiate the map and overlay views within the map, for MKOverlays. This is what displays the polylines
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         
         //check there is a pin on the map to draw a line to
@@ -74,15 +75,13 @@ class Coordinator: NSObject,MKMapViewDelegate{
             
         }else{
             return MKPolylineRenderer()
-            
         }
-        
         return MKPolylineRenderer()
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
         var selectedAnnotation = view.annotation
-      }
+    }
     
     
 }

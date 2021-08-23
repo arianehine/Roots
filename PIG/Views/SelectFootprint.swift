@@ -101,13 +101,3 @@ struct SelectFootprint: View {
         }
     
     
-
-
-
-
-//struct SelectFootprint_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SelectFootprint()
-//    }
-//}
-

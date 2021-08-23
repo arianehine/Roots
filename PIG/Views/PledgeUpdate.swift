@@ -158,30 +158,16 @@ struct PledgeUpdate: View {
                   message = "Well done! Only \(durationInDays - (daysCompleted+1)) days until you are finished"
                    
                 }
-                //self.csvHandler.reduceFootprint(amount: pledgeToUpdate.reductionPerDay, days: pledgeToUpdate.durationInDays, pledgeArea: pledgeToUpdate.category)
+               
                 let dataToReduceBy = self.csvHandler.getReductionData(amount: pledgeToUpdate.reductionPerDay, days: pledgeToUpdate.durationInDays, pledgeArea: pledgeToUpdate.category, footprint: viewModel.footprint)
                 
                 self.fbLogic.addData(user: dataToReduceBy, userId: auth.currentUser!.uid);
 
-             
                 self.statsController.originalPeople.append(dataToReduceBy)
-//                self.statsController.stateUser.append(dataToReduceBy)
-//                self.fbLogic.userData.append(dataToReduceBy)
-               
-//                let docDirectory = csvHandler.getDocumentsDirectory()
-//                let originalPeople = statsController.convertCSVIntoArray(csvHandler: csvHandler, directory: docDirectory)
-             
+
             }
      
         
     }
 }
 }
-
-
-//struct PledgeUpdate_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PledgeUpdate()
-//    }
-//
-

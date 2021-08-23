@@ -41,9 +41,4 @@ struct AdditionalPledgesView: View {
                 
             }
 
-//struct AdditionalPledgesView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AdditionalPledgesView()
-//    }
-//}
 }

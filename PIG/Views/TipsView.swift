@@ -20,10 +20,7 @@ struct TipsView: View {
             ButtonView(worstArea: worstArea)
         }
         
-        
-        
-        
-        
+                
     }
     
     struct ButtonView: View {
@@ -149,9 +146,3 @@ struct TipsView: View {
         }
     }
 }
-
-//struct TipsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TipsView("Travel")
-//    }
-//}

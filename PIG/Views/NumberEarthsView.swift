@@ -11,8 +11,6 @@ import WrappingHStack
 struct NumberEarthsView: View {
     let ID: String
     @Binding var report: Report
-    //    @Binding var reports: [Report]
-    //    @Binding var originalReports: [Report]
     @EnvironmentObject var statsController: StatsDataController
     @State var numEarths : Double = 0;
     @State var numEarthsInt = 0;
@@ -59,7 +57,6 @@ struct NumberEarthsView: View {
 }
 
 
-//WORK ON THIS CALCULATION
 func getNumEarths(report: Report) ->Double{
     let returnVal = ((report.average / 100) / Double(report.numReportsComposingReport)) / 5;
    
@@ -80,9 +77,3 @@ func getNumEarths(report: Report) ->Double{
     }
 
 }
-
-//struct NumberEarthsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NumberEarthsView(ID: "6")
-//    }
-//}

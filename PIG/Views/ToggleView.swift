@@ -37,7 +37,7 @@ struct ToggleView: View {
             
             VStack{
                 
-//                Spacer()
+
                 
                 RadioButtons(selected: self.$selected,show: self.$show)
                     .offset(y: self.show ? (UIApplication.shared.windows.last?.safeAreaInsets.bottom)! + 0 : UIScreen.main.bounds.height)
@@ -51,12 +51,7 @@ struct ToggleView: View {
     }
 }
 
-//struct ContentView_Previews: PreviewProvider {
-//    var statsController: StatsDataController
-//    static var previews: some View {
-//        ContentView(statsController: statsController)
-//    }
-//}
+
 
 struct RadioButtons : View {
     

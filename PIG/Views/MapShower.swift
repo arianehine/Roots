@@ -32,23 +32,7 @@ struct MapShower: UIViewRepresentable {
         
     }
     
-
-    //        private func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKPolylineRenderer{
-    //
-    //
-    //
-    //            let render = MKPolylineRenderer(overlay: overlay)
-    //            render.strokeColor = .orange
-    //            render.lineWidth = 4
-    //
-    //            // Custom Pins....
-    //
-    //            // Excluding User Blue Circle...
-    //
-    //            return render;
-    //
-    //        }
     
 }
 
-//}
+

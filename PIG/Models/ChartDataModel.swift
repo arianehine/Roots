@@ -7,6 +7,8 @@
 
 import Foundation
 import SwiftUI
+//Class storing the model for the chart data which is displayed within the Doughnut Chart
+//Adapted from https://prafullkumar77.medium.com/how-to-make-pie-and-donut-chart-using-swiftui-12e8ef916ce5
 final class ChartDataModel: ObservableObject {
     var chartCellModel: [ChartCellModel]
     var startingAngle = Angle(degrees: 0)
@@ -28,13 +30,9 @@ final class ChartDataModel: ObservableObject {
             startingAngle = lastBarEndAngle
         }
         lastBarEndAngle += Angle(degrees: Double(value / totalValue) * 360 )
-    
+        
         return lastBarEndAngle
     }
 }
-struct ChartCellModel: Identifiable {
-    let id = UUID()
-    let color: Color
-    let value: CGFloat
-    let name: String
-}
+
+

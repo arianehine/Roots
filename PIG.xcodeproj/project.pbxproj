@@ -32,16 +32,15 @@
 		D60DC10726B206360041D82D /* ChartDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60DC10626B206360041D82D /* ChartDataModel.swift */; };
 		D60DC10926B206680041D82D /* CameraModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60DC10826B206680041D82D /* CameraModel.swift */; };
 		D612F6292659478700914C0E /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = D612F6282659478700914C0E /* WrappingHStack */; };
-		D61F00CD26B975DE00AB2481 /* synthesisedData.csv in Resources */ = {isa = PBXBuildFile; fileRef = D61F00CC26B975DE00AB2481 /* synthesisedData.csv */; };
 		D623872726B5B09A003A8207 /* CarbonFootprintModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D623872626B5B09A003A8207 /* CarbonFootprintModel.swift */; };
 		D62EC05B26BDD36200D8416F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D62EC05A26BDD36200D8416F /* GoogleService-Info.plist */; };
+		D62F78ED26D3DFCA00615F19 /* ChartCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62F78EC26D3DFCA00615F19 /* ChartCellModel.swift */; };
 		D6440A63265AA9BD0023F889 /* ImproveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6440A62265AA9BD0023F889 /* ImproveView.swift */; };
 		D64DB1C72652BE5E00D6FA4D /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64DB1C62652BE5E00D6FA4D /* StatsView.swift */; };
 		D6523D8726614DF1005A83D6 /* TipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6523D8626614DF1005A83D6 /* TipsView.swift */; };
 		D657445B2697B0A200CC4916 /* MyAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D657445A2697B0A200CC4916 /* MyAnnotation.swift */; };
 		D659E7FC266D674F0038A086 /* PleadeConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D659E7FB266D674F0038A086 /* PleadeConfirmation.swift */; };
 		D659E819266E91100038A086 /* PledgesInProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = D659E818266E910F0038A086 /* PledgesInProgress.swift */; };
-		D65A723126B73E8600C60F7D /* SelectFootprint.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D65A723026B73E8600C60F7D /* SelectFootprint.storyboard */; };
 		D65A723326B742DD00C60F7D /* SelectFootprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65A723226B742DD00C60F7D /* SelectFootprint.swift */; };
 		D65C360826861CC0003A504F /* AdditionalPledgesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65C360726861CC0003A504F /* AdditionalPledgesView.swift */; };
 		D65C360D26866F10003A504F /* TrackPledges.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65C360C26866F10003A504F /* TrackPledges.swift */; };
@@ -120,17 +119,15 @@
 		D60DC10426B205E40041D82D /* CoordinatorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorModel.swift; sourceTree = "<group>"; };
 		D60DC10626B206360041D82D /* ChartDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDataModel.swift; sourceTree = "<group>"; };
 		D60DC10826B206680041D82D /* CameraModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraModel.swift; sourceTree = "<group>"; };
-		D61F00CB26B975BF00AB2481 /* synthesisedData.csv */ = {isa = PBXFileReference; lastKnownFileType = text; name = synthesisedData.csv; path = /Users/arianehine/Documents/uni/PIG/Resources/synthesisedData.csv; sourceTree = "<absolute>"; };
-		D61F00CC26B975DE00AB2481 /* synthesisedData.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = synthesisedData.csv; sourceTree = "<group>"; };
 		D623872626B5B09A003A8207 /* CarbonFootprintModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarbonFootprintModel.swift; sourceTree = "<group>"; };
 		D62EC05A26BDD36200D8416F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D62F78EC26D3DFCA00615F19 /* ChartCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCellModel.swift; sourceTree = "<group>"; };
 		D6440A62265AA9BD0023F889 /* ImproveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImproveView.swift; sourceTree = "<group>"; };
 		D64DB1C62652BE5E00D6FA4D /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		D6523D8626614DF1005A83D6 /* TipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipsView.swift; sourceTree = "<group>"; };
 		D657445A2697B0A200CC4916 /* MyAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAnnotation.swift; sourceTree = "<group>"; };
 		D659E7FB266D674F0038A086 /* PleadeConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PleadeConfirmation.swift; sourceTree = "<group>"; };
 		D659E818266E910F0038A086 /* PledgesInProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PledgesInProgress.swift; sourceTree = "<group>"; };
-		D65A723026B73E8600C60F7D /* SelectFootprint.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SelectFootprint.storyboard; sourceTree = "<group>"; };
 		D65A723226B742DD00C60F7D /* SelectFootprint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFootprint.swift; sourceTree = "<group>"; };
 		D65C360726861CC0003A504F /* AdditionalPledgesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalPledgesView.swift; sourceTree = "<group>"; };
 		D65C360C26866F10003A504F /* TrackPledges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPledges.swift; sourceTree = "<group>"; };
@@ -231,6 +228,7 @@
 				D60DC0FE26B1CC310041D82D /* Chimney.swift */,
 				D60DC10026B1CC400041D82D /* Report.swift */,
 				D60DC10226B1FF000041D82D /* UserData.swift */,
+				D62F78EC26D3DFCA00615F19 /* ChartCellModel.swift */,
 			);
 			path = DataStructures;
 			sourceTree = "<group>";
@@ -262,7 +260,6 @@
 				D60DC0F526B1C7230041D82D /* ErrorView.swift */,
 				D60DC0F726B1C7420041D82D /* SignUpView.swift */,
 				D60DC0F926B1C76E0041D82D /* SignInView.swift */,
-				D65A723026B73E8600C60F7D /* SelectFootprint.storyboard */,
 				D65A723226B742DD00C60F7D /* SelectFootprint.swift */,
 			);
 			path = Views;
@@ -317,8 +314,6 @@
 			isa = PBXGroup;
 			children = (
 				D62EC05A26BDD36200D8416F /* GoogleService-Info.plist */,
-				D61F00CB26B975BF00AB2481 /* synthesisedData.csv */,
-				D61F00CC26B975DE00AB2481 /* synthesisedData.csv */,
 				D60DC10A26B209F50041D82D /* Resources */,
 				D6DC2C79264D2E9D008C6A72 /* PIG */,
 				D6DC2C8B264D2EA3008C6A72 /* PIGTests */,
@@ -454,6 +449,9 @@
 		D6DC2C6F264D2E9D008C6A72 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					New,
+				);
 				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
@@ -499,10 +497,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D61F00CD26B975DE00AB2481 /* synthesisedData.csv in Resources */,
 				D6DC2C82264D2EA3008C6A72 /* Preview Assets.xcassets in Resources */,
 				D6EF45B2268B625B00F56D73 /* synthesisedDataEncrypted.txt in Resources */,
-				D65A723126B73E8600C60F7D /* SelectFootprint.storyboard in Resources */,
 				D6DC2C7F264D2EA3008C6A72 /* Assets.xcassets in Resources */,
 				D62EC05B26BDD36200D8416F /* GoogleService-Info.plist in Resources */,
 			);
@@ -662,6 +658,7 @@
 				D659E819266E91100038A086 /* PledgesInProgress.swift in Sources */,
 				D68366DD2655557000648C1B /* ToggleView.swift in Sources */,
 				D60DC0FD26B1C7BB0041D82D /* AppViewModel.swift in Sources */,
+				D62F78ED26D3DFCA00615F19 /* ChartCellModel.swift in Sources */,
 				D69C7AA4265801E500D209DB /* DoughnutView.swift in Sources */,
 				D65C3612268677EB003A504F /* PledgeUpdate.swift in Sources */,
 				D60DC0EF26B1AC9E0041D82D /* FirebaseHandler.swift in Sources */,
@@ -852,7 +849,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Ariane.PIG;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Ari.PIG;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -880,7 +877,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Ariane.PIG;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Ari.PIG;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -895,8 +892,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JZBNNCR75D;
 				INFOPLIST_FILE = PIGTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -917,8 +915,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JZBNNCR75D;
 				INFOPLIST_FILE = PIGTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -939,6 +938,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = PIGUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -959,6 +959,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = PIGUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

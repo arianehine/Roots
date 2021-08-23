@@ -21,9 +21,6 @@ struct SignInView: View {
                 ErrorView(alert: $viewModel.alert, error: $viewModel.error)
                 
                 
-            }else{
-                //no errors
-                
             }
             Image("logo")
                 .resizable()

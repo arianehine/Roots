@@ -97,7 +97,7 @@ struct ImproveView: View {
         
     Text("\(worstArea) is your worst area").foregroundColor(setTextColor(sample: sample, worstArea: worstArea) as! Color).shadow(color: .black, radius: 1)
         Text("Your \(worstArea) statistics:")
-        Text("In the last \(timePeriod) you have:").font(.callout).padding(.bottom, 25.0).frame(alignment: .center)
+        Text("In the last \(timePeriod) you have used:").font(.callout).padding(.bottom, 25.0).frame(alignment: .center)
         Group{
             HStack{
                 Image(systemName: "hourglass")
@@ -431,8 +431,3 @@ func getWorstHealthArea(sample: [Double]) -> String{
     }
     return "undefined"
 }
-//struct ImproveView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ImproveView(worstArea: "Preview")
-//    }
-//}

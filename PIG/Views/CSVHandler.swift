@@ -79,30 +79,7 @@ class CSVHandler: ObservableObject{
         return result
        
     }
-//    func reduceFootprint(amount: Int, days: Int, pledgeArea: String){
-//
-//        let reductionAmount = Double(-amount)
-//        if(pledgeArea == "Transport"){
-//            let dataToAdd = UserData(ID: "8", date: Date(), average: reductionAmount, transport: reductionAmount, household: 0, clothing: 0, health: 0 , food: 0, transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds:0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0)
-//            appendToCSV(toAppend: dataToAdd)
-//        }else if(pledgeArea == "Household"){
-//            let dataToAdd = UserData(ID: "8", date: Date(), average: reductionAmount, transport: 0, household:reductionAmount, clothing: 0, health: 0, food: 0, transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds:0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0)
-//            appendToCSV(toAppend: dataToAdd)
-//
-//        }else if(pledgeArea == "Clothing"){
-//            let dataToAdd = UserData(ID: "8", date: Date(), average: reductionAmount, transport: 0, household: 0, clothing: reductionAmount, health: 0, food: 0, transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds:0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0)
-//            appendToCSV(toAppend: dataToAdd)
-//
-//    }else if(pledgeArea == "Health"){
-//        let dataToAdd = UserData(ID: "8", date: Date(), average: reductionAmount, transport: 0, household: 0, clothing:0, health: reductionAmount, food: 0, transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds:0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0)
-//        appendToCSV(toAppend: dataToAdd)
-//    }else{
-//        let dataToAdd = UserData(ID: "8", date: Date(), average: reductionAmount, transport: 0, household: 0, clothing:0, health: 0, food: reductionAmount, transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds:0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0)
-//        appendToCSV(toAppend: dataToAdd)
-//    }
-//
-//    }
-//
+
     func getReductionData(amount: Int, days: Int, pledgeArea: String, footprint: String) ->UserData{
         if(pledgeArea == "Transport"){
             let dataToAdd = UserData(ID: footprint, date: Date(), average: Double(-amount), transport: Double(-amount), household: 0, clothing: 0, health: 0 , food: 0, transport_walking: 0, transport_car: 0, transport_train: 0, transport_bus: 0, transport_plane: 0, household_heating: 0, household_electricity: 0, household_furnishings: 0, household_lighting: 0, clothing_fastfashion: 0, clothing_sustainable: 0, health_meds:0, health_scans: 0, food_meat: 0, food_fish: 0, food_dairy: 0, food_oils: 0)
@@ -176,11 +153,6 @@ class CSVHandler: ObservableObject{
         return encryptString
     }
 
-    //        //now split that string into an array of "rows" of data.  Each row is a string.
-    //    var rows = data.components(separatedBy: "\n")
-    //
-    //    //if you have a header row, remove it here
-    //    rows.removeFirst()
     func appendToCSV(toAppend: UserData, statsController: StatsDataController){
         let encryptedCSV = self.readEncryptedCSV();
         let keys = PIGKeys()
@@ -222,11 +194,6 @@ class CSVHandler: ObservableObject{
         let encryptString : String = encryptedData.base64EncodedString()
         return encryptString
 
-    //        //now split that string into an array of "rows" of data.  Each row is a string.
-    //    var rows = data.components(separatedBy: "\n")
-    //
-    //    //if you have a header row, remove it here
-    //    rows.removeFirst()
     }
     
     
@@ -271,11 +238,6 @@ class CSVHandler: ObservableObject{
 
         return data
 
-    //        //now split that string into an array of "rows" of data.  Each row is a string.
-    //    var rows = data.components(separatedBy: "\n")
-    //
-    //    //if you have a header row, remove it here
-    //    rows.removeFirst()
     }
 
     //adapted from https://www.youtube.com/watch?v=89DEVVikzlg

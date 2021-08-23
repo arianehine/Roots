@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 import AVFoundation
+//The class which is used to store tha camera model for the Camera View used for photographic recycling pledge completion
+//Tutorial from Kavsoft on Youtube https://www.youtube.com/watch?v=8hvaniprctk
 class CameraModel: NSObject,ObservableObject,AVCapturePhotoCaptureDelegate{
     
     @Published var isTaken = false
@@ -16,14 +18,13 @@ class CameraModel: NSObject,ObservableObject,AVCapturePhotoCaptureDelegate{
     
     @Published var alert = false
     
-    // since were going to read pic data....
+    // Store picture data which we will read later
     @Published var output = AVCapturePhotoOutput()
     
-    // preview....
+    // The camera preview
     @Published var preview : AVCaptureVideoPreviewLayer!
     
-    // Pic Data...
-    
+    // Data of the picture we save
     @Published var image: UIImage = UIImage(named: "images")!
     @Published var isSaved = false
     
@@ -34,14 +35,14 @@ class CameraModel: NSObject,ObservableObject,AVCapturePhotoCaptureDelegate{
     
     func Check(){
         
-        // first checking camerahas got permission...
+        // Checking camera has permission
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
             setUp()
             return
             // Setting Up Session
         case .notDetermined:
-            // retusting for permission....
+            // Requesting permission if not yet granted
             AVCaptureDevice.requestAccess(for: .video) { (status) in
                 
                 if status{
@@ -57,45 +58,36 @@ class CameraModel: NSObject,ObservableObject,AVCapturePhotoCaptureDelegate{
         }
     }
     
+    //Set up the camera session and device settings
     func setUp(){
-        
-        // setting up camera...
         
         do{
             
-            // setting configs...
             self.session.beginConfiguration()
             
-            // change for your own...
-            
             let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
-            
             let input = try AVCaptureDeviceInput(device: device!)
             
-            // checking and adding to session...
             
             if self.session.canAddInput(input){
                 self.session.addInput(input)
             }
-            
-            // same for output....
             
             if self.session.canAddOutput(self.output){
                 self.session.addOutput(self.output)
             }
             
             self.session.commitConfiguration()
-         
+            
         }
         catch{
             print(error.localizedDescription)
         }
-
-       
+        
+        
     }
     
-    // take and retake functions...
-    
+    //Take picture function, captures what the camera sees
     func takePic(){
         
         self.output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
@@ -110,7 +102,7 @@ class CameraModel: NSObject,ObservableObject,AVCapturePhotoCaptureDelegate{
             }
         }
     }
-    
+    //Retake picture function
     func reTake(){
         
         DispatchQueue.global(qos: .background).async {
@@ -127,6 +119,7 @@ class CameraModel: NSObject,ObservableObject,AVCapturePhotoCaptureDelegate{
         }
     }
     
+    //Saves the data of the picture we have captured once taken
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         
         if error != nil{
@@ -136,73 +129,63 @@ class CameraModel: NSObject,ObservableObject,AVCapturePhotoCaptureDelegate{
         
         print("pic taken...")
         DispatchQueue.main.async {
-        guard let imageData = photo.fileDataRepresentation() else{return}
-        
-        self.picData = imageData
-        guard let image = UIImage(data: self.picData) else{
-            print("oops1")
-            return}
+            guard let imageData = photo.fileDataRepresentation() else{return}
+            
+            self.picData = imageData
+            guard let image = UIImage(data: self.picData) else{
+                return}
         }
         
         
     }
     
-
     
+    //If the user saves the picture, pass it through the ML model to obtain a class label. If the class suggests the photo contains a rubbish bin the complete the pledge.
     func savePic(){
         var classLabel = ""
-   
         
         do {
-        let localImage = UIImage(data: self.picData)
-          
+            let localImage = UIImage(data: self.picData)
+            
             
             if((localImage) != nil){
-            classLabel = CV.performImageClassification(img: localImage!)
+                classLabel = CV.performImageClassification(img: localImage!)
             }else{
                 throw ValidationError.conversionIssue
             }
-              
-
+            
         }catch{
-            print("caught")
             let image = self.image
             classLabel = CV.performImageClassification(img: image)
             self.isSaved = true
         }
         print("saved Successfully....")
         
-        // saving Image...
-//        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-        
+        //If trash can or pail, complete
         if(classLabel.contains("trash can") || classLabel.contains("pail")){
             isOfTrashCan = true
-            print("yes this is a trash can")
-
+            
         }
         print("\(classLabel)")
         
     }
 }
 enum ValidationError: Error {
-      case conversionIssue
-    
-  }
+    case conversionIssue
+}
 
-// setting view for preview...
-
+// Setting view for preview
 struct CameraPreview: UIViewRepresentable {
     
     @ObservedObject var camera : CameraModel
     
     func makeUIView(context: Context) ->  UIView {
-     
+        
         let view = UIView(frame: UIScreen.main.bounds)
         
         camera.preview = AVCaptureVideoPreviewLayer(session: camera.session)
         camera.preview.frame = view.frame
         
-        // Your Own Properties...
         camera.preview.videoGravity = .resizeAspectFill
         view.layer.addSublayer(camera.preview)
         

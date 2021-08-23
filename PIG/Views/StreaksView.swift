@@ -65,17 +65,5 @@ struct StreaksView: View {
             }
         
     }
-    
-    //inspiration from https://stackoverflow.com/questions/39334697/core-data-how-to-check-if-data-is-in-consecutive-dates
- 
-
-
 }
-
-
-//struct StreaksView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        StreaksView()
-//    }
-//}
 

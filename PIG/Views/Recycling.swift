@@ -97,7 +97,7 @@ struct Recycling: View {
 //                locationManager.startMonitoring(for: region)
 //            }
                
-    //            mapData.requestNotificationAuthorization()
+
             })
         .onChange(of: mapData.searchTxt, perform: { value in
             
@@ -147,35 +147,12 @@ struct Recycling: View {
           
         
     
-//}
-//    func monitorPlaces(places: [Place]){
-//        let regionsToMonitor = getMonitorRegions(places: places);
-//        for region in regionsToMonitor {
-//            mapData.circularRegions.append(region)
-//            locationManager.startMonitoring(for: region)
-//        }
-//    }
-//
-//    func getMonitorRegions(places: [Place]) -> [CLCircularRegion]{
-//        var circRegions = [CLCircularRegion]()
-//        for place in places {
-//            let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: (place.placemark.location?.coordinate.latitude)!, longitude: (place.placemark.location?.coordinate.longitude)!), radius: 500, identifier: UUID().uuidString)
-//            circRegions.append(region)
-//    }
-//
-//
-//    return circRegions;
-//    }
+
  
 }
 }
 
 
-//struct Recycling_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Recycling()
-//    }
-//}
     
 private func makeLocationManager() -> CLLocationManager {
   // 3

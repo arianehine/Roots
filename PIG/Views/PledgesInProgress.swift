@@ -44,6 +44,7 @@ struct PledgesInProgress: View {
                                 
                                 .resizable()
                                 .foregroundColor(setTextColor(worstArea: fbLogic.pledgesInProgress[safe: index]?.category ?? "figure.fill"))
+                                .colorInvert()
                                 .frame(width: 50, height: 50, alignment: .center)
                                
                                
@@ -69,11 +70,7 @@ struct PledgesInProgress: View {
                                                                                    
                                                                                    
                             )
-                    } else {
-                        // Fallback on earlier versions
-                    }
-
-                       
+                    } 
                     
 
                     let calendar = Calendar.current

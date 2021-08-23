@@ -44,10 +44,3 @@ struct TrackPledges: View {
     }
 }
 
-
-//
-//struct TrackPledges_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TrackPledges()
-//    }
-//}

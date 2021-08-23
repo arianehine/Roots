@@ -102,9 +102,7 @@ struct SignUpView: View {
                     print("error")
                     return
                  
-                    
-                  
-                    
+
                     
                 }
               

@@ -55,9 +55,3 @@ struct PleadeConfirmation: View {
         
     }
 }
-
-//struct PleadeConfirmation_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PleadeConfirmation(pledgePicked: "Pledge")
-//    }
-//}

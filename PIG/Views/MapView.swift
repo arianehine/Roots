@@ -153,7 +153,6 @@ struct MapView: View {
         .onChange(of: mapData.searchTxt, perform: { value in
             
             // Searching Places...
-            
             // Delay to avoid Continous Search Request...
             let delay = 0.3
             

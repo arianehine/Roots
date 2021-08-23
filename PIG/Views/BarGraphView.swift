@@ -80,10 +80,3 @@ struct BarView: View {
     }
     
 }
-
-//struct BarGraphView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        BarGraphView(reports: Report.all())
-//    }
-//}
-

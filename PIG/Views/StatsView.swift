@@ -36,7 +36,7 @@ struct StatsView: View {
             }
             let user = statsController.findUserData(people: people, ID: viewModel.footprint);
             
-           // self.reports = statsController.convertToReports(users: user);
+          
             self.originalReports = statsController.convertToReports(users: user);
           
         }.onChange(of: viewModel.footprint){ value in
@@ -44,7 +44,7 @@ struct StatsView: View {
             self.ID = value
             let user = statsController.findUserData(people: people, ID: ID);
             
-           // self.reports = statsController.convertToReports(users: user);
+          
             self.originalReports = statsController.convertToReports(users: user);
         }
         .onChange(of: statsController.originalPeople) {value in
@@ -52,66 +52,38 @@ struct StatsView: View {
             people = statsController.originalPeople;
             let user = statsController.findUserData(people: people, ID: viewModel.footprint);
             
-           // self.reports = statsController.convertToReports(users: user);
+          
             self.originalReports = statsController.convertToReports(users: user);
             
         }
         .onChange(of: statsController.fbLogic.userData) {value in
-            print("userdata change")
+           
             var user = value
             self.people = statsController.fbLogic.userData
             
-           // self.reports = statsController.convertToReports(users: user);
+           
             self.originalReports = statsController.convertToReports(users: user);
             
         }.onAppear(){
             if(statsController.fbLogic.userData.count != 0){
             
                 people = statsController.fbLogic.userData
-                print("herey", people.count)
+             
            
         }
            
           else{
-              print("elsey")
-
+    
               people = statsController.originalPeople
            }
 
-            print("peepe", people.count)
+   
         let user = statsController.findUserData(people: people, ID: viewModel.footprint);
-            print("user", user.count)
-//                self.reports = statsController.convertToReports(users: user);
+           
         self.originalReports = statsController.convertToReports(users: user);
         }
     
-    
-     
         
-        
-     
-        
-//            Text("Hello, user \(ID), your average carbon usage is \(average) which is \(ltOrGt)the UK average")
-//                .onAppear { self.convertCSVIntoArray()
-//                    print(people.count)
-//                    let user = findUserData()
-//                    if user.count == 0{
-//                        print("no user exists")
-//                    }
-//                      else{
-//
-//                        let averageDoubleInKg = user[0].average/1000;
-//                        averageInKg = averageDoubleInKg;
-//                        average = String(averageDoubleInKg);
-//                        if(averageDoubleInKg>2.2){ltOrGt = "greater than " }else{
-//                            ltOrGt = "less than "
-//                        }
-//
-//                        }
-//                }.foregroundColor(averageInKg > 2.2 ? .red : averageInKg < 2.2 ? .green : .gray)
-//
-//
-//        }
     }
     
    
@@ -134,11 +106,4 @@ func textColour(gtOrLt: String) -> Color
 
 
 }
-
-
-//struct StatsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        StatsView(ID: "1")
-//    }
-//}
 

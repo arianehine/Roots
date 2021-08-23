@@ -10,6 +10,7 @@ import SwiftUI
 import Firebase
 import FirebaseFirestore
 
+//This class holds the model which contains the logic to do with signing in, signing up and setting a user's data and pledges on account creation
 class AppViewModel: ObservableObject{
     @State var statsController: StatsDataController
     @State var directory: URL
@@ -18,7 +19,7 @@ class AppViewModel: ObservableObject{
     @Published var footprint: String = ""
     
     
- 
+    //When sign up button on view is pressed, this is called to check the user's authentication details in firestore - if they are correct then the user can sign in
     func signIn(email: String, password: String){
         auth.signIn(withEmail: email, password: password) { [weak self] result, error in
             guard result != nil, error == nil else{
@@ -31,12 +32,10 @@ class AppViewModel: ObservableObject{
                 return
             }
             
-            //success
-            //becuase it's a pushlished var we need to update on main thread
+            //Update var on main thread
             DispatchQueue.main.async {
                 self?.signedIn = true
             }
-            
             
         }
         
@@ -53,6 +52,7 @@ class AppViewModel: ObservableObject{
         
     }
     
+    //Called when the user hits sign up button. Stores their authentication details in Firestore as well as information about them and pre-set pledges, linked to their random user ID assigned to their Firestore document.
     func signUp(email: String, password: String, firstName: String, lastName:String, selection: String){
         auth.createUser(withEmail: email, password: password) { [weak self] (result, error) in
             
@@ -65,13 +65,12 @@ class AppViewModel: ObservableObject{
                 
             }
             
-           
+            //Get the UID they were assigned
             let db = Firestore.firestore()
-            
             let uid = result!.user.uid
             
             
-            //creates profile doc under uid with all the info
+            //creates a document with thei UID, with their information
             db.collection("Users").document(result!.user.uid)
                 .setData([ "firstName":firstName, "lastName":lastName, "uid":uid, "email":email, "currentStreak": 0, "longestStreak":0, "XP": 0, "footprint" : selection]);
             self?.footprint = selection
@@ -79,34 +78,36 @@ class AppViewModel: ObservableObject{
             let date = Date()
             db.collection("Users").document(uid).collection("logins").document(date.dateToString(date: date)).setData(["date": date])
             
+            //Set the `fake' data for the user and pledges which are associated with their account
             self!.setPledgesForUser(userId: result!.user.uid, db: db);
             self!.setDataForUser(userId: result!.user.uid, db: db, selection: selection, statsController: self!.statsController);
             
-            //update published var on main thread
+            //Now, sign them in
             DispatchQueue.main.async {
-            
                 self?.signedIn = true
                 print("done")
             }
-          
+            
         }
         
     }
     
+    //Function to log user out of account
     func signOut(){
         try? auth.signOut()
         self.signedIn=false;
     }
     
+    //Sets all of the pledges in the pledge array in the  user's account so each user has their own set of associated pledges
     func setPledgesForUser(userId: String, db: Firestore){
-        
         for pledge in pledges{
             db.collection("UserPledges").document(userId).collection("Pledges").document(String(pledge.id))
                 .setData([ "ID":pledge.id, "description":pledge.description, "category":pledge.category, "imageName":pledge.imageName, "durationInDays":pledge.durationInDays, "startDate": pledge.startDate, "completed": false, "daysCompleted": 0,"started": pledge.started, "endDate": pledge.endDate, "XP": pledge.XP, "notifications": pledge.notifications]);
         }
         
     }
-
+    
+    //Sets the `fake' pre-set data from the encrypted CSV file, within the user's Firestore documents. Each data record's ID is its timestamp.
     func setDataForUser(userId: String, db: Firestore, selection: String, statsController: StatsDataController){
         let csvHandler = CSVHandler(fbLogic: fbLogic)
         let userData = statsController.convertCSVIntoArray(csvHandler: csvHandler, directory: directory)
@@ -120,11 +121,12 @@ class AppViewModel: ObservableObject{
         }
         statsController.fbLogic.getUserData(uid: userId)
         print("yeehooo", statsController.fbLogic.userData.count)
-       
+        
         
     }
     
     
+    //Pledges list
     let pledges = [
         Pledge(id: 1, description: "Walk to work", category: "Transport", imageName: "figure.walk", durationInDays: 7, startDate: Date(), started: false, completed: false, daysCompleted: 0, endDate: "", XP: 70, notifications: false, reductionPerDay: 100),
         Pledge(id: 2,description: "Swap the car for walking", category: "Transport", imageName: "car.fill", durationInDays: 7, startDate: Date(), started: false, completed: false, daysCompleted: 0,endDate: "", XP: 70, notifications: false, reductionPerDay: 100),
@@ -137,7 +139,7 @@ class AppViewModel: ObservableObject{
         Pledge(id: 9,description: "Eat vegan", category: "Food", imageName: "leaf.fill",durationInDays: 7, startDate: Date(), started: false, completed: false, daysCompleted: 0,endDate: "", XP: 70, notifications: false, reductionPerDay: 100),
         Pledge(id: 10,description: "Put your heating on a set timer!", category: "Household", imageName: "flame.fill",durationInDays: 7, startDate: Date(), started: false, completed: false, daysCompleted: 0,endDate: "", XP: 70, notifications: false, reductionPerDay: 100),
         Pledge(id: 11, description: "Only fill the kettle for 1 cup when you boil it", category: "Household", imageName: "bolt.fill",durationInDays: 7, startDate: Date(), started: false, completed: false, daysCompleted: 0,endDate: "", XP: 70, notifications: false, reductionPerDay: 100),
-        Pledge(id: 12, description: "Don't buy any furniature", category: "Household", imageName: "house.fill",durationInDays: 7, startDate: Date(), started: false,completed: false, daysCompleted: 0, endDate: "", XP: 70, notifications: false, reductionPerDay: 100),
+        Pledge(id: 12, description: "Recycle more", category: "Household", imageName: "house.fill",durationInDays: 7, startDate: Date(), started: false,completed: false, daysCompleted: 0, endDate: "", XP: 70, notifications: false, reductionPerDay: 100),
         Pledge(id: 13,description: "Turn lights off when you leave the room!", category: "Household", imageName: "lightbulb.fill",durationInDays: 7, startDate: Date(), started: false,completed: false, daysCompleted: 0, endDate: "", XP: 70, notifications: false, reductionPerDay: 100),
         Pledge(id: 14,description: "Don't buy any fast fashion", category: "Fashion", imageName: "hourglass",durationInDays: 7, startDate: Date(), started: false,completed: false, daysCompleted: 0, endDate: "", XP: 70, notifications: false, reductionPerDay: 100),
         Pledge(id: 15, description: "Take a trip to the charity shop instead of buying new!", category: "Fashion", imageName: "arrow.3.trianglepath",durationInDays: 7, startDate: Date(), started: false, completed: false, daysCompleted: 0,endDate: "", XP: 70, notifications: false, reductionPerDay: 100),
