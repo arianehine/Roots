@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/huynguyencong/ToastSwiftUI.git",
         "state": {
           "branch": null,
-          "revision": "4a7e82654fc4ce74a40c64b8c94ef734943cf94a",
-          "version": "0.3.1"
+          "revision": "d1a4cc0d3f2f5616775a72c6e736b2a811f1affc",
+          "version": "0.3.2"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/dkk/WrappingHStack",
         "state": {
           "branch": null,
-          "revision": "78bb1e291310987c47fcc8cb5dd66a2ca1403a1b",
-          "version": "2.1.1"
+          "revision": "8ad45ec818edfd59a63640b8d7df96df3c8a1c47",
+          "version": "2.1.2"
         }
       }
     ]

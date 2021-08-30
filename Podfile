@@ -1,7 +1,7 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
-target 'PIG' do
+target 'Roots' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
  pod 'Firebase/Core'
@@ -17,15 +17,15 @@ target 'PIG' do
    :keys => [
      "encryptionKEY"
    ],
-   :target => "PIG"
+   :target => "Roots"
  }
  
-  target 'PIGTests' do
+  target 'RootsTests' do
     inherit! :search_paths
     # Pods for testing
   end
 
-  target 'PIGUITests' do
+  target 'RootsUITests' do
     # Pods for testing
   end
 
