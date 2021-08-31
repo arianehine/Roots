@@ -21,7 +21,7 @@ struct NumberEarthsView: View {
         VStack{
             
             let numEarthsInt = Int(ceil(numEarths));
-            Text("Your daily average is \((report.average / 100), specifier: "%.2f")kg CO2. \n\nIf everyone were to live like you, we would need \(numEarths, specifier: "%.2f") Earths. \n\nYou use \(difference, specifier: "%.2f")kg \(moreOrless) CO2 than the UK daily average").font(.title).frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).multilineTextAlignment(.center)
+            Text("Your daily average is \(((report.average / Double(report.numReportsComposingReport)) / 1000), specifier: "%.2f")kg CO2. \n\nIf everyone were to live like you, we would need \(numEarths, specifier: "%.2f") Earths. \n\nYou use \(difference, specifier: "%.2f")kg \(moreOrless) CO2 than the UK daily average").font(.title).frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).multilineTextAlignment(.center)
             
             //Displays an image for each earth the user uses, and a partial image if they use a decimal amount too e.g 4.6 will show 4 earths + 0.6 of another earth
             WrappingHStack(0..<numEarthsInt, id:\.self, alignment: .center) { index in
