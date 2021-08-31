@@ -202,16 +202,18 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         
+        print("LOC MAN HERE");
         // Checking Permissions...
         switch manager.authorizationStatus {
         case .denied:
-            // Alert...
+            
+            print("denied")
             permissionDenied.toggle()
         case .notDetermined:
-            // Requesting....
+            print("non det")
             manager.requestWhenInUseAuthorization()
         case .authorizedWhenInUse:
-            // If Permissin Given...
+           print("auth")
             manager.requestLocation()
         default:
             (print("default"))
@@ -221,14 +223,14 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
     //If location manager fails print error
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         
-        // Error....
+        print("LOC MAN ERROR")
         print(error.localizedDescription)
     }
     
     //If it succeeds without error, get the user's location, monitor the circular regions and if the user enters these then set variable to true to show pledge completion, change the region and redraw the polyline if the user's location changes.
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        
+        print("LOC MAN LAST")
         guard let location = locations.last else{return}
         
         

@@ -12,6 +12,7 @@
 		D5E3957C4F8408C08D23D520 /* Pods_RootsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FAA1DBA73B1F7B419EEC9E1 /* Pods_RootsTests.framework */; };
 		D601C13E26541F8B0050BE7D /* BarGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D601C13D26541F8B0050BE7D /* BarGraphView.swift */; };
 		D606312426DDA70500422331 /* FirebaseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D606312326DDA70500422331 /* FirebaseHandler.swift */; };
+		D606312626DE7B6300422331 /* synthesisedData.csv in Resources */ = {isa = PBXBuildFile; fileRef = D606312526DE7B6300422331 /* synthesisedData.csv */; };
 		D60773B126AABE1100029C3D /* CSVHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60773B026AABE1100029C3D /* CSVHandler.swift */; };
 		D60DC0DD26B1A49D0041D82D /* CollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60DC0DC26B1A49D0041D82D /* CollectionExtensions.swift */; };
 		D60DC0DF26B1A4C90041D82D /* MapExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60DC0DE26B1A4C90041D82D /* MapExtensions.swift */; };
@@ -101,6 +102,7 @@
 		D4AC5E1A68A5A1B6CFD0A6FD /* Pods-PIG.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PIG.debug.xcconfig"; path = "Target Support Files/Pods-PIG/Pods-PIG.debug.xcconfig"; sourceTree = "<group>"; };
 		D601C13D26541F8B0050BE7D /* BarGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarGraphView.swift; sourceTree = "<group>"; };
 		D606312326DDA70500422331 /* FirebaseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHandler.swift; sourceTree = "<group>"; };
+		D606312526DE7B6300422331 /* synthesisedData.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = synthesisedData.csv; sourceTree = "<group>"; };
 		D60773AE26A9EA4C00029C3D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D60773B026AABE1100029C3D /* CSVHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVHandler.swift; sourceTree = "<group>"; };
 		D60DC0DC26B1A49D0041D82D /* CollectionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtensions.swift; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 		D60DC10A26B209F50041D82D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D606312526DE7B6300422331 /* synthesisedData.csv */,
 				D60DC0E726B1A8990041D82D /* MobileNetV2.mlmodel */,
 				D665D807268FB8710021156A /* SimulatedLocations.gpx */,
 				D6EF45B1268B625B00F56D73 /* synthesisedDataEncrypted.txt */,
@@ -513,6 +516,7 @@
 				D6EF45B2268B625B00F56D73 /* synthesisedDataEncrypted.txt in Resources */,
 				D6DC2C7F264D2EA3008C6A72 /* Assets.xcassets in Resources */,
 				D62EC05B26BDD36200D8416F /* GoogleService-Info.plist in Resources */,
+				D606312626DE7B6300422331 /* synthesisedData.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

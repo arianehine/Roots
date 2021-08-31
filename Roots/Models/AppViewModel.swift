@@ -84,9 +84,7 @@ class AppViewModel: ObservableObject{
             
             //Now, sign them in
             DispatchQueue.main.async {
-                self?.signedIn = true
-                print("done")
-            }
+                self?.signedIn = true            }
             
         }
         
@@ -111,7 +109,7 @@ class AppViewModel: ObservableObject{
     func setDataForUser(userId: String, db: Firestore, selection: String, statsController: StatsDataController){
         let csvHandler = CSVHandler(fbLogic: fbLogic)
         let userData = statsController.convertCSVIntoArray(csvHandler: csvHandler, directory: directory)
-        
+
         for user in userData{
             if(user.ID == selection){
                 var stringDate = user.date.dateToString(date: user.date)
@@ -120,7 +118,6 @@ class AppViewModel: ObservableObject{
             }
         }
         statsController.fbLogic.getUserData(uid: userId)
-        print("yeehooo", statsController.fbLogic.userData.count)
         
         
     }

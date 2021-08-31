@@ -26,8 +26,8 @@ struct Recycling: View {
                 .environmentObject(mapData)
                 .ignoresSafeArea(.all, edges: .all)
             
-            if !mapData.places.isEmpty && mapData.searchTxt != ""{
-                let result = mapData.appendAllPlaces(places: mapData.places, currentLocation: locationManager.location!, locatioManager: locationManager)
+            if !mapData.places.isEmpty && mapData.searchTxt != "" {
+                let result = mapData.appendAllPlaces(places: mapData.places, currentLocation: locationManager.location ?? CLLocation(latitude: 51.500531, longitude: -0.1786), locatioManager: locationManager)
                 
             }
             Spacer()
@@ -47,6 +47,7 @@ struct Recycling: View {
                     .padding(.vertical,10)
                     .padding(.horizontal)
                     .background(Color.white)
+                    .clipShape(Capsule())
                     Spacer()
                     
                     Button(action: mapData.focusLocation, label: {
@@ -70,7 +71,7 @@ struct Recycling: View {
                     Button(action: {
                         self.showingRecycleModal = false
                     }) {
-                        Text("Quit finding recycling centres?").frame(height: 20)
+                        Text("Quit finding recycling centres?").frame(height: 20).clipShape(Capsule())
                         
                     }.background(Color.white)
                 }

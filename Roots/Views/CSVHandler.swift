@@ -221,13 +221,14 @@ class CSVHandler: ObservableObject{
     func decryptCSV(encryptedText: String, password: String) -> String{
         do{
             let data: Data = Data(base64Encoded: encryptedText)!
+            print(encryptedText)
             let decryptedData = try RNCryptor.decrypt(data: data, withPassword: password)
             let decryptedString = String(data: decryptedData, encoding: .utf8)
             
             return decryptedString ?? ""
         }
         catch{
-            
+            print(error.localizedDescription)
             return "failed"
         }
     }

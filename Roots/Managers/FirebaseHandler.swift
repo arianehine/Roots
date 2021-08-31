@@ -27,7 +27,7 @@ class FirebaseLogic: ObservableObject {
         let db = Firestore.firestore()
         db.collection("UserData").document(userId).collection("Data").document(dateToString(date: user.date))
             .setData([ "ID": userId, "date": user.date, "average": user.average, "transport": user.transport, "household": user.household, "clothing": user.clothing, "health": user.health, "food": user.food, "transport_walking": user.transport_walking, "transport_car": user.transport_car, "transport_train": user.transport_train,"transport_plane": user.transport_plane, "transport_bus": user.transport_bus, "household_heating": user.household_heating,"household_electricity": user.household_electricity,"household_furnishings": user.household_furnishings,"household_lighting": user.household_lighting,"clothing_fastfashion": user.clothing_fastfashion,"clothing_sustainable": user.clothing_sustainable,"health_meds": user.health_meds,"health_scans": user.health_scans, "food_meat": user.food_meat,"food_fish": user.food_fish,"food_dairy": user.food_dairy,"food_oils": user.food_oils]);
-        print("reduction data pushed")
+    
     }
     
     //Sets notification to true/false depending on what the user has chosen, on a specific pledge
@@ -50,7 +50,6 @@ class FirebaseLogic: ObservableObject {
         var count = 0
         let data = db.collection("UserData").document(uid).collection("Data").getDocuments { [self] (snapshot, error) in
             guard let snapshot = snapshot, error == nil else {
-                print("error")
                 return
             }
             
@@ -69,7 +68,6 @@ class FirebaseLogic: ObservableObject {
                 
                 addData(user: fakeData, userId: uid)
                 
-                print("set fake data in FB")
             }else{
                 print("no need to set")
             }

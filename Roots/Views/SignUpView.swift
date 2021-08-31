@@ -35,7 +35,6 @@ struct SignUpView: View {
                     .preferredColorScheme(.dark);
                 
             }else{
-                
                 Image("logo")
                     .resizable()
                     .scaledToFit()

@@ -21,6 +21,7 @@ struct SignInView: View {
                 ErrorView(alert: $viewModel.alert, error: $viewModel.error)
                 
             }
+            Text("Roots \n").font(.title).fontWeight(.bold)
             Image("logo")
                 .resizable()
                 .scaledToFit()
