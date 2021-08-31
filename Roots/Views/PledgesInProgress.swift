@@ -55,6 +55,7 @@ struct PledgesInProgress: View {
                                 if(value ?? false){
                                     //turn notifs on
                                     requestPermissions(pledge: fbLogic.pledgesInProgress[safe: index] ?? emptyPledge, value: value ?? false)
+                                   
                                 }
                                 
                                 fbLogic.turnNotificationsOn(pledge: fbLogic.pledgesInProgress[safe: index] ?? emptyPledge, value: value ?? false)
