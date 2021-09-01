@@ -12,4 +12,6 @@ $3N2@C7@pXp
 
 Is is important this EXACT key is set when Cocoapod Keys asks for it, in the terminal.
 
+To run the sythesiser please run python3 Synthesiser.py - this will create the synthesisedData file which can then be dragged into the repo to be used for encryption. This fine should NOT be shipped with the application, only the encrypted version synthesisedDataEncrypted.txt
+
 
