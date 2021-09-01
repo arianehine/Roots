@@ -65,7 +65,7 @@ struct BarView: View {
         let yValue = Swift.min(value * 20, divisor)
         
         return VStack {
-            Text(String(format: "%.2f kg Co2 average",(report.average / Double(report.numReportsComposingReport)))).font(/*@START_MENU_TOKEN@*/.caption/*@END_MENU_TOKEN@*/).padding(.bottom, 50)
+            Text(String(format: "%.2f kg Co2 avg",(report.average / Double(report.numReportsComposingReport)))).font(/*@START_MENU_TOKEN@*/.caption/*@END_MENU_TOKEN@*/).padding(.bottom, 50)
             NavigationLink(destination: NumberEarthsView(ID: Auth.auth().currentUser!.uid,  report: $report)){
                 
                 Chimney().foregroundColor((report.average / Double(report.numReportsComposingReport)) < 2200 ? Color.green : Color.red)
