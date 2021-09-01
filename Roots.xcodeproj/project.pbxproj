@@ -125,7 +125,6 @@
 		D60DC10826B206680041D82D /* CameraModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraModel.swift; sourceTree = "<group>"; };
 		D6217F5C26DFD9C80020AADB /* synthesisedDataEncrypted.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = synthesisedDataEncrypted.txt; path = ../../../../Desktop/synthesisedDataEncrypted.txt; sourceTree = "<group>"; };
 		D6217F5E26DFE5840020AADB /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
-		D6217F6026DFE5960020AADB /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = /Users/arianehine/Documents/uni/PIG/README.md; sourceTree = "<absolute>"; };
 		D623872626B5B09A003A8207 /* CarbonFootprintModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarbonFootprintModel.swift; sourceTree = "<group>"; };
 		D62EC05A26BDD36200D8416F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D62F78EC26D3DFCA00615F19 /* ChartCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCellModel.swift; sourceTree = "<group>"; };
@@ -329,7 +328,6 @@
 		D6DC2C6E264D2E9C008C6A72 = {
 			isa = PBXGroup;
 			children = (
-				D6217F6026DFE5960020AADB /* README.md */,
 				9AFED11F60C63E6A72FE0A3A /* Frameworks */,
 				882BB0B2DA1FBA775C5C3332 /* Pods */,
 				D6DC2C78264D2E9D008C6A72 /* Products */,
