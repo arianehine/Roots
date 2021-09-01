@@ -32,7 +32,6 @@ class FirebaseLogic: ObservableObject {
     
     //Sets notification to true/false depending on what the user has chosen, on a specific pledge
     func turnNotificationsOn(pledge: Pledge, value: Bool){
-        print("turn notifs \(value)")
         let db = Firestore.firestore()
         let auth = Auth.auth();
         let currentUser = (auth.currentUser?.uid)!

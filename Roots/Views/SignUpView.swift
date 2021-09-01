@@ -70,7 +70,7 @@ struct SignUpView: View {
                     }, label: {
                         Text("Create Account")
                             .foregroundColor(Color.white)
-                            .frame(width: 200, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                            .frame(width: 200, height: 50, alignment: .center)
                             .cornerRadius(20)
                             .background(Color.blue)
                         
