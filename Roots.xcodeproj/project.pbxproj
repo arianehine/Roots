@@ -12,7 +12,6 @@
 		D5E3957C4F8408C08D23D520 /* Pods_RootsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FAA1DBA73B1F7B419EEC9E1 /* Pods_RootsTests.framework */; };
 		D601C13E26541F8B0050BE7D /* BarGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D601C13D26541F8B0050BE7D /* BarGraphView.swift */; };
 		D606312426DDA70500422331 /* FirebaseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D606312326DDA70500422331 /* FirebaseHandler.swift */; };
-		D606312626DE7B6300422331 /* synthesisedData.csv in Resources */ = {isa = PBXBuildFile; fileRef = D606312526DE7B6300422331 /* synthesisedData.csv */; };
 		D60773B126AABE1100029C3D /* CSVHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60773B026AABE1100029C3D /* CSVHandler.swift */; };
 		D60DC0DD26B1A49D0041D82D /* CollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60DC0DC26B1A49D0041D82D /* CollectionExtensions.swift */; };
 		D60DC0DF26B1A4C90041D82D /* MapExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60DC0DE26B1A4C90041D82D /* MapExtensions.swift */; };
@@ -34,6 +33,8 @@
 		D60DC10726B206360041D82D /* ChartDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60DC10626B206360041D82D /* ChartDataModel.swift */; };
 		D60DC10926B206680041D82D /* CameraModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60DC10826B206680041D82D /* CameraModel.swift */; };
 		D612F6292659478700914C0E /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = D612F6282659478700914C0E /* WrappingHStack */; };
+		D6217F5D26DFD9C80020AADB /* synthesisedDataEncrypted.txt in Resources */ = {isa = PBXBuildFile; fileRef = D6217F5C26DFD9C80020AADB /* synthesisedDataEncrypted.txt */; };
+		D6217F5F26DFE5840020AADB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D6217F5E26DFE5840020AADB /* README.md */; };
 		D623872726B5B09A003A8207 /* CarbonFootprintModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D623872626B5B09A003A8207 /* CarbonFootprintModel.swift */; };
 		D62EC05B26BDD36200D8416F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D62EC05A26BDD36200D8416F /* GoogleService-Info.plist */; };
 		D62F78ED26D3DFCA00615F19 /* ChartCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62F78EC26D3DFCA00615F19 /* ChartCellModel.swift */; };
@@ -68,7 +69,6 @@
 		D6DC2C8D264D2EA3008C6A72 /* PIGTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DC2C8C264D2EA3008C6A72 /* PIGTests.swift */; };
 		D6DC2C98264D2EA3008C6A72 /* PIGUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DC2C97264D2EA3008C6A72 /* PIGUITests.swift */; };
 		D6DD127B269638CB00AEB590 /* Recycling.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DD127A269638CB00AEB590 /* Recycling.swift */; };
-		D6EF45B2268B625B00F56D73 /* synthesisedDataEncrypted.txt in Resources */ = {isa = PBXBuildFile; fileRef = D6EF45B1268B625B00F56D73 /* synthesisedDataEncrypted.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,7 +102,6 @@
 		D4AC5E1A68A5A1B6CFD0A6FD /* Pods-PIG.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PIG.debug.xcconfig"; path = "Target Support Files/Pods-PIG/Pods-PIG.debug.xcconfig"; sourceTree = "<group>"; };
 		D601C13D26541F8B0050BE7D /* BarGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarGraphView.swift; sourceTree = "<group>"; };
 		D606312326DDA70500422331 /* FirebaseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHandler.swift; sourceTree = "<group>"; };
-		D606312526DE7B6300422331 /* synthesisedData.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = synthesisedData.csv; sourceTree = "<group>"; };
 		D60773AE26A9EA4C00029C3D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D60773B026AABE1100029C3D /* CSVHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVHandler.swift; sourceTree = "<group>"; };
 		D60DC0DC26B1A49D0041D82D /* CollectionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtensions.swift; sourceTree = "<group>"; };
@@ -124,6 +123,9 @@
 		D60DC10426B205E40041D82D /* CoordinatorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorModel.swift; sourceTree = "<group>"; };
 		D60DC10626B206360041D82D /* ChartDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDataModel.swift; sourceTree = "<group>"; };
 		D60DC10826B206680041D82D /* CameraModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraModel.swift; sourceTree = "<group>"; };
+		D6217F5C26DFD9C80020AADB /* synthesisedDataEncrypted.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = synthesisedDataEncrypted.txt; path = ../../../../Desktop/synthesisedDataEncrypted.txt; sourceTree = "<group>"; };
+		D6217F5E26DFE5840020AADB /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		D6217F6026DFE5960020AADB /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = /Users/arianehine/Documents/uni/PIG/README.md; sourceTree = "<absolute>"; };
 		D623872626B5B09A003A8207 /* CarbonFootprintModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarbonFootprintModel.swift; sourceTree = "<group>"; };
 		D62EC05A26BDD36200D8416F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D62F78EC26D3DFCA00615F19 /* ChartCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCellModel.swift; sourceTree = "<group>"; };
@@ -165,7 +167,6 @@
 		D6DC2C99264D2EA4008C6A72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6DC2CC2264D34A6008C6A72 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D6DD127A269638CB00AEB590 /* Recycling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recycling.swift; sourceTree = "<group>"; };
-		D6EF45B1268B625B00F56D73 /* synthesisedDataEncrypted.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = synthesisedDataEncrypted.txt; sourceTree = "<group>"; };
 		DA435D7DCF0EFB103B5BFAA8 /* Pods-PIG-PIGUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PIG-PIGUITests.debug.xcconfig"; path = "Target Support Files/Pods-PIG-PIGUITests/Pods-PIG-PIGUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		EAEF48304C7F6437FBED459E /* Pods-RootsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RootsTests.release.xcconfig"; path = "Target Support Files/Pods-RootsTests/Pods-RootsTests.release.xcconfig"; sourceTree = "<group>"; };
 		F0C0F6D584E04574D424464F /* Pods-Roots.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roots.debug.xcconfig"; path = "Target Support Files/Pods-Roots/Pods-Roots.debug.xcconfig"; sourceTree = "<group>"; };
@@ -241,6 +242,7 @@
 				D60DC0F226B1C6A60041D82D /* Places.swift */,
 				D60DC0F026B1C6550041D82D /* Pledge.swift */,
 				D60DC10026B1CC400041D82D /* Report.swift */,
+				D6217F5E26DFE5840020AADB /* README.md */,
 				D60DC0EC26B1AC610041D82D /* SafeArray.swift */,
 				D60DC10226B1FF000041D82D /* UserData.swift */,
 			);
@@ -295,10 +297,9 @@
 		D60DC10A26B209F50041D82D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D606312526DE7B6300422331 /* synthesisedData.csv */,
+				D6217F5C26DFD9C80020AADB /* synthesisedDataEncrypted.txt */,
 				D60DC0E726B1A8990041D82D /* MobileNetV2.mlmodel */,
 				D665D807268FB8710021156A /* SimulatedLocations.gpx */,
-				D6EF45B1268B625B00F56D73 /* synthesisedDataEncrypted.txt */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -328,6 +329,7 @@
 		D6DC2C6E264D2E9C008C6A72 = {
 			isa = PBXGroup;
 			children = (
+				D6217F6026DFE5960020AADB /* README.md */,
 				9AFED11F60C63E6A72FE0A3A /* Frameworks */,
 				882BB0B2DA1FBA775C5C3332 /* Pods */,
 				D6DC2C78264D2E9D008C6A72 /* Products */,
@@ -513,10 +515,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6DC2C82264D2EA3008C6A72 /* Preview Assets.xcassets in Resources */,
-				D6EF45B2268B625B00F56D73 /* synthesisedDataEncrypted.txt in Resources */,
 				D6DC2C7F264D2EA3008C6A72 /* Assets.xcassets in Resources */,
+				D6217F5F26DFE5840020AADB /* README.md in Resources */,
 				D62EC05B26BDD36200D8416F /* GoogleService-Info.plist in Resources */,
-				D606312626DE7B6300422331 /* synthesisedData.csv in Resources */,
+				D6217F5D26DFD9C80020AADB /* synthesisedDataEncrypted.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -29,8 +29,10 @@ struct PIGApp: App {
             let keys = PIGKeys()
             let encryptionKEY = keys.encryptionKEY
             let csvHandler = CSVHandler(fbLogic: fbLogic)
-            let encrypt = csvHandler.encryptCSV(encryptionKEY: encryptionKEY)
-            let suc = csvHandler.writeEncryptedDoc(string: encrypt)
+            //Uncomment these if you have new encrypted data you need to write in an encrypted format
+            
+//            let encrypt = csvHandler.encryptCSV(encryptionKEY: encryptionKEY)
+//            let suc = csvHandler.writeEncryptedDoc(string: encrypt)
             let encryptedCSV = csvHandler.readEncryptedCSV();
 
             let decryptedCSV = csvHandler.decryptCSV(encryptedText: encryptedCSV, password: encryptionKEY)
@@ -39,11 +41,11 @@ struct PIGApp: App {
             //Write the encrypted file to document directory
             let docDirectory = csvHandler.getDocumentsDirectory().appendingPathComponent("sythesisedData.txt")
             //Add data for today
-            let fakeDataAdded = csvHandler.appendFakeInfoForToday(existingData: decryptedCSV)
-            let fakeDataEncrypted = csvHandler.encryptString(text: fakeDataAdded, key: encryptionKEY)
-
-            //Set up these for use elsewhere
-            let success1 = csvHandler.writeEncryptedDoc(string: fakeDataEncrypted)
+//            let fakeDataAdded = csvHandler.appendFakeInfoForToday(existingData: decryptedCSV)
+//            let fakeDataEncrypted = csvHandler.encryptString(text: fakeDataAdded, key: encryptionKEY)
+//            
+//            //Set up these for use elsewhere
+//            let success1 = csvHandler.writeEncryptedDoc(string: fakeDataEncrypted)
             var statsController = StatsDataController(fbLogic: fbLogic)
             let viewModel = AppViewModel(statsController: statsController, fbLogic: fbLogic, directory: docDirectory)
                 
@@ -51,7 +53,7 @@ struct PIGApp: App {
             
             let success = csvHandler.writeToDocDirectory(string: encryptedCSV, location: docDirectory)
             let originalPeople = statsController.convertCSVIntoArray(csvHandler: csvHandler, directory: docDirectory)
-            
+           
             //Display the rest of the app
             ContentView(directory: docDirectory, fbLogic: fbLogic, originalPeople: originalPeople)
                 .environmentObject(viewModel)

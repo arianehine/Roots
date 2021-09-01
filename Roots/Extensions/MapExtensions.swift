@@ -25,7 +25,7 @@ extension MapViewModel: UNUserNotificationCenterDelegate {
         withCompletionHandler completionHandler:
         @escaping (UNNotificationPresentationOptions) -> Void
     ) {
-        print("Received Notification in Foreground")
+      
         didArriveAtDestination = true
         completionHandler(.sound)
     }

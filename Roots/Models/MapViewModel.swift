@@ -186,7 +186,7 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
         directions.calculate{ [self] (direct, err) in
             if err != nil{
                 //an error has occured
-                print(err?.localizedDescription, "location: ", req.source?.name, req.destination!.name)
+               
                 
             }else{
                 let polyline = direct?.routes.first?.polyline

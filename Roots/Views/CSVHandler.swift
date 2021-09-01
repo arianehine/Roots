@@ -13,6 +13,7 @@ import SwiftUI
 //Deals with the decrypted CSV
 //Encryption/decryption inspired by source: https://www.youtube.com/watch?v=89DEVVikzlg
 
+
 class CSVHandler: ObservableObject{
     @State var fbLogic: FirebaseLogic
     //The fake data for `today'
@@ -105,7 +106,7 @@ class CSVHandler: ObservableObject{
             return true
             
         } catch {
-            print(error.localizedDescription)
+           
             return false
         }
     }
@@ -133,7 +134,7 @@ class CSVHandler: ObservableObject{
             
         } catch {
             print("fail")
-            print(error.localizedDescription)
+    
             
         }
         
@@ -176,7 +177,7 @@ class CSVHandler: ObservableObject{
     
     //Write an encrypted string to the encrypted document
     func writeEncryptedDoc(string:String)-> Bool{
-        print("writing")
+      
         guard let location = Bundle.main.path(forResource: "synthesisedDataEncrypted", ofType: "txt") else {
             print("doesn't exist")
             
@@ -185,19 +186,20 @@ class CSVHandler: ObservableObject{
         }
         do {
             try string.write(to: URL(fileURLWithPath: location), atomically: true, encoding: .utf8)
-            
-            print("written to \(URL(fileURLWithPath: location))")
+            print("encrypt length \(string.count)")
+            print("writing to \(URL(fileURLWithPath: location))")
             return true
             
         } catch {
             print("didn't write")
-            print(error.localizedDescription)
+        
             return false
         }
     }
     
     //Read the encrypted CSV
     func readEncryptedCSV() -> String{
+      
         
         guard let filepath = Bundle.main.path(forResource: "synthesisedDataEncrypted", ofType: "txt") else {
             
@@ -212,7 +214,7 @@ class CSVHandler: ObservableObject{
             print(error)
             return "fail"
         }
-        
+ 
         return data
         
     }
@@ -221,10 +223,10 @@ class CSVHandler: ObservableObject{
     func decryptCSV(encryptedText: String, password: String) -> String{
         do{
             let data: Data = Data(base64Encoded: encryptedText)!
-            print(encryptedText)
+         
             let decryptedData = try RNCryptor.decrypt(data: data, withPassword: password)
             let decryptedString = String(data: decryptedData, encoding: .utf8)
-            
+            print("done decrypt \(decryptedString?.count)")
             return decryptedString ?? ""
         }
         catch{

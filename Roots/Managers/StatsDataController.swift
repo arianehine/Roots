@@ -33,7 +33,7 @@ class StatsDataController: ObservableObject {
             do {
                 encryptedData =  try String(contentsOf: directory)
             } catch {
-                print("catch ", error.localizedDescription)
+            
                 
                 
                 return [UserData]()

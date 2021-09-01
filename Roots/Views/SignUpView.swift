@@ -88,11 +88,11 @@ struct SignUpView: View {
         }.onChange(of: transition){ value in
             if (value) {
                 
-                print("selection: ", selected)
+           
                 viewModel.signUp(email: email, password: password, firstName: firstName, lastName: lastName, selection: selected)
                 viewModel.footprint = selected
                 
-                print("signed up")
+        
                 guard !email.isEmpty, !password.isEmpty else{
                     print("error")
                     return
