@@ -17,3 +17,5 @@ To run the sythesiser please run python3 Synthesiser.py - this will create the s
 Once pod install has finished running, you should have a file Roots.xcworkspace - this is the file which you can open and run the code from, to verify that everything works.
 
 Once you are in the Roots.xcworkspace file, set up a new scheme and select 'Roots', from here select your target emulator device
+
+If there are any errors these will be due to libraries and your device you are running the code on. This code was made with an M1 mac so you may need to tweak the configurations for it to run. This is not an issue with the code but instead the IDE settings.
