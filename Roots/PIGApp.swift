@@ -29,7 +29,7 @@ struct PIGApp: App {
             let keys = PIGKeys()
             let encryptionKEY = keys.encryptionKEY
             let csvHandler = CSVHandler(fbLogic: fbLogic)
-            //Uncomment these if you have new encrypted data you need to write in an encrypted format
+            //Uncomment these if you have new encrypted data you need to write in an encrypted format and make sure that you put the data you want to encrypt in a file named synthesisedData.
             
 //            let encrypt = csvHandler.encryptCSV(encryptionKEY: encryptionKEY)
 //            let suc = csvHandler.writeEncryptedDoc(string: encrypt)
